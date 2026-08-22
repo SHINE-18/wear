@@ -2,7 +2,7 @@
 
 import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { motion, useScroll, useTransform, MotionValue } from 'motion/react'
 import { Arrow } from '@/components/site/ui'
 
 interface CardData {
@@ -12,7 +12,6 @@ interface CardData {
   image: string
   imageAlt: string
   link: string
-  entrySlant: number
 }
 
 const cards: CardData[] = [
@@ -23,7 +22,6 @@ const cards: CardData[] = [
     image: '/images/1.png',
     imageAlt: 'Asphalt mixing and drying plant operations',
     link: '/industries#asphalt-paving',
-    entrySlant: -3.5,
   },
   {
     id: 'concrete',
@@ -32,7 +30,6 @@ const cards: CardData[] = [
     image: '/images/2.png',
     imageAlt: 'Concrete mixer shaft and reinforced arm assemblies',
     link: '/industries#concrete-batching',
-    entrySlant: 3.2,
   },
   {
     id: 'process',
@@ -41,7 +38,6 @@ const cards: CardData[] = [
     image: '/images/3.png',
     imageAlt: 'Process industry custom wear liners and engineered chute assemblies',
     link: '/industries#recycling-shredding',
-    entrySlant: -2.8,
   },
   {
     id: 'mining',
@@ -50,29 +46,29 @@ const cards: CardData[] = [
     image: '/images/4.png',
     imageAlt: 'Heavy earthmoving and mining bucket wear parts',
     link: '/industries#mining-mineral',
-    entrySlant: 2.5,
   },
 ]
 
 function StackingCardItem({
   card,
   index,
+  total,
+  progress,
 }: {
   card: CardData
   index: number
+  total: number
+  progress: MotionValue<number>
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'start 240px'],
-  })
-
-  // Dynamic slant entrance -> smoothly straightens to 0 on settle
-  const rotate = useTransform(scrollYProgress, [0, 1], [card.entrySlant, 0])
-  const skewX = useTransform(scrollYProgress, [0, 1], [card.entrySlant > 0 ? 2 : -2, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [0.95, 1])
-  const opacity = useTransform(scrollYProgress, [0, 0.4, 1], [0.5, 0.9, 1])
+  // Target scale for earlier cards as new ones stack on top
+  const targetScale = 1 - (total - index - 1) * 0.04
+  const scale = useTransform(
+    progress,
+    [index / total, (index + 1) / total],
+    [1, targetScale]
+  )
 
   return (
     <div
@@ -80,18 +76,15 @@ function StackingCardItem({
       className="stacked-card-wrapper"
       style={{
         position: 'sticky',
-        top: `calc(85px + ${index * 86}px)`,
+        top: `calc(90px + ${index * 26}px)`,
         zIndex: index + 1,
       }}
     >
       <motion.div
         style={{
-          rotate,
-          skewX,
-          scale,
-          opacity,
-          transformOrigin: index % 2 === 0 ? 'bottom left' : 'bottom right',
-          willChange: 'transform, opacity',
+          scale: index === total - 1 ? 1 : scale,
+          transformOrigin: 'top center',
+          willChange: 'transform',
         }}
       >
         <Link href={card.link} className="stacked-industry-card">
@@ -120,10 +113,22 @@ function StackingCardItem({
 }
 
 export function IndustryStackingCards() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  })
+
   return (
-    <div className="stacking-cards-container">
+    <div ref={containerRef} className="stacking-cards-container">
       {cards.map((card, index) => (
-        <StackingCardItem key={card.id} card={card} index={index} />
+        <StackingCardItem
+          key={card.id}
+          card={card}
+          index={index}
+          total={cards.length}
+          progress={scrollYProgress}
+        />
       ))}
     </div>
   )

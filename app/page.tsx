@@ -24,7 +24,7 @@ export default function Page() {
       <CinematicHero />
 
       <div className="page-content-layer">
-        <Marquee items={tickerItems} speed={36} />
+        {/* <Marquee items={tickerItems} speed={36} /> */}
 
         <section id="about-us" className="about section-slate-steel">
         <FadeUp className="about-copy">
@@ -113,7 +113,7 @@ export default function Page() {
             <em>wear happens.</em>
           </h2>
           <p>
-            Explore the 4 primary high-wear operational assemblies engineered to eliminate maintenance downtime. Hover each to inspect technical metallurgy.
+            Explore the 4 primary high-wear operational assemblies engineered to eliminate maintenance downtime. Scroll through each stage to inspect technical metallurgy and component assemblies.
           </p>
         </FadeUp>
 

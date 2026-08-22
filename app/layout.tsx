@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
+import { AdaptiveScrollbar } from '@/components/site/adaptive-scrollbar'
 import './globals.css'
 
 const fontDisplay = Space_Grotesk({
@@ -31,16 +32,18 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'dark light',
-  themeColor: '#eb4d2a',
+  themeColor: '#C23E20',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
+      data-scrollbar-theme="dark"
       className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-[#111213]`}
     >
       <body className="antialiased font-body bg-charcoal text-ink">
+        <AdaptiveScrollbar />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

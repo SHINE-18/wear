@@ -7,9 +7,11 @@ import { useScroll } from 'motion/react'
 import { navItems } from '@/lib/site-data'
 import { ScrollProgress } from './motion'
 import { Arrow, Logo, Mark } from './ui'
+import { SiteSearchModal } from './search-modal'
 
 export function SiteNav() {
   const [open, setOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const [docked, setDocked] = useState(false)
   const [footerProgress, setFooterProgress] = useState(0)
   const pathname = usePathname()
@@ -80,13 +82,13 @@ export function SiteNav() {
           {docked ? (
             <span className="dock-brand-text">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ marginRight: '0.35rem', flexShrink: 0 }}>
-                <rect x="2" y="2" width="20" height="20" rx="2" fill="#eb4d2a" />
+                <rect x="2" y="2" width="20" height="20" rx="2" fill="#C23E20" />
                 <path d="M6.5 7L9.5 16H10.5L12 11L13.5 16H14.5L17.5 7H16L14 14L12.5 9H11.5L10 14L8 7H6.5Z" fill="white" />
               </svg>
               WEAR<span className="dock-brand-accent">GUARD</span>
             </span>
           ) : (
-            <Logo height={44} />
+            <Logo height={68} />
           )}
         </Link>
         <nav className={open ? 'nav-links open' : 'nav-links'}>
@@ -98,6 +100,18 @@ export function SiteNav() {
           ))}
         </nav>
         <div className="nav-actions">
+          <button
+            type="button"
+            className="search-btn"
+            aria-label="Search site (Ctrl+K)"
+            onClick={() => setSearchOpen(true)}
+            title="Search (Ctrl+K)"
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
           {docked && (
             <Link href="/contact" className="dock-cta">
               <span>Get a quote</span>
@@ -109,6 +123,7 @@ export function SiteNav() {
           </button>
         </div>
       </header>
+      <SiteSearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )
 }

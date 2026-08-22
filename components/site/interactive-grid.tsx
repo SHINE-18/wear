@@ -103,7 +103,7 @@ export function InteractiveGrid() {
           targetAngle = Math.atan2(dy, dx)
           
           if (force > 0.45) {
-            strokeColor = `rgba(235, 77, 42, ${0.4 + force * 0.45})`
+            strokeColor = `rgba(194, 62, 32, ${0.4 + force * 0.45})`
             lineW = 0.95
           } else {
             strokeColor = `rgba(17, 18, 20, ${0.3 + force * 0.35})`

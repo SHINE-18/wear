@@ -54,13 +54,7 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           {/* COL 1: BRAND BIO & BACK TO TOP */}
           <div className="footer-brand-col">
             <Link className="footer-logo-link" href="/">
-              <span className="footer-brand-logo">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="2" y="2" width="20" height="20" rx="2" fill="#eb4d2a" />
-                  <path d="M6.5 7L9.5 16H10.5L12 11L13.5 16H14.5L17.5 7H16L14 14L12.5 9H11.5L10 14L8 7H6.5Z" fill="white" />
-                </svg>
-                <span>WEAR<span className="brand-accent">GUARD</span></span>
-              </span>
+              <Logo height={64} />
             </Link>
             <p className="footer-bio-text">
               Building advanced wear-resistant metallurgy & custom engineered foundry solutions for heavy industrial operations.
