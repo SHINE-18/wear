@@ -57,10 +57,9 @@ export function Button({ children = 'Get a quote', dark = false, href = '/contac
 
 export function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <p className="eyebrow">
-      <span />
-      {children}
-    </p>
+    <div className="section-label">
+      <span>{children}</span>
+    </div>
   )
 }
 

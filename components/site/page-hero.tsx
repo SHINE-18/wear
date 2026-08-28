@@ -47,7 +47,7 @@ export function PageHero({
               <span className="quick-jumps-label">Quick Navigation:</span>
               <div className="quick-jumps-pills">
                 {quickJumps.map((jump, idx) => (
-                  <a key={jump.href} href={jump.href} className="quick-jump-pill">
+                  <a key={`${jump.href}-${jump.code ?? idx}`} href={jump.href} className="quick-jump-pill">
                     <span className="jump-code">{jump.code ?? `0${idx + 1}`}</span>
                     <span className="jump-txt">{jump.label}</span>
                     <span className="jump-arrow" aria-hidden="true">↓</span>

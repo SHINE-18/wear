@@ -30,7 +30,7 @@ export default function Page() {
         <FadeUp className="about-copy">
           <SectionLabel>Engineering Excellence</SectionLabel>
           <h2>
-            Driven by <em>precision.</em>
+            Driven by precision.
             <br />
             Powered by experience.
           </h2>
@@ -89,18 +89,6 @@ export default function Page() {
       </section>
 
       <section id="industries" className="industries-stack-section section-light">
-        <FadeUp className="section-heading">
-          <SectionLabel>Targeted Engineering</SectionLabel>
-          <h2>
-            Built for the <em>hardest</em>
-            <br />
-            working environments.
-          </h2>
-          <p>
-            Four core industrial domains engineered with specialized metallurgy, high-impact alloys, and custom profiles to eliminate downtime.
-          </p>
-        </FadeUp>
-
         <IndustryStackingCards />
       </section>
 

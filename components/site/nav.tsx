@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useScroll } from 'motion/react'
+import { motion, useScroll, useTransform } from 'motion/react'
 import { navItems } from '@/lib/site-data'
 import { ScrollProgress } from './motion'
 import { Arrow, Logo, Mark } from './ui'
@@ -16,6 +16,10 @@ export function SiteNav() {
   const [footerProgress, setFooterProgress] = useState(0)
   const pathname = usePathname()
   const { scrollY } = useScroll()
+
+  // Animate top navbar out smoothly on initial scroll
+  const topNavOpacity = useTransform(scrollY, [0, 90], [1, 0])
+  const topNavY = useTransform(scrollY, [0, 90], [0, -70])
 
   useEffect(() => {
     return scrollY.on('change', (latest) => {
@@ -65,7 +69,7 @@ export function SiteNav() {
   return (
     <>
       <ScrollProgress />
-      <header
+      <motion.header
         className={`nav-wrap ${docked ? 'docked' : ''}`}
         style={
           docked
@@ -75,14 +79,17 @@ export function SiteNav() {
                 pointerEvents: isHidden ? 'none' : 'auto',
                 visibility: isHidden ? 'hidden' : 'visible',
               }
-            : undefined
+            : {
+                opacity: topNavOpacity,
+                y: topNavY,
+              }
         }
       >
         <Link className="brand" href="/">
           {docked ? (
             <span className="dock-brand-text">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ marginRight: '0.35rem', flexShrink: 0 }}>
-                <rect x="2" y="2" width="20" height="20" rx="2" fill="#C23E20" />
+                <rect x="2" y="2" width="20" height="20" rx="2" fill="#D94B2B" />
                 <path d="M6.5 7L9.5 16H10.5L12 11L13.5 16H14.5L17.5 7H16L14 14L12.5 9H11.5L10 14L8 7H6.5Z" fill="white" />
               </svg>
               WEAR<span className="dock-brand-accent">GUARD</span>
@@ -122,7 +129,7 @@ export function SiteNav() {
             {open ? '×' : '☰'}
           </button>
         </div>
-      </header>
+      </motion.header>
       <SiteSearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )

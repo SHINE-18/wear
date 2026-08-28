@@ -1,0 +1,19 @@
+┌────────────────────────────────────────────────────────┬─┐
+│    Industrial Wear Components                          │   [ORANGE CTA BOX]   │
+│    Engineered to [OUTLAST OEM STANDARDS]               │   "Get a quote" ⌝    │
+│                                                        │   (h: 192px, z:10)   │
+│                                                        ├────────────────┤
+├──────────────────────────────────────────────────────────┤
+│                                                                               │
+│                                                                               │
+│                                                                               │
+│                                                                               │
+├                                                                               ┤
+│                                                                               │
+│  [EXPANDING CINEMATIC VIDEO (z:15)]                                           │
+│  Starting State: top: 60%, height: 40% (across full width)                    │
+│                                                                               │
+└──────────────────────────────────────────────────────────┘
+
+
+

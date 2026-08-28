@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRef } from 'react'
 import { motion, useScroll, useSpring, useTransform, type Variants } from 'motion/react'
 import { Counter } from '@/components/site/motion'
-import { Arrow, SectionLabel } from '@/components/site/ui'
+import { SectionLabel } from '@/components/site/ui'
 import { InteractiveGrid } from '@/components/site/interactive-grid'
 import { EncryptedReveal } from '@/components/site/encrypted-reveal'
 
@@ -17,26 +17,10 @@ const wordVariants: Variants = {
     transition: {
       delay: custom * 0.08 + 0.1,
       duration: 0.5,
-      ease: [0.16, 1, 0.3, 1] as const,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   }),
 }
-
-const subWordVariants: Variants = {
-  hidden: { opacity: 0, y: 10, filter: 'blur(3px)' },
-  visible: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      delay: custom * 0.04 + 0.42,
-      duration: 0.45,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  }),
-}
-
-const subtitleWords = 'Engineered wear solutions for the industries that keep the world moving.'.split(' ')
 
 export function CinematicHero() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -53,21 +37,21 @@ export function CinematicHero() {
     restDelta: 0.001,
   })
 
-  // 1. Top left copy slides up and fades out smoothly
-  const copyY = useTransform(smoothProgress, [0, 0.45], [0, -110])
-  const copyOpacity = useTransform(smoothProgress, [0, 0.45], [1, 0])
+  // 1. Left hero copy (Eyebrow + Title) sits BELOW at rest, and slides UP to the top row as you scroll down
+  const copyY = useTransform(smoothProgress, [0, 0.35], [0, -180])
+  const copyOpacity = useTransform(smoothProgress, [0, 0.45, 0.65], [1, 1, 0])
 
-  // 2. Right sidebar "Get a quote" orange CTA stays fixed initially, then slides up smoothly
-  const ctaY = useTransform(smoothProgress, [0, 0.45], [0, -85])
-  const ctaOpacity = useTransform(smoothProgress, [0, 0.45], [1, 0])
+  // 2. Right sidebar "Get a quote" orange CTA stays pinned at top right
+  const ctaY = useTransform(smoothProgress, [0, 0.75], [0, 0])
+  const ctaOpacity = useTransform(smoothProgress, [0, 0.50, 0.68], [1, 1, 0])
 
-  // 3. Right metrics block slides up
-  const metricsY = useTransform(smoothProgress, [0, 0.5], [0, -120])
-  const metricsOpacity = useTransform(smoothProgress, [0, 0.5], [1, 0])
+  // 3. Right metrics block slides UPWARDS directly behind the orange "Get a quote" card and hides
+  const metricsY = useTransform(smoothProgress, [0, 0.35], [0, -360])
+  const metricsOpacity = useTransform(smoothProgress, [0, 0.30], [1, 0])
 
-  // 4. Video: expands from bottom (62% top, 38% height) to FULL SCREEN (0% top, 100% height)
-  const videoTop = useTransform(smoothProgress, [0, 0.55], ['62%', '0%'])
-  const videoHeight = useTransform(smoothProgress, [0, 0.55], ['38%', '100%'])
+  // 4. Video: rises from 60% up to 26% (directly below title & CTA in Frame 5), then expands to FULL SCREEN (0% top, 100% height)
+  const videoTop = useTransform(smoothProgress, [0, 0.35, 0.70], ['60%', '26%', '0%'])
+  const videoHeight = useTransform(smoothProgress, [0, 0.35, 0.70], ['40%', '74%', '100%'])
 
   return (
     <div ref={containerRef} className="cinematic-hero-container">
@@ -75,18 +59,13 @@ export function CinematicHero() {
         {/* INTERACTIVE KINETIC DASH GRID */}
         <InteractiveGrid />
 
-        {/* TOP LEFT COPY */}
+        {/* TOP LEFT COPY: Eyebrow and Headline slide UP together as shown in the reference frames */}
         <motion.div
           className="hero-copy"
           style={{ y: copyY, opacity: copyOpacity }}
         >
-          <motion.div
-            initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const, delay: 0.05 }}
-          >
-            <SectionLabel>Engineering Excellence</SectionLabel>
-          </motion.div>
+          <SectionLabel>Engineering Excellence</SectionLabel>
+
           <h1>
             <span className="hero-words-line">
               {['Industrial', 'Wear', 'Components'].map((word, i) => (
@@ -127,72 +106,162 @@ export function CinematicHero() {
               </motion.span>
             </span>
           </h1>
-          <p className="hero-subtitle-words">
-            {subtitleWords.map((word, i) => (
-              <motion.span
-                key={i}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={subWordVariants}
-                className="hero-subword"
-              >
-                {word}&nbsp;
-              </motion.span>
-            ))}
-          </p>
         </motion.div>
 
         {/* RIGHT SIDEBAR */}
         <div className="hero-side">
-          {/* Orange header sits above the sliding metrics */}
+          {/* Orange CTA stays pinned at top right aligned with the headline */}
           <motion.div
             className="hero-side-top"
             style={{ y: ctaY, opacity: ctaOpacity }}
           >
             <Link href="/contact" className="hero-side-cta">
               <span>Get a quote</span>
-              <Arrow />
+              <svg
+                width="34"
+                height="34"
+                viewBox="0 0 38 38"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="hero-figma-arrow"
+                aria-hidden="true"
+              >
+                <path
+                  d="M26.6703 4.54974L34.4485 12.3279L32.3266 14.4497L24.5485 6.67156L26.6703 4.54974Z"
+                  fill="white"
+                />
+                <path d="M0 0H38V38H28V10H0V0Z" fill="white" />
+              </svg>
             </Link>
           </motion.div>
 
-          {/* Black metrics box slides up under the orange header */}
+          {/* Black metrics box slides directly UP under the orange header and hides */}
           <motion.div
             className="hero-side-body"
             style={{ y: metricsY, opacity: metricsOpacity }}
           >
-            <div className="hero-metrics-row">
+            <div className="hero-metrics-group">
               <div className="hero-metric-block">
-                <div className="metric-icon" aria-hidden="true">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 2L2 12l10 10 10-10L12 2z" />
-                    <line x1="12" y1="8" x2="12" y2="14" />
-                    <polyline points="9 10 12 7 15 10" />
-                  </svg>
+                <div className="hero-metric-header">
+                  <div className="metric-icon" aria-hidden="true">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3 11.25L12 2.25L21 11.25H16.5V14.25H7.5V11.25H3Z"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M16.5 20.25H7.5"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M16.5 17.25H7.5"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <strong className="metric-value">
+                    <Counter to={20} />
+                    <span className="metric-plus">+</span>
+                  </strong>
                 </div>
-                <strong>
-                  <Counter to={20} suffix="+" />
-                </strong>
-                <span>years experience</span>
+                <span className="metric-label">years experience</span>
               </div>
 
               <div className="hero-metric-block">
-                <div className="metric-icon" aria-hidden="true">
-                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="7" height="7" />
-                    <rect x="14" y="3" width="7" height="7" />
-                    <rect x="14" y="14" width="7" height="7" />
-                    <rect x="3" y="14" width="7" height="7" />
-                  </svg>
+                <div className="hero-metric-header">
+                  <div className="metric-icon" aria-hidden="true">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M17.25 4.5H21V8.25"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M6.75 19.5H3V15.75"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M21 15.75V19.5H17.25"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M3 8.25V4.5H6.75"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M7.5 8.25V15.75"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M16.5 8.25V15.75"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M13.5 8.25V15.75"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                      <path
+                        d="M10.5 8.25V15.75"
+                        stroke="#D94B2B"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  <strong className="metric-value">
+                    <Counter to={500} />
+                    <span className="metric-plus">+</span>
+                  </strong>
                 </div>
-                <strong>
-                  <Counter to={500} suffix="+" />
-                </strong>
-                <span>projects delivered</span>
+                <span className="metric-label">projects delivered</span>
               </div>
             </div>
 
-            <p className="hero-side-desc">Custom alloy metallurgy, reverse engineering from 2D/3D CAD, and small-batch manufacturing for asphalt, concrete, mining, and bulk process plants.</p>
+            <p className="hero-side-desc">
+              Custom alloy metallurgy, reverse engineering from 2D/3D CAD, and small-batch manufacturing for asphalt, concrete, mining, and bulk process plants.
+            </p>
           </motion.div>
         </div>
 

@@ -1,8 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform, MotionValue } from 'motion/react'
 import { Arrow } from '@/components/site/ui'
 
 interface CardData {
@@ -49,87 +47,69 @@ const cards: CardData[] = [
   },
 ]
 
-function StackingCardItem({
-  card,
-  index,
-  total,
-  progress,
-}: {
-  card: CardData
-  index: number
-  total: number
-  progress: MotionValue<number>
-}) {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  // Target scale for earlier cards as new ones stack on top
-  const targetScale = 1 - (total - index - 1) * 0.04
-  const scale = useTransform(
-    progress,
-    [index / total, (index + 1) / total],
-    [1, targetScale]
-  )
-
-  return (
-    <div
-      ref={containerRef}
-      className="stacked-card-wrapper"
-      style={{
-        position: 'sticky',
-        top: `calc(90px + ${index * 26}px)`,
-        zIndex: index + 1,
-      }}
-    >
-      <motion.div
-        style={{
-          scale: index === total - 1 ? 1 : scale,
-          transformOrigin: 'top center',
-          willChange: 'transform',
-        }}
-      >
-        <Link href={card.link} className="stacked-industry-card">
-          {/* LEFT COLUMN: TITLE + ARROW AT TOP, NARRATIVE AT BOTTOM */}
-          <div className="stacked-card-left">
-            <div className="card-title-row">
-              <h3 className="card-title">{card.title}</h3>
-              <span className="card-title-arrow" aria-hidden="true">
-                <Arrow />
-              </span>
-            </div>
-
-            <div className="card-signature-bottom">
-              <p className="card-signature-desc">{card.desc}</p>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN: CLEAN IMAGE ON RIGHT HALF */}
-          <div className="stacked-card-right">
-            <img src={card.image} alt={card.imageAlt} className="card-full-img" />
-          </div>
-        </Link>
-      </motion.div>
-    </div>
-  )
-}
-
+/**
+ * Pure CSS sticky-stacking card scroll.
+ *
+ * Every card is the SAME full height. Each uses `position: sticky` with an
+ * increasing `top` offset (0, 80, 160, 240px — relative to nav clearance)
+ * and increasing `z-index`. At scroll-position 0 only Card 1 is on screen,
+ * reading as one single full card. As the user scrolls, Card 2 slides up
+ * and — because it has a higher z-index — covers Card 1 entirely except
+ * for the top 80px "title sliver." Same logic repeats down the stack.
+ */
 export function IndustryStackingCards() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  })
-
   return (
-    <div ref={containerRef} className="stacking-cards-container">
-      {cards.map((card, index) => (
-        <StackingCardItem
-          key={card.id}
-          card={card}
-          index={index}
-          total={cards.length}
-          progress={scrollYProgress}
-        />
-      ))}
+    <div className="stack-container">
+      {/* Section header — eyebrow + two-tone title + link */}
+      <div className="stack-header">
+        <div>
+          <div className="stack-eyebrow">Targeted Engineering</div>
+          <h2 className="stack-title">
+            Built for the <span>hardest</span>
+            <br />
+            working environments.
+          </h2>
+        </div>
+        <Link href="/industries" className="stack-all-link">
+          All Industries <span className="stack-link-glyph">↗</span>
+        </Link>
+      </div>
+
+      {/* The actual sticky stack */}
+      <div className="stack-cards">
+        {cards.map((card, index) => (
+          <Link
+            key={card.id}
+            href={card.link}
+            className="stack-card"
+            style={{
+              top: `calc(var(--stack-top, 96px) + ${index * 80}px)`,
+              zIndex: index + 1,
+            }}
+          >
+            {/* LEFT: title at top, arrow + desc at bottom */}
+            <div className="stack-card-content">
+              <div className="stack-card-title-row">
+                <h3>{card.title}</h3>
+                <span className="stack-card-arrow" aria-hidden="true">
+                  <Arrow />
+                </span>
+              </div>
+              <div className="stack-card-footer">
+                <p>{card.desc}</p>
+              </div>
+            </div>
+
+            {/* RIGHT: full-bleed image */}
+            <div className="stack-card-image">
+              <img src={card.image} alt={card.imageAlt} />
+            </div>
+          </Link>
+        ))}
+
+        {/* End spacer — keeps the last card pinned long enough before the next section scrolls in */}
+        <div className="stack-end-space" />
+      </div>
     </div>
   )
 }

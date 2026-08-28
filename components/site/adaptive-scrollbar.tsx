@@ -25,7 +25,7 @@ export function AdaptiveScrollbar() {
       let isLight = false
 
       for (const el of elementsAtPoint) {
-        const section = el.closest('section, header, footer, [data-theme], .cinematic-hero-container, .hero-art-expanding, .about-pillar-card, .stacked-industry-card')
+        const section = el.closest('section, header, footer, [data-theme], .cinematic-hero-container, .hero-art-expanding, .about-pillar-card, .stack-card')
         if (section) {
           const classList = section.classList
           if (
