@@ -1,5 +1,5 @@
 export const heroImage = '/images/asphalt-plant-hero.png'
-export const aboutImage = '/images/wearguard-hero-new.png'
+export const aboutImage = '/images/second.jpeg'
 export const plantImage = '/images/wearguard-hero-3d.png'
 
 export const navItems = [

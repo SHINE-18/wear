@@ -51,27 +51,23 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
       {/* 2. MAIN FOOTER BODY */}
       <div className="footer-main-dark">
         <div className="footer-main-grid">
-          {/* COL 1: BRAND BIO & BACK TO TOP */}
+          {/* COL 1: BRAND BIO & SLEEK SQUARE BACK TO TOP */}
           <div className="footer-brand-col">
             <Link className="footer-logo-link" href="/">
-              <Logo height={64} />
+              <Logo height={48} />
             </Link>
             <p className="footer-bio-text">
-              Building advanced wear-resistant metallurgy & custom engineered foundry solutions for heavy industrial operations.
+              Building modern industrial solutions for businesses.
             </p>
             <button
               type="button"
-              className="footer-back-to-top-btn"
+              className="footer-square-btt"
               aria-label="Scroll back to top"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              <div className="btt-icon-box">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="btt-arrow-svg">
-                  <line x1="12" y1="19" x2="12" y2="5" className="btt-stem" />
-                  <polyline points="5 12 12 5 19 12" className="btt-head" />
-                </svg>
-              </div>
-              <span className="btt-text-label">Back to top</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="18 15 12 9 6 15" />
+              </svg>
             </button>
           </div>
 
@@ -81,23 +77,22 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
             <ul className="footer-links-list">
               <li><Link href="/">Home</Link></li>
               <li><Link href="/about">About</Link></li>
-              <li><Link href="/industries">Industries</Link></li>
-              <li><Link href="/applications">Applications</Link></li>
-              <li><Link href="/materials">Materials</Link></li>
-              <li><Link href="/custom-parts">Custom Parts</Link></li>
+              <li><Link href="/materials">Services</Link></li>
+              <li><Link href="/applications">Blog</Link></li>
+              <li><Link href="/about">Careers</Link></li>
               <li><Link href="/contact">Contact</Link></li>
+              <li><Link href="/contact">404</Link></li>
             </ul>
           </div>
 
-          {/* COL 3: SOLUTIONS */}
+          {/* COL 3: SERVICES */}
           <div className="footer-links-col">
-            <h4>Solutions</h4>
+            <h4>Services</h4>
             <ul className="footer-links-list">
-              <li><Link href="/materials">EnduraCast Z-Core Liners</Link></li>
-              <li><Link href="/materials">Cut-to-Shape Wear Plates</Link></li>
-              <li><Link href="/materials">High-Chrome Castings</Link></li>
-              <li><Link href="/custom-parts">3D Reverse Engineering</Link></li>
-              <li><Link href="/contact">On-Site Wear Audits</Link></li>
+              <li><Link href="/custom-parts">Automation Solutions</Link></li>
+              <li><Link href="/contact">Maintenance & Support</Link></li>
+              <li><Link href="/materials">Manufacturing</Link></li>
+              <li><Link href="/custom-parts">Industrial Engineering</Link></li>
             </ul>
           </div>
 
@@ -126,7 +121,9 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
                     className="newsletter-input"
                   />
                   <button type="submit" className="newsletter-submit-btn" aria-label="Subscribe">
-                    ›
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
                   </button>
                 </div>
                 {subscribed && (
@@ -146,7 +143,7 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           <div className="footer-legal-links">
             <Link href="/contact">Terms of Use</Link>
             <Link href="/contact">Privacy Policy</Link>
-            <span className="footer-tech-tag">ISO 9001:2015 Certified</span>
+            <span className="footer-credit">Created by <strong>WearGuard</strong></span>
           </div>
 
           <div className="footer-social-icons">

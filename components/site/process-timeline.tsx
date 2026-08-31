@@ -51,25 +51,11 @@ function StepRow({
   const opacity = useTransform(
     progress,
     [Math.max(0, stepThreshold - 0.15), stepThreshold, Math.min(1, stepThreshold + 0.15)],
-    [0.4, 1, 1]
-  )
-
-  const markerScale = useTransform(
-    progress,
-    [Math.max(0, stepThreshold - 0.1), stepThreshold],
-    [0.85, 1.1]
+    [0.35, 1, 1]
   )
 
   return (
     <motion.div className="process-step-item" style={{ opacity }}>
-      {/* LEFT MARKER NODE */}
-      <div className="step-node-col">
-        <motion.div
-          className="step-square-pip"
-          style={{ scale: markerScale }}
-        />
-      </div>
-
       {/* STEP CONTENT */}
       <div className="step-content-row">
         <div className="step-title-wrap">
@@ -117,17 +103,8 @@ export function ProcessTimeline() {
           </h2>
         </div>
 
-        {/* TIMELINE LIST WITH SMOOTH VERTICAL FILLING PROGRESS BAR */}
+        {/* TIMELINE LIST */}
         <div className="process-timeline-wrapper" ref={listRef}>
-          {/* Continuous vertical track spine */}
-          <div className="process-vertical-spine" aria-hidden="true">
-            <div className="spine-track-lane" />
-            <motion.div
-              className="spine-track-laser"
-              style={{ scaleY: smoothProgress, originY: 0 }}
-            />
-          </div>
-
           {/* PROCESS STEP ITEMS */}
           <div className="process-steps-column">
             {industrialSteps.map((step, idx) => (

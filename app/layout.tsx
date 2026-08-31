@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Inter, Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
 import { AdaptiveScrollbar } from '@/components/site/adaptive-scrollbar'
+import { SmoothScroll } from '@/components/site/smooth-scroll'
 import './globals.css'
 
 const fontDisplay = Space_Grotesk({
@@ -41,8 +42,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       lang="en"
       data-scrollbar-theme="dark"
       className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-[#111213]`}
+      suppressHydrationWarning
     >
-      <body className="antialiased font-body bg-charcoal text-ink">
+      <body className="antialiased font-body bg-charcoal text-ink" suppressHydrationWarning>
+        <SmoothScroll />
         <AdaptiveScrollbar />
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

@@ -37,21 +37,26 @@ export function CinematicHero() {
     restDelta: 0.001,
   })
 
-  // 1. Left hero copy (Eyebrow + Title) sits BELOW at rest, and slides UP to the top row as you scroll down
-  const copyY = useTransform(smoothProgress, [0, 0.35], [0, -180])
-  const copyOpacity = useTransform(smoothProgress, [0, 0.45, 0.65], [1, 1, 0])
+  // 1. Left hero copy (Eyebrow + Title) slides UP and fades early
+  const copyY = useTransform(smoothProgress, [0, 0.18], [0, -180])
+  const copyOpacity = useTransform(smoothProgress, [0, 0.18, 0.30], [1, 1, 0])
 
-  // 2. Right sidebar "Get a quote" orange CTA stays pinned at top right
-  const ctaY = useTransform(smoothProgress, [0, 0.75], [0, 0])
-  const ctaOpacity = useTransform(smoothProgress, [0, 0.50, 0.68], [1, 1, 0])
+  // 2. Right sidebar "Get a quote" orange CTA fades
+  const ctaY = useTransform(smoothProgress, [0, 0.40], [0, 0])
+  const ctaOpacity = useTransform(smoothProgress, [0, 0.20, 0.32], [1, 1, 0])
 
-  // 3. Right metrics block slides UPWARDS directly behind the orange "Get a quote" card and hides
-  const metricsY = useTransform(smoothProgress, [0, 0.35], [0, -360])
-  const metricsOpacity = useTransform(smoothProgress, [0, 0.30], [1, 0])
+  // 3. Right metrics block slides UPWARDS and fades
+  const metricsY = useTransform(smoothProgress, [0, 0.18], [0, -360])
+  const metricsOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0])
 
-  // 4. Video: starts at 80% top / 20% height on rest, rises up to 26% (directly below title & CTA in Frame 5), then expands to FULL SCREEN (0% top, 100% height)
-  const videoTop = useTransform(smoothProgress, [0, 0.35, 0.70], ['80%', '26%', '0%'])
-  const videoHeight = useTransform(smoothProgress, [0, 0.35, 0.70], ['20%', '74%', '100%'])
+  // 4. Video expands to full screen by progress 0.35 (~70vh scroll), then stays pinned for the curtain
+  const videoTop = useTransform(smoothProgress, [0, 0.18, 0.35], ['80%', '26%', '0%'])
+  const videoHeight = useTransform(smoothProgress, [0, 0.18, 0.35], ['20%', '74%', '100%'])
+
+  // 5. Colour blend: as curtain enters and rises, the exposed top of the video blurs and tints to #636573, reaching 100% solid blend seamlessly
+  const videoTintOpacity = useTransform(smoothProgress, [0.45, 0.65, 0.78], [0, 0.7, 1])
+  const videoBlur = useTransform(smoothProgress, [0.45, 0.65, 0.78], [0, 10, 24])
+  const videoBlurFilter = useTransform(videoBlur, (v) => (v > 0 ? `blur(${v}px)` : 'none'))
 
   return (
     <div ref={containerRef} className="cinematic-hero-container">
@@ -258,7 +263,7 @@ export function CinematicHero() {
             </div>
 
             <p className="hero-side-desc">
-              Reliable engineering, precision manufacturing, and scalable solutions for modern industries.
+              Custom alloy metallurgy, reverse engineering from 2D/3D CAD, and small-batch manufacturing for asphalt, concrete, mining, and bulk process plants.
             </p>
           </motion.div>
         </div>
@@ -272,17 +277,27 @@ export function CinematicHero() {
             zIndex: 15,
           }}
         >
-          <video
+          <motion.video
             className="hero-video"
             autoPlay
             muted
             loop
             playsInline
             poster="/images/asphalt-plant-hero.png"
+            style={{
+              filter: videoBlurFilter,
+            }}
           >
             <source src="/images/wearguard-hero-reel.mp4" type="video/mp4" />
-          </video>
+          </motion.video>
           <div className="hero-video-overlay" aria-hidden="true" />
+          <motion.div
+            className="hero-video-slate-blend"
+            style={{
+              opacity: videoTintOpacity,
+            }}
+            aria-hidden="true"
+          />
         </motion.div>
       </div>
     </div>

@@ -93,25 +93,7 @@ export default function Page() {
       </section>
 
       <section id="applications" className="applications section-dark">
-        <FadeUp className="section-heading">
-          <SectionLabel>Application Engineering</SectionLabel>
-          <h2>
-            Protection where
-            <br />
-            <em>wear happens.</em>
-          </h2>
-          <p>
-            Explore the 4 primary high-wear operational assemblies engineered to eliminate maintenance downtime. Scroll through each stage to inspect technical metallurgy and component assemblies.
-          </p>
-        </FadeUp>
-
         <ApplicationInspector applications={applications} />
-
-        <div className="page-link-row">
-          <Button dark href="/applications">
-            View all applications & components
-          </Button>
-        </div>
       </section>
 
       <section id="materials" className="materials section-slate">
@@ -141,37 +123,42 @@ export default function Page() {
             {/* CARD 01 */}
             <FadeUp className="material-scroll-card">
               <div className="material-scroll-header">
-                <div>
-                  <span className="material-card-num">01</span>
-                  <h3>WearGuard Designed & Cut to Shape Parts</h3>
+                <h3>WearGuard Designed & Cut to Shape Parts</h3>
+                <div className="material-badge-group">
+                  <span className="material-spec-pill">P400–P500 Q&T</span>
+                  <span className="material-badge">400–500 BHN</span>
                 </div>
-                <span className="material-badge">400–500 BHN</span>
               </div>
 
-              <div className="material-scroll-img-wrap">
+              <div className="material-specimen-frame">
                 <img src="/images/hardfaced-plate.webp" alt="WearGuard Designed & Cut to Shape Parts" />
+                <div className="specimen-crosshair-tag">[CROSS-SECTION: CNC PROFILE & BEVEL]</div>
               </div>
 
               <p className="material-scroll-desc">
                 High-durability precision profiled wear steel, CNC bevelled, drilled, and rolled to exact machine tolerances for chutes, hoppers, and impact decks.
               </p>
 
-              <div className="material-features-grid">
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Custom CNC profiling, drilling & rolling</span>
+              <div className="material-editorial-specs">
+                <div className="editorial-spec-row">
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Hardness Rating</span>
+                    <span className="editorial-spec-val">400–500 BHN (Quenched & Tempered)</span>
+                  </div>
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Impact Toughness</span>
+                    <span className="editorial-spec-val">45 J @ -20°C (Charpy V-Notch)</span>
+                  </div>
                 </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>P400, P450 & P500 quenched & tempered plate</span>
-                </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Direct OEM replacement for chutes, bins & skirts</span>
-                </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Ready-to-install with pre-drilled countersunk holes</span>
+                <div className="editorial-spec-row">
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Service Life</span>
+                    <span className="editorial-spec-val">3.5x Extension vs Carbon Steel</span>
+                  </div>
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Machining & Fit</span>
+                    <span className="editorial-spec-val">Pre-Drilled Countersunk & Bevelled</span>
+                  </div>
                 </div>
               </div>
 
@@ -189,37 +176,42 @@ export default function Page() {
             {/* CARD 02 */}
             <FadeUp className="material-scroll-card">
               <div className="material-scroll-header">
-                <div>
-                  <span className="material-card-num">02</span>
-                  <h3>EnduraCast Z-Core Liners - Tough Specially Abrasion Resistant Lined Parts</h3>
+                <h3>EnduraCast Z-Core Liners</h3>
+                <div className="material-badge-group">
+                  <span className="material-spec-pill">MATRIX COMPOSITE</span>
+                  <span className="material-badge">Z-CORE HYBRID</span>
                 </div>
-                <span className="material-badge">Z-CORE HYBRID</span>
               </div>
 
-              <div className="material-scroll-img-wrap">
-                <img src="/images/ceramic-liners.webp" alt="EnduraCast Z-Core Liners - Tough specially abrasion resistant lined parts" />
+              <div className="material-specimen-frame">
+                <img src="/images/ceramic-liners.webp" alt="EnduraCast Z-Core Liners" />
+                <div className="specimen-crosshair-tag">[CROSS-SECTION: CERAMIC-ELASTOMER BOND]</div>
               </div>
 
               <p className="material-scroll-desc">
                 Ultra-tough hybrid liners engineered with specialized abrasion-resistant matrix for severe high-velocity slurry, sliding aggregate, and pneumatic wear zones.
               </p>
 
-              <div className="material-features-grid">
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Ceramic-composite matrix with elastic backing</span>
+              <div className="material-editorial-specs">
+                <div className="editorial-spec-row">
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Matrix Metallurgy</span>
+                    <span className="editorial-spec-val">92% Al₂O₃ Ceramic + Matrix</span>
+                  </div>
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Impact Absorption</span>
+                    <span className="editorial-spec-val">High-Elastic Shock Damping</span>
+                  </div>
                 </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Designed for severe high-velocity slurry & fine aggregate</span>
-                </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Damps catastrophic mechanical impact and vibration</span>
-                </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>3x to 5x lifespan extension over standard mild steel</span>
+                <div className="editorial-spec-row">
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Slurry Velocity</span>
+                    <span className="editorial-spec-val">Rated up to 28 m/s Resistance</span>
+                  </div>
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Wear Factor</span>
+                    <span className="editorial-spec-val">3x to 5x vs Mild Carbon Steel</span>
+                  </div>
                 </div>
               </div>
 
@@ -237,37 +229,42 @@ export default function Page() {
             {/* CARD 03 */}
             <FadeUp className="material-scroll-card">
               <div className="material-scroll-header">
-                <div>
-                  <span className="material-card-num">03</span>
-                  <h3>Wearcast Grades</h3>
+                <h3>Wearcast Foundry Castings</h3>
+                <div className="material-badge-group">
+                  <span className="material-spec-pill">CR 15–28% / NI-HARD</span>
+                  <span className="material-badge">550–650+ BHN</span>
                 </div>
-                <span className="material-badge">550–650+ BHN</span>
               </div>
 
-              <div className="material-scroll-img-wrap">
+              <div className="material-specimen-frame">
                 <img src="/images/material-technologies-whole-set.webp" alt="Wearcast Grades" />
+                <div className="specimen-crosshair-tag">[CROSS-SECTION: EUTECTIC ALLOY CASTING]</div>
               </div>
 
               <p className="material-scroll-desc">
                 Proprietary foundry cast alloys (Ni-Hard and High-Chrome) engineered for maximum hardness in continuous crushing, grinding, and severe erosive environments.
               </p>
 
-              <div className="material-features-grid">
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>High-Chrome (Cr 15–28%) & Ni-Hard foundry castings</span>
+              <div className="material-editorial-specs">
+                <div className="editorial-spec-row">
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Hardness Range</span>
+                    <span className="editorial-spec-val">550–650+ BHN (58–64 HRC)</span>
+                  </div>
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Alloy System</span>
+                    <span className="editorial-spec-val">High-Chrome (Cr 15–28%) & Ni-Hard</span>
+                  </div>
                 </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Maximum resistance to severe gouging and abrasion</span>
-                </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Stable metallurgical structure up to 950°C</span>
-                </div>
-                <div className="material-feature-item">
-                  <span className="feature-check">✓</span>
-                  <span>Reverse-engineered for crushers, mills & mixer blades</span>
+                <div className="editorial-spec-row">
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Thermal Rating</span>
+                    <span className="editorial-spec-val">Up to 950°C Continuous Service</span>
+                  </div>
+                  <div className="editorial-spec-col">
+                    <span className="editorial-spec-label">Assembly Fit</span>
+                    <span className="editorial-spec-val">Direct Match for Crushers & Mills</span>
+                  </div>
                 </div>
               </div>
 
@@ -276,7 +273,7 @@ export default function Page() {
                   Enquire on Cast Grades
                 </Button>
                 <Link href="/materials" className="about-sub-link">
-                  <span>View foundry alloy grades</span>
+                  <span>Explore foundry capabilities</span>
                   <Arrow />
                 </Link>
               </div>
@@ -288,8 +285,11 @@ export default function Page() {
       {/* CUSTOM ENGINEERING OVERVIEW WITH SCROLL TRANSITION */}
       <CustomPartsOverview />
 
-      {/* FAQ / QUESTIONS SECTION */}
-      <section className="faq-section section-light">
+      {/* INDUSTRIAL PROCESS TIMELINE WITH SCROLL-LINKED FILLING BAR */}
+      <ProcessTimeline />
+
+      {/* FAQ / QUESTIONS SECTION DIRECTLY ABOVE FOOTER */}
+      <section id="faq" className="faq-section section-light">
         <div className="faq-stage">
           {/* LEFT: STICKY TITLE & ENGINEER SUPPORT */}
           <div className="faq-left-col">
@@ -330,9 +330,6 @@ export default function Page() {
           </div>
         </div>
       </section>
-
-      {/* INDUSTRIAL PROCESS TIMELINE WITH SCROLL-LINKED FILLING BAR */}
-      <ProcessTimeline />
 
       <SiteFooter />
     </div>

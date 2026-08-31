@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react'
-import { Application } from '@/lib/site-data'
-import { Arrow } from '@/components/site/ui'
+import { SectionLabel, Arrow } from '@/components/site/ui'
+import type { Application } from '@/lib/site-data'
 
 interface Props {
   applications: Application[]
@@ -22,7 +22,7 @@ export function ApplicationInspector({ applications }: Props) {
   // Track scroll through the pinned container
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start start', 'end end'],
+    offset: ['start 40px', 'end end'],
   })
 
   // Synchronize scroll position with active index
@@ -79,34 +79,24 @@ export function ApplicationInspector({ applications }: Props) {
   return (
     <div ref={containerRef} className="inspector-scroll-track">
       <div className="inspector-sticky-viewport">
-        {/* TOP HUD / TELEMETRY STATUS BAR */}
-        <div className="inspector-telemetry-hud">
-          <div className="inspector-step-track">
-            {items.map((app, idx) => {
-              const isSelected = idx === activeIdx
-              return (
-                <button
-                  key={app.slug}
-                  type="button"
-                  className={`inspector-step-pip-btn ${isSelected ? 'active' : ''}`}
-                  onClick={() => handleSelect(idx)}
-                  aria-label={`Jump to application ${app.num}: ${app.title}`}
-                >
-                  <span className="step-pip-indicator" />
-                  <span className="step-pip-label">
-                    {app.num} {app.title.split(' ')[0]}
-                  </span>
-                </button>
-              )
-            })}
+        {/* SECTION HEADING WITH TOP-RIGHT VIEW ALL BUTTON PINNED TOGETHER */}
+        <div className="inspector-heading-wrap">
+          <div className="section-heading inspector-heading">
+            <SectionLabel>Application Engineering</SectionLabel>
+            <h2>
+              Protection where
+              <br />
+              <em>wear happens.</em>
+            </h2>
+            <p>
+              Explore the 4 primary high-wear operational assemblies engineered to eliminate maintenance downtime. Scroll through each stage to inspect technical metallurgy and component assemblies.
+            </p>
           </div>
 
-          <div className="inspector-hud-live-tag">
-            <span className="hud-pulse-dot" />
-            <span className="hud-label">
-              APPLICATION 0{activeIdx + 1} / 0{items.length} &middot; SCROLL ACTIVATED
-            </span>
-          </div>
+          <Link href="/applications" className="inspector-all-link">
+            <span>View All Engineering</span>
+            <Arrow />
+          </Link>
         </div>
 
         {/* 2-COLUMN MAIN INSPECTOR LAYOUT */}
@@ -140,9 +130,10 @@ export function ApplicationInspector({ applications }: Props) {
                     </Link>
                     <Link
                       href={`/applications/${app.slug}`}
-                      className="inspector-arrow-btn"
-                      aria-label={`View ${app.title}`}
+                      className="inspector-inline-specs-link"
+                      aria-label={`View full specifications for ${app.title}`}
                     >
+                      <span>Full Specs</span>
                       <Arrow />
                     </Link>
                   </div>
@@ -166,13 +157,6 @@ export function ApplicationInspector({ applications }: Props) {
                               <strong className="spec-chip-val">{spec.value}</strong>
                             </div>
                           ))}
-                        </div>
-
-                        <div className="inspector-action-row">
-                          <Link href={`/applications/${app.slug}`} className="inspector-cta-link">
-                            <span>View technical specifications & CAD drawings</span>
-                            <Arrow />
-                          </Link>
                         </div>
                       </motion.div>
                     )}

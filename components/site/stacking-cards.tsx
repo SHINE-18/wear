@@ -1,6 +1,8 @@
 'use client'
 
+import { useRef } from 'react'
 import Link from 'next/link'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Arrow } from '@/components/site/ui'
 
 interface CardData {
@@ -14,101 +16,123 @@ interface CardData {
 
 const cards: CardData[] = [
   {
-    id: 'asphalt',
-    title: 'Asphalt Systems',
-    desc: 'Smart systems to improve productivity and eliminate plant downtime across high-temp drying circuits.',
+    id: 'automation',
+    title: 'Automation Solutions',
+    desc: 'Smart systems to improve productivity and reduce downtime across high-temp circuits.',
     image: '/images/1.png',
-    imageAlt: 'Asphalt mixing and drying plant operations',
+    imageAlt: 'Automation solutions and industrial plant control systems',
     link: '/industries#asphalt-paving',
   },
   {
-    id: 'concrete',
-    title: 'Concrete Batching',
-    desc: 'Heavy-duty Ni-Hard and high-chrome paddle tips and mixer floor liners built to resist slurry grinding.',
+    id: 'maintenance',
+    title: 'Maintenance & Support',
+    desc: 'Heavy-duty wear inspection, paddle tips, and mixer liners built to resist slurry grinding.',
     image: '/images/2.png',
-    imageAlt: 'Concrete mixer shaft and reinforced arm assemblies',
+    imageAlt: 'Industrial maintenance and heavy wear assembly rebuilds',
     link: '/industries#concrete-batching',
   },
   {
-    id: 'process',
-    title: 'Process Industries',
-    desc: 'Custom ceramic-rubber composites, chrome-carbide plates, and pneumatic transitions designed for 24/7 uptime.',
+    id: 'manufacturing',
+    title: 'Manufacturing',
+    desc: 'Custom high-chrome castings, chrome-carbide plates, and bespoke liner geometries.',
     image: '/images/3.png',
-    imageAlt: 'Process industry custom wear liners and engineered chute assemblies',
+    imageAlt: 'Custom wear liner manufacturing and precision metallurgy',
     link: '/industries#recycling-shredding',
   },
   {
-    id: 'mining',
-    title: 'Mining & Quarrying',
-    desc: 'Custom solutions designed to optimize performance, eliminate shock failure, and maximize wear tonnage.',
+    id: 'engineering',
+    title: 'Industrial Engineering',
+    desc: 'Custom solutions designed to optimize performance and efficiency.',
     image: '/images/4.png',
-    imageAlt: 'Heavy earthmoving and mining bucket wear parts',
+    imageAlt: 'Industrial engineering and heavy mining wear protection',
     link: '/industries#mining-mineral',
   },
 ]
 
-/**
- * Pure CSS sticky-stacking card scroll.
- *
- * Every card is the SAME full height. Each uses `position: sticky` with an
- * increasing `top` offset (0, 80, 160, 240px — relative to nav clearance)
- * and increasing `z-index`. At scroll-position 0 only Card 1 is on screen,
- * reading as one single full card. As the user scrolls, Card 2 slides up
- * and — because it has a higher z-index — covers Card 1 entirely except
- * for the top 80px "title sliver." Same logic repeats down the stack.
- */
+function IndividualStackCard({
+  card,
+  index,
+}: {
+  card: CardData
+  index: number
+}) {
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  // Target dock position for this card
+  const dockOffsetPx = 110 + index * 76
+  const stickyTop = `calc(var(--stack-base-top, 110px) + ${index * 76}px)`
+
+  // Track scroll position of this individual card from entering viewport until it docks
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ['start end', `start ${dockOffsetPx + 40}px`],
+  })
+
+  // 3D curving entrance from flat/tilted surface into upright position
+  const rotateX = useTransform(scrollYProgress, [0, 1], [index === 0 ? 0 : 24, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [index === 0 ? 1 : 0.94, 1.0])
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 1], [index === 0 ? 1 : 0.4, 1, 1])
+
+  return (
+    <motion.div
+      ref={cardRef}
+      className="stack-card"
+      style={{
+        top: stickyTop,
+        zIndex: index + 1,
+        rotateX,
+        scale,
+        opacity,
+        transformOrigin: 'top center',
+      }}
+    >
+      <Link href={card.link} className="stack-card-inner">
+        {/* LEFT COLUMN: Title at top, Orange mark + Description at bottom */}
+        <div className="stack-card-content">
+          <div className="stack-card-title-wrap">
+            <h3 className="stack-card-title">{card.title}</h3>
+            <span className="stack-card-arrow" aria-hidden="true">
+              <Arrow />
+            </span>
+          </div>
+
+          <div className="stack-card-footer-wrap">
+            <p className="stack-card-desc">{card.desc}</p>
+          </div>
+        </div>
+
+        {/* RIGHT COLUMN: Full-bleed image */}
+        <div className="stack-card-image">
+          <img src={card.image} alt={card.imageAlt} />
+        </div>
+      </Link>
+    </motion.div>
+  )
+}
+
 export function IndustryStackingCards() {
   return (
     <div className="stack-container">
-      {/* Section header — eyebrow + two-tone title + link */}
+      {/* Section Header */}
       <div className="stack-header">
         <div>
-          <div className="stack-eyebrow">Targeted Engineering</div>
+          <div className="stack-eyebrow">Services</div>
           <h2 className="stack-title">
-            Built for the <span>hardest</span>
-            <br />
-            working environments.
+            What We <span>Offer</span>
           </h2>
         </div>
         <Link href="/industries" className="stack-all-link">
-          All Industries <span className="stack-link-glyph">↗</span>
+          All Services <span className="stack-link-glyph">↗</span>
         </Link>
       </div>
 
-      {/* The actual sticky stack */}
-      <div className="stack-cards">
+      {/* 3D Stack Cards Container */}
+      <div className="stack-cards-wrapper">
         {cards.map((card, index) => (
-          <Link
-            key={card.id}
-            href={card.link}
-            className="stack-card"
-            style={{
-              top: `calc(var(--stack-top, 84px) + ${index * 42}px)`,
-              zIndex: index + 1,
-            }}
-          >
-            {/* LEFT: title at top, arrow + desc at bottom */}
-            <div className="stack-card-content">
-              <div className="stack-card-title-row">
-                <h3>{card.title}</h3>
-                <span className="stack-card-arrow" aria-hidden="true">
-                  <Arrow />
-                </span>
-              </div>
-              <div className="stack-card-footer">
-                <p>{card.desc}</p>
-              </div>
-            </div>
-
-            {/* RIGHT: full-bleed image */}
-            <div className="stack-card-image">
-              <img src={card.image} alt={card.imageAlt} />
-            </div>
-          </Link>
+          <IndividualStackCard key={card.id} card={card} index={index} />
         ))}
-
-        {/* End spacer — keeps the last card pinned long enough before the next section scrolls in */}
-        <div className="stack-end-space" />
+        {/* End spacer to hold the completed 4-card stack in view before scrolling into the next section */}
+        <div className="stack-end-space" aria-hidden="true" />
       </div>
     </div>
   )

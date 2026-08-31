@@ -14,38 +14,17 @@ export function CustomPartsOverview() {
     offset: ['start end', 'center 55%'],
   })
 
-  // Smooth dark-to-light background transition
-  const bgColor = useTransform(
-    scrollYProgress,
-    [0, 0.35, 0.85],
-    ['#111319', '#1a1e28', '#ecf0f4']
-  )
-
-  // Dark overlay opacity that fades to 0 as user scrolls down
-  const darkOverlayOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.85],
-    [1, 0.7, 0]
-  )
-
   // Content illumination & elevation
-  const contentY = useTransform(scrollYProgress, [0, 0.85], [30, 0])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.35, 0.85], [0.35, 0.75, 1])
+  const contentY = useTransform(scrollYProgress, [0, 0.85], [20, 0])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.35, 0.85], [0.5, 0.85, 1])
 
   return (
-    <motion.section
+    <section
       id="custom-parts"
       ref={containerRef}
       className="custom-overview-section"
-      style={{ backgroundColor: bgColor }}
+      style={{ backgroundColor: '#ffffff' }}
     >
-      {/* Dark veil that dissolves on scroll */}
-      <motion.div
-        className="custom-dark-veil"
-        style={{ opacity: darkOverlayOpacity }}
-        aria-hidden="true"
-      />
-
       <motion.div
         className="custom-overview-stage"
         style={{ y: contentY, opacity: contentOpacity }}
@@ -117,6 +96,6 @@ export function CustomPartsOverview() {
           </Link>
         </div>
       </motion.div>
-    </motion.section>
+    </section>
   )
 }
