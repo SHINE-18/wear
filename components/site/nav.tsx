@@ -70,18 +70,22 @@ export function SiteNav() {
     <>
       <ScrollProgress />
       <motion.header
-        className={`nav-wrap ${docked ? 'docked' : ''}`}
+        className={`nav-wrap ${docked ? 'docked' : ''} ${pathname === '/' ? 'nav-home' : 'nav-full'}`}
         style={
           docked
             ? {
                 opacity,
-                transform: `translate(-50%, ${translateY}px) scale(${1 - footerProgress * 0.04})`,
+                x: '-50%',
+                y: translateY,
+                scale: 1 - footerProgress * 0.04,
                 pointerEvents: isHidden ? 'none' : 'auto',
                 visibility: isHidden ? 'hidden' : 'visible',
               }
             : {
                 opacity: topNavOpacity,
+                x: 0,
                 y: topNavY,
+                scale: 1,
               }
         }
       >

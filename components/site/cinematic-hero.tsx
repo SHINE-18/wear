@@ -49,9 +49,9 @@ export function CinematicHero() {
   const metricsY = useTransform(smoothProgress, [0, 0.35], [0, -360])
   const metricsOpacity = useTransform(smoothProgress, [0, 0.30], [1, 0])
 
-  // 4. Video: rises from 60% up to 26% (directly below title & CTA in Frame 5), then expands to FULL SCREEN (0% top, 100% height)
-  const videoTop = useTransform(smoothProgress, [0, 0.35, 0.70], ['60%', '26%', '0%'])
-  const videoHeight = useTransform(smoothProgress, [0, 0.35, 0.70], ['40%', '74%', '100%'])
+  // 4. Video: starts at 80% top / 20% height on rest, rises up to 26% (directly below title & CTA in Frame 5), then expands to FULL SCREEN (0% top, 100% height)
+  const videoTop = useTransform(smoothProgress, [0, 0.35, 0.70], ['80%', '26%', '0%'])
+  const videoHeight = useTransform(smoothProgress, [0, 0.35, 0.70], ['20%', '74%', '100%'])
 
   return (
     <div ref={containerRef} className="cinematic-hero-container">
@@ -116,21 +116,19 @@ export function CinematicHero() {
             style={{ y: ctaY, opacity: ctaOpacity }}
           >
             <Link href="/contact" className="hero-side-cta">
-              <span>Get a quote</span>
+              <span>Get Started</span>
               <svg
-                width="34"
-                height="34"
-                viewBox="0 0 38 38"
+                viewBox="0 0 24 24"
+                className="hero-morph-icon"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="hero-figma-arrow"
+                stroke="currentColor"
+                strokeWidth="2.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 aria-hidden="true"
               >
-                <path
-                  d="M26.6703 4.54974L34.4485 12.3279L32.3266 14.4497L24.5485 6.67156L26.6703 4.54974Z"
-                  fill="white"
-                />
-                <path d="M0 0H38V38H28V10H0V0Z" fill="white" />
+                <path d="M7 7h10v10" className="icon-head" />
+                <line x1="7" y1="17" x2="17" y2="7" className="icon-stem" />
               </svg>
             </Link>
           </motion.div>
@@ -260,7 +258,7 @@ export function CinematicHero() {
             </div>
 
             <p className="hero-side-desc">
-              Custom alloy metallurgy, reverse engineering from 2D/3D CAD, and small-batch manufacturing for asphalt, concrete, mining, and bulk process plants.
+              Reliable engineering, precision manufacturing, and scalable solutions for modern industries.
             </p>
           </motion.div>
         </div>

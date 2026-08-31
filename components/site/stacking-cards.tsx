@@ -83,7 +83,7 @@ export function IndustryStackingCards() {
             href={card.link}
             className="stack-card"
             style={{
-              top: `calc(var(--stack-top, 96px) + ${index * 80}px)`,
+              top: `calc(var(--stack-top, 84px) + ${index * 42}px)`,
               zIndex: index + 1,
             }}
           >
