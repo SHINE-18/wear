@@ -5960,8 +5960,11 @@ section {
     align-items: center !important;
   }
 
-  .nav-wrap .brand-logo-frame {
-    filter: brightness(0) invert(1) !important;
+  .nav-wrap .brand-logo {
+    height: 24px !important;
+    max-height: 24px !important;
+    width: auto !important;
+    display: block !important;
   }
 
   .nav-links {
