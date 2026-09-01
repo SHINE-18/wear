@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react'
 import { navItems } from '@/lib/site-data'
 import { ScrollProgress } from './motion'
 import { Arrow, Logo, Mark } from './ui'
@@ -16,6 +16,18 @@ export function SiteNav() {
   const [footerProgress, setFooterProgress] = useState(0)
   const pathname = usePathname()
   const { scrollY } = useScroll()
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
 
   // Animate top navbar out smoothly on initial scroll
   const topNavOpacity = useTransform(scrollY, [0, 90], [1, 0])
@@ -31,53 +43,55 @@ export function SiteNav() {
     })
   }, [scrollY])
 
-  // Continuous, gradual fade starting when the stats deck reaches viewport (1400px before bottom)
+  // Immediately hide docked navbar as soon as the footer enters the viewport
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
-      const scrollTop = window.scrollY || document.documentElement.scrollTop
-      const clientHeight = window.innerHeight
+    const checkFooterVisibility = () => {
+      const footerEl = document.querySelector('.footer-root, footer, .footer-cta-banner, .footer-main-dark')
+      if (footerEl) {
+        const rect = footerEl.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
 
-      const distanceFromBottom = scrollHeight - (scrollTop + clientHeight)
-      
-      // Start fading right around the Process stats deck
-      const fadeThreshold = 1400
-
-      if (distanceFromBottom < fadeThreshold) {
-        // Continuous linear progression from 0.0 (at stats deck) to 1.0 (at bottom)
-        const progress = Math.min(1, Math.max(0, 1 - (distanceFromBottom / fadeThreshold)))
-        setFooterProgress(progress)
-      } else {
-        setFooterProgress(0)
+        // As soon as the footer comes into the viewport
+        if (rect.top <= viewportHeight + 20) {
+          setFooterProgress(1)
+          return
+        }
       }
+
+      setFooterProgress(0)
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll, { passive: true })
-    handleScroll()
+    window.addEventListener('scroll', checkFooterVisibility, { passive: true })
+    window.addEventListener('resize', checkFooterVisibility, { passive: true })
+    checkFooterVisibility()
+
     return () => {
-      window.removeEventListener('scroll', handleScroll)
-      window.removeEventListener('resize', handleScroll)
+      window.removeEventListener('scroll', checkFooterVisibility)
+      window.removeEventListener('resize', checkFooterVisibility)
     }
   }, [pathname])
 
-  // Linear continuous opacity: 1.0 at stats deck -> 0.0 at footer bottom
-  const opacity = docked ? Math.max(0, 1 - footerProgress) : 1
-  const translateY = docked ? footerProgress * 30 : 0
-  const isHidden = footerProgress >= 0.98
+  const isHidden = footerProgress === 1
 
   return (
     <>
-      <ScrollProgress />
+      {pathname === '/' && <ScrollProgress />}
       <motion.header
         className={`nav-wrap ${docked ? 'docked' : ''} ${pathname === '/' ? 'nav-home' : 'nav-full'}`}
+        animate={
+          docked
+            ? {
+                opacity: isHidden ? 0 : 1,
+                x: '-50%',
+                y: isHidden ? 40 : 0,
+                scale: isHidden ? 0.96 : 1,
+              }
+            : undefined
+        }
+        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
         style={
           docked
             ? {
-                opacity,
-                x: '-50%',
-                y: translateY,
-                scale: 1 - footerProgress * 0.04,
                 pointerEvents: isHidden ? 'none' : 'auto',
                 visibility: isHidden ? 'hidden' : 'visible',
               }
@@ -99,12 +113,12 @@ export function SiteNav() {
               WEAR<span className="dock-brand-accent">GUARD</span>
             </span>
           ) : (
-            <Logo height={68} />
+            <Logo height={28} />
           )}
         </Link>
-        <nav className={open ? 'nav-links open' : 'nav-links'}>
+        <nav className="nav-links">
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className={pathname === item.href ? 'nav-active' : ''} onClick={() => setOpen(false)}>
+            <Link key={item.href} href={item.href} className={pathname === item.href ? 'nav-active' : ''}>
               <span className="nav-text">{item.label}</span>
               <span className="nav-dot" aria-hidden="true" />
             </Link>
@@ -129,11 +143,108 @@ export function SiteNav() {
               <span className="dock-corner-icon" aria-hidden="true" />
             </Link>
           )}
-          <button className="menu-btn" aria-label="Toggle menu" onClick={() => setOpen(!open)}>
-            {open ? '×' : '☰'}
+          <button
+            className={`menu-btn ${open ? 'menu-btn-open' : ''}`}
+            aria-label="Toggle menu"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            ) : (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                <line x1="4" y1="7" x2="20" y2="7" />
+                <line x1="4" y1="12" x2="20" y2="12" />
+                <line x1="4" y1="17" x2="20" y2="17" />
+              </svg>
+            )}
           </button>
         </div>
       </motion.header>
+
+      {/* FULL-SCREEN TILANIUM-STYLE MOBILE NAV DRAWER */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            className="mobile-nav-overlay"
+            initial={{ opacity: 0, y: -16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -16 }}
+            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="mobile-nav-inner">
+              <div className="mobile-nav-header-row">
+                <Link href="/" onClick={() => setOpen(false)}>
+                  <Logo height={26} />
+                </Link>
+                <button
+                  type="button"
+                  className="mobile-nav-close-btn"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close menu"
+                >
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="mobile-nav-links-list">
+                {navItems.map((item, idx) => {
+                  const isActive = pathname === item.href
+                  return (
+                    <motion.div
+                      key={item.href}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.04 * idx, duration: 0.22 }}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`mobile-nav-item ${isActive ? 'active' : ''}`}
+                        onClick={() => setOpen(false)}
+                      >
+                        <span className="mobile-item-title">{item.label}</span>
+                        <span className="mobile-item-dot" aria-hidden="true">▪</span>
+                      </Link>
+                    </motion.div>
+                  )
+                })}
+              </div>
+
+              <div className="mobile-nav-bottom">
+                <button
+                  type="button"
+                  className="mobile-search-trigger"
+                  onClick={() => {
+                    setOpen(false)
+                    setSearchOpen(true)
+                  }}
+                >
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <span>Quick Search (Formulations, Parts)</span>
+                </button>
+
+                <Link
+                  href="/contact"
+                  className="mobile-drawer-cta"
+                  onClick={() => setOpen(false)}
+                >
+                  <span>Request Technical Quote</span>
+                  <span className="mobile-cta-arrow">↗</span>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <SiteSearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )

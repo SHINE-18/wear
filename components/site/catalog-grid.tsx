@@ -207,25 +207,49 @@ export const catalogItems: CatalogItem[] = [
   },
 ]
 
-const CATEGORIES = [
-  'ALL COMPONENTS',
-  'DRYERS',
-  'FILTERS',
-  'MIXERS',
-  'LINERS',
-  'ELEVATORS',
-  'DRAG CONVEYORS',
-  'G.E.T. TIPS',
+export const CATEGORIES = [
+  { id: 'ALL COMPONENTS', label: 'All Equipment Sectors' },
+  { id: 'DRYERS', label: 'Dryer Drums & Trunnions' },
+  { id: 'FILTERS', label: 'Dust Filtration & Fans' },
+  { id: 'MIXERS', label: 'Asphalt & Concrete Mixers' },
+  { id: 'LINERS', label: 'Chute & Bin Wear Liners' },
+  { id: 'ELEVATORS', label: 'Bucket Elevators & Drives' },
+  { id: 'DRAG CONVEYORS', label: 'Drag Conveyors & Chains' },
+  { id: 'G.E.T. TIPS', label: 'Ground Engaging Tips' },
+] as const
+
+export const MATERIALS_LIST = [
+  'ALL METALLURGIES',
+  'WearGuard P450',
+  'High-Chrome Cr 28%',
+  'Cast Ni-Hard & Z-Core',
+  '62 HRC CCO Cladding',
+  '92% Al2O3 Alumina',
+  'High-Manganese Cast',
 ] as const
 
 export function CatalogGrid() {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL COMPONENTS')
+  const [selectedMaterial, setSelectedMaterial] = useState<string>('ALL METALLURGIES')
+  const [sortBy, setSortBy] = useState<'featured' | 'az' | 'za'>('featured')
   const [searchQuery, setSearchQuery] = useState('')
+  const [openCardSpecs, setOpenCardSpecs] = useState<Record<string, boolean>>({})
+
+  const toggleCardSpecs = (id: string) => {
+    setOpenCardSpecs((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }))
+  }
 
   const filteredItems = useMemo(() => {
-    return catalogItems.filter((item) => {
+    let result = catalogItems.filter((item) => {
       const matchesCategory =
         selectedCategory === 'ALL COMPONENTS' || item.category === selectedCategory
+
+      const matchesMaterial =
+        selectedMaterial === 'ALL METALLURGIES' ||
+        item.material.toLowerCase().includes(selectedMaterial.toLowerCase())
 
       const matchesSearch =
         searchQuery.trim() === '' ||
@@ -234,9 +258,23 @@ export function CatalogGrid() {
         item.material.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.category.toLowerCase().includes(searchQuery.toLowerCase())
 
-      return matchesCategory && matchesSearch
+      return matchesCategory && matchesMaterial && matchesSearch
     })
-  }, [selectedCategory, searchQuery])
+
+    if (sortBy === 'az') {
+      result = [...result].sort((a, b) => a.title.localeCompare(b.title))
+    } else if (sortBy === 'za') {
+      result = [...result].sort((a, b) => b.title.localeCompare(a.title))
+    }
+
+    return result
+  }, [selectedCategory, selectedMaterial, sortBy, searchQuery])
+
+  const hasActiveFilters =
+    selectedCategory !== 'ALL COMPONENTS' ||
+    selectedMaterial !== 'ALL METALLURGIES' ||
+    searchQuery.trim() !== '' ||
+    sortBy !== 'featured'
 
   return (
     <section className="catalog-section">
@@ -259,17 +297,18 @@ export function CatalogGrid() {
           </p>
         </div>
 
-        {/* SEARCH & CONTROL BAR */}
-        <div className="catalog-control-bar">
+        {/* MINIMAL SWISS DROPDOWN CONTROL BAR */}
+        <div className="catalog-dropdown-toolbar">
+          {/* SEARCH INPUT */}
           <div className="catalog-search-wrap">
             <svg
               className="catalog-search-icon"
-              width="18"
-              height="18"
+              width="17"
+              height="17"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.2"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -279,105 +318,214 @@ export function CatalogGrid() {
             <input
               type="text"
               className="catalog-search-input"
-              placeholder="Search components or OEM brand..."
+              placeholder="Search components or OEM specs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
 
-          <div className="catalog-status-cta">
-            <span className="catalog-count-text">
-              Showing <strong>{filteredItems.length}</strong> components
-            </span>
-            <Link href="/contact" className="catalog-quick-rfq-btn">
-              Quick RFQ
-            </Link>
+          {/* DROPDOWN SELECTORS GROUP */}
+          <div className="catalog-dropdown-group">
+            {/* 1. SECTOR DROPDOWN */}
+            <div className="custom-dropdown-wrap">
+              <label htmlFor="sector-select" className="dropdown-label">SECTOR</label>
+              <div className="dropdown-select-box">
+                <select
+                  id="sector-select"
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="clean-dropdown-select"
+                >
+                  {CATEGORIES.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.label}
+                    </option>
+                  ))}
+                </select>
+                <span className="dropdown-arrow-icon" aria-hidden="true">▾</span>
+              </div>
+            </div>
+
+            {/* 2. METALLURGY DROPDOWN */}
+            <div className="custom-dropdown-wrap">
+              <label htmlFor="material-select" className="dropdown-label">METALLURGY</label>
+              <div className="dropdown-select-box">
+                <select
+                  id="material-select"
+                  value={selectedMaterial}
+                  onChange={(e) => setSelectedMaterial(e.target.value)}
+                  className="clean-dropdown-select"
+                >
+                  {MATERIALS_LIST.map((mat) => (
+                    <option key={mat} value={mat}>
+                      {mat === 'ALL METALLURGIES' ? 'All Metallurgies' : mat}
+                    </option>
+                  ))}
+                </select>
+                <span className="dropdown-arrow-icon" aria-hidden="true">▾</span>
+              </div>
+            </div>
+
+            {/* 3. SORT ORDER DROPDOWN */}
+            <div className="custom-dropdown-wrap">
+              <label htmlFor="sort-select" className="dropdown-label">SORT</label>
+              <div className="dropdown-select-box">
+                <select
+                  id="sort-select"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as 'featured' | 'az' | 'za')}
+                  className="clean-dropdown-select"
+                >
+                  <option value="featured">Featured Order</option>
+                  <option value="az">Name (A → Z)</option>
+                  <option value="za">Name (Z → A)</option>
+                </select>
+                <span className="dropdown-arrow-icon" aria-hidden="true">▾</span>
+              </div>
+            </div>
+
+            {/* RESET FILTERS */}
+            {hasActiveFilters && (
+              <button
+                type="button"
+                className="dropdown-reset-btn"
+                onClick={() => {
+                  setSelectedCategory('ALL COMPONENTS')
+                  setSelectedMaterial('ALL METALLURGIES')
+                  setSortBy('featured')
+                  setSearchQuery('')
+                }}
+              >
+                Reset ✕
+              </button>
+            )}
           </div>
         </div>
 
-        {/* CATEGORY FILTER TABS */}
-        <div className="catalog-filter-tabs" role="tablist">
-          {CATEGORIES.map((cat) => {
-            const count =
-              cat === 'ALL COMPONENTS'
-                ? catalogItems.length
-                : catalogItems.filter((i) => i.category === cat).length
-
-            const isActive = selectedCategory === cat
-
-            return (
-              <button
-                key={cat}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => setSelectedCategory(cat)}
-                className={`catalog-tab-btn ${isActive ? 'active' : ''}`}
-              >
-                {cat} {cat === 'ALL COMPONENTS' ? `(${count})` : ''}
-              </button>
-            )
-          })}
+        {/* STATUS BAR */}
+        <div className="catalog-status-bar">
+          <span className="catalog-count-badge">
+            <strong>{filteredItems.length}</strong> components available
+          </span>
+          <Link href="/contact" className="catalog-quick-rfq-pill">
+            <span>Request Custom Batch RFQ</span>
+            <Arrow />
+          </Link>
         </div>
 
-        {/* 4-COLUMN CARDS GRID */}
+        {/* 4-COLUMN CARDS GRID WITH DROPDOWN SPEC DRAWERS */}
         <motion.div layout className="catalog-grid">
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => (
-              <motion.div
-                key={item.id}
-                layout
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.25 }}
-                className="catalog-card"
-              >
-                {/* IMAGE CONTAINER WITH BADGES */}
-                <div className="catalog-card-image-wrap">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="catalog-card-img"
-                    loading="lazy"
-                  />
+            {filteredItems.map((item) => {
+              const isSpecsOpen = !!openCardSpecs[item.id]
 
-                  {/* OVERLAY BADGES (TOP RIGHT) */}
-                  <div className="catalog-badges-overlay">
-                    <span className="catalog-spec-badge material-badge">
-                      {item.material}
-                    </span>
-                    <span className="catalog-spec-badge life-badge">
-                      {item.life}
-                    </span>
+              return (
+                <motion.div
+                  key={item.id}
+                  layout
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  className="catalog-card"
+                >
+                  {/* IMAGE CONTAINER WITH BADGES */}
+                  <div className="catalog-card-image-wrap">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="catalog-card-img"
+                      loading="lazy"
+                    />
+
+                    {/* OVERLAY BADGES (TOP RIGHT) */}
+                    <div className="catalog-badges-overlay">
+                      <span className="catalog-spec-badge material-badge">
+                        {item.material}
+                      </span>
+                      <span className="catalog-spec-badge life-badge">
+                        {item.life}
+                      </span>
+                    </div>
                   </div>
-                </div>
 
-                {/* CARD BODY */}
-                <div className="catalog-card-body">
-                  <span className="catalog-category-tag">{item.categoryLabel}</span>
-                  <h3 className="catalog-card-title">
-                    <Link href={item.href}>{item.title}</Link>
-                  </h3>
-                  <p className="catalog-card-desc">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
+                  {/* CARD BODY */}
+                  <div className="catalog-card-body">
+                    <span className="catalog-category-tag">{item.categoryLabel}</span>
+                    <h3 className="catalog-card-title">
+                      <Link href={item.href}>{item.title}</Link>
+                    </h3>
+                    <p className="catalog-card-desc">{item.description}</p>
+
+                    {/* COLLAPSIBLE SPECIFICATION ACCORDION / DROPDOWN */}
+                    <div className="card-spec-accordion-wrap">
+                      <button
+                        type="button"
+                        className={`card-spec-toggle-btn ${isSpecsOpen ? 'open' : ''}`}
+                        onClick={() => toggleCardSpecs(item.id)}
+                        aria-expanded={isSpecsOpen}
+                      >
+                        <span>{isSpecsOpen ? 'Hide Engineering Specs' : 'Engineering Specifications'}</span>
+                        <span className="spec-chevron-icon" aria-hidden="true">
+                          {isSpecsOpen ? '▲' : '▼'}
+                        </span>
+                      </button>
+
+                      <AnimatePresence>
+                        {isSpecsOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                            className="card-spec-drawer-content"
+                          >
+                            <div className="card-spec-matrix">
+                              <div className="spec-row">
+                                <span className="spec-lbl">Metallurgy:</span>
+                                <span className="spec-val">{item.material}</span>
+                              </div>
+                              <div className="spec-row">
+                                <span className="spec-lbl">Wear Life:</span>
+                                <span className="spec-val">{item.life}</span>
+                              </div>
+                              <div className="spec-row">
+                                <span className="spec-lbl">Compatibility:</span>
+                                <span className="spec-val">OEM Direct Drop-in</span>
+                              </div>
+                              <div className="spec-row">
+                                <span className="spec-lbl">Lead Time:</span>
+                                <span className="spec-val">In-Stock / 14 Days</span>
+                              </div>
+                            </div>
+                            <Link href="/contact" className="spec-drawer-rfq-link">
+                              Request Part Drawing &amp; Quote →
+                            </Link>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </motion.div>
+              )
+            })}
           </AnimatePresence>
         </motion.div>
 
         {filteredItems.length === 0 && (
           <div className="catalog-empty-state">
-            <p>No components found matching &ldquo;{searchQuery}&rdquo;.</p>
+            <p>No components found matching your selected dropdown filters.</p>
             <button
               type="button"
               className="catalog-clear-btn"
               onClick={() => {
                 setSearchQuery('')
                 setSelectedCategory('ALL COMPONENTS')
+                setSelectedMaterial('ALL METALLURGIES')
+                setSortBy('featured')
               }}
             >
-              Clear filters
+              Reset all dropdown filters
             </button>
           </div>
         )}

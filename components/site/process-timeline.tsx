@@ -15,22 +15,22 @@ const industrialSteps: ProcessItem[] = [
   {
     num: '01.',
     title: 'Consultation',
-    desc: 'We analyze your operating wear zones, aggregate abrasion patterns, and temperature loads to diagnose failure root-causes and define exact metallurgy targets.',
+    desc: 'We analyze your needs and define the best solution.',
   },
   {
     num: '02.',
     title: 'Planning',
-    desc: '3D laser scanning, precise CAD reverse-engineering, and alloy chemistry formulation (High-Chrome, Ni-Hard, Manganese) tailored to your machinery.',
+    desc: 'We design a strategy tailored to your operations.',
   },
   {
     num: '03.',
     title: 'Implementation',
-    desc: 'Foundry casting, controlled heat treatment, and CNC precision machining executed to strict ISO 9001 tolerances for 100% guaranteed bolt-on fit.',
+    desc: 'We execute the solution with precision and quality.',
   },
   {
     num: '04.',
     title: 'Support',
-    desc: 'Rapid global dispatch, field installation assistance, subscription-based restocking, and continuous operational wear-life optimization.',
+    desc: 'We provide continuous support to ensure long-term performance.',
   },
 ]
 
@@ -45,37 +45,42 @@ function StepRow({
   total: number
   progress: MotionValue<number>
 }) {
-  const stepThreshold = index / (total - 1)
+  // Calibrated so Support (step 3) activates comfortably as it enters view
+  const stepThreshold = (index / (total - 1)) * 0.85
   
-  // Smooth active highlight as scroll passes step
-  const opacity = useTransform(
+  // Smooth active highlight for text content
+  const textOpacity = useTransform(
     progress,
-    [Math.max(0, stepThreshold - 0.15), stepThreshold, Math.min(1, stepThreshold + 0.15)],
+    [Math.max(0, stepThreshold - 0.12), stepThreshold, Math.min(1, stepThreshold + 0.15)],
     [0.35, 1, 1]
   )
 
-  // Node color — transitions from subtle muted block to solid orange block
+  // Node color — transitions from crisp dark charcoal with border to solid orange
   const dotBackground = useTransform(
     progress,
-    [Math.max(0, stepThreshold - 0.04), stepThreshold],
-    ['rgba(255,255,255,0.18)', '#D94B2B']
+    [Math.max(0, stepThreshold - 0.03), stepThreshold],
+    ['#22252C', '#D94B2B']
   )
 
   const dotScale = useTransform(
     progress,
-    [Math.max(0, stepThreshold - 0.04), stepThreshold, Math.min(1, stepThreshold + 0.08)],
+    [Math.max(0, stepThreshold - 0.03), stepThreshold, Math.min(1, stepThreshold + 0.07)],
     [1, 1.15, 1]
   )
 
   return (
-    <motion.div className="process-step-item" style={{ opacity }}>
-      {/* Sharp rectangular node on the spine */}
+    <div className="process-step-item">
+      {/* Circle node on the spine - margin-centered so transforms never offset alignment */}
       <motion.div
         className="spine-node-dot"
-        style={{ backgroundColor: dotBackground, scale: dotScale }}
+        style={{
+          backgroundColor: dotBackground,
+          scale: dotScale,
+        }}
       />
-      {/* STEP CONTENT */}
-      <div className="step-content-row">
+
+      {/* STEP CONTENT with scroll-linked opacity */}
+      <motion.div className="step-content-row" style={{ opacity: textOpacity }}>
         <div className="step-title-wrap">
           <h3>
             {step.title}
@@ -85,48 +90,24 @@ function StepRow({
         <div className="step-desc-wrap">
           <p>{step.desc}</p>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   )
 }
 
 export function ProcessTimeline() {
   const containerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
-  const [spineBounds, setSpineBounds] = useState<{ top: number; height: number } | null>(null)
 
-  // Measure exact vertical centers of first and last step for pixel-perfect line anchoring
-  useEffect(() => {
-    const updateBounds = () => {
-      if (!listRef.current) return
-      const stepEls = listRef.current.querySelectorAll('.process-step-item')
-      if (stepEls.length >= 2) {
-        const first = stepEls[0] as HTMLElement
-        const last = stepEls[stepEls.length - 1] as HTMLElement
-        const listRect = listRef.current.getBoundingClientRect()
-        const firstRect = first.getBoundingClientRect()
-        const lastRect = last.getBoundingClientRect()
-
-        const top = firstRect.top + firstRect.height / 2 - listRect.top
-        const bottom = lastRect.top + lastRect.height / 2 - listRect.top
-        setSpineBounds({ top, height: bottom - top })
-      }
-    }
-
-    updateBounds()
-    window.addEventListener('resize', updateBounds)
-    return () => window.removeEventListener('resize', updateBounds)
-  }, [])
-
-  // Track scroll through the list
+  // Track scroll through the list - ensures laser completes into the Support dot as Support comes into view
   const { scrollYProgress } = useScroll({
     target: listRef,
-    offset: ['start 65%', 'end 60%'],
+    offset: ['start 60%', 'end 85%'],
   })
 
   // Ultra smooth spring interpolation for buttery, fluid motion
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 60,
+    stiffness: 75,
     damping: 24,
     mass: 0.5,
     restDelta: 0.0005,
@@ -137,9 +118,12 @@ export function ProcessTimeline() {
       <div className="process-timeline-container">
         {/* HEADER */}
         <div className="process-header">
-          <SectionLabel>How We Work</SectionLabel>
-          <h2>
-            Engineered <em>Processes</em>
+          <div className="process-eyebrow">
+            <span className="eyebrow-pipe" aria-hidden="true" />
+            <span>How We Work</span>
+          </div>
+          <h2 className="process-main-title">
+            Engineered <span className="title-muted">Processes</span>
             <br />
             that Ensure Consistency
           </h2>
@@ -147,16 +131,8 @@ export function ProcessTimeline() {
 
         {/* TIMELINE LIST */}
         <div className="process-timeline-wrapper" ref={listRef}>
-          {/* Vertical spine running exactly between step 1 and step 4 */}
-          <div
-            className="process-vertical-spine"
-            aria-hidden="true"
-            style={
-              spineBounds
-                ? { top: `${spineBounds.top}px`, height: `${spineBounds.height}px` }
-                : { top: '3.5rem', height: 'calc(100% - 7rem)' }
-            }
-          >
+          {/* Full-height vertical hatched spine running continuously past Support */}
+          <div className="process-vertical-spine" aria-hidden="true">
             <motion.div
               className="spine-track-laser"
               style={{ scaleY: smoothProgress, originY: 0 }}

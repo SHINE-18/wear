@@ -137,17 +137,6 @@ export default function CustomPartsPage() {
         </div>
       </section>
 
-      {/* --- BOTTOM CTA --- */}
-      <section className="page-cta section-dark">
-        <h2>
-          Have a drawing or <em>physical sample?</em>
-        </h2>
-        <p style={{ color: '#8c92a4', maxWidth: '34rem', margin: '1rem auto 2.5rem', lineHeight: 1.6 }}>
-          Send your specifications to our engineering team for a full metallurgical review and fixed quote within 24–48 hours.
-        </p>
-        <Button href="/contact">Send Drawings to Engineering</Button>
-      </section>
-
       <SiteFooter />
     </main>
   )

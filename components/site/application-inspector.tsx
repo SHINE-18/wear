@@ -79,7 +79,7 @@ export function ApplicationInspector({ applications }: Props) {
   return (
     <div ref={containerRef} className="inspector-scroll-track">
       <div className="inspector-sticky-viewport">
-        {/* SECTION HEADING WITH TOP-RIGHT VIEW ALL BUTTON PINNED TOGETHER */}
+        {/* SECTION HEADING WITH VIEW ALL BUTTON */}
         <div className="inspector-heading-wrap">
           <div className="section-heading inspector-heading">
             <SectionLabel>Application Engineering</SectionLabel>
@@ -93,15 +93,16 @@ export function ApplicationInspector({ applications }: Props) {
             </p>
           </div>
 
-          <Link href="/applications" className="inspector-all-link">
-            <span>View All Engineering</span>
-            <Arrow />
-          </Link>
+          <div className="inspector-heading-action">
+            <Link href="/applications" className="inspector-all-link">
+              <span>View All Engineering</span>
+              <Arrow />
+            </Link>
+          </div>
         </div>
 
-        {/* 2-COLUMN MAIN INSPECTOR LAYOUT */}
+        {/* FULL-WIDTH TECHNICAL INSPECTOR ROWS */}
         <div className="inspector-container">
-          {/* LEFT: 4 APPLICATION ROWS WITH ACTIVE ACCORDION */}
           <div className="inspector-list" role="tablist" aria-label="Applications list">
             {items.map((app, idx) => {
               const isActive = idx === activeIdx
@@ -164,36 +165,6 @@ export function ApplicationInspector({ applications }: Props) {
                 </div>
               )
             })}
-          </div>
-
-          {/* RIGHT: CLEAN INDUSTRIAL PREVIEW PANEL */}
-          <div className="inspector-viewport-stage">
-            <div className="inspector-viewport-frame">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeApp.slug}
-                  className="inspector-preview-card"
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.97 }}
-                  transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Link href={`/applications/${activeApp.slug}`} className="inspector-img-link">
-                    <img
-                      src={activeApp.image}
-                      alt={activeApp.title}
-                      className="inspector-preview-img"
-                    />
-                  </Link>
-
-                  {/* CLEAN SPEC ANNOTATION BADGE */}
-                  <div className="inspector-spec-badge-bottom">
-                    <span className="spec-badge-tag">APPLICATION {activeApp.num}</span>
-                    <strong>{activeApp.title}</strong>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
           </div>
         </div>
       </div>

@@ -16,35 +16,35 @@ interface CardData {
 
 const cards: CardData[] = [
   {
-    id: 'automation',
-    title: 'Automation Solutions',
-    desc: 'Smart systems to improve productivity and reduce downtime across high-temp circuits.',
+    id: 'asphalt',
+    title: 'Asphalt Plants',
+    desc: 'High-temp pugmill paddle tips, flighting liners, and slinger arms engineered for 400°C abrasive aggregate mixing.',
     image: '/images/1.png',
-    imageAlt: 'Automation solutions and industrial plant control systems',
+    imageAlt: 'Asphalt plant pugmill liners and aggregate processing wear assemblies',
     link: '/industries#asphalt-paving',
   },
   {
-    id: 'maintenance',
-    title: 'Maintenance & Support',
-    desc: 'Heavy-duty wear inspection, paddle tips, and mixer liners built to resist slurry grinding.',
+    id: 'concrete',
+    title: 'Concrete Batching',
+    desc: 'Heavy-duty pan mixer floor tiles, scraper blades, and discharge chutes built to resist slurry grinding.',
     image: '/images/2.png',
-    imageAlt: 'Industrial maintenance and heavy wear assembly rebuilds',
+    imageAlt: 'Concrete batch plant wear liners and pan mixer blades',
     link: '/industries#concrete-batching',
   },
   {
-    id: 'manufacturing',
-    title: 'Manufacturing',
-    desc: 'Custom high-chrome castings, chrome-carbide plates, and bespoke liner geometries.',
+    id: 'process-industries',
+    title: 'Process Industries',
+    desc: 'Custom ceramic-rubber composite chutes, hopper wear plates, and pneumatic transfer elbows.',
     image: '/images/3.png',
-    imageAlt: 'Custom wear liner manufacturing and precision metallurgy',
+    imageAlt: 'Process industry wear plates, chutes and transfer point liners',
     link: '/industries#recycling-shredding',
   },
   {
-    id: 'engineering',
-    title: 'Industrial Engineering',
-    desc: 'Custom solutions designed to optimize performance and efficiency.',
+    id: 'mining',
+    title: 'Mining & Quarrying',
+    desc: 'Hyper-eutectic high-chrome crusher liners, grizzly bars, and severe impact wear plates.',
     image: '/images/4.png',
-    imageAlt: 'Industrial engineering and heavy mining wear protection',
+    imageAlt: 'Mining and quarry heavy wear liners and crusher wear parts',
     link: '/industries#mining-mineral',
   },
 ]
@@ -101,9 +101,11 @@ function IndividualStackCard({
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Full-bleed image */}
+        {/* RIGHT COLUMN: Framed image */}
         <div className="stack-card-image">
-          <img src={card.image} alt={card.imageAlt} />
+          <div className="stack-card-image-frame">
+            <img src={card.image} alt={card.imageAlt} />
+          </div>
         </div>
       </Link>
     </motion.div>

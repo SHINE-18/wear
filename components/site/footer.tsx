@@ -9,17 +9,6 @@ interface SiteFooterProps {
 }
 
 export function SiteFooter({ showCta = true }: SiteFooterProps) {
-  const [email, setEmail] = useState('')
-  const [subscribed, setSubscribed] = useState(false)
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (email) {
-      setSubscribed(true)
-      setEmail('')
-    }
-  }
-
   return (
     <footer className="footer-root">
       {/* 1. TOP VIBRANT ORANGE CTA BANNER */}
@@ -53,11 +42,16 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
         <div className="footer-main-grid">
           {/* COL 1: BRAND BIO & SLEEK SQUARE BACK TO TOP */}
           <div className="footer-brand-col">
-            <Link className="footer-logo-link" href="/">
-              <Logo height={48} />
+            <Link className="footer-logo-link" href="/" aria-label="WearGuard Home">
+              <img
+                src="/images/screen.svg"
+                alt="WearGuard"
+                className="footer-brand-logo-img"
+                style={{ height: '64px', width: 'auto', objectFit: 'contain', display: 'block' }}
+              />
             </Link>
             <p className="footer-bio-text">
-              Building modern industrial solutions for businesses.
+              Precision high-wear metallurgy &amp; bespoke cast components engineered to eliminate plant downtime.
             </p>
             <button
               type="button"
@@ -76,61 +70,24 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
             <h4>Navigation</h4>
             <ul className="footer-links-list">
               <li><Link href="/">Home</Link></li>
-              <li><Link href="/about">About</Link></li>
-              <li><Link href="/materials">Services</Link></li>
-              <li><Link href="/applications">Blog</Link></li>
-              <li><Link href="/about">Careers</Link></li>
+              <li><Link href="/industries">Industries</Link></li>
+              <li><Link href="/applications">Applications</Link></li>
+              <li><Link href="/materials">Materials</Link></li>
+              <li><Link href="/custom-parts">Custom Parts</Link></li>
+              <li><Link href="/about">About Us</Link></li>
               <li><Link href="/contact">Contact</Link></li>
-              <li><Link href="/contact">404</Link></li>
             </ul>
           </div>
 
-          {/* COL 3: SERVICES */}
+          {/* COL 3: INDUSTRIES */}
           <div className="footer-links-col">
-            <h4>Services</h4>
+            <h4>Industries</h4>
             <ul className="footer-links-list">
-              <li><Link href="/custom-parts">Automation Solutions</Link></li>
-              <li><Link href="/contact">Maintenance & Support</Link></li>
-              <li><Link href="/materials">Manufacturing</Link></li>
-              <li><Link href="/custom-parts">Industrial Engineering</Link></li>
+              <li><Link href="/industries#asphalt-paving">Asphalt Plants</Link></li>
+              <li><Link href="/industries#concrete-batching">Concrete Batching</Link></li>
+              <li><Link href="/industries#process-industries">Process Industries</Link></li>
+              <li><Link href="/industries#mining-mineral">Mining &amp; Quarrying</Link></li>
             </ul>
-          </div>
-
-          {/* COL 4: NEWSLETTER SIGNUP WITH HATCHED DIVIDER */}
-          <div className="footer-newsletter-col">
-            <div className="newsletter-hatched-divider" aria-hidden="true" />
-            <div className="newsletter-content">
-              <h3>
-                Subscribe to
-                <br />
-                <span className="newsletter-title-dim">our newsletter</span>
-              </h3>
-              
-              <form onSubmit={handleSubscribe} className="newsletter-form">
-                <label htmlFor="footer-email-input" className="newsletter-label">
-                  Your email
-                </label>
-                <div className="newsletter-input-group">
-                  <input
-                    id="footer-email-input"
-                    type="email"
-                    placeholder="jane@example.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="newsletter-input"
-                  />
-                  <button type="submit" className="newsletter-submit-btn" aria-label="Subscribe">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </button>
-                </div>
-                {subscribed && (
-                  <span className="newsletter-success-msg">✓ Subscribed successfully!</span>
-                )}
-              </form>
-            </div>
           </div>
         </div>
 

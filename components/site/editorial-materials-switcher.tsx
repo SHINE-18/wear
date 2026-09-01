@@ -76,7 +76,7 @@ export function EditorialMaterialsSwitcher() {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: ACTIVE ALLOY SPOTLIGHT SHOWCASE */}
+        {/* RIGHT COLUMN: ACTIVE ALLOY SPOTLIGHT SHOWCASE (NO PHOTO - PURE TECHNICAL METALLURGY) */}
         <div className="materials-display-col">
           <AnimatePresence mode="wait">
             <motion.div
@@ -87,18 +87,17 @@ export function EditorialMaterialsSwitcher() {
               transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
               className="material-spotlight-card"
             >
-              {/* SPECIMEN IMAGE FRAME WITH OVERLAY BADGES */}
-              <div className="material-image-frame">
-                <img
-                  src={activeGrade.image}
-                  alt={activeGrade.name}
-                  className="material-showcase-img"
-                />
-
-                <div className="material-image-badges">
+              {/* TECHNICAL HEADER BAR */}
+              <div className="material-tech-header-bar">
+                <div className="tech-header-left">
                   <span className="spotlight-code-badge">
                     GRADE {activeGrade.code} / 06
                   </span>
+                  <span className="spotlight-category-tag">
+                    {activeGrade.category}
+                  </span>
+                </div>
+                <div className="tech-header-right">
                   <span className="spotlight-hardness-badge">
                     {activeGrade.hardness}
                   </span>
@@ -107,10 +106,6 @@ export function EditorialMaterialsSwitcher() {
 
               {/* MATERIAL BODY & TELEMETRY */}
               <div className="material-spotlight-body">
-                <span className="spotlight-category-tag">
-                  {activeGrade.category}
-                </span>
-
                 <h3 className="spotlight-grade-title">{activeGrade.name}</h3>
 
                 <p className="spotlight-grade-desc">{activeGrade.desc}</p>

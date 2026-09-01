@@ -5,16 +5,24 @@ import { usePathname } from 'next/navigation'
 
 /**
  * AdaptiveScrollbar dynamically detects the active viewport section
- * (e.g. Dark Carbon/Charcoal vs. Daylight Slate/Light) and updates the
- * `data-scrollbar-theme` attribute on the `<html>` element for smooth,
- * real-time scrollbar contrast adaptation.
+ * on the home page or hides the vertical scrollbar completely on subpages
+ * like /about, /applications, /contact, /materials, and /custom-parts.
  */
 export function AdaptiveScrollbar() {
   const pathname = usePathname()
 
   useEffect(() => {
+    // Hide vertical scrollbar completely on subpages
+    if (pathname !== '/') {
+      document.documentElement.setAttribute('data-scrollbar-hidden', 'true')
+      document.documentElement.removeAttribute('data-scrollbar-theme')
+      return
+    }
+
+    // On home page, enable adaptive scrollbar
+    document.documentElement.removeAttribute('data-scrollbar-hidden')
+
     const updateScrollbarTheme = () => {
-      // Evaluate the section currently occupying the middle-to-upper viewport
       const testX = Math.min(window.innerWidth - 60, window.innerWidth / 2)
       const testY = window.innerHeight * 0.45
 

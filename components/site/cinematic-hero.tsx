@@ -9,14 +9,14 @@ import { InteractiveGrid } from '@/components/site/interactive-grid'
 import { EncryptedReveal } from '@/components/site/encrypted-reveal'
 
 const wordVariants: Variants = {
-  hidden: { opacity: 0, y: 16, filter: 'blur(4px)' },
+  hidden: { opacity: 0, y: 18, filter: 'blur(3px)' },
   visible: (custom: number) => ({
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
     transition: {
-      delay: custom * 0.08 + 0.1,
-      duration: 0.5,
+      delay: custom * 0.07 + 0.28,
+      duration: 0.55,
       ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
     },
   }),
@@ -69,7 +69,13 @@ export function CinematicHero() {
           className="hero-copy"
           style={{ y: copyY, opacity: copyOpacity }}
         >
-          <SectionLabel>Engineering Excellence</SectionLabel>
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.18, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <SectionLabel>Engineering Excellence</SectionLabel>
+          </motion.div>
 
           <h1>
             <span className="hero-words-line">
@@ -263,7 +269,7 @@ export function CinematicHero() {
             </div>
 
             <p className="hero-side-desc">
-              Custom alloy metallurgy, reverse engineering from 2D/3D CAD, and small-batch manufacturing for asphalt, concrete, mining, and bulk process plants.
+              Reliable engineering, precision manufacturing, and scalable solutions for modern industries.
             </p>
           </motion.div>
         </div>

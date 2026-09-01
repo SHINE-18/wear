@@ -602,11 +602,26 @@ export const tickerItems: TickerItemData[] = [
 ]
 
 export const faqs = [
-  { q: 'What industries does WearGuard work with?', a: 'WearGuard supports asphalt, concrete, cement, mining, steel, recycling, aggregate, material handling, power generation and heavy equipment manufacturing.' },
-  { q: 'Can you provide custom industrial solutions?', a: 'Yes. WearGuard reverse-engineers parts from design through prototype, including low-volume requirements and custom wear protection.' },
-  { q: 'How do you select the right material?', a: 'Material technology is matched to the actual wear zone, considering impact, abrasion, erosion, temperature, corrosion, material flow and service-life targets.' },
-  { q: 'What information should I include in an enquiry?', a: 'Share the equipment type, manufacturer, part number, quantity, operating conditions, wear problem, temperature, material handled and any drawings, CAD files or photographs.' },
-  { q: 'Do you offer long-term technical support?', a: 'WearGuard provides engineering assistance, practical recommendations and on-site support where appropriate. Project lead times and support details are confirmed during quotation.' },
+  {
+    q: 'What industries do you work with?',
+    a: 'WearGuard supports asphalt paving, concrete batching, heavy mining & mineral processing, metal recycling, aggregate quarrying, cement kilns, and heavy industrial plant manufacturers across global operations.',
+  },
+  {
+    q: 'Do you provide custom industrial solutions?',
+    a: 'Yes. We reverse-engineer parts from 3D coordinate laser scans through CAD modeling, pattern tooling, metallurgical tailoring (Ni-Hard, 28% Chrome), and low-volume production (1–10 units) with zero OEM minimum order penalties.',
+  },
+  {
+    q: 'Can you help optimize existing production systems?',
+    a: 'Our metallurgy and application engineers analyze real-world gouging, impact, and slurry wear patterns to re-engineer profile geometries and alloy chemistries, extending component service lifecycles by 20% to 60%.',
+  },
+  {
+    q: 'How long does a typical project take?',
+    a: 'Standard custom-engineered casting runs typically ship in 4 to 8 weeks depending on pattern requirements, alloy specification, and ultrasonic/CMM dimensional QA verification.',
+  },
+  {
+    q: 'Do you offer long-term technical support?',
+    a: 'WearGuard provides ongoing metallurgical advisory, regular on-site ultrasonic wear audits, telemetry tracking, and guaranteed fleet restocking agreements to eliminate unplanned plant downtime.',
+  },
 ]
 
 export const processSteps = [
@@ -628,3 +643,33 @@ export const customFeatures = [
   { title: 'Small-Batch Production (1–10 Units)', text: 'Flexible manufacturing runs designed for urgent repairs, prototype upgrades, and niche machinery lines.' },
   { title: 'Full Mechanical & Dimensional QA', text: 'CMM dimensional verification, hardness testing (BHN/HRC), and ultrasonic inspection with certified test reports.' },
 ]
+
+export const aboutStats = [
+  { num: '20+', label: 'Years Heavy Industry', desc: 'Over two decades engineering wear-resistant alloys and specialized foundry castings.' },
+  { num: '1,200+', label: 'Custom Cast Profiles', desc: 'Proprietary wear pattern database for pugmills, crushers, and transfer chutes.' },
+  { num: '60%', label: 'Longer Service Life', desc: 'Documented wear improvements over standard manganese and low-alloy OEM liners.' },
+  { num: '1–10', label: 'Unit Small-Batch Runs', desc: 'Rapid custom manufacturing flexibility with zero minimum order penalties.' },
+]
+
+export const teamMembers = [
+  { name: 'David Vance', role: 'Principal Metallurgist & Founder', image: '/images/founder-john-smith.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Marcus Chen', role: 'Head of Foundry & Casting Works', image: '/images/team-sarah-mitchell.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Sarah Jenkins', role: 'Lead Mechanical & 3D Reverse Engineer', image: '/images/team-daniel-foster.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Dr. Arthur Reynolds', role: 'Senior Materials Scientist (Tribology)', image: '/images/team-emily-turner.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'James Thorne', role: 'Plant Wear Audit & Telemetry Specialist', image: '/images/team-james-walker.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Elena Rostova', role: 'Pattern Tooling & CNC Machining Lead', image: '/images/team-sarah-mitchell.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Cameron Wright', role: 'Asphalt & Batching Systems Specialist', image: '/images/team-emily-turner.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Liam O\'Connor', role: 'Mining & Heavy Crushing Applications Lead', image: '/images/team-daniel-foster.jpg', linkedin: 'https://linkedin.com' },
+]
+
+export const openPositions = [
+  { title: 'Senior Metallurgist (High-Chrome Alloys)', category: 'Metallurgy & QA', type: 'Full time', location: 'Melbourne, AU' },
+  { title: '3D Laser Scanning & Reverse Engineer', category: 'CAD & Tooling', type: 'Full time', location: 'Melbourne, AU' },
+  { title: 'Field Wear Audit Specialist', category: 'Field Engineering', type: 'Full time', location: 'Perth / Sydney' },
+  { title: 'Pattern Maker & CNC Tooling Lead', category: 'Foundry Works', type: 'Full time', location: 'Melbourne, AU' },
+  { title: 'Foundry Casting & Process Engineer', category: 'Manufacturing', type: 'Full time', location: 'Melbourne, AU' },
+  { title: 'Ultrasonic & Dimensional NDT Inspector', category: 'QA & Verification', type: 'Full time', location: 'Melbourne, AU' },
+  { title: 'Wear Telemetry & Systems Specialist', category: 'R&D Systems', type: 'Remote', location: 'Global' },
+  { title: 'Asphalt & Pugmill Application Advisor', category: 'Client Engineering', type: 'Full time', location: 'Brisbane, AU' },
+]
+

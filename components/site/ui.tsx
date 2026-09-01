@@ -12,16 +12,15 @@ export function Mark() {
   )
 }
 
-export function Logo({ height = 64, className = '' }: { height?: number; className?: string }) {
+export function Logo({ height = 28, className = '' }: { height?: number; className?: string }) {
   return (
-    <span className={`brand-logo-frame ${className}`}>
+    <span className={`brand-logo-frame ${className}`} aria-label="WearGuard">
       <img
         src="/images/Vector.svg"
         alt="WearGuard"
         className="brand-logo"
-        style={{ height: `${height}px`, width: 'auto' }}
+        style={{ height: `${height}px`, width: 'auto', maxHeight: '28px', objectFit: 'contain', display: 'block' }}
       />
-      <span className="logo-silver-shine" aria-hidden="true" />
     </span>
   )
 }

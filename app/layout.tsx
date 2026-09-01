@@ -1,29 +1,32 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Inter, Space_Grotesk, IBM_Plex_Mono } from 'next/font/google'
+import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from 'next/font/google'
 import { AdaptiveScrollbar } from '@/components/site/adaptive-scrollbar'
 import { SmoothScroll } from '@/components/site/smooth-scroll'
 import './globals.css'
 
-const fontDisplay = Space_Grotesk({
+const fontDisplay = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-display',
-  weight: ['500', '700'],
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
+  fallback: ['sans-serif'],
 })
 
 const fontBody = Inter({
   subsets: ['latin'],
   variable: '--font-body',
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
+  fallback: ['sans-serif'],
 })
 
-const fontMono = IBM_Plex_Mono({
+const fontMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
   weight: ['400', '500'],
   display: 'swap',
+  fallback: ['monospace'],
 })
 
 export const metadata: Metadata = {
@@ -41,10 +44,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       data-scrollbar-theme="dark"
-      className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-[#111213]`}
+      className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-[#E4EAF2]`}
       suppressHydrationWarning
     >
-      <body className="antialiased font-body bg-charcoal text-ink" suppressHydrationWarning>
+      <body className="antialiased font-body bg-[#E4EAF2] text-ink" suppressHydrationWarning>
         <SmoothScroll />
         <AdaptiveScrollbar />
         {children}
