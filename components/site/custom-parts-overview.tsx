@@ -1,101 +1,280 @@
 'use client'
 
-import { useRef } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
 import { Arrow, Button, SectionLabel } from '@/components/site/ui'
 
+interface CustomStep {
+  id: string
+  stepNum: string
+  title: string
+  subtitle: string
+  category: string
+  heading: string
+  description: string
+  specs: { label: string; value: string }[]
+  highlights: string[]
+  image: string
+  imageBadgeTop: string
+  imageBadgeBottom: string
+  ctaText: string
+  ctaHref: string
+}
+
+const customSteps: CustomStep[] = [
+  {
+    id: 'reverse-engineering',
+    stepNum: '01',
+    title: '3D Laser Scanning & CAD',
+    subtitle: '100% Guaranteed OEM Match',
+    category: 'REVERSE ENGINEERING & 3D SCANNING',
+    heading: 'Guaranteed 100% Bolt-On Interchangeability Without OEM Drawings',
+    description: 'High-precision coordinate laser scanning of worn or OEM parts to capture exact working geometries, bolt patterns, and wear profiles with ±0.05mm tolerance without needing original manufacturer drawings.',
+    specs: [
+      { label: 'Scanning Accuracy', value: '±0.05mm CMM Laser' },
+      { label: 'Input Formats', value: 'Physical Sample, 2D DWG, or CAD' },
+      { label: 'Deliverables', value: '3D SolidWorks, STEP, Parasolid' },
+      { label: 'Turnaround', value: '48-Hour Drawing Approval' },
+    ],
+    highlights: [
+      'Eliminates OEM lock-in and excessive replacement lead times',
+      'Optimizes original part metallurgy to fix premature fracture zones',
+      'Guaranteed 100% direct drop-in bolt fitment for all machinery brands',
+    ],
+    image: '/images/custom-casting-engineering.jpg',
+    imageBadgeTop: 'TOLERANCE ±0.05mm',
+    imageBadgeBottom: 'Precision CNC & Laser Inspection',
+    ctaText: 'Explore 3D Scanning Capabilities',
+    ctaHref: '/custom-parts',
+  },
+  {
+    id: 'alloy-formulation',
+    stepNum: '02',
+    title: 'Application-Tailored Alloys',
+    subtitle: 'Cr 15–28%, Ni-Hard & Manganese',
+    category: 'METALLURGICAL FORMULATION',
+    heading: 'Bespoke Metallurgy Formulated for Your Exact Wear Zone',
+    description: 'Cross-sectional wear analysis and custom chemistry formulation matched to your operating wear dynamics (high kinetic impact, severe quartz abrasion, high temperature, or acidic corrosion).',
+    specs: [
+      { label: 'Hardness Range', value: '400–680 BHN (42–65 HRC)' },
+      { label: 'Alloy Matrix', value: 'Cr 15–28%, Ni-Hard, Mn 12–18%' },
+      { label: 'Wear Extension', value: '45%–70% Over Standard OEM' },
+      { label: 'Quality Assurance', value: 'Ultrasonic & Hardness Certified' },
+    ],
+    highlights: [
+      'Hyper-eutectic chromium white irons for extreme aggregate gouging',
+      'Work-hardening austenitic manganese for severe crushing impact',
+      'Custom controlled heat-treatment cycles for stress-relief longevity',
+    ],
+    image: '/images/hardfaced-plate.webp',
+    imageBadgeTop: 'HARDNESS: 600–680 BHN',
+    imageBadgeBottom: 'Custom Metallurgy Foundry',
+    ctaText: 'Explore Alloy Chemistry',
+    ctaHref: '/materials',
+  },
+  {
+    id: 'small-batch',
+    stepNum: '03',
+    title: 'Small-Batch Flexibility',
+    subtitle: '1–10 Units With No Minimums',
+    category: 'RAPID FOUNDRY PRODUCTION',
+    heading: 'Zero Minimum Order Barrier for Emergency & Trial Runs',
+    description: 'Rapid foundry pattern tooling, mold simulation, and tight-tolerance casting for 1–10 unit prototype batches, field trial sets, or emergency breakdown replacements dispatched in 4–6 weeks.',
+    specs: [
+      { label: 'Minimum Order', value: '1 Unit Prototype Supported' },
+      { label: 'Pattern Tooling', value: 'Rapid CNC High-Density Poly' },
+      { label: 'Dispatch Window', value: '4–6 Weeks Emergency Line' },
+      { label: 'Batch Scaling', value: '1 to 500+ Restocking Contracts' },
+    ],
+    highlights: [
+      'Low tooling costs for one-off custom components',
+      'Field-trial testing sets to prove wear-life before plant-wide rollout',
+      'Scheduled recurring subscription restocking for zero stockouts',
+    ],
+    image: '/images/wearguard-hero-3d.png',
+    imageBadgeTop: 'BATCH: 1–10 UNITS',
+    imageBadgeBottom: 'Rapid Dispatch Facility',
+    ctaText: 'Start a Small-Batch Run',
+    ctaHref: '/contact',
+  },
+]
+
 export function CustomPartsOverview() {
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  // Track scroll from when top enters bottom of screen to when it's centered
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'center 55%'],
-  })
-
-  // Content illumination & elevation
-  const contentY = useTransform(scrollYProgress, [0, 0.85], [20, 0])
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.35, 0.85], [0.5, 0.85, 1])
+  const [activeTab, setActiveTab] = useState<string>('reverse-engineering')
+  const currentStep = customSteps.find((s) => s.id === activeTab) || customSteps[0]
 
   return (
-    <section
-      id="custom-parts"
-      ref={containerRef}
-      className="custom-overview-section"
-      style={{ backgroundColor: '#ffffff' }}
-    >
-      <motion.div
-        className="custom-overview-stage"
-        style={{ y: contentY, opacity: contentOpacity }}
-      >
-        {/* LEFT: PUNCHY COPY & CAPABILITY HIGHLIGHTS */}
-        <div className="custom-overview-copy">
-          <SectionLabel>Custom parts & engineering</SectionLabel>
+    <section id="custom-parts" className="custom-interactive-section">
+      <div className="custom-interactive-container">
+        {/* TOP SECTION HEADER */}
+        <div className="custom-interactive-header">
+          <SectionLabel>Custom parts &amp; engineering</SectionLabel>
           <h2>
             Engineered for any OEM part.
             <br />
             <em>Built for extreme service.</em>
           </h2>
-          <p className="custom-overview-lead">
+          <p className="custom-interactive-lead">
             WearGuard provides 3D laser-scanned reverse engineering, custom metallurgy, and small-batch flexibility (1–10 units) to eliminate downtime on any plant machinery.
           </p>
-
-          <div className="custom-overview-points">
-            <div className="custom-overview-point">
-              <span className="overview-num">01</span>
-              <div>
-                <strong>Reverse Engineering & 3D Scanning</strong>
-                <p>Guaranteed 100% bolt-on interchangeability with existing OEM equipment without original drawings.</p>
-              </div>
-            </div>
-
-            <div className="custom-overview-point">
-              <span className="overview-num">02</span>
-              <div>
-                <strong>Application-Tailored Alloys</strong>
-                <p>High-Chrome (Cr 15–28%), Ni-Hard, and manganese formulations matched to your wear zone.</p>
-              </div>
-            </div>
-
-            <div className="custom-overview-point">
-              <span className="overview-num">03</span>
-              <div>
-                <strong>Small-Batch Orders (1–10 Units)</strong>
-                <p>Order prototypes, field trial sets, or emergency replacements with no minimum order barriers.</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="custom-overview-actions">
-            <Button href="/custom-parts">
-              Explore Custom Engineering Details
-            </Button>
-            <Link href="/contact" className="about-sub-link">
-              <span>Request custom wear audit</span>
-              <Arrow />
-            </Link>
-          </div>
         </div>
 
-        {/* RIGHT: INTERACTIVE PRECISION CASTING MEDIA */}
-        <div className="custom-overview-visual">
-          <Link href="/custom-parts" className="custom-visual-frame" aria-label="Explore Custom Engineering">
-            <img 
-              src="/images/custom-casting-engineering.jpg" 
-              alt="Precision CNC machined wear casting in high-tech workshop" 
-              className="custom-visual-img"
-            />
-            <div className="custom-visual-badge">
-              <span className="custom-badge-tag">CNC MACHINING & FOUNDRY</span>
-              <strong>Precision Alloy Casting Inspection</strong>
-            </div>
-            <div className="custom-spec-tag">
-              <span>TOLERANCE: ±0.05mm</span>
-            </div>
-          </Link>
+        {/* 3-STEP TAB SWITCHER ROW */}
+        <div className="custom-steps-nav" role="tablist" aria-label="Custom engineering process steps">
+          {customSteps.map((step) => {
+            const isActive = step.id === activeTab
+            return (
+              <button
+                key={step.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActiveTab(step.id)}
+                className={`custom-step-tab ${isActive ? 'active' : ''}`}
+              >
+                <div className="step-tab-content">
+                  <span className="step-tab-num">{step.stepNum}</span>
+                  <div className="step-tab-text">
+                    <strong>{step.title}</strong>
+                    <span>{step.subtitle}</span>
+                  </div>
+                </div>
+
+                <svg
+                  className="step-tab-arrow"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7" />
+                  <polyline points="7 7 17 7 17 17" />
+                </svg>
+              </button>
+            )
+          })}
         </div>
-      </motion.div>
+
+        {/* ANIMATED ACTIVE STEP SHOWCASE STAGE */}
+        <div className="custom-step-display-stage">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep.id}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -14 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="custom-showcase-card"
+            >
+              {/* LEFT COLUMN: TECHNICAL SPECS & ACTIONS */}
+              <div className="custom-showcase-content">
+                <span className="custom-step-tag">{currentStep.category}</span>
+                <h3 className="custom-step-heading">{currentStep.heading}</h3>
+                <p className="custom-step-desc">{currentStep.description}</p>
+
+                {/* 4-CELL TELEMETRY SPECS GRID */}
+                <div className="custom-telemetry-grid">
+                  {currentStep.specs.map((sp, idx) => (
+                    <div key={idx} className="custom-telemetry-cell">
+                      <span className="telemetry-label">{sp.label}</span>
+                      <strong className="telemetry-val">{sp.value}</strong>
+                    </div>
+                  ))}
+                </div>
+
+                {/* HIGHLIGHTS CHECKLIST */}
+                <div className="custom-highlights-list">
+                  {currentStep.highlights.map((h, i) => (
+                    <div key={i} className="custom-highlight-item">
+                      <span className="highlight-check" aria-hidden="true">✓</span>
+                      <span>{h}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* ACTIONS ROW */}
+                <div className="custom-actions-row">
+                  <Button href={currentStep.ctaHref}>
+                    {currentStep.ctaText}
+                  </Button>
+                  <Link href="/contact" className="about-sub-link">
+                    <span>Request technical consultation</span>
+                    <Arrow />
+                  </Link>
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: RICH VISUAL MEDIA */}
+              <div className="custom-showcase-visual">
+                <div className={`custom-visual-box ${currentStep.id === 'reverse-engineering' ? 'is-scanning' : ''}`}>
+                  {/* BASE PHYSICAL PART IMAGE */}
+                  <img
+                    src={currentStep.image}
+                    alt={currentStep.title}
+                    className="custom-visual-image custom-visual-base"
+                  />
+
+                  {/* 3D LASER SCAN DUAL-IMAGE REVEAL LAYER */}
+                  {currentStep.id === 'reverse-engineering' && (
+                    <>
+                      {/* TOP REVEALED CAD WIREFRAME SCAN IMAGE */}
+                      <img
+                        src="/images/custom-casting-cad-scan.jpg"
+                        alt="3D CAD laser reverse-engineering scan"
+                        className="custom-visual-image custom-visual-cad-scan"
+                      />
+
+                      <div className="custom-laser-scan-container" aria-hidden="true">
+                        {/* COORDINATE GRID MESH */}
+                        <div className="laser-scan-mesh" />
+
+                        {/* SYNCHRONIZED SWEEPING LASER BEAM WITH GLOW TRAIL */}
+                        <div className="laser-scan-beam-wrap">
+                          <div className="laser-scan-trail" />
+                          <div className="laser-scan-beam" />
+                        </div>
+
+                        {/* SCANNER HUD TELEMETRY OVERLAY */}
+                        <div className="laser-scan-hud">
+                          <div className="laser-hud-top">
+                            <span className="laser-hud-live-dot" />
+                            <span>3D CMM SCANNING ACTIVE</span>
+                          </div>
+                          <div className="laser-hud-coords">
+                            <span>X: 428.14mm</span>
+                            <span>Y: 890.52mm</span>
+                            <span>Z: 14.00mm</span>
+                          </div>
+                        </div>
+
+                        {/* TARGET CORNER BRACKETS */}
+                        <div className="laser-scan-reticle reticle-tl" />
+                        <div className="laser-scan-reticle reticle-tr" />
+                        <div className="laser-scan-reticle reticle-bl" />
+                        <div className="laser-scan-reticle reticle-br" />
+                      </div>
+                    </>
+                  )}
+
+                  <div className="custom-visual-top-badge">
+                    <span>{currentStep.imageBadgeTop}</span>
+                  </div>
+                  <div className="custom-visual-bottom-badge">
+                    <span className="badge-tag">WEARGUARD ENGINEERING</span>
+                    <strong>{currentStep.imageBadgeBottom}</strong>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
     </section>
   )
 }

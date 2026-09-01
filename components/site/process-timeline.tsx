@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, useScroll, useSpring, useTransform, MotionValue } from 'motion/react'
 import { SectionLabel } from '@/components/site/ui'
@@ -54,8 +54,26 @@ function StepRow({
     [0.35, 1, 1]
   )
 
+  // Node color — transitions from subtle muted block to solid orange block
+  const dotBackground = useTransform(
+    progress,
+    [Math.max(0, stepThreshold - 0.04), stepThreshold],
+    ['rgba(255,255,255,0.18)', '#D94B2B']
+  )
+
+  const dotScale = useTransform(
+    progress,
+    [Math.max(0, stepThreshold - 0.04), stepThreshold, Math.min(1, stepThreshold + 0.08)],
+    [1, 1.15, 1]
+  )
+
   return (
     <motion.div className="process-step-item" style={{ opacity }}>
+      {/* Sharp rectangular node on the spine */}
+      <motion.div
+        className="spine-node-dot"
+        style={{ backgroundColor: dotBackground, scale: dotScale }}
+      />
       {/* STEP CONTENT */}
       <div className="step-content-row">
         <div className="step-title-wrap">
@@ -75,6 +93,30 @@ function StepRow({
 export function ProcessTimeline() {
   const containerRef = useRef<HTMLDivElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
+  const [spineBounds, setSpineBounds] = useState<{ top: number; height: number } | null>(null)
+
+  // Measure exact vertical centers of first and last step for pixel-perfect line anchoring
+  useEffect(() => {
+    const updateBounds = () => {
+      if (!listRef.current) return
+      const stepEls = listRef.current.querySelectorAll('.process-step-item')
+      if (stepEls.length >= 2) {
+        const first = stepEls[0] as HTMLElement
+        const last = stepEls[stepEls.length - 1] as HTMLElement
+        const listRect = listRef.current.getBoundingClientRect()
+        const firstRect = first.getBoundingClientRect()
+        const lastRect = last.getBoundingClientRect()
+
+        const top = firstRect.top + firstRect.height / 2 - listRect.top
+        const bottom = lastRect.top + lastRect.height / 2 - listRect.top
+        setSpineBounds({ top, height: bottom - top })
+      }
+    }
+
+    updateBounds()
+    window.addEventListener('resize', updateBounds)
+    return () => window.removeEventListener('resize', updateBounds)
+  }, [])
 
   // Track scroll through the list
   const { scrollYProgress } = useScroll({
@@ -84,9 +126,9 @@ export function ProcessTimeline() {
 
   // Ultra smooth spring interpolation for buttery, fluid motion
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 55,
-    damping: 22,
-    mass: 0.6,
+    stiffness: 60,
+    damping: 24,
+    mass: 0.5,
     restDelta: 0.0005,
   })
 
@@ -105,6 +147,22 @@ export function ProcessTimeline() {
 
         {/* TIMELINE LIST */}
         <div className="process-timeline-wrapper" ref={listRef}>
+          {/* Vertical spine running exactly between step 1 and step 4 */}
+          <div
+            className="process-vertical-spine"
+            aria-hidden="true"
+            style={
+              spineBounds
+                ? { top: `${spineBounds.top}px`, height: `${spineBounds.height}px` }
+                : { top: '3.5rem', height: 'calc(100% - 7rem)' }
+            }
+          >
+            <motion.div
+              className="spine-track-laser"
+              style={{ scaleY: smoothProgress, originY: 0 }}
+            />
+          </div>
+
           {/* PROCESS STEP ITEMS */}
           <div className="process-steps-column">
             {industrialSteps.map((step, idx) => (
