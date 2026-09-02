@@ -6,10 +6,12 @@ import Lenis from 'lenis'
 export function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 2,
+      duration: 1.08,
+      easing: (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+      touchMultiplier: 1.5,
       infinite: false,
+      syncTouch: true,
+      syncTouchLerp: 0.075,
     })
 
     function raf(time: number) {

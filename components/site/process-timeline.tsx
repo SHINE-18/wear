@@ -1,8 +1,8 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useSpring, useTransform, MotionValue } from 'motion/react'
+import { motion, useScroll, useTransform, MotionValue } from 'motion/react'
 import { SectionLabel } from '@/components/site/ui'
 
 interface ProcessItem {
@@ -105,13 +105,7 @@ export function ProcessTimeline() {
     offset: ['start 60%', 'end 85%'],
   })
 
-  // Ultra smooth spring interpolation for buttery, fluid motion
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 75,
-    damping: 24,
-    mass: 0.5,
-    restDelta: 0.0005,
-  })
+  // Lenis handles scroll smoothing — no spring needed (prevents wobble)
 
   return (
     <section ref={containerRef} className="process-timeline-section section-dark">
@@ -135,7 +129,7 @@ export function ProcessTimeline() {
           <div className="process-vertical-spine" aria-hidden="true">
             <motion.div
               className="spine-track-laser"
-              style={{ scaleY: smoothProgress, originY: 0 }}
+              style={{ scaleY: scrollYProgress, originY: 0 }}
             />
           </div>
 
@@ -147,7 +141,7 @@ export function ProcessTimeline() {
                 step={step}
                 index={idx}
                 total={industrialSteps.length}
-                progress={smoothProgress}
+                progress={scrollYProgress}
               />
             ))}
           </div>

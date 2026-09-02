@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRef } from 'react'
-import { motion, useScroll, useSpring, useTransform, type Variants } from 'motion/react'
+import { motion, useScroll, useTransform, type Variants } from 'motion/react'
 import { Counter } from '@/components/site/motion'
 import { SectionLabel } from '@/components/site/ui'
 import { InteractiveGrid } from '@/components/site/interactive-grid'
@@ -30,32 +30,28 @@ export function CinematicHero() {
     offset: ['start start', 'end end'],
   })
 
-  // Smooth spring progress for slow, fluid, cinematic animation
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 95,
-    damping: 24,
-    restDelta: 0.001,
-  })
+  // Direct transforms from scroll progress — Lenis handles the smoothing,
+  // so no useSpring needed here (double-smoothing causes wobble/jiggle)
 
   // 1. Left hero copy (Eyebrow + Title) slides UP and fades early
-  const copyY = useTransform(smoothProgress, [0, 0.18], [0, -180])
-  const copyOpacity = useTransform(smoothProgress, [0, 0.18, 0.30], [1, 1, 0])
+  const copyY = useTransform(scrollYProgress, [0, 0.18], [0, -180])
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.18, 0.30], [1, 1, 0])
 
   // 2. Right sidebar "Get a quote" orange CTA fades
-  const ctaY = useTransform(smoothProgress, [0, 0.40], [0, 0])
-  const ctaOpacity = useTransform(smoothProgress, [0, 0.20, 0.32], [1, 1, 0])
+  const ctaY = useTransform(scrollYProgress, [0, 0.40], [0, 0])
+  const ctaOpacity = useTransform(scrollYProgress, [0, 0.20, 0.32], [1, 1, 0])
 
   // 3. Right metrics block slides UPWARDS and fades
-  const metricsY = useTransform(smoothProgress, [0, 0.18], [0, -360])
-  const metricsOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0])
+  const metricsY = useTransform(scrollYProgress, [0, 0.18], [0, -360])
+  const metricsOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0])
 
   // 4. Video expands to full screen by progress 0.35 (~70vh scroll), then stays pinned for the curtain
-  const videoTop = useTransform(smoothProgress, [0, 0.18, 0.35], ['80%', '26%', '0%'])
-  const videoHeight = useTransform(smoothProgress, [0, 0.18, 0.35], ['20%', '74%', '100%'])
+  const videoTop = useTransform(scrollYProgress, [0, 0.18, 0.35], ['80%', '26%', '0%'])
+  const videoHeight = useTransform(scrollYProgress, [0, 0.18, 0.35], ['20%', '74%', '100%'])
 
   // 5. Colour blend: as curtain enters and rises, the exposed top of the video blurs and tints to #636573, reaching 100% solid blend seamlessly
-  const videoTintOpacity = useTransform(smoothProgress, [0.45, 0.65, 0.78], [0, 0.7, 1])
-  const videoBlur = useTransform(smoothProgress, [0.45, 0.65, 0.78], [0, 10, 24])
+  const videoTintOpacity = useTransform(scrollYProgress, [0.45, 0.65, 0.78], [0, 0.7, 1])
+  const videoBlur = useTransform(scrollYProgress, [0.45, 0.65, 0.78], [0, 10, 24])
   const videoBlurFilter = useTransform(videoBlur, (v) => (v > 0 ? `blur(${v}px)` : 'none'))
 
   return (

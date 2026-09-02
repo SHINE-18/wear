@@ -977,6 +977,8 @@ section {
   grid-template-rows: 80% 20%;
   background-color: #E4EAF2;
   z-index: 1;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .interactive-grid-canvas {
@@ -1347,6 +1349,7 @@ section {
   z-index: 30;
   margin-top: -100vh;
   background: #636573;
+  transform: translateZ(0);
 }
 
 /* --- STEEL-SLATE SECTION TINT (#636573) --- */
@@ -7405,6 +7408,13 @@ section {
   padding: clamp(5rem, 8vw, 7.5rem) clamp(1.5rem, 4vw, 4.5rem);
 }
 
+.custom-pillars-section .section-heading {
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+}
+
 .custom-pillars-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -7453,6 +7463,13 @@ section {
 
 .custom-process-section {
   padding: clamp(5.5rem, 9vw, 8rem) clamp(1.5rem, 4vw, 4.5rem);
+}
+
+.custom-process-section .section-heading {
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
 }
 
 .custom-steps-grid {
@@ -8190,6 +8207,13 @@ section {
 .related-strip {
   padding: clamp(5.5rem, 9vw, 8rem) clamp(1.5rem, 4vw, 4.5rem);
   border-top: 1px solid var(--line);
+}
+
+.related-strip .section-heading {
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2.5rem;
 }
 
 .related-grid {

@@ -7,6 +7,8 @@ import { usePathname } from 'next/navigation'
  * AdaptiveScrollbar dynamically detects the active viewport section
  * on the home page or hides the vertical scrollbar completely on subpages
  * like /about, /applications, /contact, /materials, and /custom-parts.
+ * 
+ * Throttled to ~10fps (100ms) to avoid layout thrash from elementsFromPoint().
  */
 export function AdaptiveScrollbar() {
   const pathname = usePathname()
@@ -74,15 +76,15 @@ export function AdaptiveScrollbar() {
       }
     }
 
-    let isTicking = false
+    // Throttle to ~10fps (100ms) instead of every frame to avoid layout thrashing
+    let lastRun = 0
+    const THROTTLE_MS = 100
+
     const onScroll = () => {
-      if (!isTicking) {
-        window.requestAnimationFrame(() => {
-          updateScrollbarTheme()
-          isTicking = false
-        })
-        isTicking = true
-      }
+      const now = performance.now()
+      if (now - lastRun < THROTTLE_MS) return
+      lastRun = now
+      requestAnimationFrame(updateScrollbarTheme)
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
