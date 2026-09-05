@@ -429,7 +429,7 @@ export function CatalogGrid() {
                   transition={{ duration: 0.25 }}
                   className="catalog-card"
                 >
-                  {/* IMAGE CONTAINER WITH BADGES */}
+                  {/* IMAGE CONTAINER */}
                   <div className="catalog-card-image-wrap">
                     <img
                       src={item.image}
@@ -437,16 +437,6 @@ export function CatalogGrid() {
                       className="catalog-card-img"
                       loading="lazy"
                     />
-
-                    {/* OVERLAY BADGES (TOP RIGHT) */}
-                    <div className="catalog-badges-overlay">
-                      <span className="catalog-spec-badge material-badge">
-                        {item.material}
-                      </span>
-                      <span className="catalog-spec-badge life-badge">
-                        {item.life}
-                      </span>
-                    </div>
                   </div>
 
                   {/* CARD BODY */}

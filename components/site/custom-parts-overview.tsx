@@ -238,17 +238,6 @@ export function CustomPartsOverview() {
                             <div className="laser-scan-trail" />
                             <div className="laser-scan-beam" />
                           </div>
-                          <div className="laser-scan-hud">
-                            <div className="laser-hud-top">
-                              <span className="laser-hud-live-dot" />
-                              <span>3D CMM SCANNING ACTIVE</span>
-                            </div>
-                            <div className="laser-hud-coords">
-                              <span>X: 428.14mm</span>
-                              <span>Y: 890.52mm</span>
-                              <span>Z: 14.00mm</span>
-                            </div>
-                          </div>
                           <div className="laser-scan-reticle reticle-tl" />
                           <div className="laser-scan-reticle reticle-tr" />
                           <div className="laser-scan-reticle reticle-bl" />
@@ -257,13 +246,6 @@ export function CustomPartsOverview() {
                       </>
                     )}
 
-                    <div className="custom-visual-top-badge">
-                      <span>{currentStep.imageBadgeTop}</span>
-                    </div>
-                    <div className="custom-visual-bottom-badge">
-                      <span className="badge-tag">WEARGUARD ENGINEERING</span>
-                      <strong>{currentStep.imageBadgeBottom}</strong>
-                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -335,9 +317,6 @@ export function CustomPartsOverview() {
                         {/* MEDIA IMAGE */}
                         <div className="mobile-accordion-image-box">
                           <img src={step.image} alt={step.title} className="mobile-accordion-img" />
-                          <div className="mobile-image-badge">
-                            <span>{step.imageBadgeTop}</span>
-                          </div>
                         </div>
 
                         {/* CTA ACTION */}

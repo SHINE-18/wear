@@ -106,15 +106,10 @@ export default function Page() {
             <FadeUp className="material-scroll-card">
               <div className="material-scroll-header">
                 <h3>WearGuard Designed &amp; Cut to Shape Parts</h3>
-                <div className="material-badge-group">
-                  <span className="material-spec-pill">P400–P500 Q&amp;T</span>
-                  <span className="material-badge">400–500 BHN</span>
-                </div>
               </div>
 
               <div className="material-specimen-frame">
                 <img src="/images/hardfaced-plate.webp" alt="WearGuard Designed & Cut to Shape Parts" />
-                <div className="specimen-crosshair-tag">[CROSS-SECTION: CNC PROFILE &amp; BEVEL]</div>
               </div>
 
               <p className="material-scroll-desc">
@@ -159,15 +154,10 @@ export default function Page() {
             <FadeUp className="material-scroll-card">
               <div className="material-scroll-header">
                 <h3>EnduraCast Z-Core Liners</h3>
-                <div className="material-badge-group">
-                  <span className="material-spec-pill">MATRIX COMPOSITE</span>
-                  <span className="material-badge">Z-CORE HYBRID</span>
-                </div>
               </div>
 
               <div className="material-specimen-frame">
                 <img src="/images/ceramic-liners.webp" alt="EnduraCast Z-Core Liners" />
-                <div className="specimen-crosshair-tag">[CROSS-SECTION: CERAMIC-ELASTOMER BOND]</div>
               </div>
 
               <p className="material-scroll-desc">
@@ -212,15 +202,10 @@ export default function Page() {
             <FadeUp className="material-scroll-card">
               <div className="material-scroll-header">
                 <h3>Wearcast Foundry Castings</h3>
-                <div className="material-badge-group">
-                  <span className="material-spec-pill">CR 15–28% / NI-HARD</span>
-                  <span className="material-badge">550–650+ BHN</span>
-                </div>
               </div>
 
               <div className="material-specimen-frame">
                 <img src="/images/material-technologies-whole-set.webp" alt="Wearcast Grades" />
-                <div className="specimen-crosshair-tag">[CROSS-SECTION: EUTECTIC ALLOY CASTING]</div>
               </div>
 
               <p className="material-scroll-desc">
@@ -324,10 +309,6 @@ export default function Page() {
                   >
                     <div className="home-mat-title-wrap">
                       <strong>{card.title}</strong>
-                      <div className="home-mat-badge-row">
-                        <span className="mat-pill">{card.pill}</span>
-                        <span className="mat-bhn">{card.badge}</span>
-                      </div>
                     </div>
                     <span className="home-mat-chevron" aria-hidden="true">
                       {faq === idx ? '▲' : '▼'}
