@@ -222,6 +222,8 @@ export function CustomPartsOverview() {
                       src={currentStep.image}
                       alt={currentStep.title}
                       className="custom-visual-image custom-visual-base"
+                      width={616}
+                      height={464}
                     />
 
                     {currentStep.id === 'reverse-engineering' && (
@@ -230,6 +232,8 @@ export function CustomPartsOverview() {
                           src="/images/custom-casting-cad-scan.jpg"
                           alt="3D CAD laser reverse-engineering scan"
                           className="custom-visual-image custom-visual-cad-scan"
+                          width={616}
+                          height={464}
                         />
 
                         <div className="custom-laser-scan-container" aria-hidden="true">
@@ -316,7 +320,7 @@ export function CustomPartsOverview() {
 
                         {/* MEDIA IMAGE */}
                         <div className="mobile-accordion-image-box">
-                          <img src={step.image} alt={step.title} className="mobile-accordion-img" />
+                          <img src={step.image} alt={step.title} className="mobile-accordion-img" width={616} height={464} />
                         </div>
 
                         {/* CTA ACTION */}

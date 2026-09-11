@@ -69,7 +69,7 @@ export function PageHero({
         <FadeUp delay={0.12} className="page-hero-split-right">
           <div className="page-hero-visual-card">
             <div className="visual-card-frame">
-              <img src={image} alt={imageAlt} className="visual-card-img" />
+              <img src={image} alt={imageAlt} className="visual-card-img" width={724} height={543} />
               <div className="visual-card-overlay" aria-hidden="true" />
             </div>
 

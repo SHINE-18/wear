@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next'
+import { applications } from '@/lib/site-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://wearguard.com.au'
 
-  return [
+  const staticPages: MetadataRoute.Sitemap = [
     { url: baseUrl, lastModified: new Date(), changeFrequency: 'monthly', priority: 1 },
     { url: `${baseUrl}/industries`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/applications`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
@@ -12,4 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.7 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.8 },
   ]
+
+  const appPages: MetadataRoute.Sitemap = applications.map((app) => ({
+    url: `${baseUrl}/applications/${app.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }))
+
+  return [...staticPages, ...appPages]
 }

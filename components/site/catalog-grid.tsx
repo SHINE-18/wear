@@ -191,8 +191,8 @@ export const catalogItems: CatalogItem[] = [
     material: 'Forged Alloy 8620',
     life: 'Case Hardened 60 HRC',
     description: 'Precision-cast flight links with induction-hardened pins engineered for extreme continuous tensile loads.',
-    image: '/images/drag-conveyors-3d.png',
-    href: '/applications/drag-conveyors-feeders',
+    image: '/images/wearguard-parts.png',
+    href: '/applications/drag-conveyors',
   },
   {
     id: 'get-tips',
@@ -233,13 +233,10 @@ export function CatalogGrid() {
   const [selectedMaterial, setSelectedMaterial] = useState<string>('ALL METALLURGIES')
   const [sortBy, setSortBy] = useState<'featured' | 'az' | 'za'>('featured')
   const [searchQuery, setSearchQuery] = useState('')
-  const [openCardSpecs, setOpenCardSpecs] = useState<Record<string, boolean>>({})
+  const [openCardId, setOpenCardId] = useState<string | null>(null)
 
   const toggleCardSpecs = (id: string) => {
-    setOpenCardSpecs((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }))
+    setOpenCardId((prev) => (prev === id ? null : id))
   }
 
   const filteredItems = useMemo(() => {
@@ -414,10 +411,11 @@ export function CatalogGrid() {
         </div>
 
         {/* 4-COLUMN CARDS GRID WITH DROPDOWN SPEC DRAWERS */}
+        <h2 className="sr-only">Browse Components by Equipment Type and Alloy Specification</h2>
         <motion.div layout className="catalog-grid">
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item) => {
-              const isSpecsOpen = !!openCardSpecs[item.id]
+              const isSpecsOpen = openCardId === item.id
 
               return (
                 <motion.div
@@ -427,7 +425,7 @@ export function CatalogGrid() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.25 }}
-                  className="catalog-card"
+                  className={`catalog-card ${isSpecsOpen ? 'specs-open' : ''}`}
                 >
                   {/* IMAGE CONTAINER */}
                   <div className="catalog-card-image-wrap">
@@ -436,6 +434,8 @@ export function CatalogGrid() {
                       alt={item.title}
                       className="catalog-card-img"
                       loading="lazy"
+                      width={616}
+                      height={464}
                     />
                   </div>
 

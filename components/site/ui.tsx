@@ -19,6 +19,8 @@ export function Logo({ height = 28, className = '' }: { height?: number; classNa
         src="/images/Vector.svg"
         alt="WearGuard"
         className="brand-logo"
+        width={150}
+        height={height}
         style={{ height: `${height}px`, width: 'auto', maxHeight: '28px', objectFit: 'contain', display: 'block' }}
       />
     </span>

@@ -234,7 +234,7 @@ export function MaterialsMatrix() {
 
                   {/* ACTION BAR */}
                   <div className="spotlight-actions-bar">
-                    <Button href={`/contact?grade=${activeGrade.code}`}>
+                    <Button href="/contact">
                       Request {activeGrade.name} Quote
                     </Button>
                     <Link href="/custom-parts" className="about-sub-link">
@@ -326,7 +326,7 @@ export function MaterialsMatrix() {
 
                       {/* ACTION */}
                       <div className="mobile-mat-actions">
-                        <Button href={`/contact?grade=${grade.code}`}>
+                        <Button href="/contact">
                           Request {grade.name} Quote
                         </Button>
                       </div>

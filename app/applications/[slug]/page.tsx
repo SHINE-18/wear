@@ -18,8 +18,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const app = applications.find((a) => a.slug === slug)
   if (!app) return {}
   return {
-    title: `${app.title} | WearGuard`,
+    title: `${app.title} Assemblies & Parts | WearGuard`,
     description: app.summary,
+    alternates: {
+      canonical: `/applications/${slug}`,
+    },
   }
 }
 

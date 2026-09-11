@@ -5,8 +5,11 @@ import { Button, SectionLabel } from '@/components/site/ui'
 import { MaterialsMatrix } from '@/components/site/materials-matrix'
 
 export const metadata: Metadata = {
-  title: 'Materials & Engineered Alloys | WearGuard',
-  description: 'Engineered wear alloys matched to impact, abrasion, erosion, temperature, corrosion, material flow and service-life targets.',
+  title: 'Materials & Metallurgy Alloys | WearGuard Engineering',
+  description: 'High-chrome white iron, Ni-Hard 4, quenched martensitic steel plates, and ceramic composites formulated to defeat extreme impact, slurry, and gouging.',
+  alternates: {
+    canonical: '/materials',
+  },
 }
 
 export default function MaterialsPage() {
@@ -35,6 +38,7 @@ export default function MaterialsPage() {
 
       {/* 2. SWISS ENGINEERING ALLOY MATRIX & TELEMETRY */}
       <section id="materials-matrix" className="materials-matrix-section">
+        <h2 className="sr-only">Engineered Alloy Material Grades & Specifications</h2>
         <MaterialsMatrix />
       </section>
 

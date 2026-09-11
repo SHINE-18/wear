@@ -8,8 +8,11 @@ import { Arrow, Button } from '@/components/site/ui'
 import { heroImage } from '@/lib/site-data'
 
 export const metadata: Metadata = {
-  title: 'Industries | WearGuard',
-  description: 'Heavy wear-resistant components and custom alloy castings engineered for asphalt, concrete batching, process industries, and primary mining crushers.',
+  title: 'Industrial Wear Solutions & Alloys | WearGuard Industries',
+  description: 'Custom wear-resistant alloys and heavy cast components engineered for asphalt, concrete batching, mineral processing, and primary mining crushers.',
+  alternates: {
+    canonical: '/industries',
+  },
 }
 
 interface IndustrySectionData {
@@ -268,6 +271,8 @@ export default function IndustriesPage() {
                       src={ind.image}
                       alt={ind.imageAlt}
                       className="industry-card-img"
+                      width={616}
+                      height={464}
                     />
                     {/* CAD CORNER CROSSHAIRS */}
                     <span className="cad-corner tl" aria-hidden="true">+</span>

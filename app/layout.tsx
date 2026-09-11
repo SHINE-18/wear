@@ -30,8 +30,12 @@ const fontMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://wearguard.com.au'),
   title: 'WearGuard | Precision Industrial Wear Engineering',
-  description: 'Engineered wear-resistant components, materials and custom wear solutions for demanding industrial applications.',
+  description: 'WearGuard engineers high-performance wear castings, custom alloy liners, and precision replacement parts that outlast OEM standards across heavy industry.',
+  alternates: {
+    canonical: '/',
+  },
 }
 
 export const viewport: Viewport = {

@@ -167,6 +167,8 @@ function MaterialRowGroup({
                       src={grade.image}
                       alt={grade.name}
                       className="material-visual-img"
+                      width={616}
+                      height={464}
                     />
 
                     {/* SPEC BADGE OVERLAY */}

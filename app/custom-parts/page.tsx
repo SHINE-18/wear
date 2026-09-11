@@ -8,8 +8,11 @@ import { Arrow, Button, SectionLabel } from '@/components/site/ui'
 import { customFeatures, plantImage, processSteps } from '@/lib/site-data'
 
 export const metadata: Metadata = {
-  title: 'Custom Parts & Reverse Engineering | WearGuard',
-  description: 'Reverse engineering, tailored wear alloys and 1–10 unit small-batch flexibility, delivered with hands-on metallurgical support.',
+  title: 'Custom Wear Parts & 3D Reverse Engineering | WearGuard',
+  description: 'Rapid 3D coordinate laser scanning, custom alloy foundry tooling, and 1–10 unit low-volume casting flexibility delivered in 6–8 weeks with zero OEM markup.',
+  alternates: {
+    canonical: '/custom-parts',
+  },
 }
 
 export default function CustomPartsPage() {

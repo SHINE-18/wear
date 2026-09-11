@@ -32,7 +32,7 @@ export function ProductComponentAccordion({
               ANY BRAND. ANY ERA. NO EXCUSES.
             </span>
             <h2 className="product-editorial-title">
-              {application.title}
+              Engineering Specifications &amp; Performance Overview
             </h2>
 
             <div className="product-editorial-paragraphs">
@@ -79,6 +79,8 @@ export function ProductComponentAccordion({
                   src={application.engineeringSupport.image}
                   alt={application.engineeringSupport.title}
                   className="support-card-preview-img"
+                  width={616}
+                  height={464}
                 />
                 <div className="support-preview-overlay" />
                 <span className="support-preview-tag">
@@ -123,6 +125,8 @@ export function ProductComponentAccordion({
                     src={comp.image}
                     alt={comp.title}
                     className="subcomponent-img"
+                    width={616}
+                    height={464}
                   />
                   <div className="subcomponent-badge-tag">
                     <span>{comp.subtitle}</span>
@@ -178,7 +182,7 @@ export function ProductComponentAccordion({
 
                       <div className="drawer-actions">
                         <Link
-                          href={`/contact?part=${encodeURIComponent(comp.title)}`}
+                          href="/contact"
                           className="drawer-spec-btn"
                           onClick={(e) => e.stopPropagation()}
                         >

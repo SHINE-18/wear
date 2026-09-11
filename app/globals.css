@@ -58,6 +58,18 @@
   box-sizing: border-box;
 }
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 ::selection {
   background-color: var(--orange);
   color: #ffffff;
@@ -258,6 +270,10 @@ section {
 
 .nav-wrap.nav-home {
   width: calc(100% - clamp(280px, 20vw, 320px));
+}
+
+.nav-wrap.nav-home:not(.docked) {
+  padding-left: 3.5rem;
 }
 
 .brand {
@@ -1861,7 +1877,7 @@ section {
 .stack-container {
   --stack-base-top: 110px; /* clearance for header */
   width: 100%;
-  max-width: 100%;
+  max-width: 1360px;
   margin: 0 auto;
   padding: 0;
   background-color: transparent;
@@ -2190,6 +2206,9 @@ section {
   /* 4 discrete scroll intervals */
   margin-top: 0.75rem;
   margin-bottom: 0;
+  max-width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .inspector-sticky-viewport {
@@ -2754,6 +2773,8 @@ section {
   grid-template-columns: 0.9fr 1.35fr;
   gap: clamp(3rem, 6vw, 6.5rem);
   align-items: start;
+  max-width: 1360px;
+  margin: 0 auto;
 }
 
 .materials-sticky-left {
@@ -4663,7 +4684,7 @@ section {
   z-index: 2;
 }
 
-.footer-cta-content h2 {
+.footer-cta-content .footer-cta-title {
   font-size: clamp(2.8rem, 5.5vw, 5.2rem);
   line-height: 1.04;
   letter-spacing: -0.055em;
@@ -6609,7 +6630,7 @@ section {
     gap: 1.25rem;
   }
 
-  .footer-cta-content h2 {
+  .footer-cta-content .footer-cta-title {
     font-size: clamp(1.5rem, 5.5vw, 1.95rem);
     line-height: 1.15;
   }
@@ -8533,6 +8554,7 @@ section {
   gap: 1.5rem;
   margin-top: 0.5rem;
   width: 100%;
+  align-items: start;
 }
 
 .catalog-card {
@@ -8546,7 +8568,8 @@ section {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
 }
 
-.catalog-card:hover {
+.catalog-card:hover,
+.catalog-card.specs-open {
   transform: translateY(-4px);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
   border-color: var(--orange, #D94B2B);
@@ -10821,5 +10844,58 @@ section {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   ULTRA-WIDE & 4K DISPLAY ADAPTATION (1680px CINEMATIC CAP)
+   Full-bleed backgrounds, canvases, textures, and hero video expand across 100vw,
+   while typography, content grids, cards, and top navigation are constrained
+   to a centered 1680px container on ultra-wide screens to maintain peak visual
+   balance and eliminate neck/eye travel fatigue.
+   ========================================================================== */
+@media (min-width: 1680px) {
+  /* 1. SECTIONS & FOOTER HORIZONTAL CONSTRAINTS */
+  section,
+  .about-kpi-section,
+  .manifesto-banner,
+  .footer-cta-banner,
+  .footer-main-dark {
+    padding-left: calc((100% - 1680px) / 2 + 4.5rem);
+    padding-right: calc((100% - 1680px) / 2 + 4.5rem);
+  }
+
+  /* 2. TOP NAVIGATION ALIGNMENT (SUBPAGES CONSTRAINED, HOME NAV ALIGNED WITH HERO TEXT) */
+  .nav-wrap.nav-full:not(.docked) {
+    padding-left: calc((100% - 1680px) / 2 + 2.5rem);
+    padding-right: calc((100% - 1680px) / 2 + 2.5rem);
+  }
+
+  .nav-wrap.nav-home:not(.docked) {
+    padding-left: 3.5rem;
+  }
+
+  /* 4. SUBPAGE INNER CONTAINERS (EXPAND UP TO 1680px) */
+  .about-hero-container,
+  .about-mission-container,
+  .about-kpi-container,
+  .about-story-container,
+  .about-team-container,
+  .about-services-container,
+  .contact-editorial-container,
+  .contact-dispatch-strip,
+  .catalog-container,
+  .materials-hero-container,
+  .matrix-table-container,
+  .industry-immersive-stage,
+  .manifesto-inner,
+  .product-editorial-grid,
+  .subcomponents-cards-grid,
+  .page-hero-split-grid {
+    max-width: 1680px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
 
 

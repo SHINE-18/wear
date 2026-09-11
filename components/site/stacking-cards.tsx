@@ -37,7 +37,7 @@ const cards: CardData[] = [
     desc: 'Custom ceramic-rubber composite chutes, hopper wear plates, and pneumatic transfer elbows.',
     image: '/images/3.png',
     imageAlt: 'Process industry wear plates, chutes and transfer point liners',
-    link: '/industries#recycling-shredding',
+    link: '/industries#process-industries',
   },
   {
     id: 'mining',
@@ -104,7 +104,7 @@ function IndividualStackCard({
         {/* RIGHT COLUMN: Framed image */}
         <div className="stack-card-image">
           <div className="stack-card-image-frame">
-            <img src={card.image} alt={card.imageAlt} />
+            <img src={card.image} alt={card.imageAlt} width={836} height={628} />
           </div>
         </div>
       </Link>
