@@ -1951,38 +1951,39 @@ section {
 /* ---- 3D STACK CARDS WRAPPER ---- */
 .stack-cards-wrapper {
   position: relative;
-  perspective: 1200px;
-  transform-style: preserve-3d;
+  overflow: visible;
 }
 
-.stack-card {
+.stack-card-pin {
   position: sticky;
   display: block;
   width: 100%;
-  height: clamp(400px, 48vh, 460px);
-  background: #E4EAF2;
+  margin-bottom: clamp(320px, 45vh, 480px);
+}
+
+.stack-card-pin:last-of-type {
+  margin-bottom: 0;
+}
+
+.stack-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: clamp(390px, 46vh, 450px);
+  background: #EBE7E0;
   border-radius: 0;
   border-top: 1.5px solid rgba(255, 255, 255, 0.95);
-  box-shadow: none;
+  box-shadow: 0 -4px 20px rgba(22, 19, 17, 0.06), 0 12px 30px rgba(22, 19, 17, 0.08);
   overflow: hidden;
   text-decoration: none;
   color: inherit;
   will-change: transform, opacity;
-  margin-bottom: clamp(380px, 55vh, 560px);
 }
 
-.stack-card:last-of-type {
-  margin-bottom: 0;
-}
-
-/* End space calibrated so Applications meets the bottom edge of Card 4 smoothly */
+/* End space calibrated so cards stay stacked before scrolling out */
 .stack-end-space {
-  height: clamp(60px, 10vh, 100px);
+  height: clamp(280px, 35vh, 440px);
   pointer-events: none;
-}
-
-.stack-card:hover {
-  box-shadow: none;
 }
 
 .stack-card-inner {
@@ -2016,7 +2017,7 @@ section {
   font-size: clamp(1.4rem, 2vw, 1.85rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  color: #111827;
+  color: #161311;
   margin: 0;
   line-height: 1.2;
   transition: color 0.25s ease;
@@ -2087,7 +2088,7 @@ section {
 .stack-card-desc {
   font-size: 0.95rem;
   line-height: 1.55;
-  color: #475569;
+  color: #5C5852;
   font-weight: 500;
   margin: 0;
   max-width: 22rem;
@@ -5112,7 +5113,7 @@ section {
   gap: 0.55rem;
   background: rgba(17, 18, 20, 0.06);
   border: 1px solid rgba(17, 18, 20, 0.12);
-  border-radius: 9999px;
+  border-radius: 0;
   padding: 0.38rem 0.9rem;
   font-size: 0.82rem;
   font-weight: 700;
@@ -5140,9 +5141,9 @@ section {
   font-size: 0.68rem;
   font-weight: 800;
   color: var(--orange);
-  background: rgba(194, 62, 32, 0.35);
+  background: rgba(194, 62, 32, 0.15);
   padding: 0.12rem 0.4rem;
-  border-radius: 9999px;
+  border-radius: 0;
   transition: all 0.2s ease;
 }
 
@@ -5301,7 +5302,7 @@ section {
 }
 
 .telemetry-dock-grid {
-  max-width: 1320px;
+  max-width: 1360px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -5421,6 +5422,22 @@ section {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
 }
 
+.industry-theme-steel .spec-lbl {
+  color: #64748b;
+}
+
+.industry-theme-steel .spec-val {
+  color: #0e1014;
+}
+
+.industry-theme-steel .features-head {
+  color: #0e1014;
+}
+
+.industry-theme-steel .industry-features-list li {
+  color: #334155;
+}
+
 /* THEME 3: PURE WHITE */
 .industry-theme-white {
   background: #ffffff;
@@ -5445,9 +5462,25 @@ section {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
 }
 
+.industry-theme-white .spec-lbl {
+  color: #64748b;
+}
+
+.industry-theme-white .spec-val {
+  color: #0e1014;
+}
+
+.industry-theme-white .features-head {
+  color: #0e1014;
+}
+
+.industry-theme-white .industry-features-list li {
+  color: #334155;
+}
+
 /* 3. SECTION STAGE GRID */
 .industry-immersive-stage {
-  max-width: 1320px;
+  max-width: 1360px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
@@ -5624,6 +5657,24 @@ section {
   margin-top: 0.65rem;
 }
 
+.industry-actions-bar .about-sub-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--orange);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.industry-actions-bar .about-sub-link:hover {
+  color: var(--orange-hover, #DE5432);
+  transform: translateX(4px);
+}
+
 /* 7. VISUAL COLUMN WITH CAD RETICLES */
 .industry-visual-card {
   position: relative;
@@ -5747,6 +5798,7 @@ section {
     height: 320px;
   }
 }
+
 
 .detail-body {
   display: grid;
@@ -10896,6 +10948,705 @@ section {
     margin-right: auto;
   }
 }
+
+/* ==========================================================================
+   INDUSTRIES SYSTEM (STACKING CARDS & DETAIL PAGES MATCHING USER IMAGES 1 & 2)
+   ========================================================================== */
+
+/* 1. OVERVIEW PAGE (IMAGE 1: WHAT WE OFFER + INTERACTIVE GRID) */
+.industries-page-root {
+  position: relative;
+  background-color: #F4F1EC;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.industries-hero-canvas-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.industries-page-root .industries-stack-section {
+  position: relative;
+  z-index: 5;
+  background-color: transparent !important;
+  padding-top: clamp(6.5rem, 10vw, 9rem);
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+}
+
+/* 2. DYNAMIC DETAIL PAGE (IMAGE 2: SPLIT HERO + SQUARE ORANGE CARD + MEDIA BANNER) */
+.ind-detail-page-root {
+  position: relative;
+  background-color: #F4F1EC;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+.ind-detail-hero {
+  position: relative;
+  background-color: #F4F1EC;
+  padding: clamp(6.5rem, 10vw, 8.5rem) clamp(1.5rem, 4vw, 4.5rem) clamp(3.5rem, 6vw, 5rem);
+  overflow: hidden;
+}
+
+.ind-hero-canvas-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ind-detail-hero-content {
+  position: relative;
+  z-index: 5;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Header row: Left Title & Right Square Orange CTA Card */
+.ind-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
+}
+
+.ind-header-left {
+  flex: 1;
+  max-width: 860px;
+}
+
+.ind-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #161311;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.ind-eyebrow-bar {
+  width: 3px;
+  height: 15px;
+  background-color: var(--orange);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.ind-title {
+  font-size: clamp(2.6rem, 5.5vw, 4.8rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: #161311;
+  margin: 0 0 0.85rem;
+}
+
+.ind-subtitle {
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  color: #5C5852;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 500;
+  max-width: 720px;
+}
+
+.ind-header-right {
+  flex-shrink: 0;
+}
+
+/* Square Orange "Get in Touch" Card matching Image 2 */
+.ind-cta-square {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: clamp(180px, 16vw, 220px);
+  height: clamp(180px, 16vw, 220px);
+  background-color: var(--orange);
+  border-radius: 0;
+  padding: 1.6rem;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(217, 75, 43, 0.28);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.ind-cta-bracket {
+  align-self: flex-end;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ind-cta-label {
+  font-family: var(--font-body);
+  font-size: clamp(1.15rem, 1.35vw, 1.35rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  max-width: 120px;
+  display: block;
+}
+
+.ind-cta-square:hover {
+  background-color: var(--orange-hover, #DE5432);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(217, 75, 43, 0.38);
+}
+
+.ind-cta-square:hover .ind-cta-bracket {
+  transform: translate(3px, -3px);
+}
+
+/* Full-width Media Banner matching Image 2 */
+.ind-detail-banner-wrap {
+  position: relative;
+  width: 100%;
+  height: clamp(340px, 46vh, 520px);
+  overflow: hidden;
+  border-radius: 0;
+  background-color: #0E1014;
+}
+
+.ind-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Diagonal pinstripe texture on left portion of banner matching Image 2 */
+.ind-banner-hatch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 255, 255, 0.22) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 25%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ind-banner-badge {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: rgba(14, 16, 20, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 3;
+}
+
+.ind-badge-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--orange);
+  border-radius: 0;
+}
+
+/* 3. PLANT ENGINEERING OVERVIEW & SPECS */
+.ind-content-section {
+  background-color: #F4F1EC;
+  position: relative;
+}
+
+.ind-content-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  padding: clamp(4.5rem, 7vw, 7rem) clamp(1.5rem, 4vw, 4.5rem);
+}
+
+.ind-overview-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(3rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.ind-section-h2 {
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: #161311;
+  margin: 0.6rem 0 1.5rem;
+}
+
+.ind-content-section .ind-section-h2 {
+  color: #161311;
+}
+
+.section-dark .ind-section-h2,
+.section-slate .ind-section-h2 {
+  color: #ffffff;
+}
+
+.ind-section-h2 em {
+  font-style: italic;
+  color: var(--orange);
+  font-family: var(--font-body);
+}
+
+.ind-body-lead {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #4A4742;
+  margin-bottom: 1.25rem;
+}
+
+.ind-content-section .ind-body-lead {
+  color: #4A4742;
+}
+
+.section-dark .ind-body-lead,
+.section-slate .ind-body-lead {
+  color: #e2e8f0;
+}
+
+.ind-content-section .section-label,
+.ind-content-section .kicker {
+  color: #161311;
+}
+
+.ind-content-section .about-sub-link {
+  color: #161311;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ind-content-section .about-sub-link:hover {
+  color: var(--orange);
+}
+
+.ind-content-section .about-sub-link .arrow {
+  color: var(--orange);
+  stroke: var(--orange);
+}
+
+.ind-catalog-action {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Technical Specifications Matrix */
+.ind-specs-panel {
+  background: #FFFFFF;
+  border: 1px solid rgba(43, 42, 40, 0.12);
+  border-top: 3px solid var(--orange);
+  box-shadow: 0 8px 24px rgba(22, 19, 17, 0.05);
+  padding: 2.2rem;
+}
+
+.ind-specs-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(43, 42, 40, 0.1);
+  padding-bottom: 0.85rem;
+}
+
+.ind-specs-mono-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #6E685E;
+  letter-spacing: 0.08em;
+}
+
+.ind-specs-hud-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--orange);
+}
+
+.ind-specs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.ind-spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed rgba(43, 42, 40, 0.14);
+}
+
+.ind-spec-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ind-spec-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #7A746B;
+}
+
+.ind-spec-value.mono-val {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #161311;
+}
+
+/* 4. CRITICAL WEAR COMPONENTS MANUFACTURED */
+.ind-components-section {
+  background: #161311;
+  position: relative;
+}
+
+.ind-section-heading {
+  margin-bottom: 3rem;
+}
+
+.ind-sublead {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 680px;
+  margin-top: 0.5rem;
+}
+
+.ind-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.ind-feature-card {
+  background: #1E1A17;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 170px;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.ind-feature-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+
+.ind-feature-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 1.25rem;
+}
+
+.ind-feature-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #f3f4f6;
+}
+
+.ind-feature-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: width 0.3s ease;
+}
+
+.ind-feature-card:hover .ind-feature-accent {
+  width: 100%;
+}
+
+/* 5. OEM VS WEARGUARD COMPARISON */
+.ind-oem-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.ind-oem-card {
+  padding: 2.4rem;
+  border-radius: 0;
+}
+
+.ind-oem-card.oem-problem {
+  background: #252830;
+  border-left: 3px solid #ef4444;
+}
+
+.ind-oem-card.oem-solution {
+  background: #252830;
+  border-left: 3px solid var(--orange);
+}
+
+.ind-oem-badge {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.oem-badge-standard {
+  color: #f87171;
+}
+
+.oem-badge-wearguard {
+  color: var(--orange);
+}
+
+.ind-oem-text {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: #e5e7eb;
+  margin: 0;
+}
+
+.ind-oem-table-wrap {
+  overflow-x: auto;
+  background: #181b22;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ind-oem-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ind-oem-table th {
+  text-align: left;
+  padding: 1.2rem 1.6rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: #13151b;
+  color: #9ca3af;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.ind-oem-table td {
+  padding: 1.3rem 1.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.95rem;
+}
+
+.ind-oem-table tr:last-child td {
+  border-bottom: none;
+}
+
+.ind-oem-table .metric-label {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.ind-oem-table .metric-oem {
+  font-family: var(--font-mono, monospace);
+  color: #9ca3af;
+}
+
+.ind-oem-table .metric-wearguard {
+  font-family: var(--font-mono, monospace);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.metric-badge-gain {
+  display: inline-block;
+  background: rgba(217, 75, 43, 0.15);
+  border: 1px solid rgba(217, 75, 43, 0.45);
+  color: var(--orange);
+  padding: 0.35rem 0.75rem;
+  border-radius: 0;
+}
+
+/* 6. SWITCH TO OTHER SECTORS */
+.ind-switcher-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+}
+
+.ind-switcher-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.ind-switcher-card {
+  background: #EBE7E0;
+  border: 1px solid rgba(43, 42, 40, 0.12);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  border-radius: 0;
+}
+
+.ind-switcher-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--orange);
+}
+
+.ind-switcher-img-wrap {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+  background: #0e1014;
+}
+
+.ind-switcher-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.ind-switcher-card:hover .ind-switcher-img {
+  transform: scale(1.06);
+}
+
+.ind-switcher-num {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(14, 16, 20, 0.88);
+  color: #fff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  z-index: 2;
+  border-radius: 0;
+}
+
+.ind-switcher-body {
+  padding: 1.6rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ind-switcher-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.ind-switcher-title-row h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #161311;
+  margin: 0;
+  transition: color 0.25s ease;
+}
+
+.ind-switcher-card:hover .ind-switcher-title-row h3 {
+  color: var(--orange);
+}
+
+.ind-switcher-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--orange);
+}
+
+.ind-switcher-body p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #5C5852;
+  margin: 0;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 1024px) {
+  .ind-overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .ind-switcher-grid {
+    grid-template-columns: 1fr;
+  }
+  .ind-oem-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .ind-detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.75rem;
+  }
+  .ind-cta-square {
+    width: 100%;
+    height: 130px;
+    padding: 1.25rem;
+  }
+}
+
 
 
 

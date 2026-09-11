@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { applications } from '@/lib/site-data'
+import { industriesData } from '@/lib/industries-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://wearguard.com.au'
@@ -21,5 +22,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...appPages]
+  const industryPages: MetadataRoute.Sitemap = industriesData.map((ind) => ({
+    url: `${baseUrl}/industries/${ind.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  }))
+
+  return [...staticPages, ...appPages, ...industryPages]
 }

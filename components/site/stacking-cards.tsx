@@ -21,7 +21,7 @@ const cards: CardData[] = [
     desc: 'High-temp pugmill paddle tips, flighting liners, and slinger arms engineered for 400°C abrasive aggregate mixing.',
     image: '/images/1.png',
     imageAlt: 'Asphalt plant pugmill liners and aggregate processing wear assemblies',
-    link: '/industries#asphalt-paving',
+    link: '/industries/asphalt',
   },
   {
     id: 'concrete',
@@ -29,7 +29,7 @@ const cards: CardData[] = [
     desc: 'Heavy-duty pan mixer floor tiles, scraper blades, and discharge chutes built to resist slurry grinding.',
     image: '/images/2.png',
     imageAlt: 'Concrete batch plant wear liners and pan mixer blades',
-    link: '/industries#concrete-batching',
+    link: '/industries/concrete',
   },
   {
     id: 'process-industries',
@@ -37,7 +37,7 @@ const cards: CardData[] = [
     desc: 'Custom ceramic-rubber composite chutes, hopper wear plates, and pneumatic transfer elbows.',
     image: '/images/3.png',
     imageAlt: 'Process industry wear plates, chutes and transfer point liners',
-    link: '/industries#process-industries',
+    link: '/industries/process-industries',
   },
   {
     id: 'mining',
@@ -45,7 +45,7 @@ const cards: CardData[] = [
     desc: 'Hyper-eutectic high-chrome crusher liners, grizzly bars, and severe impact wear plates.',
     image: '/images/4.png',
     imageAlt: 'Mining and quarry heavy wear liners and crusher wear parts',
-    link: '/industries#mining-mineral',
+    link: '/industries/mining',
   },
 ]
 
@@ -59,60 +59,68 @@ function IndividualStackCard({
   const cardRef = useRef<HTMLDivElement>(null)
 
   // Target dock position for this card
-  const dockOffsetPx = 110 + index * 76
-  const stickyTop = `calc(var(--stack-base-top, 110px) + ${index * 76}px)`
+  const dockOffsetPx = 100 + index * 76
+  const stickyTop = `calc(var(--stack-base-top, 100px) + ${index * 76}px)`
 
   // Track scroll position of this individual card from entering viewport until it docks
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    offset: ['start end', `start ${dockOffsetPx + 40}px`],
+    offset: ['start end', `start ${dockOffsetPx + 30}px`],
   })
 
   // 3D curving entrance from flat/tilted surface into upright position
-  const rotateX = useTransform(scrollYProgress, [0, 1], [index === 0 ? 0 : 24, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [index === 0 ? 1 : 0.94, 1.0])
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 1], [index === 0 ? 1 : 0.4, 1, 1])
+  const rotateX = useTransform(scrollYProgress, [0, 1], [index === 0 ? 0 : 20, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [index === 0 ? 1 : 0.95, 1.0])
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 1], [index === 0 ? 1 : 0.45, 1, 1])
 
   return (
-    <motion.div
+    <div
       ref={cardRef}
-      className="stack-card"
+      className="stack-card-pin"
       style={{
+        position: 'sticky',
         top: stickyTop,
         zIndex: index + 1,
-        rotateX,
-        scale,
-        opacity,
-        transformOrigin: 'top center',
       }}
     >
-      <Link href={card.link} className="stack-card-inner">
-        {/* LEFT COLUMN: Title at top, Orange mark + Description at bottom */}
-        <div className="stack-card-content">
-          <div className="stack-card-title-wrap">
-            <h3 className="stack-card-title">{card.title}</h3>
-            <span className="stack-card-arrow" aria-hidden="true">
-              <Arrow />
-            </span>
+      <motion.div
+        className="stack-card"
+        style={{
+          rotateX,
+          scale,
+          opacity,
+          transformOrigin: 'top center',
+          transformPerspective: 1200,
+        }}
+      >
+        <Link href={card.link} className="stack-card-inner">
+          {/* LEFT COLUMN: Title at top, Orange mark + Description at bottom */}
+          <div className="stack-card-content">
+            <div className="stack-card-title-wrap">
+              <h3 className="stack-card-title">{card.title}</h3>
+              <span className="stack-card-arrow" aria-hidden="true">
+                <Arrow />
+              </span>
+            </div>
+
+            <div className="stack-card-footer-wrap">
+              <p className="stack-card-desc">{card.desc}</p>
+            </div>
           </div>
 
-          <div className="stack-card-footer-wrap">
-            <p className="stack-card-desc">{card.desc}</p>
+          {/* RIGHT COLUMN: Framed image */}
+          <div className="stack-card-image">
+            <div className="stack-card-image-frame">
+              <img src={card.image} alt={card.imageAlt} width={836} height={628} />
+            </div>
           </div>
-        </div>
-
-        {/* RIGHT COLUMN: Framed image */}
-        <div className="stack-card-image">
-          <div className="stack-card-image-frame">
-            <img src={card.image} alt={card.imageAlt} width={836} height={628} />
-          </div>
-        </div>
-      </Link>
-    </motion.div>
+        </Link>
+      </motion.div>
+    </div>
   )
 }
 
-export function IndustryStackingCards() {
+export function IndustryStackingCards({ showAllLink = true }: { showAllLink?: boolean }) {
   return (
     <div className="stack-container">
       {/* Section Header */}
@@ -123,13 +131,15 @@ export function IndustryStackingCards() {
             What We <span>Offer</span>
           </h2>
         </div>
-        <Link href="/industries" className="stack-all-link">
-          <span>All Services</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <line x1="7" y1="17" x2="17" y2="7" />
-            <polyline points="7 7 17 7 17 17" />
-          </svg>
-        </Link>
+        {showAllLink && (
+          <Link href="/industries" className="stack-all-link">
+            <span>All Services</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="7" y1="17" x2="17" y2="7" />
+              <polyline points="7 7 17 7 17 17" />
+            </svg>
+          </Link>
+        )}
       </div>
 
       {/* 3D Stack Cards Container */}
