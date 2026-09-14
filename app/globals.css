@@ -1970,10 +1970,11 @@ section {
   display: block;
   width: 100%;
   height: clamp(390px, 46vh, 450px);
-  background: #EBE7E0;
+  background: #F8FAFC;
   border-radius: 0;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 -4px 20px rgba(22, 19, 17, 0.06), 0 12px 30px rgba(22, 19, 17, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04), 0 12px 30px rgba(0, 0, 0, 0.07);
   overflow: hidden;
   text-decoration: none;
   color: inherit;
@@ -8729,6 +8730,7 @@ section {
   margin-top: 0.25rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -10956,7 +10958,7 @@ section {
 /* 1. OVERVIEW PAGE (IMAGE 1: WHAT WE OFFER + INTERACTIVE GRID) */
 .industries-page-root {
   position: relative;
-  background-color: #F4F1EC;
+  background-color: #FFFFFF;
   min-height: 100vh;
   overflow-x: clip;
 }
@@ -10984,14 +10986,14 @@ section {
 /* 2. DYNAMIC DETAIL PAGE (IMAGE 2: SPLIT HERO + SQUARE ORANGE CARD + MEDIA BANNER) */
 .ind-detail-page-root {
   position: relative;
-  background-color: #F4F1EC;
+  background-color: #FFFFFF;
   min-height: 100vh;
   overflow-x: clip;
 }
 
 .ind-detail-hero {
   position: relative;
-  background-color: #F4F1EC;
+  background-color: #FFFFFF;
   padding: clamp(6.5rem, 10vw, 8.5rem) clamp(1.5rem, 4vw, 4.5rem) clamp(3.5rem, 6vw, 5rem);
   overflow: hidden;
 }
@@ -11035,7 +11037,7 @@ section {
   gap: 8px;
   font-size: 0.82rem;
   font-weight: 700;
-  color: #161311;
+  color: #0F172A;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   margin-bottom: 0.85rem;
@@ -11054,13 +11056,13 @@ section {
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.05;
-  color: #161311;
+  color: #0F172A;
   margin: 0 0 0.85rem;
 }
 
 .ind-subtitle {
   font-size: clamp(1rem, 1.35vw, 1.25rem);
-  color: #5C5852;
+  color: #475569;
   line-height: 1.5;
   margin: 0;
   font-weight: 500;
@@ -11181,7 +11183,7 @@ section {
 
 /* 3. PLANT ENGINEERING OVERVIEW & SPECS */
 .ind-content-section {
-  background-color: #F4F1EC;
+  background-color: #FFFFFF;
   position: relative;
 }
 
@@ -11204,12 +11206,12 @@ section {
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1.15;
-  color: #161311;
+  color: #0F172A;
   margin: 0.6rem 0 1.5rem;
 }
 
 .ind-content-section .ind-section-h2 {
-  color: #161311;
+  color: #0F172A;
 }
 
 .section-dark .ind-section-h2,
@@ -11226,12 +11228,12 @@ section {
 .ind-body-lead {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #4A4742;
+  color: #334155;
   margin-bottom: 1.25rem;
 }
 
 .ind-content-section .ind-body-lead {
-  color: #4A4742;
+  color: #334155;
 }
 
 .section-dark .ind-body-lead,
@@ -11241,11 +11243,11 @@ section {
 
 .ind-content-section .section-label,
 .ind-content-section .kicker {
-  color: #161311;
+  color: #0F172A;
 }
 
 .ind-content-section .about-sub-link {
-  color: #161311;
+  color: #0F172A;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -11274,10 +11276,10 @@ section {
 
 /* Technical Specifications Matrix */
 .ind-specs-panel {
-  background: #FFFFFF;
-  border: 1px solid rgba(43, 42, 40, 0.12);
+  background: #F8FAFC;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-top: 3px solid var(--orange);
-  box-shadow: 0 8px 24px rgba(22, 19, 17, 0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
   padding: 2.2rem;
 }
 
@@ -11286,7 +11288,7 @@ section {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(43, 42, 40, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   padding-bottom: 0.85rem;
 }
 
@@ -11294,7 +11296,7 @@ section {
   font-family: var(--font-mono, monospace);
   font-size: 0.78rem;
   font-weight: 700;
-  color: #6E685E;
+  color: #64748B;
   letter-spacing: 0.08em;
 }
 
@@ -11316,7 +11318,7 @@ section {
   flex-direction: column;
   gap: 0.25rem;
   padding-bottom: 1rem;
-  border-bottom: 1px dashed rgba(43, 42, 40, 0.14);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
 }
 
 .ind-spec-item:last-child {
@@ -11329,14 +11331,14 @@ section {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #7A746B;
+  color: #64748B;
 }
 
 .ind-spec-value.mono-val {
   font-family: var(--font-mono, monospace);
   font-size: 1.15rem;
   font-weight: 700;
-  color: #161311;
+  color: #0F172A;
 }
 
 /* 4. CRITICAL WEAR COMPONENTS MANUFACTURED */
@@ -11528,8 +11530,8 @@ section {
 }
 
 .ind-switcher-card {
-  background: #EBE7E0;
-  border: 1px solid rgba(43, 42, 40, 0.12);
+  background: #F8FAFC;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   text-decoration: none;
   color: inherit;
   display: flex;
@@ -11596,7 +11598,7 @@ section {
 .ind-switcher-title-row h3 {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #161311;
+  color: #0F172A;
   margin: 0;
   transition: color 0.25s ease;
 }
@@ -11617,7 +11619,7 @@ section {
 .ind-switcher-body p {
   font-size: 0.92rem;
   line-height: 1.55;
-  color: #5C5852;
+  color: #64748B;
   margin: 0;
 }
 

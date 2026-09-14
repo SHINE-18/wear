@@ -95,7 +95,7 @@ export function InteractiveGrid() {
         const dist = Math.hypot(dx, dy)
 
         let targetAngle = tick.baseAngle
-        let strokeColor = 'rgba(92, 85, 78, 0.28)'
+        let strokeColor = 'rgba(15, 23, 42, 0.22)'
         let lineW = 0.75
 
         if (dist < influenceRadius && mouse.x > 0 && mouse.y > 0) {
@@ -106,7 +106,7 @@ export function InteractiveGrid() {
             strokeColor = `rgba(217, 75, 43, ${0.4 + force * 0.45})`
             lineW = 0.95
           } else {
-            strokeColor = `rgba(22, 19, 17, ${0.3 + force * 0.35})`
+            strokeColor = `rgba(15, 23, 42, ${0.3 + force * 0.35})`
             lineW = 0.85
           }
         }
