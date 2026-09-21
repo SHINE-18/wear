@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { motion, AnimatePresence } from 'motion/react'
-import { Arrow, Button, SectionLabel } from '@/components/site/ui'
+import { useRef, useState, useEffect } from 'react'
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'motion/react'
+import { Button, SectionLabel } from '@/components/site/ui'
+import styles from './custom-parts-overview.module.css'
 
 interface CustomStep {
   id: string
@@ -20,6 +20,7 @@ interface CustomStep {
   imageBadgeBottom: string
   ctaText: string
   ctaHref: string
+  angleDeg: number
 }
 
 const customSteps: CustomStep[] = [
@@ -47,6 +48,7 @@ const customSteps: CustomStep[] = [
     imageBadgeBottom: 'Precision CNC & Laser Inspection',
     ctaText: 'Explore 3D Scanning Capabilities',
     ctaHref: '/custom-parts',
+    angleDeg: 0,
   },
   {
     id: 'alloy-formulation',
@@ -72,6 +74,7 @@ const customSteps: CustomStep[] = [
     imageBadgeBottom: 'Custom Metallurgy Foundry',
     ctaText: 'Explore Alloy Chemistry',
     ctaHref: '/materials',
+    angleDeg: -120,
   },
   {
     id: 'small-batch',
@@ -92,240 +95,318 @@ const customSteps: CustomStep[] = [
       'Field-trial testing sets to prove wear-life before plant-wide rollout',
       'Scheduled recurring subscription restocking for zero stockouts',
     ],
-    image: '/images/wearguard-hero-3d.png',
+    image: '/images/custom-foundry-batch.jpg',
     imageBadgeTop: 'BATCH: 1–10 UNITS',
     imageBadgeBottom: 'Rapid Dispatch Facility',
     ctaText: 'Start a Small-Batch Run',
     ctaHref: '/contact',
+    angleDeg: -240,
   },
 ]
 
 export function CustomPartsOverview() {
-  const [activeTab, setActiveTab] = useState<string>('reverse-engineering')
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
   const [mobileOpenStep, setMobileOpenStep] = useState<string>('reverse-engineering')
-  const currentStep = customSteps.find((s) => s.id === activeTab) || customSteps[0]
+
+  // Pinned scroll-scrubbing progress: 0 to 1 over the 300vh container
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  })
+
+  // Subtle continuous disc rotation in place linked to scroll for tactile responsiveness
+  const rawContinuousRotation = useTransform(scrollYProgress, [0, 1], [0, -180])
+  const continuousRotation = useSpring(rawContinuousRotation, { stiffness: 120, damping: 24, mass: 0.8 })
+
+  // Track discrete active index based on scroll progress
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', (progress) => {
+      if (progress < 0.36) {
+        setActiveIndex(0)
+      } else if (progress < 0.70) {
+        setActiveIndex(1)
+      } else {
+        setActiveIndex(2)
+      }
+    })
+    return () => unsubscribe()
+  }, [scrollYProgress])
+
+  const scrollToStep = (index: number) => {
+    if (!containerRef.current) return
+    const rect = containerRef.current.getBoundingClientRect()
+    const scrollTop = window.scrollY || document.documentElement.scrollTop
+    const containerTop = rect.top + scrollTop
+    const containerHeight = containerRef.current.offsetHeight
+    const windowHeight = window.innerHeight
+
+    const targetProgress = index === 0 ? 0.05 : index === 1 ? 0.50 : 0.95
+    const targetScrollY = containerTop + targetProgress * (containerHeight - windowHeight)
+
+    window.scrollTo({
+      top: targetScrollY,
+      behavior: 'smooth',
+    })
+  }
 
   const toggleMobileStep = (id: string) => {
     setMobileOpenStep((prev) => (prev === id ? '' : id))
   }
 
+  const currentStep = customSteps[activeIndex]
+
   return (
-    <section id="custom-parts" className="custom-interactive-section">
-      <div className="custom-interactive-container">
-        {/* TOP SECTION HEADER */}
-        <div className="custom-interactive-header">
+    <section id="custom-parts" ref={containerRef} className={styles.customSectionWrapper}>
+      {/* --- DESKTOP VIEW: STICKY 100VH STAGE WITH STATIONARY DISC & REEL --- */}
+      <div className={styles.customStickyStage}>
+        {/* CAD BACKGROUND GRID */}
+        <div className={styles.cadGridBackground} aria-hidden="true" />
+
+        <div className={styles.stageContentWrap}>
+          {/* LEFT COLUMN: OPEN ARCHITECTURAL EDITORIAL + REEL TELEMETRY */}
+          <div className={styles.leftColumn}>
+            {/* STATIC TOP HEADER */}
+            <div className={styles.leftHeader}>
+              <SectionLabel>Custom parts &amp; engineering</SectionLabel>
+              <h2 className={styles.mainTitle}>
+                Engineered for any OEM part.
+                <br />
+                <em>Built for extreme service.</em>
+              </h2>
+            </div>
+
+            {/* OPEN STEP PROGRESS TRACKER */}
+            <div className={styles.stepProgressDial}>
+              <div className={styles.stepPillsGroup}>
+                {customSteps.map((step, idx) => (
+                  <button
+                    key={step.id}
+                    type="button"
+                    onClick={() => scrollToStep(idx)}
+                    className={`${styles.stepPillBtn} ${activeIndex === idx ? styles.activePill : ''}`}
+                    aria-label={`Jump to ${step.title}`}
+                  >
+                    <span className={styles.pillNum}>{step.stepNum}</span>
+                    <span className={styles.pillLabel}>{step.title.split('—')[0].split('&')[0].trim()}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* VERTICAL REEL VIEWPORT: Text translates vertically on scroll */}
+            <div className={styles.reelViewport}>
+              <div
+                className={styles.reelTrack}
+                style={{
+                  transform: `translateY(-${activeIndex * 100}%)`,
+                }}
+              >
+                {customSteps.map((step, idx) => (
+                  <div key={step.id} className={styles.reelCardItem} aria-hidden={activeIndex !== idx}>
+                    <span className={styles.stepCategoryTag}>{step.category}</span>
+                    <h3 className={styles.stepHeading}>{step.heading}</h3>
+                    <p className={styles.stepDescription}>{step.description}</p>
+
+                    {/* 4-CELL TELEMETRY SPECS GRID */}
+                    <div className={styles.telemetryGrid}>
+                      {step.specs.map((sp, sIdx) => (
+                        <div key={sIdx} className={styles.telemetryCell}>
+                          <span className={styles.telemetryLabel}>{sp.label}</span>
+                          <strong className={styles.telemetryValue}>{sp.value}</strong>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* HIGHLIGHT CHECKPOINTS */}
+                    <div className={styles.highlightsList}>
+                      {step.highlights.map((item, hIdx) => (
+                        <div key={hIdx} className={styles.highlightRow}>
+                          <span className={styles.highlightCheck} aria-hidden="true">✓</span>
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* ACTIONS ROW WITH LEFT-TO-RIGHT SWEEP CTA */}
+                    <div className={styles.actionsRow}>
+                      <div className={styles.ctaWrapper}>
+                        <Button href={step.ctaHref} magnetic={false}>
+                          {step.ctaText}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN: STATIONARY DISC (STAYS FIRMLY IN PLACE, ONLY IMAGE CHANGES INSIDE) */}
+          <div className={styles.rightColumn}>
+            {/* THE STATIONARY FULL PICTURE DISC */}
+            <div className={styles.pictureDiscStage}>
+              <div className={styles.fullPictureDisc}>
+                {/* 1. IMAGES CONTAINER: Crossfade smoothly inside the stationary disc */}
+                <div className={styles.discImagesContainer}>
+                  {customSteps.map((step, idx) => (
+                    <motion.img
+                      key={step.id}
+                      src={step.image}
+                      alt={step.title}
+                      className={styles.discFullImage}
+                      initial={false}
+                      animate={{
+                        opacity: activeIndex === idx ? 1 : 0,
+                        scale: activeIndex === idx ? 1 : 1.05,
+                      }}
+                      transition={{
+                        duration: 0.5,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
+                    />
+                  ))}
+                </div>
+
+                {/* 2. ROTATING CD TEXTURES (SPINS IN PLACE AS YOU SCROLL) */}
+                <motion.div
+                  className={styles.discRotaryOverlayTrack}
+                  style={{ rotate: continuousRotation }}
+                >
+                  {/* CONCENTRIC CD GROOVES */}
+                  <div className={styles.discGrooveSurface} />
+
+                  {/* IRIDESCENT LASER SHEEN */}
+                  <div className={styles.discIridescentSheen} />
+
+                  {/* 360° CALIBRATED RIM GRADUATIONS */}
+                  <div className={styles.discOuterBezel} />
+                  <div className={styles.rimGraduations}>
+                    {Array.from({ length: 36 }).map((_, i) => (
+                      <span
+                        key={i}
+                        className={`${styles.rimTick} ${i % 3 === 0 ? styles.rimMajorTick : ''}`}
+                        style={{ transform: `rotate(${i * 10}deg)` }}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* 3. LASER SCANNING BEAM ON STEP 1 */}
+                <AnimatePresence>
+                  {currentStep.id === 'reverse-engineering' && (
+                    <motion.div
+                      key="laser-overlay"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.35 }}
+                      className={styles.fullDiscLaserOverlay}
+                    >
+                      <div className={styles.laserLine} />
+                      <div className={styles.laserGlow} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* 4. AUTHENTIC CD CENTER SPINDLE HOLE & CLAMP RING */}
+                <div className={styles.cdCenterHub}>
+                  <div className={styles.cdClampRing}>
+                    <div className={styles.cdMirrorBand} />
+                    <div className={styles.cdCenterHole} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* --- MOBILE VIEW: INDEPENDENT TOUCH-OPTIMIZED ACCORDION (< 960px) --- */}
+      <div className={styles.mobileSection}>
+        <div className={styles.mobileHeader}>
           <SectionLabel>Custom parts &amp; engineering</SectionLabel>
           <h2>
             Engineered for any OEM part.
             <br />
             <em>Built for extreme service.</em>
           </h2>
-          <p className="custom-interactive-lead">
-            WearGuard provides 3D laser-scanned reverse engineering, custom metallurgy, and small-batch flexibility (1–10 units) to eliminate downtime on any plant machinery.
+          <p className={styles.mobileLead}>
+            3D laser-scanned reverse engineering, custom metallurgy, and small-batch flexibility (1–10 units) to eliminate downtime on any plant machinery.
           </p>
         </div>
 
-        {/* --- DESKTOP VIEW: 3-STEP TAB SWITCHER & SHOWCASE STAGE --- */}
-        <div className="custom-desktop-only">
-          <div className="custom-steps-nav" role="tablist" aria-label="Custom engineering process steps">
-            {customSteps.map((step) => {
-              const isActive = step.id === activeTab
-              return (
-                <button
-                  key={step.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActiveTab(step.id)}
-                  className={`custom-step-tab ${isActive ? 'active' : ''}`}
-                >
-                  <div className="step-tab-content">
-                    <div className="step-tab-text">
-                      <strong>{step.title}</strong>
-                      <span>{step.subtitle}</span>
-                    </div>
-                  </div>
-
-                  <svg
-                    className="step-tab-arrow"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
-                    <line x1="7" y1="17" x2="17" y2="7" />
-                    <polyline points="7 7 17 7 17 17" />
-                  </svg>
-                </button>
-              )
-            })}
-          </div>
-
-          {/* ANIMATED ACTIVE STEP SHOWCASE STAGE */}
-          <div className="custom-step-display-stage">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentStep.id}
-                initial={{ opacity: 0, y: 14 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -14 }}
-                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                className="custom-showcase-card"
-              >
-                {/* LEFT COLUMN: TECHNICAL SPECS & ACTIONS */}
-                <div className="custom-showcase-content">
-                  <span className="custom-step-tag">{currentStep.category}</span>
-                  <h3 className="custom-step-heading">{currentStep.heading}</h3>
-                  <p className="custom-step-desc">{currentStep.description}</p>
-
-                  {/* 4-CELL TELEMETRY SPECS GRID */}
-                  <div className="custom-telemetry-grid">
-                    {currentStep.specs.map((sp, idx) => (
-                      <div key={idx} className="custom-telemetry-cell">
-                        <span className="telemetry-label">{sp.label}</span>
-                        <strong className="telemetry-val">{sp.value}</strong>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* HIGHLIGHTS CHECKLIST */}
-                  <div className="custom-highlights-list">
-                    {currentStep.highlights.map((h, i) => (
-                      <div key={i} className="custom-highlight-item">
-                        <span className="highlight-check" aria-hidden="true">✓</span>
-                        <span>{h}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* ACTIONS ROW */}
-                  <div className="custom-actions-row">
-                    <Button href={currentStep.ctaHref}>
-                      {currentStep.ctaText}
-                    </Button>
-                    <Link href="/contact" className="about-sub-link">
-                      <span>Request technical consultation</span>
-                      <Arrow />
-                    </Link>
-                  </div>
-                </div>
-
-                {/* RIGHT COLUMN: RICH VISUAL MEDIA */}
-                <div className="custom-showcase-visual">
-                  <div className={`custom-visual-box ${currentStep.id === 'reverse-engineering' ? 'is-scanning' : ''}`}>
-                    <img
-                      src={currentStep.image}
-                      alt={currentStep.title}
-                      className="custom-visual-image custom-visual-base"
-                      width={616}
-                      height={464}
-                    />
-
-                    {currentStep.id === 'reverse-engineering' && (
-                      <>
-                        <img
-                          src="/images/custom-casting-cad-scan.jpg"
-                          alt="3D CAD laser reverse-engineering scan"
-                          className="custom-visual-image custom-visual-cad-scan"
-                          width={616}
-                          height={464}
-                        />
-
-                        <div className="custom-laser-scan-container" aria-hidden="true">
-                          <div className="laser-scan-mesh" />
-                          <div className="laser-scan-beam-wrap">
-                            <div className="laser-scan-trail" />
-                            <div className="laser-scan-beam" />
-                          </div>
-                          <div className="laser-scan-reticle reticle-tl" />
-                          <div className="laser-scan-reticle reticle-tr" />
-                          <div className="laser-scan-reticle reticle-bl" />
-                          <div className="laser-scan-reticle reticle-br" />
-                        </div>
-                      </>
-                    )}
-
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* --- MOBILE VIEW: INDEPENDENT COLLAPSIBLE ACCORDION CARDS --- */}
-        <div className="custom-mobile-accordion-group">
+        <div className={styles.mobileAccordionGroup}>
           {customSteps.map((step) => {
             const isOpen = mobileOpenStep === step.id
 
             return (
-              <div key={step.id} className={`mobile-step-accordion-card ${isOpen ? 'is-open' : ''}`}>
-                {/* ACCORDION HEADER BUTTON */}
+              <div
+                key={step.id}
+                className={`${styles.mobileAccordionCard} ${isOpen ? styles.isOpen : ''}`}
+              >
                 <button
                   type="button"
-                  className="mobile-step-accordion-header"
+                  className={styles.mobileAccordionHeader}
                   onClick={() => toggleMobileStep(step.id)}
                   aria-expanded={isOpen}
                 >
-                  <div className="accordion-title-wrap">
-                    <span className="accordion-step-num">{step.stepNum}</span>
-                    <div className="accordion-titles">
+                  <div className={styles.accordionTitleWrap}>
+                    <span className={styles.accordionStepNum}>{step.stepNum}</span>
+                    <div className={styles.accordionTitles}>
                       <strong>{step.title}</strong>
                       <span>{step.subtitle}</span>
                     </div>
                   </div>
-                  <span className="accordion-chevron" aria-hidden="true">
+                  <span className={styles.accordionChevron} aria-hidden="true">
                     {isOpen ? '▲' : '▼'}
                   </span>
                 </button>
 
-                {/* ACCORDION EXPANDABLE CONTENT */}
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
-                      className="mobile-step-accordion-body"
+                      transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                      className={styles.mobileAccordionBody}
                     >
-                      <div className="mobile-step-inner-content">
-                        <span className="custom-step-tag">{step.category}</span>
-                        <h4 className="mobile-step-heading">{step.heading}</h4>
-                        <p className="mobile-step-desc">{step.description}</p>
+                      <div className={styles.mobileBodyInner}>
+                        <span className={styles.stepCategoryTag}>{step.category}</span>
+                        <h4 className={styles.mobileStepHeading}>{step.heading}</h4>
+                        <p className={styles.mobileStepDesc}>{step.description}</p>
 
-                        {/* 4-CELL TELEMETRY MATRIX */}
-                        <div className="mobile-telemetry-grid">
+                        <div className={styles.mobileImgFrame}>
+                          <img
+                            src={step.image}
+                            alt={step.title}
+                            className={styles.mobileImg}
+                            width={616}
+                            height={464}
+                          />
+                        </div>
+
+                        <div className={styles.telemetryGrid}>
                           {step.specs.map((sp, idx) => (
-                            <div key={idx} className="mobile-telemetry-cell">
-                              <span className="telemetry-label">{sp.label}</span>
-                              <strong className="telemetry-val">{sp.value}</strong>
+                            <div key={idx} className={styles.telemetryCell}>
+                              <span className={styles.telemetryLabel}>{sp.label}</span>
+                              <strong className={styles.telemetryValue}>{sp.value}</strong>
                             </div>
                           ))}
                         </div>
 
-                        {/* HIGHLIGHTS */}
-                        <div className="mobile-highlights-list">
+                        <div className={styles.highlightsList}>
                           {step.highlights.map((h, i) => (
-                            <div key={i} className="mobile-highlight-item">
-                              <span className="highlight-check" aria-hidden="true">✓</span>
+                            <div key={i} className={styles.highlightRow}>
+                              <span className={styles.highlightCheck} aria-hidden="true">✓</span>
                               <span>{h}</span>
                             </div>
                           ))}
                         </div>
 
-                        {/* MEDIA IMAGE */}
-                        <div className="mobile-accordion-image-box">
-                          <img src={step.image} alt={step.title} className="mobile-accordion-img" width={616} height={464} />
-                        </div>
-
-                        {/* CTA ACTION */}
-                        <div className="mobile-step-action">
-                          <Button href={step.ctaHref}>
+                        <div className={styles.mobileAction}>
+                          <Button href={step.ctaHref} magnetic={false}>
                             {step.ctaText}
                           </Button>
                         </div>

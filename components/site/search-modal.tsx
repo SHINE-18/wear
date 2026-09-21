@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { applications } from '@/lib/site-data'
+import styles from './search-modal.module.css'
 
 interface SearchItem {
   type: 'Page' | 'Application' | 'Material'
@@ -62,55 +63,55 @@ export function SiteSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose:
   if (!isOpen) return null
 
   return (
-    <div className="search-modal-backdrop" onClick={onClose} aria-modal="true" role="dialog">
-      <div className="search-modal-box" onClick={(e) => e.stopPropagation()}>
+    <div className={styles['search-modal-backdrop']} onClick={onClose} aria-modal="true" role="dialog">
+      <div className={styles['search-modal-box']} onClick={(e) => e.stopPropagation()}>
         {/* Top Search Input Bar */}
-        <div className="search-modal-header">
-          <div className="search-input-icon-wrap">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="search-icon-svg">
+        <div className={styles['search-modal-header']}>
+          <div className={styles['search-input-icon-wrap']}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className={styles['search-icon-svg']}>
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </div>
           <input
             type="text"
-            className="search-modal-input"
+            className={styles['search-modal-input']}
             placeholder="Search materials, parts, applications..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoFocus
           />
-          <button type="button" className="search-modal-close" onClick={onClose} aria-label="Close search">
+          <button type="button" className={styles['search-modal-close']} onClick={onClose} aria-label="Close search">
             ESC
           </button>
         </div>
 
         {/* Results List */}
-        <div className="search-modal-results">
+        <div className={styles['search-modal-results']}>
           {filtered.length === 0 ? (
-            <div className="search-no-results">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="search-empty-icon">
+            <div className={styles['search-no-results']}>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={styles['search-empty-icon']}>
                 <circle cx="11" cy="11" r="8" />
                 <line x1="21" y1="21" x2="16.65" y2="16.65" />
                 <line x1="8" y1="11" x2="14" y2="11" />
               </svg>
-              <p>No metallurgy or component results for "{query}"</p>
+              <p>No metallurgy or component results for &quot;{query}&quot;</p>
               <span>Try searching for <em>Hardox</em>, <em>Dryer</em>, <em>Casting</em>, or <em>Mining</em>.</span>
             </div>
           ) : (
-            <ul className="search-results-list">
+            <ul className={styles['search-results-list']}>
               {filtered.map((item, idx) => (
                 <li key={idx}>
-                  <Link href={item.href} className="search-result-row" onClick={onClose}>
-                    <span className={`search-type-badge search-badge-${item.type.toLowerCase()}`}>
+                  <Link href={item.href} className={styles['search-result-row']} onClick={onClose}>
+                    <span className={`${styles['search-type-badge']} ${styles[`search-badge-${item.type.toLowerCase()}`]}`}>
                       {item.type}
                     </span>
-                    <div className="search-result-info">
-                      <strong className="search-result-title">{item.title}</strong>
-                      <span className="search-result-desc">{item.subtitle}</span>
+                    <div className={styles['search-result-info']}>
+                      <strong className={styles['search-result-title']}>{item.title}</strong>
+                      <span className={styles['search-result-desc']}>{item.subtitle}</span>
                     </div>
-                    <div className="search-row-action">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="search-arrow-svg">
+                    <div className={styles['search-row-action']}>
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={styles['search-arrow-svg']}>
                         <path d="M7 17L17 7" />
                         <path d="M7 7h10v10" />
                       </svg>
@@ -123,12 +124,12 @@ export function SiteSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose:
         </div>
 
         {/* Command Palette Footer */}
-        <div className="search-modal-footer">
-          <div className="search-footer-shortcuts">
-            <span className="shortcut-item"><kbd>↵</kbd> to select</span>
-            <span className="shortcut-item"><kbd>Tab</kbd> to cycle</span>
+        <div className={styles['search-modal-footer']}>
+          <div className={styles['search-footer-shortcuts']}>
+            <span className={styles['shortcut-item']}><kbd>↵</kbd> to select</span>
+            <span className={styles['shortcut-item']}><kbd>Tab</kbd> to cycle</span>
           </div>
-          <span className="shortcut-item"><kbd>ESC</kbd> to dismiss</span>
+          <span className={styles['shortcut-item']}><kbd>ESC</kbd> to dismiss</span>
         </div>
       </div>
     </div>

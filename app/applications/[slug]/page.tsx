@@ -8,6 +8,7 @@ import { PageHero } from '@/components/site/page-hero'
 import { Arrow, Button, SectionLabel } from '@/components/site/ui'
 import { ProductComponentAccordion } from '@/components/site/product-component-accordion'
 import { applications } from '@/lib/site-data'
+import styles from './application-detail.module.css'
 
 export function generateStaticParams() {
   return applications.map((app) => ({ slug: app.slug }))
@@ -62,22 +63,22 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       <ProductComponentAccordion application={app} />
 
       {/* 3. RELATED APPLICATIONS STRIP */}
-      <section className="related-strip section-light">
+      <section className={`${styles.relatedStrip} related-strip section-light`}>
         <FadeUp className="section-heading">
           <SectionLabel>Matched Product Lines</SectionLabel>
           <h2 style={{ fontSize: 'clamp(2rem, 3.5vw, 3rem)', margin: '0.6rem 0 2rem' }}>
             Explore other <em>wear assemblies.</em>
           </h2>
         </FadeUp>
-        <div className="related-grid">
+        <div className={styles.relatedGrid}>
           {related.map((r) => (
-            <Link key={r.slug} href={`/applications/${r.slug}`} className="related-card">
-              <span className="related-card-num">{r.num}</span>
-              <div className="related-card-body">
+            <Link key={r.slug} href={`/applications/${r.slug}`} className={styles.relatedCard}>
+              <span className={styles.relatedCardNum}>{r.num}</span>
+              <div className={styles.relatedCardBody}>
                 <h3>{r.title}</h3>
                 <p>{r.tagline ?? r.summary}</p>
               </div>
-              <span className="related-card-arrow" aria-hidden="true">
+              <span className={styles.relatedCardArrow} aria-hidden="true">
                 <Arrow />
               </span>
             </Link>
@@ -86,7 +87,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       </section>
 
       {/* 4. RFQ / CAD SPEC BOTTOM CTA */}
-      <section className="page-cta section-dark">
+      <section className={`${styles.pageCta} page-cta section-dark`}>
         <h2>
           Ready to spec this <em>assembly?</em>
         </h2>

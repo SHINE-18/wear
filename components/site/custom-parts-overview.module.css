@@ -1,0 +1,779 @@
+/* ==========================================================================
+   CUSTOM PARTS OVERVIEW — FULL-DISC PICTURE CD & REEL TELEMETRY SHOWCASE
+   Full-Bleed Picture Disc Swap (Right) + Synchronized Reel Telemetry (Left)
+   ========================================================================== */
+
+/* OUTER 300VH SCROLL TRACK FOR PINNED SCRUBBING */
+.customSectionWrapper {
+  position: relative;
+  height: 300vh;
+  background-color: #EDEDED;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  z-index: 12;
+}
+
+/* 100VH STICKY VIEWPORT STAGE */
+.customStickyStage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ECEEF2;
+}
+
+/* CAD SUBTLE GRID & COORDINATE WATERMARKS */
+.cadGridBackground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.85;
+}
+
+/* CONTAINER WRAPPER (SPLIT SCREEN: 52% LEFT, 48% RIGHT) */
+.stageContentWrap {
+  max-width: 1600px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 4.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   LEFT COLUMN: STATIC TITLE + REEL TELEMETRY
+   ========================================================================== */
+.leftColumn {
+  width: 52%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.25rem;
+  z-index: 5;
+}
+
+.leftHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.mainTitle {
+  font-size: clamp(2rem, 3.4vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 850;
+  color: #111215;
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+.mainTitle em {
+  font-style: normal;
+  color: #7D8594;
+}
+
+/* OPEN STEP PROGRESS TRACKER (NO BOXES) */
+.stepProgressDial {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 0.25rem 0 0.65rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(17, 18, 20, 0.12);
+  border-radius: 0;
+}
+
+.stepPillsGroup {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.stepPillBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stepPillBtn:hover:not(.activePill) {
+  border-bottom-color: rgba(17, 18, 20, 0.3);
+}
+
+.stepPillBtn.activePill {
+  background: transparent;
+  border-bottom-color: var(--orange, #C8370B);
+}
+
+.pillNum {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--orange, #C8370B);
+}
+
+.activePill .pillNum {
+  color: var(--orange, #C8370B);
+}
+
+.pillLabel {
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: #64748B;
+  letter-spacing: -0.01em;
+}
+
+.activePill .pillLabel {
+  color: #0E1014;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   VERTICAL REEL VIEWPORT — OPEN EDITORIAL (ZERO BOXES)
+   ========================================================================== */
+.reelViewport {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.reelTrack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.reelCardItem {
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  padding: 0.25rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.stepCategoryTag {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--orange, #C8370B);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-family: var(--font-mono, monospace);
+}
+
+.stepHeading {
+  font-size: clamp(1.35rem, 2.1vw, 1.85rem);
+  font-weight: 850;
+  color: #0E1014;
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+  margin: 0.15rem 0 0.4rem;
+  font-family: var(--font-body);
+}
+
+.stepDescription {
+  font-size: 0.92rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 600px;
+}
+
+/* OPEN ARCHITECTURAL TELEMETRY ROW (HAIRLINE DIVIDERS, NO BOX) */
+.telemetryGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  background: transparent;
+  border-top: 1px solid rgba(17, 18, 20, 0.14);
+  border-bottom: 1px solid rgba(17, 18, 20, 0.14);
+  padding: 1rem 0;
+  border-radius: 0;
+  margin: 0.35rem 0;
+}
+
+.telemetryCell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.telemetryLabel {
+  font-size: 0.66rem;
+  font-weight: 750;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono, monospace);
+}
+
+.telemetryValue {
+  font-size: 0.88rem;
+  font-weight: 750;
+  color: #0F172A;
+  line-height: 1.3;
+  font-family: var(--font-mono, monospace);
+}
+
+/* HIGHLIGHTS CHECKLIST */
+.highlightsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 0.2rem 0;
+}
+
+.highlightRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.84rem;
+  color: #334155;
+  line-height: 1.45;
+}
+
+.highlightCheck {
+  color: var(--orange, #C8370B);
+  font-weight: 800;
+  font-size: 0.88rem;
+  line-height: 1;
+}
+
+/* ACTIONS ROW & CTA WITH LEFT-TO-RIGHT SWEEP */
+.actionsRow {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 0.4rem;
+}
+
+.ctaWrapper {
+  display: inline-block;
+}
+
+.actionsRow :global(.cta) {
+  position: relative;
+  overflow: hidden;
+  background: var(--orange);
+  color: #ffffff;
+  border-radius: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  z-index: 1;
+}
+
+.actionsRow :global(.cta)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #0e1014;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.actionsRow :global(.cta:hover) {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(14, 16, 20, 0.25);
+  background: var(--orange);
+}
+
+.actionsRow :global(.cta:hover)::before {
+  transform: scaleX(1);
+}
+
+.actionsRow :global(.cta) :global(.cta-label),
+.actionsRow :global(.cta) :global(.arrow) {
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.actionsRow :global(.cta:hover) :global(.arrow) {
+  color: var(--orange-hover, #D84112);
+  transform: translate(3px, -3px);
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: FULL-BLEED PICTURE CD DISC SWAP
+   ========================================================================== */
+.rightColumn {
+  width: 48%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* PICTURE DISC STAGE & WRAPPER */
+.pictureDiscStage {
+  position: relative;
+  width: 740px;
+  height: 740px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: -180px;
+}
+
+/* FULL CIRCULAR PICTURE DISC (STATIONARY - NEVER MOVES OUT) */
+.fullPictureDisc {
+  position: relative;
+  width: 740px;
+  height: 740px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #0E1014;
+  box-shadow: 
+    0 24px 80px rgba(0, 0, 0, 0.35),
+    0 0 0 2px rgba(255, 255, 255, 0.12);
+}
+
+/* IMAGES CONTAINER (CROSSFADES IN PLACE) */
+.discImagesContainer {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.discFullImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+  filter: brightness(0.95) contrast(1.05);
+  will-change: opacity, transform;
+}
+
+/* ROTATING CD OVERLAYS (SPINS IN PLACE AS YOU SCROLL) */
+.discRotaryOverlayTrack {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* CONCENTRIC CD GROOVES OVERLAY */
+.discGrooveSurface {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.55;
+  background: repeating-radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 2px,
+    transparent 2.5px,
+    transparent 5px
+  );
+  mix-blend-mode: overlay;
+}
+
+/* SUBTLE IRIDESCENT LASER SHEEN OVERLAY */
+.discIridescentSheen {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  background: conic-gradient(
+    from 45deg at 50% 50%,
+    transparent 0deg,
+    rgba(200, 55, 11, 0.20) 60deg,
+    transparent 120deg,
+    rgba(255, 255, 255, 0.18) 180deg,
+    transparent 240deg,
+    rgba(200, 55, 11, 0.20) 300deg,
+    transparent 360deg
+  );
+}
+
+/* LASER SCANNING BEAM ON STEP 1 */
+.fullDiscLaserOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.laserLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: #FF3300;
+  box-shadow: 0 0 14px #FF3300, 0 0 28px #FF0000;
+  animation: laserSweepFull 2.4s ease-in-out infinite alternate;
+}
+
+.laserGlow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: linear-gradient(180deg, rgba(255, 51, 0, 0.3) 0%, transparent 100%);
+  animation: laserGlowSweepFull 2.4s ease-in-out infinite alternate;
+}
+
+@keyframes laserSweepFull {
+  0% { top: 12%; }
+  100% { top: 88%; }
+}
+
+@keyframes laserGlowSweepFull {
+  0% { top: 12%; }
+  100% { top: 88%; }
+}
+
+/* CALIBRATED OUTER RIM WITH 360° DEGREE TICKS */
+.discOuterBezel {
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+
+.rimGraduations {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.rimTick {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  width: 1.5px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.45);
+  transform-origin: 50% 366px;
+}
+
+.rimMajorTick {
+  height: 14px;
+  background: var(--orange, #C8370B);
+  width: 2px;
+}
+
+/* ==========================================================================
+   AUTHENTIC CD CENTER HUB & APERTURE HOLE
+   ========================================================================== */
+.cdCenterHub {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 116px;
+  height: 116px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 15;
+}
+
+/* Clear transparent acrylic inner ring (clamping zone on a CD) */
+.cdClampRing {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    inset 0 0 14px rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cdMirrorBand {
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Authentic physical center hole (transparent, showing stage surface) */
+.cdCenterHole {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ECEEF2;
+  border: 1.5px solid rgba(0, 0, 0, 0.22);
+  box-shadow: 
+    inset 0 2px 6px rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   MOBILE SECTION & ACCORDION (DESKTOP HIDDEN, SHOWN ON < 960PX)
+   ========================================================================== */
+.mobileSection {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .customSectionWrapper {
+    height: auto !important;
+    padding: clamp(3.5rem, 6vw, 5.5rem) 1.25rem;
+  }
+
+  .customStickyStage {
+    display: none !important;
+  }
+
+  .mobileSection {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+
+  .mobileHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .mobileHeader h2 {
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-weight: 850;
+    color: #111215;
+    margin: 0;
+    font-family: var(--font-body);
+  }
+
+  .mobileHeader h2 em {
+    font-style: normal;
+    color: #7D8594;
+  }
+
+  .mobileLead {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+
+  .mobileAccordionGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    width: 100%;
+  }
+
+  .mobileAccordionCard {
+    background: #FFFFFF;
+    border: 1px solid rgba(17, 18, 20, 0.12);
+    border-radius: 0;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+
+  .mobileAccordionCard.isOpen {
+    border-color: var(--orange, #C8370B);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .mobileAccordionHeader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.15rem 1.25rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .accordionTitleWrap {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .accordionStepNum {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.82rem;
+    font-weight: 800;
+    color: var(--orange, #C8370B);
+    background: rgba(200, 55, 11, 0.08);
+    padding: 0.2rem 0.45rem;
+    border-radius: 0;
+  }
+
+  .accordionTitles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .accordionTitles strong {
+    font-family: var(--font-display, var(--font-body));
+    font-size: 1.02rem;
+    font-weight: 750;
+    color: #0E1014;
+    letter-spacing: -0.01em;
+  }
+
+  .accordionTitles span {
+    font-size: 0.78rem;
+    color: #64748B;
+  }
+
+  .accordionChevron {
+    font-size: 0.75rem;
+    color: #94A3B8;
+    transition: transform 0.2s ease;
+  }
+
+  .mobileAccordionCard.isOpen .accordionChevron {
+    color: var(--orange, #C8370B);
+  }
+
+  .mobileAccordionBody {
+    overflow: hidden;
+    border-top: 1px solid rgba(17, 18, 20, 0.08);
+  }
+
+  .mobileBodyInner {
+    padding: 1.25rem 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobileStepHeading {
+    font-family: var(--font-display, var(--font-body));
+    font-size: 1.15rem;
+    font-weight: 750;
+    color: #0E1014;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .mobileStepDesc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0;
+  }
+
+  .mobileImgFrame {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: #0E1014;
+    overflow: hidden;
+    border: 1px solid rgba(17, 18, 20, 0.1);
+  }
+
+  .mobileImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mobileAction {
+    margin-top: 0.35rem;
+  }
+
+  .mobileAction :global(.cta) {
+    position: relative;
+    overflow: hidden;
+    background: var(--orange);
+    color: #ffffff;
+    border-radius: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    z-index: 1;
+  }
+
+  .mobileAction :global(.cta)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #0e1014;
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+  }
+
+  .mobileAction :global(.cta:hover) {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(14, 16, 20, 0.25);
+    background: var(--orange);
+  }
+
+  .mobileAction :global(.cta:hover)::before {
+    transform: scaleX(1);
+  }
+
+  .mobileAction :global(.cta) :global(.cta-label),
+  .mobileAction :global(.cta) :global(.arrow) {
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .mobileAction :global(.cta:hover) :global(.arrow) {
+    color: var(--orange-hover, #D84112);
+    transform: translate(3px, -3px);
+  }
+}

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { FadeUp } from './motion'
 import { Arrow, SectionLabel } from './ui'
+import styles from './page-hero.module.css'
 
 export interface QuickJumpItem {
   label: string
@@ -31,34 +32,34 @@ export function PageHero({
   ctaHref?: string
 }) {
   return (
-    <section className="page-hero-split section-slate">
-      <div className="page-hero-split-grid">
+    <section className={`${styles['page-hero-split']} section-slate`}>
+      <div className={styles['page-hero-split-grid']}>
         {/* LEFT COLUMN: EDITORIAL & QUICK JUMPS */}
-        <FadeUp className="page-hero-split-left">
+        <FadeUp className={styles['page-hero-split-left']}>
           <SectionLabel>{eyebrow}</SectionLabel>
-          <h1 className="page-hero-split-title">{title}</h1>
+          <h1 className={styles['page-hero-split-title']}>{title}</h1>
 
           {description && (
-            <p className="page-hero-split-desc">{description}</p>
+            <p className={styles['page-hero-split-desc']}>{description}</p>
           )}
 
           {quickJumps && quickJumps.length > 0 && (
-            <div className="page-hero-quick-jumps">
-              <span className="quick-jumps-label">Quick Navigation:</span>
-              <div className="quick-jumps-pills">
+            <div className={styles['page-hero-quick-jumps']}>
+              <span className={styles['quick-jumps-label']}>Quick Navigation:</span>
+              <div className={styles['quick-jumps-pills']}>
                 {quickJumps.map((jump, idx) => (
-                  <a key={`${jump.href}-${jump.code ?? idx}`} href={jump.href} className="quick-jump-pill">
-                    <span className="jump-code">{jump.code ?? `0${idx + 1}`}</span>
-                    <span className="jump-txt">{jump.label}</span>
-                    <span className="jump-arrow" aria-hidden="true">↓</span>
+                  <a key={`${jump.href}-${jump.code ?? idx}`} href={jump.href} className={styles['quick-jump-pill']}>
+                    <span className={styles['jump-code']}>{jump.code ?? `0${idx + 1}`}</span>
+                    <span className={styles['jump-txt']}>{jump.label}</span>
+                    <span className={styles['jump-arrow']} aria-hidden="true">↓</span>
                   </a>
                 ))}
               </div>
             </div>
           )}
 
-          <div className="page-hero-split-actions">
-            <Link href={ctaHref} className="page-hero-cta-btn">
+          <div className={styles['page-hero-split-actions']}>
+            <Link href={ctaHref} className={styles['page-hero-cta-btn']}>
               <span>{ctaLabel}</span>
               <Arrow />
             </Link>
@@ -66,20 +67,20 @@ export function PageHero({
         </FadeUp>
 
         {/* RIGHT COLUMN: TALL INDUSTRIAL VISUAL CARD */}
-        <FadeUp delay={0.12} className="page-hero-split-right">
-          <div className="page-hero-visual-card">
-            <div className="visual-card-frame">
-              <img src={image} alt={imageAlt} className="visual-card-img" width={724} height={543} />
-              <div className="visual-card-overlay" aria-hidden="true" />
+        <FadeUp delay={0.12} className={styles['page-hero-split-right']}>
+          <div className={styles['page-hero-visual-card']}>
+            <div className={styles['visual-card-frame']}>
+              <img src={image} alt={imageAlt} className={styles['visual-card-img']} width={724} height={543} />
+              <div className={styles['visual-card-overlay']} aria-hidden="true" />
             </div>
 
             {/* INDUSTRIAL SPEC TAGS */}
-            <div className="page-hero-spec-tag-top">
+            <div className={styles['page-hero-spec-tag-top']}>
               <span>FIELD SPECIFIED</span>
             </div>
 
             {badge && (
-              <div className="page-hero-badge-bottom">
+              <div className={styles['page-hero-badge-bottom']}>
                 <span>{badge}</span>
               </div>
             )}

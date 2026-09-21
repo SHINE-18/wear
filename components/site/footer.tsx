@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Logo } from './ui'
+import styles from './footer.module.css'
 
 interface SiteFooterProps {
   showCta?: boolean
@@ -10,13 +10,13 @@ interface SiteFooterProps {
 
 export function SiteFooter({ showCta = true }: SiteFooterProps) {
   return (
-    <footer className="footer-root">
+    <footer className={`${styles['footer-root']} footer-root`}>
       {/* 1. TOP VIBRANT ORANGE CTA BANNER */}
       {showCta && (
-        <div className="footer-cta-banner">
+        <div className={`${styles['footer-cta-banner']} footer-cta-banner`}>
           <svg
             viewBox="0 0 24 24"
-            className="footer-morph-icon"
+            className={styles['footer-morph-icon']}
             fill="none"
             stroke="currentColor"
             strokeWidth="2.8"
@@ -24,12 +24,12 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
             strokeLinejoin="round"
             aria-hidden="true"
           >
-            <path d="M7 7h10v10" className="icon-head" />
-            <line x1="7" y1="17" x2="17" y2="7" className="icon-stem" />
+            <path d="M7 7h10v10" className={styles['icon-head']} />
+            <line x1="7" y1="17" x2="17" y2="7" className={styles['icon-stem']} />
           </svg>
-          <Link href="/contact" className="footer-cta-content" aria-label="Contact WearGuard Engineering">
-            <p className="footer-cta-title">
-              Ready to <span className="cta-headline-accent">Modernize</span> Your
+          <Link href="/contact" className={styles['footer-cta-content']} aria-label="Contact WearGuard Engineering">
+            <p className={styles['footer-cta-title']}>
+              Ready to <span className={styles['cta-headline-accent']}>Modernize</span> Your
               <br />
               Industrial Operations?
             </p>
@@ -38,26 +38,26 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
       )}
 
       {/* 2. MAIN FOOTER BODY */}
-      <div className="footer-main-dark">
-        <div className="footer-main-grid">
+      <div className={`${styles['footer-main-dark']} footer-main-dark`}>
+        <div className={styles['footer-main-grid']}>
           {/* COL 1: BRAND BIO & SLEEK SQUARE BACK TO TOP */}
-          <div className="footer-brand-col">
-            <Link className="footer-logo-link" href="/" aria-label="WearGuard Home">
+          <div className={styles['footer-brand-col']}>
+            <Link className={styles['footer-logo-link']} href="/" aria-label="WearGuard Home">
               <img
                 src="/images/screen.svg"
                 alt="WearGuard"
-                className="footer-brand-logo-img"
+                className={styles['footer-brand-logo-img']}
                 style={{ height: '64px', width: 'auto', objectFit: 'contain', display: 'block' }}
                 width={200}
                 height={64}
               />
             </Link>
-            <p className="footer-bio-text">
+            <p className={styles['footer-bio-text']}>
               Precision high-wear metallurgy &amp; bespoke cast components engineered to eliminate plant downtime.
             </p>
             <button
               type="button"
-              className="footer-square-btt"
+              className={styles['footer-square-btt']}
               aria-label="Scroll back to top"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
@@ -68,9 +68,9 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           </div>
 
           {/* COL 2: NAVIGATION */}
-          <div className="footer-links-col">
+          <div className={styles['footer-links-col']}>
             <h4>Navigation</h4>
-            <ul className="footer-links-list">
+            <ul className={styles['footer-links-list']}>
               <li><Link href="/">Home</Link></li>
               <li><Link href="/industries">Industries</Link></li>
               <li><Link href="/applications">Applications</Link></li>
@@ -82,9 +82,9 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           </div>
 
           {/* COL 3: INDUSTRIES */}
-          <div className="footer-links-col">
+          <div className={styles['footer-links-col']}>
             <h4>Industries</h4>
-            <ul className="footer-links-list">
+            <ul className={styles['footer-links-list']}>
               <li><Link href="/industries#asphalt-paving">Asphalt Plants</Link></li>
               <li><Link href="/industries#concrete-batching">Concrete Batching</Link></li>
               <li><Link href="/industries#process-industries">Process Industries</Link></li>
@@ -94,18 +94,18 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
         </div>
 
         {/* 3. FOOTER BOTTOM BAR */}
-        <div className="footer-bottom-bar">
-          <div className="footer-copyright">
+        <div className={styles['footer-bottom-bar']}>
+          <div className={styles['footer-copyright']}>
             © 2026 WearGuard. All rights reserved.
           </div>
 
-          <div className="footer-legal-links">
+          <div className={styles['footer-legal-links']}>
             <Link href="/contact">Terms of Use</Link>
             <Link href="/contact">Privacy Policy</Link>
-            <span className="footer-credit">Created by <strong>WearGuard</strong></span>
+            <span className={styles['footer-credit']}>Created by <strong>WearGuard</strong></span>
           </div>
 
-          <div className="footer-social-icons">
+          <div className={styles['footer-social-icons']}>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer nofollow" aria-label="X / Twitter">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>

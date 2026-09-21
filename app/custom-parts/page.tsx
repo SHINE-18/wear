@@ -6,6 +6,7 @@ import { SiteNav } from '@/components/site/nav'
 import { PageHero } from '@/components/site/page-hero'
 import { Arrow, Button, SectionLabel } from '@/components/site/ui'
 import { customFeatures, plantImage, processSteps } from '@/lib/site-data'
+import styles from './custom-parts.module.css'
 
 export const metadata: Metadata = {
   title: 'Custom Wear Parts & 3D Reverse Engineering | WearGuard',
@@ -34,7 +35,7 @@ export default function CustomPartsPage() {
       />
 
       {/* --- WHAT WE OFFER: 4 PILLARS --- */}
-      <section className="custom-pillars-section section-light">
+      <section className={`${styles.customPillarsSection} custom-pillars-section section-light`}>
         <FadeUp className="section-heading">
           <SectionLabel>Capabilities</SectionLabel>
           <h2>
@@ -47,19 +48,28 @@ export default function CustomPartsPage() {
           </p>
         </FadeUp>
 
-        <Stagger className="custom-pillars-grid">
-          {customFeatures.map((f, i) => (
-            <StaggerItem key={f.title} className="custom-pillar-card">
-              <span className="pillar-num">{String(i + 1).padStart(2, '0')}</span>
-              <h3>{f.title}</h3>
-              <p>{f.text}</p>
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <div className={styles.aboutCapabilities} style={{ marginTop: '2rem' }}>
+          <div className={styles.aboutCapability}>
+            <span className={styles.capabilityMetric}>3D</span>
+            <span className={styles.capabilityLabel}>Reverse Engineering & Scanning</span>
+          </div>
+          <div className={styles.aboutCapability}>
+            <span className={styles.capabilityMetric}>Alloy</span>
+            <span className={styles.capabilityLabel}>Custom Wear Metallurgy</span>
+          </div>
+          <div className={styles.aboutCapability}>
+            <span className={styles.capabilityMetric}>1–10</span>
+            <span className={styles.capabilityLabel}>Small-Batch Production Runs</span>
+          </div>
+          <div className={styles.aboutCapability}>
+            <span className={styles.capabilityMetric}>100%</span>
+            <span className={styles.capabilityLabel}>Mechanical & Dimensional QA</span>
+          </div>
+        </div>
       </section>
 
       {/* --- 4-STAGE REVERSE-ENGINEERING TIMELINE --- */}
-      <section className="custom-process-section section-dark">
+      <section className={`${styles.customProcessSection} custom-process-section section-dark`}>
         <FadeUp className="section-heading">
           <SectionLabel>Lifecycle Process</SectionLabel>
           <h2>
@@ -72,63 +82,66 @@ export default function CustomPartsPage() {
           </p>
         </FadeUp>
 
-        <div className="custom-steps-grid">
+        <div className={styles.engineeringTimeline}>
           {processSteps.map((step) => (
-            <FadeUp key={step.n} className="custom-step-card">
-              <div className="custom-step-header">
-                <span className="step-badge">STAGE {step.n}</span>
-                <span className="step-status">Verified QA</span>
+            <FadeUp key={step.n} className={styles.timelineNode}>
+              <div className={styles.timelineLine} aria-hidden="true" />
+              <div className={styles.timelineMarker}>
+                <span className={styles.timelineNum}>{step.n}</span>
+                <span className={styles.timelineDot} />
               </div>
-              <h3>{step.t}</h3>
-              <p>{step.d}</p>
+              <div className={styles.timelineContent}>
+                <h3 className={styles.timelineTitle}>{step.t}</h3>
+                <p className={styles.timelineDesc}>{step.d}</p>
+              </div>
             </FadeUp>
           ))}
         </div>
       </section>
 
       {/* --- SPECIFICATION CHECKLIST --- */}
-      <section className="custom-spec-checklist section-light">
-        <div className="checklist-layout">
-          <FadeUp className="checklist-left">
+      <section className={`${styles.customSpecChecklist} custom-spec-checklist section-light`}>
+        <div className={styles.checklistLayout}>
+          <FadeUp className={styles.checklistLeft}>
             <SectionLabel>RFQ Submission Guide</SectionLabel>
             <h2>
               What our engineers need
               <br />
               to <em>quote your part.</em>
             </h2>
-            <p className="checklist-lead">
+            <p className={styles.checklistLead}>
               We can work from full 3D CAD files (.STEP / .IGES), 2D manufacturing drawings (.DWG / .PDF), or worn physical samples sent directly to our Australian metrology lab.
             </p>
             <Button href="/contact">Submit Drawings / RFQ</Button>
           </FadeUp>
 
-          <FadeUp className="checklist-right">
-            <div className="checklist-card">
-              <h3 className="checklist-card-title">Engineering Checklist</h3>
-              <div className="checklist-items">
-                <div className="checklist-item">
-                  <span className="chk-box">✓</span>
+          <FadeUp className={styles.checklistRight}>
+            <div className={styles.checklistCard}>
+              <h3 className={styles.checklistCardTitle}>Engineering Checklist</h3>
+              <div className={styles.checklistItems}>
+                <div className={styles.checklistItem}>
+                  <span className={styles.chkBox}>✓</span>
                   <div>
                     <strong>Equipment OEM & Model</strong>
                     <p>Machine type, original part number, and plant installation location.</p>
                   </div>
                 </div>
-                <div className="checklist-item">
-                  <span className="chk-box">✓</span>
+                <div className={styles.checklistItem}>
+                  <span className={styles.chkBox}>✓</span>
                   <div>
                     <strong>Operating Environment & Material Handled</strong>
                     <p>Particle sizing (lump mm), tonnage per hour, temperature, and moisture content.</p>
                   </div>
                 </div>
-                <div className="checklist-item">
-                  <span className="chk-box">✓</span>
+                <div className={styles.checklistItem}>
+                  <span className={styles.chkBox}>✓</span>
                   <div>
                     <strong>Historical Failure Mode</strong>
                     <p>Gouging impact, abrasive sliding thinning, cracking, or thermal fatigue.</p>
                   </div>
                 </div>
-                <div className="checklist-item">
-                  <span className="chk-box">✓</span>
+                <div className={styles.checklistItem}>
+                  <span className={styles.chkBox}>✓</span>
                   <div>
                     <strong>Desired Batch Quantity</strong>
                     <p>Trial batch (1–10 units) or scheduled campaign replacement volumes.</p>

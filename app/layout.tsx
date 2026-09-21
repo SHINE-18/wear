@@ -1,24 +1,24 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { AdaptiveScrollbar } from '@/components/site/adaptive-scrollbar'
 import { SmoothScroll } from '@/components/site/smooth-scroll'
 import './globals.css'
 
-const fontDisplay = Plus_Jakarta_Sans({
+const fontDisplay = Inter({
   subsets: ['latin'],
   variable: '--font-display',
   weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
-  fallback: ['sans-serif'],
+  fallback: ['Inter Placeholder', 'sans-serif'],
 })
 
 const fontBody = Inter({
   subsets: ['latin'],
   variable: '--font-body',
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
-  fallback: ['sans-serif'],
+  fallback: ['Inter Placeholder', 'sans-serif'],
 })
 
 const fontMono = JetBrains_Mono({
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'dark light',
-  themeColor: '#C23E20',
+  themeColor: '#C8370B',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -48,10 +48,18 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       data-scrollbar-theme="dark"
-      className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-[#E4EAF2]`}
+      className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-[#EDEDED]`}
       suppressHydrationWarning
     >
-      <body className="antialiased font-body bg-[#E4EAF2] text-ink" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="antialiased font-body bg-[#EDEDED] text-ink" suppressHydrationWarning>
         <SmoothScroll />
         <AdaptiveScrollbar />
         {children}

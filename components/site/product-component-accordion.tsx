@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { Arrow, SectionLabel } from './ui'
 import { FadeUp } from './motion'
 import type { Application, SubComponent } from '@/lib/site-data'
+import styles from './product-component-accordion.module.css'
 
 export function ProductComponentAccordion({
   application,
@@ -22,73 +23,73 @@ export function ProductComponentAccordion({
   }
 
   return (
-    <div className="product-showcase-wrapper">
+    <div className={styles.productShowcaseWrapper}>
       {/* 1. EDITORIAL & ENGINEERING SUPPORT (SCREENSHOT 1) */}
-      <section className="product-editorial-section section-light">
-        <div className="product-editorial-grid">
+      <section className={`${styles.productEditorialSection} section-light`}>
+        <div className={styles.productEditorialGrid}>
           {/* LEFT: EDITORIAL COPY */}
-          <FadeUp className="product-editorial-left">
-            <span className="product-manifesto-eyebrow">
+          <FadeUp className={styles.productEditorialLeft}>
+            <span className={styles.productManifestoEyebrow}>
               ANY BRAND. ANY ERA. NO EXCUSES.
             </span>
-            <h2 className="product-editorial-title">
+            <h2 className={styles.productEditorialTitle}>
               Engineering Specifications &amp; Performance Overview
             </h2>
 
-            <div className="product-editorial-paragraphs">
+            <div className={styles.productEditorialParagraphs}>
               {application.description.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
 
             {/* QUICK SPECS CHIPS */}
-            <div className="product-specs-chip-row">
+            <div className={styles.productSpecsChipRow}>
               {application.specs.map((spec, i) => (
-                <div key={i} className="product-spec-chip">
-                  <span className="chip-lbl">{spec.label}</span>
-                  <strong className="chip-val">{spec.value}</strong>
+                <div key={i} className={styles.productSpecChip}>
+                  <span className={styles.chipLbl}>{spec.label}</span>
+                  <strong className={styles.chipVal}>{spec.value}</strong>
                 </div>
               ))}
             </div>
           </FadeUp>
 
           {/* RIGHT: ENGINEERING ASSISTANCE & SUPPORT CARD */}
-          <FadeUp delay={0.15} className="product-editorial-right">
-            <div className="product-support-card">
-              <div className="support-card-header">
-                <span className="support-badge">TECHNICAL ASSISTANCE</span>
+          <FadeUp delay={0.15} className={styles.productEditorialRight}>
+            <div className={styles.productSupportCard}>
+              <div className={styles.supportCardHeader}>
+                <span className={styles.supportBadge}>TECHNICAL ASSISTANCE</span>
                 <h3>{application.engineeringSupport.title}</h3>
               </div>
 
-              <p className="support-card-desc">
+              <p className={styles.supportCardDesc}>
                 {application.engineeringSupport.text}
               </p>
 
-              <ul className="support-points-list">
+              <ul className={styles.supportPointsList}>
                 {application.engineeringSupport.points.map((pt, i) => (
                   <li key={i}>
-                    <span className="support-check">✓</span>
+                    <span className={styles.supportCheck}>✓</span>
                     <span>{pt}</span>
                   </li>
                 ))}
               </ul>
 
               {/* CARD PREVIEW IMAGE */}
-              <div className="support-card-preview-frame">
+              <div className={styles.supportCardPreviewFrame}>
                 <img
                   src={application.engineeringSupport.image}
                   alt={application.engineeringSupport.title}
-                  className="support-card-preview-img"
+                  className={styles.supportCardPreviewImg}
                   width={616}
                   height={464}
                 />
-                <div className="support-preview-overlay" />
-                <span className="support-preview-tag">
+                <div className={styles.supportPreviewOverlay} />
+                <span className={styles.supportPreviewTag}>
                   CAD SPEC: WG-{application.num}
                 </span>
               </div>
 
-              <Link href="/contact" className="support-card-cta">
+              <Link href="/contact" className={styles.supportCardCta}>
                 <span>Talk to an Engineer</span>
                 <Arrow />
               </Link>
@@ -98,47 +99,47 @@ export function ProductComponentAccordion({
       </section>
 
       {/* 2. INTERACTIVE SUB-COMPONENT ACCORDION GRID (SCREENSHOT 2) */}
-      <section className="product-components-grid-section section-slate">
-        <FadeUp className="components-section-header">
+      <section className={`${styles.productComponentsGridSection} section-slate`}>
+        <FadeUp className={styles.componentsSectionHeader}>
           <SectionLabel>Engineered Assemblies</SectionLabel>
-          <h2 className="components-section-title">
+          <h2 className={styles.componentsSectionTitle}>
             ANY BRAND. ANY ERA. <em>NO EXCUSES.</em>
           </h2>
-          <p className="components-section-subtitle">
+          <p className={styles.componentsSectionSubtitle}>
             100% direct drop-in bolt-on interchangeability across major OEM equipment.
           </p>
         </FadeUp>
 
-        <div className="subcomponents-cards-grid">
+        <div className={styles.subcomponentsCardsGrid}>
           {application.subComponents.map((comp: SubComponent) => {
             const isOpen = activeId === comp.id
 
             return (
               <div
                 key={comp.id}
-                className={`subcomponent-card ${isOpen ? 'is-active' : ''}`}
+                className={`${styles.subcomponentCard} ${isOpen ? styles.isActive : ''}`}
                 onClick={() => toggleComponent(comp.id)}
               >
                 {/* COMPONENT IMAGE HEADER */}
-                <div className="subcomponent-img-frame">
+                <div className={styles.subcomponentImgFrame}>
                   <img
                     src={comp.image}
                     alt={comp.title}
-                    className="subcomponent-img"
+                    className={styles.subcomponentImg}
                     width={616}
                     height={464}
                   />
-                  <div className="subcomponent-badge-tag">
+                  <div className={styles.subcomponentBadgeTag}>
                     <span>{comp.subtitle}</span>
                   </div>
                 </div>
 
                 {/* COMPONENT ACCORDION BAR */}
-                <div className="subcomponent-header-bar">
-                  <h3 className="subcomponent-title">{comp.title}</h3>
+                <div className={styles.subcomponentHeaderBar}>
+                  <h3 className={styles.subcomponentTitle}>{comp.title}</h3>
                   <button
                     type="button"
-                    className="subcomponent-toggle-btn"
+                    className={styles.subcomponentToggleBtn}
                     aria-expanded={isOpen}
                     aria-label={`Toggle ${comp.title}`}
                   >
@@ -151,7 +152,7 @@ export function ProductComponentAccordion({
                       strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className={`chevron-icon ${isOpen ? 'rotated' : ''}`}
+                      className={`${styles.chevronIcon} ${isOpen ? styles.rotated : ''}`}
                     >
                       <polyline points="6 9 12 15 18 9" />
                     </svg>
@@ -167,23 +168,23 @@ export function ProductComponentAccordion({
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                      className="subcomponent-drawer"
+                      className={styles.subcomponentDrawer}
                     >
-                      <p className="drawer-desc">{comp.description}</p>
+                      <p className={styles.drawerDesc}>{comp.description}</p>
 
-                      <div className="drawer-specs-list">
+                      <div className={styles.drawerSpecsList}>
                         {comp.specs.map((sp, idx) => (
-                          <div key={idx} className="drawer-spec-row">
-                            <span className="drawer-spec-key">{sp.label}:</span>
-                            <span className="drawer-spec-val">{sp.value}</span>
+                          <div key={idx} className={styles.drawerSpecRow}>
+                            <span className={styles.drawerSpecKey}>{sp.label}:</span>
+                            <span className={styles.drawerSpecVal}>{sp.value}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="drawer-actions">
+                      <div className={styles.drawerActions}>
                         <Link
                           href="/contact"
-                          className="drawer-spec-btn"
+                          className={styles.drawerSpecBtn}
                           onClick={(e) => e.stopPropagation()}
                         >
                           <span>Request Drawing / Quote</span>

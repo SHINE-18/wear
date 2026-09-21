@@ -307,50 +307,7 @@ Create a free website with Framer, the website builder loved by startups, design
 - https://framerusercontent.com/images/phfZYtdqn1vhAtRUCBH7kim9Aw.png?width=1232&height=928
 - https://framerusercontent.com/images/x3GetDSZly0f5oBHYTHgQSJNVO8.png?width=1232&height=928
 
-### Links
-- [external] ALL ACCESS (https://buy.polar.sh/polar_cl_7sl7ZO5dvseRChpONuMm0ystujjz5p0aYF3WU4Lpe5V)
-- [external] Buy it for $129Buy it for $129 (https://buy.polar.sh/polar_cl_wPE4AfShYflc1w8gJxJyDqmF3lEKu4LNhCxeR2vjj4Q)
-- [internal]  (https://tilanium.framer.website/)
-- [internal] Services (https://tilanium.framer.website/services)
-- [internal] About (https://tilanium.framer.website/about)
-- [internal] Blog (https://tilanium.framer.website/blog)
-- [internal] Careers (https://tilanium.framer.website/careers)
-- [internal] Contact (https://tilanium.framer.website/contact)
-- [internal] @keyframes hatchMove_Rlmrilqtdp { 0% { background-position: 0px 0px; } 100% { background-position: -11.31370849898476px -11.313708498984761px; } }Get Started (https://tilanium.framer.website/contact)
-- [internal] @keyframes hatchMove_r12 { 0% { background-position: 0px 0px; } 100% { background-position: -11.31370849898476px -11.313708498984761px; } }Get Started (https://tilanium.framer.website/contact)
-- [internal] Learn More (https://tilanium.framer.website/about)
-- [internal] All Services (https://tilanium.framer.website/services)
-- [internal] Automation SolutionsSmart systems to improve productivity and reduce downtime. (https://tilanium.framer.website/services/automation-solutions)
-- [internal] Maintenance & SupportReliable service to keep your operations running smoothly. (https://tilanium.framer.website/services/maintenance-support)
-- [internal] ManufacturingHigh-precision production with strict quality control standards. (https://tilanium.framer.website/services/manufacturing)
-- [internal] Industrial EngineeringCustom solutions designed to optimize performance and efficiency. (https://tilanium.framer.website/services/industrial-engineering)
-- [internal] @keyframes hatchMove_r2d { 0% { background-position: 0px 0px; } 100% { background-position: -11.31370849898476px -11.313708498984761px; } }Get Started (https://tilanium.framer.website/contact)
-- [internal] @keyframes hatchMove_r2n { 0% { background-position: 0px 0px; } 100% { background-position: -11.31370849898476px -11.313708498984761px; } }Get Started (https://tilanium.framer.website/contact)
-- [internal] @keyframes hatchMove_r30 { 0% { background-position: 0px 0px; } 100% { background-position: -11.31370849898476px -11.313708498984761px; } }Get Started (https://tilanium.framer.website/contact)
-- [internal] @keyframes hatchMove_r38 { 0% { background-position: 0px 0px; } 100% { background-position: -11.31370849898476px -11.313708498984761px; } }Get Started (https://tilanium.framer.website/contact)
-- [internal] All Articles (https://tilanium.framer.website/blog)
-- [internal] May 3, 2026The Importance of Reliable Technical Support in Industrial Operations (https://tilanium.framer.website/blog/the-importance-of-reliable-technical-support-in-industrial-operations)
-- [internal] May 4, 2026Smart Manufacturing: The Next Step for Industrial Businesses (https://tilanium.framer.website/blog/smart-manufacturing-the-next-step-for-industrial-businesses)
-- [internal] May 6, 2026Industrial Engineering Strategies for Improving Operational Efficiency (https://tilanium.framer.website/blog/industrial-engineering-strategies-for-improving-operational-efficiency)
-- [internal] May 8, 2026Why Scalable Manufacturing Systems Matter for Business Growth (https://tilanium.framer.website/blog/why-scalable-manufacturing-systems-matter-for-business-growth)
-- [internal] @keyframes hatchMove_r3r { 0% { background-position: 0px 0px; } 100% { background-position: -25.45584412271571px -25.455844122715714px; } }Ready to Modernize Your Industrial Operations? (https://tilanium.framer.website/contact)
-- [internal]  (https://tilanium.framer.website/#hero)
-- [internal] Home (https://tilanium.framer.website/)
-- [internal] 404 (https://tilanium.framer.website/404)
-- [internal] Automation Solutions (https://tilanium.framer.website/services/automation-solutions)
-- [internal] Maintenance & Support (https://tilanium.framer.website/services/maintenance-support)
-- [internal] Manufacturing (https://tilanium.framer.website/services/manufacturing)
-- [internal] Industrial Engineering (https://tilanium.framer.website/services/industrial-engineering)
-- [internal] Terms of Use (https://tilanium.framer.website/legal/terms-of-use)
-- [internal] Privacy Policy (https://tilanium.framer.website/legal/privacy-policy)
-- [external] Framer (https://framer.link/nikita-shabunko/?via=nikita-shabunko)
-- [external] Nikita (https://framer.link/nikita-shabunko/?via=nikita-shabunko)
-- [external]  (https://x.com/)
-- [external]  (https://www.instagram.com/)
-- [external]  (https://www.facebook.com/)
-- [external]  (https://www.linkedin.com/)
-- [external]  (https://www.youtube.com/)
-- [external] Create a free website with Framer, the website builder loved by startups, designers and agencies. (https://www.framer.com/)
+
 
 ## Tilanium
 
@@ -511,42 +468,6 @@ Create a free website with Framer, the website builder loved by startups, design
 - https://framerusercontent.com/images/7Kzi7rX0VVt835g0tFN1ccCfb8.png?width=1000&height=750 -> images/7Kzi7rX0VVt835g0tFN1ccCfb8.png
 - https://framerusercontent.com/images/YKSwR2gUBLFNiPN2SWfQ3FVL8.png?width=1000&height=750 -> images/YKSwR2gUBLFNiPN2SWfQ3FVL8.png
 
-### Links
-- [internal]  (https://tilanium.framer.website/)
-- [internal] Services (https://tilanium.framer.website/services)
-- [internal] About (https://tilanium.framer.website/about)
-- [internal] Blog (https://tilanium.framer.website/blog)
-- [internal] Careers (https://tilanium.framer.website/careers)
-- [internal] Contact (https://tilanium.framer.website/contact)
-- [internal] @keyframes hatchMove_Rlmrilqldp { 0% { background-position: 0px 0px; } 100% { background-position: -11.31370849898476px -11.313708498984761px; } }Get Started (https://tilanium.framer.website/contact)
-- [external]  (https://www.linkedin.com/)
-- [internal] Systems AnalysisFull timeIndustrial Systems Analyst (https://tilanium.framer.website/careers/industrial-systems-analyst)
-- [internal] Quality ControlRemoteQuality Control Specialist (https://tilanium.framer.website/careers/quality-control-specialist)
-- [internal] ProjectsFull timeProject Coordinator (https://tilanium.framer.website/careers/project-coordinator)
-- [internal] MaintenanceFull timeMaintenance Engineer (https://tilanium.framer.website/careers/maintenance-engineer)
-- [internal] ManufacturingRemoteManufacturing Technician (https://tilanium.framer.website/careers/manufacturing-technician)
-- [internal] OperationsRemoteProduction Operations Manager (https://tilanium.framer.website/careers/production-operations-manager)
-- [internal] AutomationFull timeAutomation Specialist (https://tilanium.framer.website/careers/automation-specialist)
-- [internal] EngineeringRemoteIndustrial Engineer (https://tilanium.framer.website/careers/industrial-engineer)
-- [internal] @keyframes hatchMove_r1s { 0% { background-position: 0px 0px; } 100% { background-position: -25.45584412271571px -25.455844122715714px; } }Ready to Modernize Your Industrial Operations? (https://tilanium.framer.website/contact)
-- [internal] Home (https://tilanium.framer.website/)
-- [internal] 404 (https://tilanium.framer.website/404)
-- [internal] Automation Solutions (https://tilanium.framer.website/services/automation-solutions)
-- [internal] Maintenance & Support (https://tilanium.framer.website/services/maintenance-support)
-- [internal] Manufacturing (https://tilanium.framer.website/services/manufacturing)
-- [internal] Industrial Engineering (https://tilanium.framer.website/services/industrial-engineering)
-- [internal] Terms of Use (https://tilanium.framer.website/legal/terms-of-use)
-- [internal] Privacy Policy (https://tilanium.framer.website/legal/privacy-policy)
-- [external] Framer (https://framer.link/nikita-shabunko/?via=nikita-shabunko)
-- [external] Nikita (https://framer.link/nikita-shabunko/?via=nikita-shabunko)
-- [external]  (https://x.com/)
-- [external]  (https://www.instagram.com/)
-- [external]  (https://www.facebook.com/)
-- [external]  (https://www.youtube.com/)
-- [external] ALL ACCESS (https://buy.polar.sh/polar_cl_7sl7ZO5dvseRChpONuMm0ystujjz5p0aYF3WU4Lpe5V)
-- [external] Buy it for $129Buy it for $129 (https://buy.polar.sh/polar_cl_wPE4AfShYflc1w8gJxJyDqmF3lEKu4LNhCxeR2vjj4Q)
-- [external] Create a free website with Framer, the website builder loved by startups, designers and agencies. (https://www.framer.com/)
-
 ## Tilanium
 
 - URL: https://tilanium.framer.website/blog
@@ -612,19 +533,13 @@ Industrial Engineering
 
 Your email
 
-© 2026 Tilanium. All rights reserved.
+. All rights reserved.
 
 Terms of Use
 
 Privacy Policy
 
-Created in Framer by Nikita
 
-ALL ACCESS
-
-Buy it for $129
-
-Create a free website with Framer, the website builder loved by startups, designers and agencies.
 
 ### Images
 - https://framerusercontent.com/images/LRlsKXIoX1dqxPtZrpeQnzJyiIw.png?width=396&height=80 -> images/LRlsKXIoX1dqxPtZrpeQnzJyiIw.png
@@ -638,36 +553,3 @@ Create a free website with Framer, the website builder loved by startups, design
 - https://framerusercontent.com/images/yVfRV3fAhpysi4SXNBTPOB1Xa0.png?width=1000&height=750 -> images/yVfRV3fAhpysi4SXNBTPOB1Xa0.png
 - https://framerusercontent.com/images/7Kzi7rX0VVt835g0tFN1ccCfb8.png?width=1000&height=750 -> images/7Kzi7rX0VVt835g0tFN1ccCfb8.png
 - https://framerusercontent.com/images/YKSwR2gUBLFNiPN2SWfQ3FVL8.png?width=1000&height=750 -> images/YKSwR2gUBLFNiPN2SWfQ3FVL8.png
-
-### Links
-- [internal]  (https://tilanium.framer.website/)
-- [internal] Services (https://tilanium.framer.website/services)
-- [internal] About (https://tilanium.framer.website/about)
-- [internal] Blog (https://tilanium.framer.website/blog)
-- [internal] Careers (https://tilanium.framer.website/careers)
-- [internal] Contact (https://tilanium.framer.website/contact)
-- [internal] @keyframes hatchMove_Rlmrilqldp { 0% { background-position: 0px 0px; } 100% { background-position: -11.31370849898476px -11.313708498984761px; } }Get Started (https://tilanium.framer.website/contact)
-- [internal] May 3, 2026The Importance of Reliable Technical Support in Industrial Operations@keyframes hatchMove_rt { 0% { background-position: 0px 0px; } 100% { background-position: -8.48528137423857px -8.485281 (https://tilanium.framer.website/blog/the-importance-of-reliable-technical-support-in-industrial-operations)
-- [internal] May 4, 2026Smart Manufacturing: The Next Step for Industrial Businesses (https://tilanium.framer.website/blog/smart-manufacturing-the-next-step-for-industrial-businesses)
-- [internal] May 6, 2026Industrial Engineering Strategies for Improving Operational Efficiency (https://tilanium.framer.website/blog/industrial-engineering-strategies-for-improving-operational-efficiency)
-- [internal] May 8, 2026Why Scalable Manufacturing Systems Matter for Business Growth (https://tilanium.framer.website/blog/why-scalable-manufacturing-systems-matter-for-business-growth)
-- [internal] May 10, 2026How Preventative Maintenance Reduces Industrial Downtime (https://tilanium.framer.website/blog/how-preventative-maintenance-reduces-industrial-downtime)
-- [internal] @keyframes hatchMove_r1k { 0% { background-position: 0px 0px; } 100% { background-position: -25.45584412271571px -25.455844122715714px; } }Ready to Modernize Your Industrial Operations? (https://tilanium.framer.website/contact)
-- [internal] Home (https://tilanium.framer.website/)
-- [internal] 404 (https://tilanium.framer.website/404)
-- [internal] Automation Solutions (https://tilanium.framer.website/services/automation-solutions)
-- [internal] Maintenance & Support (https://tilanium.framer.website/services/maintenance-support)
-- [internal] Manufacturing (https://tilanium.framer.website/services/manufacturing)
-- [internal] Industrial Engineering (https://tilanium.framer.website/services/industrial-engineering)
-- [internal] Terms of Use (https://tilanium.framer.website/legal/terms-of-use)
-- [internal] Privacy Policy (https://tilanium.framer.website/legal/privacy-policy)
-- [external] Framer (https://framer.link/nikita-shabunko/?via=nikita-shabunko)
-- [external] Nikita (https://framer.link/nikita-shabunko/?via=nikita-shabunko)
-- [external]  (https://x.com/)
-- [external]  (https://www.instagram.com/)
-- [external]  (https://www.facebook.com/)
-- [external]  (https://www.linkedin.com/)
-- [external]  (https://www.youtube.com/)
-- [external] ALL ACCESS (https://buy.polar.sh/polar_cl_7sl7ZO5dvseRChpONuMm0ystujjz5p0aYF3WU4Lpe5V)
-- [external] Buy it for $129Buy it for $129 (https://buy.polar.sh/polar_cl_wPE4AfShYflc1w8gJxJyDqmF3lEKu4LNhCxeR2vjj4Q)
-- [external] Create a free website with Framer, the website builder loved by startups, designers and agencies. (https://www.framer.com/)

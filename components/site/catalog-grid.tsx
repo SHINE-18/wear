@@ -4,6 +4,7 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'motion/react'
 import { Arrow } from '@/components/site/ui'
+import styles from './catalog-grid.module.css'
 
 export interface CatalogItem {
   id: string
@@ -274,32 +275,32 @@ export function CatalogGrid() {
     sortBy !== 'featured'
 
   return (
-    <section className="catalog-section">
-      <div className="catalog-container">
+    <section className={styles['catalog-section']}>
+      <div className={styles['catalog-container']}>
         {/* TOP HEADER */}
-        <div className="catalog-header">
-          <div className="catalog-eyebrow-badge">
-            <span className="gear-icon" aria-hidden="true">⚙</span>
+        <div className={styles['catalog-header']}>
+          <div className={styles['catalog-eyebrow-badge']}>
+            <span className={styles['gear-icon']} aria-hidden="true">⚙</span>
             <span>Industrial Equipment Components Catalog</span>
           </div>
 
-          <h1 className="catalog-main-title">
+          <h1 className={styles['catalog-main-title']}>
             Precision Wear Components &amp;
             <br />
             Replacement Assemblies
           </h1>
 
-          <p className="catalog-subtitle">
+          <p className={styles['catalog-subtitle']}>
             Engineered replacement parts for rotary drums, pugmills, pan mixers, chute transfer points, bucket elevators, baghouses, and heavy excavation machinery. Compatible with any OEM brand.
           </p>
         </div>
 
         {/* MINIMAL SWISS DROPDOWN CONTROL BAR */}
-        <div className="catalog-dropdown-toolbar">
+        <div className={styles['catalog-dropdown-toolbar']}>
           {/* SEARCH INPUT */}
-          <div className="catalog-search-wrap">
+          <div className={styles['catalog-search-wrap']}>
             <svg
-              className="catalog-search-icon"
+              className={styles['catalog-search-icon']}
               width="17"
               height="17"
               viewBox="0 0 24 24"
@@ -314,7 +315,7 @@ export function CatalogGrid() {
             </svg>
             <input
               type="text"
-              className="catalog-search-input"
+              className={styles['catalog-search-input']}
               placeholder="Search components or OEM specs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -322,16 +323,16 @@ export function CatalogGrid() {
           </div>
 
           {/* DROPDOWN SELECTORS GROUP */}
-          <div className="catalog-dropdown-group">
+          <div className={styles['catalog-dropdown-group']}>
             {/* 1. SECTOR DROPDOWN */}
-            <div className="custom-dropdown-wrap">
-              <label htmlFor="sector-select" className="dropdown-label">SECTOR</label>
-              <div className="dropdown-select-box">
+            <div className={styles['custom-dropdown-wrap']}>
+              <label htmlFor="sector-select" className={styles['dropdown-label']}>SECTOR</label>
+              <div className={styles['dropdown-select-box']}>
                 <select
                   id="sector-select"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="clean-dropdown-select"
+                  className={styles['clean-dropdown-select']}
                 >
                   {CATEGORIES.map((cat) => (
                     <option key={cat.id} value={cat.id}>
@@ -339,19 +340,19 @@ export function CatalogGrid() {
                     </option>
                   ))}
                 </select>
-                <span className="dropdown-arrow-icon" aria-hidden="true">▾</span>
+                <span className={styles['dropdown-arrow-icon']} aria-hidden="true">▾</span>
               </div>
             </div>
 
             {/* 2. METALLURGY DROPDOWN */}
-            <div className="custom-dropdown-wrap">
-              <label htmlFor="material-select" className="dropdown-label">METALLURGY</label>
-              <div className="dropdown-select-box">
+            <div className={styles['custom-dropdown-wrap']}>
+              <label htmlFor="material-select" className={styles['dropdown-label']}>METALLURGY</label>
+              <div className={styles['dropdown-select-box']}>
                 <select
                   id="material-select"
                   value={selectedMaterial}
                   onChange={(e) => setSelectedMaterial(e.target.value)}
-                  className="clean-dropdown-select"
+                  className={styles['clean-dropdown-select']}
                 >
                   {MATERIALS_LIST.map((mat) => (
                     <option key={mat} value={mat}>
@@ -359,25 +360,25 @@ export function CatalogGrid() {
                     </option>
                   ))}
                 </select>
-                <span className="dropdown-arrow-icon" aria-hidden="true">▾</span>
+                <span className={styles['dropdown-arrow-icon']} aria-hidden="true">▾</span>
               </div>
             </div>
 
             {/* 3. SORT ORDER DROPDOWN */}
-            <div className="custom-dropdown-wrap">
-              <label htmlFor="sort-select" className="dropdown-label">SORT</label>
-              <div className="dropdown-select-box">
+            <div className={styles['custom-dropdown-wrap']}>
+              <label htmlFor="sort-select" className={styles['dropdown-label']}>SORT</label>
+              <div className={styles['dropdown-select-box']}>
                 <select
                   id="sort-select"
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as 'featured' | 'az' | 'za')}
-                  className="clean-dropdown-select"
+                  className={styles['clean-dropdown-select']}
                 >
                   <option value="featured">Featured Order</option>
                   <option value="az">Name (A → Z)</option>
                   <option value="za">Name (Z → A)</option>
                 </select>
-                <span className="dropdown-arrow-icon" aria-hidden="true">▾</span>
+                <span className={styles['dropdown-arrow-icon']} aria-hidden="true">▾</span>
               </div>
             </div>
 
@@ -385,7 +386,7 @@ export function CatalogGrid() {
             {hasActiveFilters && (
               <button
                 type="button"
-                className="dropdown-reset-btn"
+                className={styles['dropdown-reset-btn']}
                 onClick={() => {
                   setSelectedCategory('ALL COMPONENTS')
                   setSelectedMaterial('ALL METALLURGIES')
@@ -400,19 +401,29 @@ export function CatalogGrid() {
         </div>
 
         {/* STATUS BAR */}
-        <div className="catalog-status-bar">
-          <span className="catalog-count-badge">
+        <div className={styles['catalog-status-bar']}>
+          <span className={styles['catalog-count-badge']}>
             <strong>{filteredItems.length}</strong> components available
           </span>
-          <Link href="/contact" className="catalog-quick-rfq-pill">
+          <Link href="/contact" className={styles['catalog-quick-rfq-pill']}>
             <span>Request Custom Batch RFQ</span>
             <Arrow />
           </Link>
         </div>
 
-        {/* 4-COLUMN CARDS GRID WITH DROPDOWN SPEC DRAWERS */}
+        {/* FULL-WIDTH TECHNICAL DOSSIER LIST WITH INLINE EXPANSION */}
         <h2 className="sr-only">Browse Components by Equipment Type and Alloy Specification</h2>
-        <motion.div layout className="catalog-grid">
+        <motion.div layout className={styles['dossier-list']}>
+          {/* Dossier Table Header (Desktop only) */}
+          {filteredItems.length > 0 && (
+            <div className={styles['dossier-list-header']} aria-hidden="true">
+              <div className={styles['dossier-col-cat']}>System Classification</div>
+              <div className={styles['dossier-col-title']}>Component Engineering</div>
+              <div className={styles['dossier-col-mat']}>Alloy Metallurgy</div>
+              <div className={styles['dossier-col-toggle']}></div>
+            </div>
+          )}
+
           <AnimatePresence mode="popLayout">
             {filteredItems.map((item) => {
               const isSpecsOpen = openCardId === item.id
@@ -425,77 +436,90 @@ export function CatalogGrid() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.25 }}
-                  className={`catalog-card ${isSpecsOpen ? 'specs-open' : ''}`}
+                  className={`${styles['dossier-row']} ${isSpecsOpen ? styles.expanded : ''}`}
                 >
-                  {/* IMAGE CONTAINER */}
-                  <div className="catalog-card-image-wrap">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="catalog-card-img"
-                      loading="lazy"
-                      width={616}
-                      height={464}
-                    />
-                  </div>
-
-                  {/* CARD BODY */}
-                  <div className="catalog-card-body">
-                    <span className="catalog-category-tag">{item.categoryLabel}</span>
-                    <h3 className="catalog-card-title">
-                      <Link href={item.href}>{item.title}</Link>
-                    </h3>
-                    <p className="catalog-card-desc">{item.description}</p>
-
-                    {/* COLLAPSIBLE SPECIFICATION ACCORDION / DROPDOWN */}
-                    <div className="card-spec-accordion-wrap">
-                      <button
-                        type="button"
-                        className={`card-spec-toggle-btn ${isSpecsOpen ? 'open' : ''}`}
-                        onClick={() => toggleCardSpecs(item.id)}
-                        aria-expanded={isSpecsOpen}
-                      >
-                        <span>{isSpecsOpen ? 'Hide Engineering Specs' : 'Engineering Specifications'}</span>
-                        <span className="spec-chevron-icon" aria-hidden="true">
-                          {isSpecsOpen ? '▲' : '▼'}
-                        </span>
-                      </button>
-
-                      <AnimatePresence>
-                        {isSpecsOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: 'auto', opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                            className="card-spec-drawer-content"
-                          >
-                            <div className="card-spec-matrix">
-                              <div className="spec-row">
-                                <span className="spec-lbl">Metallurgy:</span>
-                                <span className="spec-val">{item.material}</span>
-                              </div>
-                              <div className="spec-row">
-                                <span className="spec-lbl">Wear Life:</span>
-                                <span className="spec-val">{item.life}</span>
-                              </div>
-                              <div className="spec-row">
-                                <span className="spec-lbl">Compatibility:</span>
-                                <span className="spec-val">OEM Direct Drop-in</span>
-                              </div>
-                              <div className="spec-row">
-                                <span className="spec-lbl">Lead Time:</span>
-                                <span className="spec-val">In-Stock / 14 Days</span>
-                              </div>
-                            </div>
-                            <Link href="/contact" className="spec-drawer-rfq-link">
-                              Request Part Drawing &amp; Quote →
-                            </Link>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                  {/* ROW HEADER (CLICKABLE) */}
+                  <div
+                    className={styles['dossier-row-header']}
+                    onClick={() => toggleCardSpecs(item.id)}
+                    role="button"
+                    aria-expanded={isSpecsOpen}
+                  >
+                    <div className={`${styles['dossier-cell']} ${styles['dossier-col-cat']}`}>
+                      <span className={styles['mobile-label']}>System: </span>
+                      {item.categoryLabel}
+                    </div>
+                    <div className={`${styles['dossier-cell']} ${styles['dossier-col-title']}`}>
+                      <h3>{item.title}</h3>
+                    </div>
+                    <div className={`${styles['dossier-cell']} ${styles['dossier-col-mat']}`}>
+                      <span className={styles['mobile-label']}>Alloy: </span>
+                      {item.material}
+                    </div>
+                    <div className={`${styles['dossier-cell']} ${styles['dossier-col-toggle']}`}>
+                      <span className={styles['spec-chevron-icon']} aria-hidden="true">
+                        {isSpecsOpen ? '▲' : '▼'}
+                      </span>
                     </div>
                   </div>
+
+                  {/* INLINE EXPANDABLE DRAWER */}
+                  <AnimatePresence>
+                    {isSpecsOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        className={styles['dossier-drawer-content']}
+                      >
+                        <div className={styles['dossier-drawer-inner']}>
+                          <div className={styles['dossier-image-col']}>
+                            <img
+                              src={item.image}
+                              alt={item.title}
+                              className={styles['dossier-img']}
+                              loading="lazy"
+                              width={616}
+                              height={464}
+                            />
+                          </div>
+                          
+                          <div className={styles['dossier-details-col']}>
+                            <p className={styles['dossier-desc']}>{item.description}</p>
+                            
+                            <div className={styles['dossier-spec-matrix']}>
+                              <div className={styles['spec-row']}>
+                                <span className={styles['spec-lbl']}>Metallurgy:</span>
+                                <span className={styles['spec-val']}>{item.material}</span>
+                              </div>
+                              <div className={styles['spec-row']}>
+                                <span className={styles['spec-lbl']}>Wear Life:</span>
+                                <span className={styles['spec-val']}>{item.life}</span>
+                              </div>
+                              <div className={styles['spec-row']}>
+                                <span className={styles['spec-lbl']}>Compatibility:</span>
+                                <span className={styles['spec-val']}>OEM Direct Drop-in</span>
+                              </div>
+                              <div className={styles['spec-row']}>
+                                <span className={styles['spec-lbl']}>Lead Time:</span>
+                                <span className={styles['spec-val']}>In-Stock / 14 Days</span>
+                              </div>
+                            </div>
+                            
+                            <div className={styles['dossier-actions']}>
+                              <Link href={item.href} className={styles['dossier-btn-primary']}>
+                                View Application Profile
+                              </Link>
+                              <Link href="/contact" className={styles['dossier-btn-secondary']}>
+                                Request Engineering Quote
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               )
             })}
@@ -503,11 +527,11 @@ export function CatalogGrid() {
         </motion.div>
 
         {filteredItems.length === 0 && (
-          <div className="catalog-empty-state">
+          <div className={styles['catalog-empty-state']}>
             <p>No components found matching your selected dropdown filters.</p>
             <button
               type="button"
-              className="catalog-clear-btn"
+              className={styles['catalog-clear-btn']}
               onClick={() => {
                 setSearchQuery('')
                 setSelectedCategory('ALL COMPONENTS')

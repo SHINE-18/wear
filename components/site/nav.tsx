@@ -2,18 +2,22 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react'
 import { navItems } from '@/lib/site-data'
 import { ScrollProgress } from './motion'
 import { Arrow, Logo, Mark } from './ui'
 import { SiteSearchModal } from './search-modal'
+import styles from './nav.module.css'
 
 export function SiteNav() {
   const [open, setOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [docked, setDocked] = useState(false)
   const [footerProgress, setFooterProgress] = useState(0)
+  const [scrollingDown, setScrollingDown] = useState(false)
+  const [isHovered, setIsHovered] = useState(false)
+  const lastScrollY = useRef(0)
   const pathname = usePathname()
   const { scrollY } = useScroll()
 
@@ -35,11 +39,30 @@ export function SiteNav() {
 
   useEffect(() => {
     return scrollY.on('change', (latest) => {
+      const prev = lastScrollY.current
+      const diff = latest - prev
+
       if (latest > 140) {
         setDocked(true)
       } else {
         setDocked(false)
+        setScrollingDown(false)
       }
+
+      // Smart directional detection: only trigger if scrolled past hero threshold
+      if (latest > 180) {
+        if (diff > 8) {
+          // Scrolling down: slide down & tuck away to free screen space
+          setScrollingDown(true)
+        } else if (diff < -8) {
+          // Scrolling up: reveal navbar immediately
+          setScrollingDown(false)
+        }
+      } else {
+        setScrollingDown(false)
+      }
+
+      lastScrollY.current = latest
     })
   }, [scrollY])
 
@@ -72,28 +95,31 @@ export function SiteNav() {
   }, [pathname])
 
   const isHidden = footerProgress === 1
+  const shouldHide = !open && (isHidden || (scrollingDown && !isHovered))
 
   return (
     <>
       {pathname === '/' && <ScrollProgress />}
       <motion.header
-        className={`nav-wrap ${docked ? 'docked' : ''} ${pathname === '/' ? 'nav-home' : 'nav-full'}`}
+        className={`${styles['nav-wrap']} ${docked ? styles.docked : ''} ${pathname === '/' ? styles['nav-home'] : styles['nav-full']}`}
         animate={
           docked
             ? {
-                opacity: isHidden ? 0 : 1,
+                opacity: shouldHide ? 0 : 1,
                 x: '-50%',
-                y: isHidden ? 40 : 0,
-                scale: isHidden ? 0.96 : 1,
+                y: shouldHide ? 48 : 0,
+                scale: shouldHide ? 0.95 : 1,
+                transitionEnd: {
+                  visibility: shouldHide ? 'hidden' : 'visible',
+                },
               }
             : undefined
         }
-        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
         style={
           docked
             ? {
-                pointerEvents: isHidden ? 'none' : 'auto',
-                visibility: isHidden ? 'hidden' : 'visible',
+                pointerEvents: shouldHide ? 'none' : 'auto',
               }
             : {
                 opacity: topNavOpacity,
@@ -102,32 +128,34 @@ export function SiteNav() {
                 scale: 1,
               }
         }
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <Link className="brand" href="/">
+        <Link className={styles.brand} href="/">
           {docked ? (
-            <span className="dock-brand-text">
+            <span className={styles['dock-brand-text']}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ marginRight: '0.35rem', flexShrink: 0 }}>
-                <rect x="2" y="2" width="20" height="20" rx="2" fill="#D94B2B" />
+                <rect x="2" y="2" width="20" height="20" rx="2" fill="#C8370B" />
                 <path d="M6.5 7L9.5 16H10.5L12 11L13.5 16H14.5L17.5 7H16L14 14L12.5 9H11.5L10 14L8 7H6.5Z" fill="white" />
               </svg>
-              WEAR<span className="dock-brand-accent">GUARD</span>
+              WEAR<span className={styles['dock-brand-accent']}>GUARD</span>
             </span>
           ) : (
             <Logo height={28} />
           )}
         </Link>
-        <nav className="nav-links">
+        <nav className={styles['nav-links']}>
           {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className={pathname === item.href ? 'nav-active' : ''}>
-              <span className="nav-text">{item.label}</span>
-              <span className="nav-dot" aria-hidden="true" />
+            <Link key={item.href} href={item.href} className={pathname === item.href ? styles['nav-active'] : ''}>
+              <span className={styles['nav-text']}>{item.label}</span>
+              <span className={styles['nav-dot']} aria-hidden="true" />
             </Link>
           ))}
         </nav>
-        <div className="nav-actions">
+        <div className={styles['nav-actions']}>
           <button
             type="button"
-            className="search-btn"
+            className={styles['search-btn']}
             aria-label="Search site (Ctrl+K)"
             onClick={() => setSearchOpen(true)}
             title="Search (Ctrl+K)"
@@ -138,13 +166,13 @@ export function SiteNav() {
             </svg>
           </button>
           {docked && (
-            <Link href="/contact" className="dock-cta">
+            <Link href="/contact" className={styles['dock-cta']}>
               <span>Get a quote</span>
-              <span className="dock-corner-icon" aria-hidden="true" />
+              <span className={styles['dock-corner-icon']} aria-hidden="true" />
             </Link>
           )}
           <button
-            className={`menu-btn ${open ? 'menu-btn-open' : ''}`}
+            className={`${styles['menu-btn']} ${open ? styles['menu-btn-open'] : ''}`}
             aria-label="Toggle menu"
             onClick={() => setOpen(!open)}
           >
@@ -168,20 +196,20 @@ export function SiteNav() {
       <AnimatePresence>
         {open && (
           <motion.div
-            className="mobile-nav-overlay"
+            className={styles['mobile-nav-overlay']}
             initial={{ opacity: 0, y: -16 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="mobile-nav-inner">
-              <div className="mobile-nav-header-row">
+            <div className={styles['mobile-nav-inner']}>
+              <div className={styles['mobile-nav-header-row']}>
                 <Link href="/" onClick={() => setOpen(false)}>
                   <Logo height={26} />
                 </Link>
                 <button
                   type="button"
-                  className="mobile-nav-close-btn"
+                  className={styles['mobile-nav-close-btn']}
                   onClick={() => setOpen(false)}
                   aria-label="Close menu"
                 >
@@ -192,7 +220,7 @@ export function SiteNav() {
                 </button>
               </div>
 
-              <div className="mobile-nav-links-list">
+              <div className={styles['mobile-nav-links-list']}>
                 {navItems.map((item, idx) => {
                   const isActive = pathname === item.href
                   return (
@@ -204,21 +232,21 @@ export function SiteNav() {
                     >
                       <Link
                         href={item.href}
-                        className={`mobile-nav-item ${isActive ? 'active' : ''}`}
+                        className={`${styles['mobile-nav-item']} ${isActive ? styles.active : ''}`}
                         onClick={() => setOpen(false)}
                       >
-                        <span className="mobile-item-title">{item.label}</span>
-                        <span className="mobile-item-dot" aria-hidden="true">▪</span>
+                        <span className={styles['mobile-item-title']}>{item.label}</span>
+                        <span className={styles['mobile-item-dot']} aria-hidden="true">▪</span>
                       </Link>
                     </motion.div>
                   )
                 })}
               </div>
 
-              <div className="mobile-nav-bottom">
+              <div className={styles['mobile-nav-bottom']}>
                 <button
                   type="button"
-                  className="mobile-search-trigger"
+                  className={styles['mobile-search-trigger']}
                   onClick={() => {
                     setOpen(false)
                     setSearchOpen(true)
@@ -233,11 +261,11 @@ export function SiteNav() {
 
                 <Link
                   href="/contact"
-                  className="mobile-drawer-cta"
+                  className={styles['mobile-drawer-cta']}
                   onClick={() => setOpen(false)}
                 >
                   <span>Request Technical Quote</span>
-                  <span className="mobile-cta-arrow">↗</span>
+                  <span className={styles['mobile-cta-arrow']}>↗</span>
                 </Link>
               </div>
             </div>

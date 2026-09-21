@@ -45,15 +45,31 @@ export function Arrow() {
   )
 }
 
-export function Button({ children = 'Get a quote', dark = false, href = '/contact' }: { children?: ReactNode; dark?: boolean; href?: string }) {
-  return (
-    <Magnetic>
-      <Link className={`cta ${dark ? 'cta-dark' : ''}`} href={href}>
-        {children}
-        <Arrow />
-      </Link>
-    </Magnetic>
+export function Button({
+  children = 'Get a quote',
+  dark = false,
+  href = '/contact',
+  magnetic = true,
+  className = '',
+}: {
+  children?: ReactNode
+  dark?: boolean
+  href?: string
+  magnetic?: boolean
+  className?: string
+}) {
+  const content = (
+    <Link className={`cta ${dark ? 'cta-dark' : ''} ${className}`.trim()} href={href}>
+      <span className="cta-label">{children}</span>
+      <Arrow />
+    </Link>
   )
+
+  if (!magnetic) {
+    return content
+  }
+
+  return <Magnetic>{content}</Magnetic>
 }
 
 export function SectionLabel({ children }: { children: ReactNode }) {

@@ -6,7 +6,9 @@ import { motion, useScroll, useTransform, type Variants } from 'motion/react'
 import { Counter } from '@/components/site/motion'
 import { SectionLabel } from '@/components/site/ui'
 import { InteractiveGrid } from '@/components/site/interactive-grid'
+import { HeroGrainOverlay } from '@/components/site/hero-grain-overlay'
 import { EncryptedReveal } from '@/components/site/encrypted-reveal'
+import styles from './cinematic-hero.module.css'
 
 const wordVariants: Variants = {
   hidden: { opacity: 0, y: 18, filter: 'blur(3px)' },
@@ -34,36 +36,48 @@ export function CinematicHero() {
   // so no useSpring needed here (double-smoothing causes wobble/jiggle)
 
   // 1. Left hero copy (Eyebrow + Title) slides UP and fades early
-  const copyY = useTransform(scrollYProgress, [0, 0.18], [0, -180])
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.18, 0.30], [1, 1, 0])
+  const copyY = useTransform(scrollYProgress, [0, 0.18], [0, -180], { clamp: true })
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.18, 0.28], [1, 1, 0], { clamp: true })
+  const copyDisplay = useTransform(scrollYProgress, (p) => (p >= 0.28 ? 'none' : 'flex'))
 
   // 2. Right sidebar "Get a quote" orange CTA fades
-  const ctaY = useTransform(scrollYProgress, [0, 0.40], [0, 0])
-  const ctaOpacity = useTransform(scrollYProgress, [0, 0.20, 0.32], [1, 1, 0])
+  const ctaY = useTransform(scrollYProgress, [0, 0.40], [0, 0], { clamp: true })
+  const ctaOpacity = useTransform(scrollYProgress, [0, 0.20, 0.32], [1, 1, 0], { clamp: true })
 
   // 3. Right metrics block slides UPWARDS and fades
-  const metricsY = useTransform(scrollYProgress, [0, 0.18], [0, -360])
-  const metricsOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0])
+  const metricsY = useTransform(scrollYProgress, [0, 0.18], [0, -360], { clamp: true })
+  const metricsOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0], { clamp: true })
+
+  // Right sidebar container fades out and hides completely as video expands
+  const sideOpacity = useTransform(scrollYProgress, [0, 0.20, 0.32], [1, 1, 0], { clamp: true })
+  const sideDisplay = useTransform(scrollYProgress, (p) => (p >= 0.32 ? 'none' : 'flex'))
 
   // 4. Video expands to full screen by progress 0.35 (~70vh scroll), then stays pinned for the curtain
-  const videoTop = useTransform(scrollYProgress, [0, 0.18, 0.35], ['80%', '26%', '0%'])
-  const videoHeight = useTransform(scrollYProgress, [0, 0.18, 0.35], ['20%', '74%', '100%'])
+  const videoTop = useTransform(scrollYProgress, [0, 0.18, 0.35], ['80%', '26%', '0%'], { clamp: true })
+  const videoHeight = useTransform(scrollYProgress, [0, 0.18, 0.35], ['20%', '74%', '100%'], { clamp: true })
 
-  // 5. Colour blend: as curtain enters and rises, the exposed top of the video blurs and tints to #636573, reaching 100% solid blend seamlessly
-  const videoTintOpacity = useTransform(scrollYProgress, [0.45, 0.65, 0.78], [0, 0.7, 1])
-  const videoBlur = useTransform(scrollYProgress, [0.45, 0.65, 0.78], [0, 10, 24])
+  // 5. Dark overlay scrim smoothly fades out as curtain reaches 50% coverage
+  const videoOverlayOpacity = useTransform(scrollYProgress, [0.68, 0.84], [1, 0], { clamp: true })
+
+  // 6. Colour blend & blur animation: when curtain covers 50% (progress ~0.68-0.72), gradually blur and dissolve video into solid #636573 theme bg
+  const videoBlur = useTransform(scrollYProgress, [0.68, 0.86], [0, 28], { clamp: true })
   const videoBlurFilter = useTransform(videoBlur, (v) => (v > 0 ? `blur(${v}px)` : 'none'))
+  const videoOpacity = useTransform(scrollYProgress, [0.68, 0.86], [1, 0], { clamp: true })
+  const videoTintOpacity = useTransform(scrollYProgress, [0.68, 0.86], [0, 1], { clamp: true })
 
   return (
-    <div ref={containerRef} className="cinematic-hero-container">
-      <div className="cinematic-hero-sticky">
+    <div ref={containerRef} className={styles['cinematic-hero-container']}>
+      <div className={styles['cinematic-hero-sticky']}>
+        {/* HIGH-CONTRAST PROCEDURAL DARK FILM GRAIN */}
+        <HeroGrainOverlay />
+
         {/* INTERACTIVE KINETIC DASH GRID */}
         <InteractiveGrid />
 
         {/* TOP LEFT COPY: Eyebrow and Headline slide UP together as shown in the reference frames */}
         <motion.div
-          className="hero-copy"
-          style={{ y: copyY, opacity: copyOpacity }}
+          className={styles['hero-copy']}
+          style={{ y: copyY, opacity: copyOpacity, display: copyDisplay }}
         >
           <motion.div
             initial={{ opacity: 0, y: 12 }}
@@ -74,7 +88,7 @@ export function CinematicHero() {
           </motion.div>
 
           <h1>
-            <span className="hero-words-line">
+            <span className={styles['hero-words-line']}>
               {['Industrial', 'Wear', 'Components'].map((word, i) => (
                 <motion.span
                   key={i}
@@ -82,14 +96,14 @@ export function CinematicHero() {
                   initial="hidden"
                   animate="visible"
                   variants={wordVariants}
-                  className="hero-word"
+                  className={styles['hero-word']}
                 >
                   {word}&nbsp;
                 </motion.span>
               ))}
             </span>
             <br />
-            <span className="hero-words-line">
+            <span className={styles['hero-words-line']}>
               {['Engineered', 'to'].map((word, i) => (
                 <motion.span
                   key={i}
@@ -97,7 +111,7 @@ export function CinematicHero() {
                   initial="hidden"
                   animate="visible"
                   variants={wordVariants}
-                  className="hero-word"
+                  className={styles['hero-word']}
                 >
                   {word}&nbsp;
                 </motion.span>
@@ -107,7 +121,7 @@ export function CinematicHero() {
                 initial="hidden"
                 animate="visible"
                 variants={wordVariants}
-                className="hero-word"
+                className={styles['hero-word']}
               >
                 <EncryptedReveal text="Outlast OEM Standards" revealDelay={580} />
               </motion.span>
@@ -116,17 +130,20 @@ export function CinematicHero() {
         </motion.div>
 
         {/* RIGHT SIDEBAR */}
-        <div className="hero-side">
+        <motion.div
+          className={styles['hero-side']}
+          style={{ opacity: sideOpacity, display: sideDisplay }}
+        >
           {/* Orange CTA stays pinned at top right aligned with the headline */}
           <motion.div
-            className="hero-side-top"
+            className={styles['hero-side-top']}
             style={{ y: ctaY, opacity: ctaOpacity }}
           >
-            <Link href="/contact" className="hero-side-cta">
+            <Link href="/contact" className={styles['hero-side-cta']}>
               <span>Get Started</span>
               <svg
                 viewBox="0 0 24 24"
-                className="hero-morph-icon"
+                className={styles['hero-morph-icon']}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.8"
@@ -142,13 +159,13 @@ export function CinematicHero() {
 
           {/* Black metrics box slides directly UP under the orange header and hides */}
           <motion.div
-            className="hero-side-body"
+            className={styles['hero-side-body']}
             style={{ y: metricsY, opacity: metricsOpacity }}
           >
-            <div className="hero-metrics-group">
-              <div className="hero-metric-block">
-                <div className="hero-metric-header">
-                  <div className="metric-icon" aria-hidden="true">
+            <div className={styles['hero-metrics-group']}>
+              <div className={styles['hero-metric-block']}>
+                <div className={styles['hero-metric-header']}>
+                  <div className={styles['metric-icon']} aria-hidden="true">
                     <svg
                       width="24"
                       height="24"
@@ -158,38 +175,38 @@ export function CinematicHero() {
                     >
                       <path
                         d="M3 11.25L12 2.25L21 11.25H16.5V14.25H7.5V11.25H3Z"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M16.5 20.25H7.5"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M16.5 17.25H7.5"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
                   </div>
-                  <strong className="metric-value">
-                    <Counter to={20} />
-                    <span className="metric-plus">+</span>
+                  <strong className={styles['metric-value']}>
+                    <Counter to={10} />
+                    <span className={styles['metric-plus']}>+</span>
                   </strong>
                 </div>
-                <span className="metric-label">years experience</span>
+                <span className={styles['metric-label']}>years experience</span>
               </div>
 
-              <div className="hero-metric-block">
-                <div className="hero-metric-header">
-                  <div className="metric-icon" aria-hidden="true">
+              <div className={styles['hero-metric-block']}>
+                <div className={styles['hero-metric-header']}>
+                  <div className={styles['metric-icon']} aria-hidden="true">
                     <svg
                       width="24"
                       height="24"
@@ -199,80 +216,80 @@ export function CinematicHero() {
                     >
                       <path
                         d="M17.25 4.5H21V8.25"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M6.75 19.5H3V15.75"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M21 15.75V19.5H17.25"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M3 8.25V4.5H6.75"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M7.5 8.25V15.75"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M16.5 8.25V15.75"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M13.5 8.25V15.75"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                       <path
                         d="M10.5 8.25V15.75"
-                        stroke="#D94B2B"
+                        stroke="#C8370B"
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                       />
                     </svg>
                   </div>
-                  <strong className="metric-value">
-                    <Counter to={500} />
-                    <span className="metric-plus">+</span>
+                  <strong className={styles['metric-value']}>
+                    <Counter to={100} />
+                    <span className={styles['metric-plus']}>+</span>
                   </strong>
                 </div>
-                <span className="metric-label">projects delivered</span>
+                <span className={styles['metric-label']}>projects delivered</span>
               </div>
             </div>
 
-            <p className="hero-side-desc">
+            <p className={styles['hero-side-desc']}>
               Reliable engineering, precision manufacturing, and scalable solutions for modern industries.
             </p>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* EXPANDING CINEMATIC VIDEO */}
         <motion.div
-          className="hero-art-expanding"
+          className={styles['hero-art-expanding']}
           style={{
             top: videoTop,
             height: videoHeight,
@@ -280,7 +297,7 @@ export function CinematicHero() {
           }}
         >
           <motion.video
-            className="hero-video"
+            className={styles['hero-video']}
             autoPlay
             muted
             loop
@@ -288,13 +305,20 @@ export function CinematicHero() {
             poster="/images/asphalt-plant-hero.png"
             style={{
               filter: videoBlurFilter,
+              opacity: videoOpacity,
             }}
           >
             <source src="/images/wearguard-hero-reel.mp4" type="video/mp4" />
           </motion.video>
-          <div className="hero-video-overlay" aria-hidden="true" />
           <motion.div
-            className="hero-video-slate-blend"
+            className={styles['hero-video-overlay']}
+            style={{
+              opacity: videoOverlayOpacity,
+            }}
+            aria-hidden="true"
+          />
+          <motion.div
+            className={styles['hero-video-slate-blend']}
             style={{
               opacity: videoTintOpacity,
             }}

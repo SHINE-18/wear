@@ -3,7 +3,9 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Arrow } from '@/components/site/ui'
+import { Arrow, SectionLabel } from '@/components/site/ui'
+import { InteractiveGrid } from '@/components/site/interactive-grid'
+import styles from './stacking-cards.module.css'
 
 interface CardData {
   id: string
@@ -69,14 +71,14 @@ function IndividualStackCard({
   })
 
   // 3D curving entrance from flat/tilted surface into upright position
-  const rotateX = useTransform(scrollYProgress, [0, 1], [index === 0 ? 0 : 20, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [index === 0 ? 1 : 0.95, 1.0])
-  const opacity = useTransform(scrollYProgress, [0, 0.25, 1], [index === 0 ? 1 : 0.45, 1, 1])
+  const rotateX = useTransform(scrollYProgress, [0, 1], [20, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [0.95, 1.0])
+  const opacity = useTransform(scrollYProgress, [0, 0.25, 1], [0.45, 1, 1])
 
   return (
     <div
       ref={cardRef}
-      className="stack-card-pin"
+      className={styles['stack-card-pin']}
       style={{
         position: 'sticky',
         top: stickyTop,
@@ -84,33 +86,37 @@ function IndividualStackCard({
       }}
     >
       <motion.div
-        className="stack-card"
-        style={{
-          rotateX,
-          scale,
-          opacity,
-          transformOrigin: 'top center',
-          transformPerspective: 1200,
-        }}
+        className={`${styles['stack-card']} ${index === 0 ? styles['first-card'] : ''}`}
+        style={
+          index === 0
+            ? undefined
+            : {
+                rotateX,
+                scale,
+                opacity,
+                transformOrigin: 'top center',
+                transformPerspective: 1200,
+              }
+        }
       >
-        <Link href={card.link} className="stack-card-inner">
-          {/* LEFT COLUMN: Title at top, Orange mark + Description at bottom */}
-          <div className="stack-card-content">
-            <div className="stack-card-title-wrap">
-              <h3 className="stack-card-title">{card.title}</h3>
-              <span className="stack-card-arrow" aria-hidden="true">
-                <Arrow />
-              </span>
+        <Link href={card.link} className={styles['stack-card-inner']}>
+          {/* LEFT COLUMN: Title at top, Arrow + Description at bottom */}
+          <div className={styles['stack-card-content']}>
+            <div className={styles['stack-card-title-wrap']}>
+              <h3 className={styles['stack-card-title']}>{card.title}</h3>
             </div>
 
-            <div className="stack-card-footer-wrap">
-              <p className="stack-card-desc">{card.desc}</p>
+            <div className={styles['stack-card-footer-wrap']}>
+              <span className={styles['stack-card-arrow']} aria-hidden="true">
+                <Arrow />
+              </span>
+              <p className={styles['stack-card-desc']}>{card.desc}</p>
             </div>
           </div>
 
           {/* RIGHT COLUMN: Framed image */}
-          <div className="stack-card-image">
-            <div className="stack-card-image-frame">
+          <div className={styles['stack-card-image']}>
+            <div className={styles['stack-card-image-frame']}>
               <img src={card.image} alt={card.imageAlt} width={836} height={628} />
             </div>
           </div>
@@ -120,19 +126,39 @@ function IndividualStackCard({
   )
 }
 
-export function IndustryStackingCards({ showAllLink = true }: { showAllLink?: boolean }) {
+export function IndustryStackingCards({
+  showAllLink = true,
+  extendGridToNavbar = false,
+}: {
+  showAllLink?: boolean
+  extendGridToNavbar?: boolean
+}) {
+  const { scrollY } = useScroll()
+  // As user scrolls past the header, area below What We Offer turns to pure white #FFFFFF
+  const cardsWhiteBgOpacity = useTransform(scrollY, [40, 180], [0, 1])
+
   return (
-    <div className="stack-container">
+    <div className={styles['stack-container']}>
       {/* Section Header */}
-      <div className="stack-header">
-        <div>
-          <div className="stack-eyebrow">Services</div>
-          <h2 className="stack-title">
+      <div className={styles['stack-header']}>
+        {/* MAGNETIC LINES EFFECT BEHIND WHAT WE OFFER AND NAVBAR */}
+        <div
+          className={`${styles['stack-header-canvas-wrap']} ${
+            extendGridToNavbar ? styles['canvas-wrap-extended'] : ''
+          }`}
+          aria-hidden="true"
+        >
+          <InteractiveGrid />
+        </div>
+
+        <div className={styles['stack-header-content']}>
+          <SectionLabel>Services</SectionLabel>
+          <h2 className={styles['stack-title']}>
             What We <span>Offer</span>
           </h2>
         </div>
         {showAllLink && (
-          <Link href="/industries" className="stack-all-link">
+          <Link href="/industries" className={styles['stack-all-link']}>
             <span>All Services</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="7" y1="17" x2="17" y2="7" />
@@ -143,12 +169,19 @@ export function IndustryStackingCards({ showAllLink = true }: { showAllLink?: bo
       </div>
 
       {/* 3D Stack Cards Container */}
-      <div className="stack-cards-wrapper">
+      <div className={styles['stack-cards-wrapper']}>
+        {/* WHITE BACKGROUND LAYER BELOW WHAT WE OFFER */}
+        <motion.div
+          className={styles['stack-cards-white-bg']}
+          style={{ opacity: cardsWhiteBgOpacity }}
+          aria-hidden="true"
+        />
+
         {cards.map((card, index) => (
           <IndividualStackCard key={card.id} card={card} index={index} />
         ))}
         {/* End spacer to hold the completed 4-card stack in view before scrolling into the next section */}
-        <div className="stack-end-space" aria-hidden="true" />
+        <div className={styles['stack-end-space']} aria-hidden="true" />
       </div>
     </div>
   )

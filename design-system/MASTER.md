@@ -12,9 +12,9 @@
 - **`--bg-graphite` (`#161922`)**: Structural cards and telemetry HUD panels.
 - **`--bg-slate` (`#E4EAF2`)**: Architectural daytime slate for high-contrast documentation and hero background.
 - **`--bg-pure` (`#ffffff`)**: High-contrast white card layers.
-- **`--orange` (`#C23E20`)**: Primary precision heat-treatment accent / brand signature (burnished furnace red-orange).
-- **`--orange-hover` (`#DE5432`)**: Lighter luminous molten orange for reactive hover states.
-- **`--orange-glow` (`rgba(194, 62, 32, 0.35)`)**: Tactical focus states & active spine indicator.
+- **`--orange` (`#C8370B`)**: Primary precision heat-treatment accent / brand signature (burnished furnace red-orange).
+- **`--orange-hover` (`#D84112`)**: Lighter luminous molten orange for reactive hover states.
+- **`--orange-glow` (`rgba(200, 55, 11, 0.35)`)**: Tactical focus states & active spine indicator.
 - **`--line-dark` (`rgba(255, 255, 255, 0.08)`)**: Precision millimetre grid lines on dark surfaces.
 - **`--line-light` (`rgba(15, 23, 42, 0.08)`)**: Technical drafting hairpins on light surfaces.
 - **`--text-alloy` (`#8c92a4`)**: Muted engineering annotations, units, and captions.

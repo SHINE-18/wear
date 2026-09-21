@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { SiteFooter } from '@/components/site/footer'
-import { InteractiveGrid } from '@/components/site/interactive-grid'
+import { IndustryHeroExpand } from '@/components/site/industry-hero-expand'
 import { SiteNav } from '@/components/site/nav'
 import { Arrow, Button, SectionLabel } from '@/components/site/ui'
 import { industriesData } from '@/lib/industries-data'
+import styles from './industry-detail.module.css'
 
 export function generateStaticParams() {
   return industriesData.map((ind) => ({ slug: ind.slug }))
@@ -41,86 +42,28 @@ export default async function IndustryDetailPage({
   const otherIndustries = industriesData.filter((ind) => ind.slug !== industry.slug)
 
   return (
-    <main id="top" className="ind-detail-page-root">
+    <main id="top" className={`${styles.indDetailPageRoot} ind-detail-page-root`}>
       <SiteNav />
 
-      {/* 1. TOP HERO SECTION MATCHING IMAGE 2 */}
-      <section className="ind-detail-hero">
-        {/* Kinetic interactive dash grid canvas */}
-        <div className="ind-hero-canvas-wrap" aria-hidden="true">
-          <InteractiveGrid />
-        </div>
+      {/* 1. SCROLL-DRIVEN EXPANDING HERO WITH INTERACTIVE HOTSPOTS */}
+      <IndustryHeroExpand industry={industry} />
 
-        <div className="ind-detail-hero-content">
-          {/* Split Header: Left Title / Right Square Orange CTA Card */}
-          <div className="ind-detail-header">
-            <div className="ind-header-left">
-              <div className="ind-eyebrow">
-                <span className="ind-eyebrow-bar" aria-hidden="true" />
-                <span>{industry.eyebrow}</span>
-              </div>
-              <h1 className="ind-title">{industry.title}</h1>
-              <p className="ind-subtitle">{industry.subtitle}</p>
-            </div>
-
-            {/* Prominent Square Orange "Get in Touch" Card matching Image 2 */}
-            <div className="ind-header-right">
-              <Link href="/contact" className="ind-cta-square" aria-label="Get in Touch with WearGuard engineering">
-                <svg
-                  width="44"
-                  height="44"
-                  viewBox="0 0 44 44"
-                  fill="none"
-                  className="ind-cta-bracket"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M16 10H34V28"
-                    stroke="white"
-                    strokeWidth="5"
-                    strokeLinecap="square"
-                    strokeLinejoin="miter"
-                  />
-                </svg>
-                <span className="ind-cta-label">Get in Touch</span>
-              </Link>
-            </div>
-          </div>
-
-          {/* Full-width Media Banner with diagonal hatch pinstripe texture on left matching Image 2 */}
-          <div className="ind-detail-banner-wrap">
-            <div className="ind-banner-hatch" aria-hidden="true" />
-            <img
-              src={industry.bannerImage}
-              alt={industry.imageAlt}
-              className="ind-banner-img"
-              width={1600}
-              height={700}
-            />
-            <div className="ind-banner-badge">
-              <span className="ind-badge-dot" aria-hidden="true" />
-              <span>{industry.badgeText}</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. PLANT ENGINEERING OVERVIEW & FAILURE MODES */}
-      <section className="ind-content-section ind-content-warm">
-        <div className="ind-content-container">
-          <div className="ind-overview-grid">
-            <div className="ind-overview-copy">
+      {/* 2. PLANT ENGINEERING OVERVIEW & FAILURE MODES (CURTAIN OVERLAY) */}
+      <section className={`${styles.indContentSection} ind-content-section ind-content-warm`}>
+        <div className={styles.indContentContainer}>
+          <div className={styles.indOverviewGrid}>
+            <div className={styles.indOverviewCopy}>
               <SectionLabel>Plant Engineering Analysis</SectionLabel>
-              <h2 className="ind-section-h2">
+              <h2 className={styles.indSectionH2}>
                 Built for the sectors that <em>wear hardest.</em>
               </h2>
               {industry.desc.map((paragraph, i) => (
-                <p key={i} className="ind-body-lead">
+                <p key={i} className={styles.indBodyLead}>
                   {paragraph}
                 </p>
               ))}
 
-              <div className="ind-catalog-action">
+              <div className={styles.indCatalogAction}>
                 <Button href={industry.appLink}>
                   Explore {industry.appLabel}
                 </Button>
@@ -132,16 +75,16 @@ export default async function IndustryDetailPage({
             </div>
 
             {/* Technical Specifications Matrix */}
-            <div className="ind-specs-panel">
-              <div className="ind-specs-panel-header">
-                <span className="ind-specs-mono-label">SPECIFICATIONS // DATASHEET</span>
-                <span className="ind-specs-hud-tag">{industry.num}</span>
+            <div className={styles.indSpecsPanel}>
+              <div className={styles.indSpecsPanelHeader}>
+                <span className={styles.indSpecsMonoLabel}>Specifications & Technical Data</span>
+                <span className={styles.indSpecsHudTag}>{industry.num}</span>
               </div>
-              <div className="ind-specs-grid">
+              <div className={styles.indSpecsGrid}>
                 {industry.specs.map((spec, i) => (
-                  <div key={i} className="ind-spec-item">
-                    <span className="ind-spec-label">{spec.label}</span>
-                    <span className="ind-spec-value mono-val">{spec.value}</span>
+                  <div key={i} className={styles.indSpecItem}>
+                    <span className={styles.indSpecLabel}>{spec.label}</span>
+                    <span className={`${styles.indSpecValue} mono-val`}>{spec.value}</span>
                   </div>
                 ))}
               </div>
@@ -151,24 +94,23 @@ export default async function IndustryDetailPage({
       </section>
 
       {/* 3. CRITICAL WEAR COMPONENTS MANUFACTURED */}
-      <section className="ind-components-section section-dark">
-        <div className="ind-content-container">
-          <div className="ind-section-heading">
+      <section className={`${styles.indComponentsSection} ind-components-section section-dark`}>
+        <div className={styles.indContentContainer}>
+          <div className={styles.indSectionHeading}>
             <SectionLabel>Component Architecture</SectionLabel>
-            <h2 className="ind-section-h2" style={{ color: '#ffffff' }}>
+            <h2 className={styles.indSectionH2} style={{ color: '#ffffff' }}>
               Engineered replacement parts &amp; <em>wear assemblies.</em>
             </h2>
-            <p className="ind-sublead" style={{ color: '#9ba3b8' }}>
+            <p className={styles.indSublead} style={{ color: '#9ba3b8' }}>
               Every assembly is 100% bolt-on compatible with OEM specifications, reverse-engineered from precision 3D scans.
             </p>
           </div>
 
-          <div className="ind-features-grid">
+          <div className={styles.indTypoList}>
             {industry.features.map((feature, i) => (
-              <div key={i} className="ind-feature-card">
-                <div className="ind-feature-num">0{i + 1}</div>
-                <div className="ind-feature-text">{feature}</div>
-                <div className="ind-feature-accent" aria-hidden="true" />
+              <div key={i} className={styles.indTypoItem}>
+                <span className={styles.indTypoNum}>0{i + 1}</span>
+                <span className={styles.indTypoText}>{feature}</span>
               </div>
             ))}
           </div>
@@ -176,30 +118,33 @@ export default async function IndustryDetailPage({
       </section>
 
       {/* 4. OEM VS WEARGUARD COMPARISON MATRIX */}
-      <section className="ind-comparison-section section-slate">
-        <div className="ind-content-container">
-          <div className="ind-section-heading">
+      <section className={`${styles.indComparisonSection} ind-comparison-section section-slate`}>
+        <div className={styles.indContentContainer}>
+          <div className={styles.indSectionHeading}>
             <SectionLabel>Field Performance Verification</SectionLabel>
-            <h2 className="ind-section-h2">
+            <h2 className={styles.indSectionH2}>
               OEM standard limitations vs. <em>WearGuard solution.</em>
             </h2>
           </div>
 
-          {/* Limitations vs Solution Cards */}
-          <div className="ind-oem-cards-grid">
-            <div className="ind-oem-card oem-problem">
-              <div className="ind-oem-badge oem-badge-standard">STANDARD OEM LIMITATION</div>
-              <p className="ind-oem-text">{industry.oemComparison.oemLimitation}</p>
+          {/* SPLIT-SCREEN TYPOGRAPHIC COMPARISON (NO CARDS) */}
+          <div className={styles.indComparisonSplit}>
+            <div className={`${styles.indCompCol} ${styles.indCompOem}`}>
+              <span className={styles.indCompLabel}>Standard OEM Limitation</span>
+              <p className={styles.indCompText}>{industry.oemComparison.oemLimitation}</p>
             </div>
-            <div className="ind-oem-card oem-solution">
-              <div className="ind-oem-badge oem-badge-wearguard">WEARGUARD ALLOY SOLUTION</div>
-              <p className="ind-oem-text">{industry.oemComparison.wearguardSolution}</p>
+            
+            <div className={styles.indCompDivider} aria-hidden="true" />
+            
+            <div className={`${styles.indCompCol} ${styles.indCompWearguard}`}>
+              <span className={`${styles.indCompLabel} ${styles.wearguardLbl}`}>WearGuard Alloy Solution</span>
+              <p className={styles.indCompText}>{industry.oemComparison.wearguardSolution}</p>
             </div>
           </div>
 
           {/* Campaign Metrics Comparison Table */}
-          <div className="ind-oem-table-wrap">
-            <table className="ind-oem-table">
+          <div className={styles.indOemTableWrap}>
+            <table className={styles.indOemTable}>
               <thead>
                 <tr>
                   <th scope="col">Campaign Benchmark</th>
@@ -210,10 +155,10 @@ export default async function IndustryDetailPage({
               <tbody>
                 {industry.oemComparison.campaignMetrics.map((metric, i) => (
                   <tr key={i}>
-                    <td className="metric-label">{metric.label}</td>
-                    <td className="metric-oem">{metric.oem}</td>
-                    <td className="metric-wearguard">
-                      <span className="metric-badge-gain">{metric.wearguard}</span>
+                    <td className={styles.metricLabel}>{metric.label}</td>
+                    <td className={styles.metricOem}>{metric.oem}</td>
+                    <td className={styles.metricWearguard}>
+                      <span className={styles.metricBadgeGain}>{metric.wearguard}</span>
                     </td>
                   </tr>
                 ))}
@@ -224,12 +169,12 @@ export default async function IndustryDetailPage({
       </section>
 
       {/* 5. SWITCH TO OTHER SECTORS */}
-      <section className="ind-switcher-section section-light">
-        <div className="ind-content-container">
-          <div className="ind-switcher-header">
+      <section className={`${styles.indSwitcherSection} ind-switcher-section section-light`}>
+        <div className={styles.indContentContainer}>
+          <div className={styles.indSwitcherHeader}>
             <div>
               <SectionLabel>Sector Portfolio</SectionLabel>
-              <h2 className="ind-section-h2" style={{ margin: '0.4rem 0 0' }}>
+              <h2 className={styles.indSectionH2} style={{ margin: '0.4rem 0 0' }}>
                 Explore other <em>industrial sectors.</em>
               </h2>
             </div>
@@ -242,17 +187,17 @@ export default async function IndustryDetailPage({
             </Link>
           </div>
 
-          <div className="ind-switcher-grid">
+          <div className={styles.indSwitcherGrid}>
             {otherIndustries.map((ind) => (
-              <Link key={ind.slug} href={`/industries/${ind.slug}`} className="ind-switcher-card">
-                <div className="ind-switcher-img-wrap">
-                  <img src={ind.cardImage} alt={ind.title} className="ind-switcher-img" width={400} height={280} />
-                  <span className="ind-switcher-num">{ind.num}</span>
+              <Link key={ind.slug} href={`/industries/${ind.slug}`} className={styles.indSwitcherCard}>
+                <div className={styles.indSwitcherImgWrap}>
+                  <img src={ind.cardImage} alt={ind.title} className={styles.indSwitcherImg} width={400} height={280} />
+                  <span className={styles.indSwitcherNum}>{ind.num}</span>
                 </div>
-                <div className="ind-switcher-body">
-                  <div className="ind-switcher-title-row">
+                <div className={styles.indSwitcherBody}>
+                  <div className={styles.indSwitcherTitleRow}>
                     <h3>{ind.title}</h3>
-                    <span className="ind-switcher-arrow" aria-hidden="true">
+                    <span className={styles.indSwitcherArrow} aria-hidden="true">
                       <Arrow />
                     </span>
                   </div>
@@ -265,7 +210,7 @@ export default async function IndustryDetailPage({
       </section>
 
       {/* 6. BOTTOM CONSULTATION CTA BANNER */}
-      <section className="page-cta section-dark">
+      <section className={`${styles.pageCta} page-cta section-dark`}>
         <h2>
           Ready to extend component campaign life in your <em>{industry.title.toLowerCase()}?</em>
         </h2>

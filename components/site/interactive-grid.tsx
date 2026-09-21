@@ -26,9 +26,9 @@ export function InteractiveGrid() {
     }
 
     let ticks: Tick[] = []
-    const spacingX = 28
-    const spacingY = 16
-    const tickLength = 4.5
+    const spacingX = 30
+    const spacingY = 30
+    const tickLength = 9
     const influenceRadius = 160
 
     function resize() {
@@ -95,19 +95,19 @@ export function InteractiveGrid() {
         const dist = Math.hypot(dx, dy)
 
         let targetAngle = tick.baseAngle
-        let strokeColor = 'rgba(15, 23, 42, 0.22)'
-        let lineW = 0.75
+        let strokeColor = 'rgba(15, 23, 42, 0.09)'
+        let lineW = 0.70
 
         if (dist < influenceRadius && mouse.x > 0 && mouse.y > 0) {
           const force = Math.pow(1 - dist / influenceRadius, 1.3)
           targetAngle = Math.atan2(dy, dx)
           
           if (force > 0.45) {
-            strokeColor = `rgba(217, 75, 43, ${0.4 + force * 0.45})`
-            lineW = 0.95
+            strokeColor = `rgba(200, 55, 11, ${0.35 + force * 0.40})`
+            lineW = 0.90
           } else {
-            strokeColor = `rgba(15, 23, 42, ${0.3 + force * 0.35})`
-            lineW = 0.85
+            strokeColor = `rgba(15, 23, 42, ${0.10 + force * 0.22})`
+            lineW = 0.75
           }
         }
 

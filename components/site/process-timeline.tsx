@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useScroll, useTransform, MotionValue } from 'motion/react'
-import { SectionLabel } from '@/components/site/ui'
+import styles from './process-timeline.module.css'
 
 interface ProcessItem {
   num: string
@@ -59,7 +59,7 @@ function StepRow({
   const dotBackground = useTransform(
     progress,
     [Math.max(0, stepThreshold - 0.03), stepThreshold],
-    ['#22252C', '#D94B2B']
+    ['#22252C', '#C8370B']
   )
 
   const dotScale = useTransform(
@@ -69,10 +69,10 @@ function StepRow({
   )
 
   return (
-    <div className="process-step-item">
+    <div className={styles['process-step-item']}>
       {/* Circle node on the spine - margin-centered so transforms never offset alignment */}
       <motion.div
-        className="spine-node-dot"
+        className={styles['spine-node-dot']}
         style={{
           backgroundColor: dotBackground,
           scale: dotScale,
@@ -80,14 +80,14 @@ function StepRow({
       />
 
       {/* STEP CONTENT with scroll-linked opacity */}
-      <motion.div className="step-content-row" style={{ opacity: textOpacity }}>
-        <div className="step-title-wrap">
+      <motion.div className={styles['step-content-row']} style={{ opacity: textOpacity }}>
+        <div className={styles['step-title-wrap']}>
           <h3>
             {step.title}
-            <span className="step-sup-num">{step.num}</span>
+            <span className={styles['step-sup-num']}>{step.num}</span>
           </h3>
         </div>
-        <div className="step-desc-wrap">
+        <div className={styles['step-desc-wrap']}>
           <p>{step.desc}</p>
         </div>
       </motion.div>
@@ -108,33 +108,33 @@ export function ProcessTimeline() {
   // Lenis handles scroll smoothing — no spring needed (prevents wobble)
 
   return (
-    <section ref={containerRef} className="process-timeline-section section-dark">
-      <div className="process-timeline-container">
+    <section ref={containerRef} className={`${styles['process-timeline-section']} section-dark`}>
+      <div className={styles['process-timeline-container']}>
         {/* HEADER */}
-        <div className="process-header">
-          <div className="process-eyebrow">
+        <div className={styles['process-header']}>
+          <div className={styles['process-eyebrow']}>
             <span className="eyebrow-pipe" aria-hidden="true" />
             <span>How We Work</span>
           </div>
-          <h2 className="process-main-title">
-            Engineered <span className="title-muted">Processes</span>
+          <h2 className={styles['process-main-title']}>
+            Engineered <span className={styles['title-muted']}>Processes</span>
             <br />
             that Ensure Consistency
           </h2>
         </div>
 
         {/* TIMELINE LIST */}
-        <div className="process-timeline-wrapper" ref={listRef}>
+        <div className={styles['process-timeline-wrapper']} ref={listRef}>
           {/* Full-height vertical hatched spine running continuously past Support */}
-          <div className="process-vertical-spine" aria-hidden="true">
+          <div className={styles['process-vertical-spine']} aria-hidden="true">
             <motion.div
-              className="spine-track-laser"
+              className={styles['spine-track-laser']}
               style={{ scaleY: scrollYProgress, originY: 0 }}
             />
           </div>
 
           {/* PROCESS STEP ITEMS */}
-          <div className="process-steps-column">
+          <div className={styles['process-steps-column']}>
             {industrialSteps.map((step, idx) => (
               <StepRow
                 key={step.num}
@@ -148,25 +148,25 @@ export function ProcessTimeline() {
         </div>
 
         {/* BOTTOM STATS DECK */}
-        <div className="process-stats-deck">
-          <div className="process-stat-card">
+        <div className={styles['process-stats-deck']}>
+          <div className={styles['process-stat-card']}>
             <strong>10+</strong>
             <span>Years Technical Metallurgy</span>
           </div>
 
-          <div className="process-stat-card">
+          <div className={styles['process-stat-card']}>
             <strong>250+</strong>
             <span>Heavy Plant Overhauls</span>
           </div>
 
-          <div className="process-stat-card">
+          <div className={styles['process-stat-card']}>
             <strong>98%</strong>
             <span>Client Satisfaction</span>
           </div>
 
-          <Link href="/contact" className="process-cta-card">
+          <Link href="/contact" className={styles['process-cta-card']}>
             <span>Get a quote</span>
-            <span className="cta-corner-arrow">⌝</span>
+            <span className={styles['cta-corner-arrow']}>⌝</span>
           </Link>
         </div>
       </div>

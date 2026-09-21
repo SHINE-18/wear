@@ -1,0 +1,492 @@
+/* ==========================================================================
+   SCROLL-DRIVEN EXPANDING INDUSTRY HERO & INTERACTIVE HOTSPOTS
+   ========================================================================== */
+
+/* 280vh Container for 180vh of scroll-driven expansion & curtain travel */
+.indHeroScrollContainer {
+  position: relative;
+  height: 280vh;
+  width: 100%;
+  background-color: #E4EAF2;
+  box-sizing: border-box;
+}
+
+/* 100vh Sticky Stage pinned to top of screen */
+.indHeroStickyStage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #E4EAF2;
+  z-index: 1;
+}
+
+/* Fullscreen Interactive Magnetic Grid Canvas */
+.indHeroGridCanvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Header Content (Eyebrow, Title, Subtitle, Orange CTA) - Sits cleanly at top */
+.indHeroHeaderWrap {
+  position: absolute;
+  top: 96px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 32px;
+  box-sizing: border-box;
+  z-index: 10;
+  pointer-events: auto;
+  will-change: transform, opacity;
+}
+
+.indHeroHeaderGrid {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.indHeroHeaderLeft {
+  flex: 1;
+  max-width: 900px;
+}
+
+.indEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-body);
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.35rem;
+  line-height: 1;
+}
+
+.indEyebrowBar {
+  width: 2.5px;
+  height: 12px;
+  background: var(--orange);
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+
+.indHeroTitle {
+  font-family: 'Inter', "Inter Placeholder", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+  font-weight: 550;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #0E1014;
+  margin: 0 0 0.4rem;
+}
+
+.indHeroSubtitle {
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  color: #5A6172;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 500;
+  max-width: 660px;
+}
+
+/* Orange Square CTA Button */
+.indCtaSquare {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 135px;
+  height: 135px;
+  background-color: var(--orange);
+  border-radius: 0;
+  padding: 1.15rem;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(200, 55, 11, 0.25);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.indCtaSquare:hover {
+  background-color: var(--orange-hover, #D84112);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(200, 55, 11, 0.38);
+}
+
+.indCtaBracket {
+  align-self: flex-end;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.indCtaSquare:hover .indCtaBracket {
+  transform: translate(3px, -3px);
+}
+
+.indCtaLabel {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  max-width: 90px;
+  display: block;
+}
+
+/* ==========================================================================
+   EXPANDING PLANT MEDIA CANVAS (FRAMED -> FULLSCREEN 100VW x 100VH)
+   ========================================================================== */
+
+.indMediaWrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  border-radius: 0;
+  z-index: 5;
+  background-color: #0E1014;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.14);
+  border-style: solid;
+  border-color: rgba(15, 23, 42, 0.15);
+  will-change: top, width, height, transform;
+}
+
+.indPlantImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 36%;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Subtle gradient scrim at bottom to ensure badge & hotspot contrast */
+.indMediaScrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14, 16, 20, 0.50) 0%, transparent 40%),
+              linear-gradient(to bottom, rgba(14, 16, 20, 0.20) 0%, transparent 25%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Solid Slate Blend Overlay that dissolves the image smoothly as curtain rises */
+.indMediaSlateBlend {
+  position: absolute;
+  inset: 0;
+  background-color: #E4EAF2;
+  pointer-events: none;
+  z-index: 8;
+  will-change: opacity;
+}
+
+/* Bottom Right Static Plant badge */
+.indHudBadge {
+  position: absolute;
+  bottom: 18px;
+  right: 22px;
+  background: #111215;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.indHudDot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--orange);
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   INTERACTIVE PLANT COMPONENT HOTSPOTS (MINIMAL INDUSTRIAL)
+   ========================================================================== */
+
+.indHotspotsLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.indHotspotItem {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 12;
+}
+
+.indHotspotBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  outline: none;
+}
+
+/* Numbered Industrial Badge (01, 02, 03, 04) - Compact, sharp blueprint style */
+.indBadgeBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 34px;
+  height: 28px;
+  padding: 0 8px;
+  background: #111215;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.50);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.indBadgeDot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--orange);
+  border-radius: 0;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.indBadgeNum {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.indHotspotBtn:hover .indBadgeBox,
+.indHotspotItem.active .indBadgeBox,
+.indHotspotBtn.btnActive .indBadgeBox {
+  background-color: var(--orange);
+  border-color: var(--orange);
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(200, 55, 11, 0.45);
+}
+
+.indHotspotBtn:hover .indBadgeDot,
+.indHotspotItem.active .indBadgeDot,
+.indHotspotBtn.btnActive .indBadgeDot {
+  background-color: #FFFFFF;
+}
+
+.indHotspotBtn:hover .indBadgeNum,
+.indHotspotItem.active .indBadgeNum,
+.indHotspotBtn.btnActive .indBadgeNum {
+  color: #FFFFFF;
+}
+
+/* Minimal Matte Dark Component Card (Zero sci-fi / robotic styling) */
+.indTelemetryCard {
+  position: absolute;
+  width: 320px;
+  background: #111215;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 1.15rem 1.25rem;
+  box-sizing: border-box;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  border-radius: 0;
+  pointer-events: auto;
+  z-index: 25;
+}
+
+.indTelemetryCard.posAbove {
+  bottom: calc(100% + 10px);
+  border-top: 2px solid var(--orange);
+}
+
+.indTelemetryCard.posBelow {
+  top: calc(100% + 10px);
+  border-bottom: 2px solid var(--orange);
+}
+
+.indTelemetryCard.alignCenter {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.indTelemetryCard.alignLeft {
+  left: 0;
+  transform: none;
+}
+
+.indTelemetryCard.alignRight {
+  right: 0;
+  left: auto;
+  transform: none;
+}
+
+.indCardCategoryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.45rem;
+}
+
+.indCardHeaderBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.indCardNumBadge {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--orange);
+  padding: 2px 6px;
+  border-radius: 0;
+  line-height: 1;
+}
+
+.indCardCategory {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #9CA3AF;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.indCardDot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--orange);
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+.indCardTitle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+}
+
+.indCardDesc {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: #D1D5DB;
+  line-height: 1.5;
+  margin: 0 0 0.85rem;
+  font-weight: 400;
+}
+
+.indCardFooter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.indCardMetaItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.indCardMetaLabel {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: #6B7280;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  flex-shrink: 0;
+}
+
+.indCardMetaVal {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #E5E7EB;
+  font-weight: 500;
+  text-align: right;
+}
+
+.indCardBenefitVal {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #F97316;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* ==========================================================================
+   RESPONSIVE ADJUSTMENTS
+   ========================================================================== */
+
+@media (max-width: 960px) {
+  .indHeroScrollContainer {
+    height: auto !important;
+  }
+
+  .indHeroStickyStage {
+    position: relative !important;
+    height: auto !important;
+    min-height: auto;
+    padding-bottom: 2rem;
+  }
+
+  .indHeroHeaderWrap {
+    position: relative !important;
+    top: 0 !important;
+    padding-top: clamp(6.5rem, 16vw, 8rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .indHeroHeaderGrid {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .indMediaWrapper {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    height: 340px !important;
+    top: 0 !important;
+  }
+
+
+
+  .indTelemetryCard {
+    width: 260px;
+    left: 0 !important;
+    right: auto !important;
+    transform: none !important;
+  }
+}

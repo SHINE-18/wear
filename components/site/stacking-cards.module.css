@@ -1,0 +1,380 @@
+/* ==========================================================================
+   3D SCROLL PERSPECTIVE STACKING CARDS
+   ========================================================================== */
+
+/* ---- STACK CONTAINER ---- */
+.stack-container {
+  --stack-base-top: 110px; /* clearance for header */
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 32px;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+/* ---- SECTION HEADER (eyebrow + two-tone title + link) ---- */
+.stack-header {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 0;
+  padding-bottom: 32px;
+}
+
+.stack-header-canvas-wrap {
+  position: absolute;
+  top: -50px;
+  bottom: -24px;
+  left: -24px;
+  right: -24px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Seamless extended backdrop spanning across the navbar and What We Offer */
+.canvas-wrap-extended {
+  top: calc(-1 * clamp(10.5rem, 16vw, 14rem) - 10px) !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  width: 100vw !important;
+}
+
+.stack-header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.stack-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+}
+.stack-eyebrow::before {
+  content: "";
+  width: 2.5px;
+  height: 13px;
+  background: var(--orange);
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+
+.stack-title {
+  font-family: 'Inter', "Inter Placeholder", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2.8rem, 5.2vw, 4.6rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: #0E1014;
+  margin: 0;
+}
+
+.stack-title span {
+  color: #5A6172;
+  font-weight: 500;
+}
+
+.stack-all-link {
+  position: relative;
+  z-index: 2;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0D0D0D;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+.stack-all-link:hover {
+  color: var(--orange);
+}
+.stack-link-glyph {
+  color: var(--orange);
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+.stack-all-link:hover .stack-link-glyph {
+  transform: translate(2px, -2px);
+}
+
+/* ---- 3D STACK CARDS WRAPPER ---- */
+.stack-cards-wrapper {
+  position: relative;
+  overflow: visible;
+  padding-top: 140px;
+}
+
+.stack-cards-white-bg {
+  position: absolute;
+  top: 0;
+  bottom: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  background-color: #FFFFFF;
+  pointer-events: none;
+  z-index: 0;
+  will-change: opacity;
+}
+
+.stack-card-pin {
+  position: sticky;
+  display: block;
+  width: 100%;
+  margin-bottom: clamp(320px, 45vh, 480px);
+}
+
+.stack-card-pin:last-of-type {
+  margin-bottom: 0;
+}
+
+.stack-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: clamp(390px, 46vh, 450px);
+  background: #E4EAF2;
+  border-radius: 0;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-top: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: none;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  will-change: transform, opacity;
+}
+
+/* 1st card has normal 1px top border; 2nd, 3rd, and 4th retain the white stacking border */
+.first-card,
+.stack-card-pin:first-child .stack-card,
+.stack-card-pin:first-of-type .stack-card {
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* End space calibrated so cards stay stacked before scrolling out */
+.stack-end-space {
+  height: clamp(280px, 35vh, 440px);
+  pointer-events: none;
+}
+
+.stack-card-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* Left Column: Title at top, Orange mark + Description at bottom */
+.stack-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 2.8rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.stack-card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  height: 76px;
+  min-height: 76px;
+}
+
+.stack-card-title {
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #0E1014;
+  margin: 0;
+  line-height: 1.2;
+  transition: color 0.25s ease;
+}
+
+.stack-card-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  color: var(--orange);
+  flex-shrink: 0;
+  margin-bottom: 2px;
+}
+
+.stack-card-arrow :global(.arrow) {
+  width: 36px;
+  height: 36px;
+  color: var(--orange);
+  stroke: var(--orange);
+  stroke-width: 3.2px;
+  display: block;
+  overflow: visible;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stack-card-arrow :global(.arrow) :global(.arrow-head) {
+  stroke-width: 3.2;
+  transition: stroke-width 0.25s ease;
+}
+
+.stack-card-arrow :global(.arrow) :global(.arrow-stem) {
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  opacity: 1;
+  stroke-width: 3.2;
+}
+
+.stack-card:hover .stack-card-title,
+.stack-card-inner:hover .stack-card-title,
+.stack-card:hover h3 {
+  color: var(--orange);
+}
+
+.stack-card:hover :global(.arrow),
+.stack-card-inner:hover :global(.arrow),
+.stack-card:hover .stack-card-arrow :global(.arrow) {
+  transform: translate(4px, -4px);
+}
+
+.stack-card:hover :global(.arrow) :global(.arrow-stem),
+.stack-card-inner:hover :global(.arrow) :global(.arrow-stem),
+.stack-card:hover .stack-card-arrow :global(.arrow) :global(.arrow-stem) {
+  stroke-dashoffset: 0 !important;
+  opacity: 1 !important;
+}
+
+.stack-card:hover .stack-card-image-frame img,
+.stack-card-inner:hover .stack-card-image-frame img {
+  transform: scale(1.05);
+}
+
+.stack-card-footer-wrap {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.25rem;
+}
+
+.stack-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: #161311;
+  font-weight: 500;
+  margin: 0;
+  max-width: 22rem;
+}
+
+/* Right Column: Framed Card Image with 0.5cm padding */
+.stack-card-image {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  padding: 4px;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  overflow: hidden;
+}
+
+.stack-card-image-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.stack-card-image-frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 960px) {
+  .stack-container {
+    padding: 0 1.25rem !important;
+  }
+
+  .stack-header {
+    margin-bottom: clamp(60px, 10vw, 90px);
+  }
+
+  .stack-card {
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: clamp(240px, 40vh, 360px);
+    overflow: hidden;
+  }
+
+  .stack-card-inner {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .stack-card-content {
+    padding: 1.4rem 1.4rem 1.15rem !important;
+  }
+
+  .stack-card-title-wrap {
+    height: auto !important;
+    min-height: auto !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .stack-card-image {
+    width: 100% !important;
+    height: 220px !important;
+    padding: 0.5cm !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+
+  .stack-card-image-frame {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+  }
+
+  .stack-card-image-frame img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+}

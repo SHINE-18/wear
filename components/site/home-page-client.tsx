@@ -13,10 +13,75 @@ import { IndustryStackingCards } from '@/components/site/stacking-cards'
 import { ProcessTimeline } from '@/components/site/process-timeline'
 import { FAQSection } from '@/components/site/faq-section'
 import { aboutImage, applications, faqs, industries, materials, tickerItems } from '@/lib/site-data'
+import styles from './home-page-client.module.css'
+
+interface MaterialCardItem {
+  id: string
+  title: string
+  subtitle: string
+  specimenImg: string
+  plantImg: string
+  desc: string
+  specs: { label: string; val: string }[]
+  cta: string
+}
+
+const materialCards: MaterialCardItem[] = [
+  {
+    id: 'plate',
+    title: 'WearPlate™ 400/500 — Precision Profiled Steel',
+    subtitle: 'Through-Hardened Quenched & Tempered Martensitic Plate',
+    specimenImg: '/images/materials-plate-specimen.jpg',
+    plantImg: '/images/materials-plate-plant.jpg',
+    desc: 'High-durability precision profiled wear steel, CNC bevelled, drilled, and rolled to exact machine tolerances for chutes, hoppers, and impact decks.',
+    specs: [
+      { label: 'Hardness Rating', val: '400–500 BHN (Quenched & Tempered)' },
+      { label: 'Impact Toughness', val: '45 J @ -20°C (Charpy V-Notch)' },
+      { label: 'Service Life', val: '3.5x Extension vs Carbon Steel' },
+      { label: 'Machining & Fit', val: 'Pre-Drilled Countersunk & Bevelled' },
+    ],
+    cta: 'Request Cut-to-Shape Quote',
+  },
+  {
+    id: 'ceramic',
+    title: 'EnduraCast™ Ceramic — Shock-Damped Hybrid Liners',
+    subtitle: 'High-Alumina Hexagonal Tiles Vulcanized in Rubber',
+    specimenImg: '/images/materials-ceramic-specimen.jpg',
+    plantImg: '/images/materials-ceramic-plant.jpg',
+    desc: 'Ultra-tough hybrid liners engineered with specialized abrasion-resistant matrix for severe high-velocity slurry, sliding aggregate, and pneumatic wear zones.',
+    specs: [
+      { label: 'Matrix Metallurgy', val: '92% Al₂O₃ Ceramic + Matrix' },
+      { label: 'Impact Absorption', val: 'High-Elastic Shock Damping' },
+      { label: 'Slurry Velocity', val: 'Rated up to 28 m/s Resistance' },
+      { label: 'Wear Factor', val: '3x to 5x vs Mild Carbon Steel' },
+    ],
+    cta: 'Enquire on Z-Core Liners',
+  },
+  {
+    id: 'castings',
+    title: 'WearCast™ Alloys — High-Chrome & Ni-Hard Castings',
+    subtitle: 'Martensitic White Iron & 28% Chrome Foundry Alloys',
+    specimenImg: '/images/materials-cast-specimen.jpg',
+    plantImg: '/images/materials-cast-plant.jpg',
+    desc: 'Proprietary foundry cast alloys (Ni-Hard and High-Chrome) engineered for maximum hardness in continuous crushing, grinding, and severe erosive environments.',
+    specs: [
+      { label: 'Hardness Range', val: '550–650+ BHN (58–64 HRC)' },
+      { label: 'Alloy System', val: 'High-Chrome (Cr 15–28%) & Ni-Hard' },
+      { label: 'Thermal Rating', val: 'Up to 950°C Continuous Service' },
+      { label: 'Assembly Fit', val: 'Direct Match for Crushers & Mills' },
+    ],
+    cta: 'Enquire on Cast Grades',
+  },
+]
 
 export function HomePageClient() {
   const [faq, setFaq] = useState(0)
   const [annual, setAnnual] = useState(false)
+  const [cardViewOverrides, setCardViewOverrides] = useState<{ [key: string]: 'specimen' | 'plant' | null }>({
+    plate: null,
+    ceramic: null,
+    castings: null,
+  })
 
   return (
     <main id="top">
@@ -24,64 +89,59 @@ export function HomePageClient() {
 
       <CinematicHero />
 
-      <div className="page-content-layer">
+      <div className={`${styles.pageContentLayer} page-content-layer`}>
         {/* <Marquee items={tickerItems} speed={36} /> */}
 
-        <section id="about-us" className="about section-slate-steel">
-        <FadeUp className="about-copy">
-          <SectionLabel>Engineering Excellence</SectionLabel>
-          <h2>
-            Driven by precision.
-            <br />
-            Powered by experience.
-          </h2>
-          <p className="about-lead">
-            WearGuard engineers and manufactures bespoke wear-resistant castings, custom-profile liners, and high-impact alloys for critical machinery across asphalt, concrete, mining, and heavy process industries.
-          </p>
+        <section id="about-us" className={`${styles.aboutSection} about section-slate-steel`}>
+          <div className={styles.aboutGrid}>
+            <FadeUp className={styles.aboutLeft}>
+              <SectionLabel>About Us</SectionLabel>
+              <h2 className={styles.aboutSplitTitle}>
+                Driven by <span className={styles.aboutMutedWord}>Precision.</span> Powered
+                <br />
+                by <span className={styles.aboutMutedWord}>Experience.</span>
+              </h2>
 
-          <div className="about-pillars">
-            <div className="about-pillar-card">
-              <h4>Custom Metallurgy</h4>
-              <p>High-chrome &amp; manganese alloys formulated for severe abrasion &amp; impact zones.</p>
-            </div>
-            <div className="about-pillar-card">
-              <h4>OEM Interchangeability</h4>
-              <p>Precise 3D scanning &amp; reverse engineering guarantees 100% fit accuracy.</p>
-            </div>
-            <div className="about-pillar-card">
-              <h4>6–8 Wk Turnaround</h4>
-              <p>Small batch flexibility (1–10 units) through to plant-wide fleet restocking.</p>
-            </div>
-            <div className="about-pillar-card">
-              <h4>Lifecycle Analysis</h4>
-              <p>Proven 20%–60% wear life improvement reducing costly unscheduled downtime.</p>
-            </div>
+              <div className={styles.aboutHatchBar} aria-hidden="true" />
+
+              <p className={styles.aboutSplitLead}>
+                We deliver high-quality industrial solutions designed to meet the demands of modern production. From engineering to execution, our focus is on efficiency, reliability, and long-term performance.
+              </p>
+
+              <div className={styles.aboutCtaRow}>
+                <Link href="/about" className={styles.aboutLearnMoreLink}>
+                  <span>Learn More</span>
+                  <Arrow />
+                </Link>
+              </div>
+            </FadeUp>
+
+            <FadeUp delay={0.15} className={styles.aboutRight}>
+              <div className={styles.aboutImageFrame}>
+                <img
+                  src="/images/workplace-cad-meeting.jpg"
+                  alt="WearGuard engineering team in technical CAD consultation session"
+                  width={1200}
+                  height={800}
+                  className={styles.aboutPhoto}
+                />
+              </div>
+            </FadeUp>
           </div>
+        </section>
 
-          <div className="about-cta-row">
-            <Button dark href="/about">
-              Learn our process
-            </Button>
-            <Link href="/contact" className="about-sub-link">
-              <span>Request technical consultation</span>
-              <Arrow />
-            </Link>
-          </div>
-        </FadeUp>
-      </section>
-
-      <section id="industries" className="industries-stack-section section-light">
+      <section id="industries" className={`${styles.industriesStackSection} industries-stack-section section-light`}>
         <IndustryStackingCards />
       </section>
 
-      <section id="applications" className="applications section-dark">
+      <section id="applications" className={`${styles.applicationsSection} applications section-dark`}>
         <ApplicationInspector applications={applications} />
       </section>
 
-      <section id="materials" className="materials section-slate">
-        <div className="materials-sticky-layout">
+      <section id="materials" className={`${styles.materialsSection} materials section-slate`}>
+        <div className={styles.materialsStickyLayout}>
           {/* LEFT: PINNED / STICKY HEADLINE & INTRO */}
-          <div className="materials-sticky-left">
+          <div className={styles.materialsStickyLeft}>
             <FadeUp>
               <SectionLabel>Materials &amp; engineered alloys</SectionLabel>
               <h2>
@@ -89,11 +149,11 @@ export function HomePageClient() {
                 <br />
                 for the <em>right wear zone.</em>
               </h2>
-              <p className="materials-sticky-lead">
+              <p className={styles.materialsStickyLead}>
                 Technology is selected according to impact, abrasion, erosion, temperature, corrosion, material flow, and service-life targets.
               </p>
-              <div className="materials-left-action">
-                <Button href="/materials">
+              <div className={styles.materialsLeftAction}>
+                <Button href="/materials" magnetic={false}>
                   Explore all material metallurgy
                 </Button>
               </div>
@@ -101,240 +161,133 @@ export function HomePageClient() {
           </div>
 
           {/* RIGHT: DESKTOP SCROLLABLE 3 VERTICAL PRODUCT CARDS */}
-          <div className="materials-scroll-list home-materials-desktop-only">
-            {/* CARD 01 */}
-            <FadeUp className="material-scroll-card">
-              <div className="material-scroll-header">
-                <h3>WearGuard Designed &amp; Cut to Shape Parts</h3>
-              </div>
-
-              <div className="material-specimen-frame">
-                <img src="/images/hardfaced-plate.webp" alt="WearGuard Designed &amp; Cut to Shape Parts" width={616} height={464} />
-              </div>
-
-              <p className="material-scroll-desc">
-                High-durability precision profiled wear steel, CNC bevelled, drilled, and rolled to exact machine tolerances for chutes, hoppers, and impact decks.
-              </p>
-
-              <div className="material-editorial-specs">
-                <div className="editorial-spec-row">
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Hardness Rating</span>
-                    <span className="editorial-spec-val">400–500 BHN (Quenched &amp; Tempered)</span>
+          <div className={`${styles.materialsScrollList} ${styles.homeMaterialsDesktopOnly}`}>
+            {materialCards.map((card) => {
+              const viewLock = cardViewOverrides[card.id]
+              return (
+                <FadeUp key={card.id} className={styles.materialScrollCard} data-pinned={viewLock}>
+                  <div className={styles.materialScrollHeader}>
+                    <h3>{card.title}</h3>
+                    <p className={styles.materialCardSubtitle}>{card.subtitle}</p>
                   </div>
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Impact Toughness</span>
-                    <span className="editorial-spec-val">45 J @ -20°C (Charpy V-Notch)</span>
-                  </div>
-                </div>
-                <div className="editorial-spec-row">
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Service Life</span>
-                    <span className="editorial-spec-val">3.5x Extension vs Carbon Steel</span>
-                  </div>
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Machining &amp; Fit</span>
-                    <span className="editorial-spec-val">Pre-Drilled Countersunk &amp; Bevelled</span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="material-card-footer">
-                <Button href="/contact">
-                  Request Cut-to-Shape Quote
-                </Button>
-                <Link href="/materials" className="about-sub-link">
-                  <span>View plate metallurgy</span>
-                  <Arrow />
-                </Link>
-              </div>
-            </FadeUp>
-
-            {/* CARD 02 */}
-            <FadeUp className="material-scroll-card">
-              <div className="material-scroll-header">
-                <h3>EnduraCast Z-Core Liners</h3>
-              </div>
-
-              <div className="material-specimen-frame">
-                <img src="/images/ceramic-liners.webp" alt="EnduraCast Z-Core Liners" width={616} height={464} />
-              </div>
-
-              <p className="material-scroll-desc">
-                Ultra-tough hybrid liners engineered with specialized abrasion-resistant matrix for severe high-velocity slurry, sliding aggregate, and pneumatic wear zones.
-              </p>
-
-              <div className="material-editorial-specs">
-                <div className="editorial-spec-row">
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Matrix Metallurgy</span>
-                    <span className="editorial-spec-val">92% Al₂O₃ Ceramic + Matrix</span>
+                  {/* DUAL-VIEW SPECIMEN & IN-PLANT WEAR ZONE FRAME */}
+                  <div className={styles.materialSpecimenFrame}>
+                    <img
+                      src={card.specimenImg}
+                      alt={`${card.title} Lab Specimen`}
+                      width={616}
+                      height={464}
+                      className={styles.specimenImgLayer}
+                    />
+                    <img
+                      src={card.plantImg}
+                      alt={`${card.title} In-Plant Wear Zone`}
+                      width={616}
+                      height={464}
+                      className={styles.plantImgLayer}
+                    />
                   </div>
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Impact Absorption</span>
-                    <span className="editorial-spec-val">High-Elastic Shock Damping</span>
-                  </div>
-                </div>
-                <div className="editorial-spec-row">
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Slurry Velocity</span>
-                    <span className="editorial-spec-val">Rated up to 28 m/s Resistance</span>
-                  </div>
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Wear Factor</span>
-                    <span className="editorial-spec-val">3x to 5x vs Mild Carbon Steel</span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="material-card-footer">
-                <Button href="/contact">
-                  Enquire on Z-Core Liners
-                </Button>
-                <Link href="/materials" className="about-sub-link">
-                  <span>Explore composite specs</span>
-                  <Arrow />
-                </Link>
-              </div>
-            </FadeUp>
+                  <p className={styles.materialScrollDesc}>{card.desc}</p>
 
-            {/* CARD 03 */}
-            <FadeUp className="material-scroll-card">
-              <div className="material-scroll-header">
-                <h3>Wearcast Foundry Castings</h3>
-              </div>
-
-              <div className="material-specimen-frame">
-                <img src="/images/material-technologies-whole-set.webp" alt="Wearcast Grades" width={616} height={464} />
-              </div>
-
-              <p className="material-scroll-desc">
-                Proprietary foundry cast alloys (Ni-Hard and High-Chrome) engineered for maximum hardness in continuous crushing, grinding, and severe erosive environments.
-              </p>
-
-              <div className="material-editorial-specs">
-                <div className="editorial-spec-row">
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Hardness Range</span>
-                    <span className="editorial-spec-val">550–650+ BHN (58–64 HRC)</span>
+                  {/* EDITORIAL SPECS TABLE */}
+                  <div className={styles.materialEditorialSpecs}>
+                    <div className={styles.editorialSpecRow}>
+                      <div className={styles.editorialSpecCol}>
+                        <span className={styles.editorialSpecLabel}>{card.specs[0].label}</span>
+                        <span className={styles.editorialSpecVal}>{card.specs[0].val}</span>
+                      </div>
+                      <div className={styles.editorialSpecCol}>
+                        <span className={styles.editorialSpecLabel}>{card.specs[1].label}</span>
+                        <span className={styles.editorialSpecVal}>{card.specs[1].val}</span>
+                      </div>
+                    </div>
+                    <div className={styles.editorialSpecRow}>
+                      <div className={styles.editorialSpecCol}>
+                        <span className={styles.editorialSpecLabel}>{card.specs[2].label}</span>
+                        <span className={styles.editorialSpecVal}>{card.specs[2].val}</span>
+                      </div>
+                      <div className={styles.editorialSpecCol}>
+                        <span className={styles.editorialSpecLabel}>{card.specs[3].label}</span>
+                        <span className={styles.editorialSpecVal}>{card.specs[3].val}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Alloy System</span>
-                    <span className="editorial-spec-val">High-Chrome (Cr 15–28%) &amp; Ni-Hard</span>
-                  </div>
-                </div>
-                <div className="editorial-spec-row">
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Thermal Rating</span>
-                    <span className="editorial-spec-val">Up to 950°C Continuous Service</span>
-                  </div>
-                  <div className="editorial-spec-col">
-                    <span className="editorial-spec-label">Assembly Fit</span>
-                    <span className="editorial-spec-val">Direct Match for Crushers &amp; Mills</span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="material-card-footer">
-                <Button href="/contact">
-                  Enquire on Cast Grades
-                </Button>
-                <Link href="/materials" className="about-sub-link">
-                  <span>Explore foundry capabilities</span>
-                  <Arrow />
-                </Link>
-              </div>
-            </FadeUp>
+                  <div className={styles.materialCardFooter}>
+                    <Button href="/contact" magnetic={false}>{card.cta}</Button>
+                  </div>
+                </FadeUp>
+              )
+            })}
           </div>
 
           {/* MOBILE VIEW: COLLAPSIBLE DROPDOWN ACCORDION CARDS */}
-          <div className="home-materials-mobile-accordion-group">
-            {[
-              {
-                id: 'plate',
-                title: 'WearGuard Designed & Cut to Shape Parts',
-                pill: 'P400–P500 Q&T',
-                badge: '400–500 BHN',
-                img: '/images/hardfaced-plate.webp',
-                desc: 'High-durability precision profiled wear steel, CNC bevelled, drilled, and rolled to exact machine tolerances for chutes, hoppers, and impact decks.',
-                specs: [
-                  { label: 'Hardness', val: '400–500 BHN' },
-                  { label: 'Impact', val: '45 J @ -20°C' },
-                  { label: 'Service Life', val: '3.5x Extension' },
-                  { label: 'Fit', val: 'Pre-Drilled & Bevelled' },
-                ],
-                cta: 'Request Cut-to-Shape Quote',
-              },
-              {
-                id: 'zcore',
-                title: 'EnduraCast Z-Core Liners',
-                pill: 'MATRIX COMPOSITE',
-                badge: 'Z-CORE HYBRID',
-                img: '/images/ceramic-liners.webp',
-                desc: 'Ultra-tough hybrid liners engineered with specialized abrasion-resistant matrix for severe high-velocity slurry, sliding aggregate, and pneumatic wear zones.',
-                specs: [
-                  { label: 'Matrix', val: '92% Al₂O₃ Ceramic' },
-                  { label: 'Shock', val: 'High-Elastic Damping' },
-                  { label: 'Velocity', val: 'Up to 28 m/s' },
-                  { label: 'Wear Factor', val: '3x–5x vs Carbon' },
-                ],
-                cta: 'Enquire on Z-Core Liners',
-              },
-              {
-                id: 'castings',
-                title: 'Wearcast Foundry Castings',
-                pill: 'CR 15–28% / NI-HARD',
-                badge: '550–650+ BHN',
-                img: '/images/material-technologies-whole-set.webp',
-                desc: 'Proprietary foundry cast alloys (Ni-Hard and High-Chrome) engineered for maximum hardness in continuous crushing, grinding, and severe erosive environments.',
-                specs: [
-                  { label: 'Hardness', val: '550–650+ BHN' },
-                  { label: 'Alloy System', val: 'High-Cr & Ni-Hard' },
-                  { label: 'Thermal Limit', val: 'Up to 950°C' },
-                  { label: 'Assembly', val: 'Direct Crusher Match' },
-                ],
-                cta: 'Enquire on Cast Grades',
-              },
-            ].map((card, idx) => {
-              const isOpen = annual === (idx === 0) ? (annual ? false : true) : faq === idx
-              // we can use a dedicated state or local state
+          <div className={styles.homeMaterialsMobileAccordionGroup}>
+            {materialCards.map((card, idx) => {
+              const isOpen = faq === idx
+              const viewLock = cardViewOverrides[card.id]
 
               return (
-                <div key={card.id} className={`home-mat-accordion-card ${faq === idx ? 'is-open' : ''}`}>
+                <div key={card.id} className={`${styles.homeMatAccordionCard} ${isOpen ? styles.isOpen : ''}`}>
                   <button
                     type="button"
-                    className="home-mat-accordion-header"
-                    onClick={() => setFaq(faq === idx ? -1 : idx)}
-                    aria-expanded={faq === idx}
+                    className={styles.homeMatAccordionHeader}
+                    onClick={() => setFaq(isOpen ? -1 : idx)}
+                    aria-expanded={isOpen}
                   >
-                    <div className="home-mat-title-wrap">
+                    <div className={styles.homeMatTitleWrap}>
                       <strong>{card.title}</strong>
                     </div>
-                    <span className="home-mat-chevron" aria-hidden="true">
-                      {faq === idx ? '▲' : '▼'}
+                    <span className={styles.homeMatChevron} aria-hidden="true">
+                      {isOpen ? '▲' : '▼'}
                     </span>
                   </button>
 
-                  {faq === idx && (
-                    <div className="home-mat-accordion-body">
-                      <div className="home-mat-body-inner">
-                        <p className="home-mat-desc">{card.desc}</p>
+                  {isOpen && (
+                    <div className={styles.homeMatAccordionBody}>
+                      <div className={styles.homeMatBodyInner}>
+                        <p className={styles.homeMatDesc}>{card.desc}</p>
 
-                        <div className="home-mat-spec-matrix">
+                        {/* MOBILE DUAL-VIEW FRAME */}
+                        <div
+                          className={styles.materialSpecimenFrame}
+                          data-view={viewLock || 'auto'}
+                          style={{ height: '220px', marginBottom: '1rem', cursor: 'pointer' }}
+                          onClick={() => {
+                            setCardViewOverrides((prev) => ({
+                              ...prev,
+                              [card.id]: prev[card.id] === 'plant' ? 'specimen' : 'plant',
+                            }))
+                          }}
+                        >
+                          <img
+                            src={card.specimenImg}
+                            alt={`${card.title} Specimen`}
+                            width={616}
+                            height={464}
+                            className={styles.specimenImgLayer}
+                          />
+                          <img
+                            src={card.plantImg}
+                            alt={`${card.title} In-Plant`}
+                            width={616}
+                            className={styles.plantImgLayer}
+                          />
+                        </div>
+
+                        <div className={styles.homeMatSpecMatrix}>
                           {card.specs.map((sp, sIdx) => (
-                            <div key={sIdx} className="home-mat-spec-cell">
+                            <div key={sIdx} className={styles.homeMatSpecCell}>
                               <span className="lbl">{sp.label}</span>
                               <strong className="val">{sp.val}</strong>
                             </div>
                           ))}
                         </div>
 
-                        <div className="home-mat-img-frame">
-                          <img src={card.img} alt={card.title} width={616} height={464} />
-                        </div>
-
-                        <div className="home-mat-action-btn">
-                          <Button href="/contact">{card.cta}</Button>
+                        <div className={styles.homeMatActionBtn}>
+                          <Button href="/contact" magnetic={false}>{card.cta}</Button>
                         </div>
                       </div>
                     </div>

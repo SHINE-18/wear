@@ -1,0 +1,24 @@
+/* ==========================================================================
+   INDUSTRIES OVERVIEW PAGE MODULE STYLES
+   ========================================================================== */
+
+.industriesPageRoot {
+  position: relative;
+  background-color: #E4EAF2;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+
+
+.industriesStackSection {
+  position: relative;
+  z-index: 5;
+  background-color: transparent !important;
+  padding-top: clamp(10.5rem, 16vw, 14rem);
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100%;
+}

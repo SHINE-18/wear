@@ -1,0 +1,512 @@
+/* ==========================================================================
+   PRECISION WEAR COMPONENTS CATALOG STYLES (#EBEBEB THEME)
+   ========================================================================== */
+
+.catalog-page-layout {
+  background: #EBEBEB;
+  min-height: 100vh;
+}
+
+.catalog-section {
+  padding: clamp(7.5rem, 11vw, 9.5rem) clamp(1.5rem, 4vw, 4.5rem) clamp(5rem, 8vw, 7rem);
+  width: 100%;
+  background: #EBEBEB;
+}
+
+.catalog-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* TOP HEADER */
+.catalog-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.catalog-eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 0;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 18, 20, 0.12);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--orange, #C8370B);
+  width: fit-content;
+  font-family: var(--font-body, sans-serif);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.catalog-eyebrow-badge .gear-icon {
+  color: var(--orange, #C8370B);
+  font-size: 0.95rem;
+}
+
+.catalog-main-title {
+  font-size: clamp(2.4rem, 4.8vw, 4.2rem);
+  font-weight: 750;
+  color: #0E1014;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0;
+  font-family: var(--font-display, var(--font-body));
+}
+
+.catalog-subtitle {
+  font-size: clamp(1.02rem, 1.35vw, 1.18rem);
+  color: #475569;
+  max-width: 860px;
+  line-height: 1.65;
+  margin: 0;
+  font-weight: 400;
+  font-family: var(--font-body, sans-serif);
+}
+
+/* MINIMAL SWISS DROPDOWN CONTROL TOOLBAR */
+.catalog-dropdown-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 18, 20, 0.12);
+  border-radius: 0;
+  padding: 0.65rem 1rem 0.65rem 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  flex-wrap: wrap;
+}
+
+.catalog-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 240px;
+}
+
+.catalog-search-icon {
+  color: #64748B;
+  flex-shrink: 0;
+}
+
+.catalog-search-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.92rem;
+  width: 100%;
+  color: #0E1014;
+  font-family: var(--font-body, sans-serif);
+}
+
+.catalog-search-input::placeholder {
+  color: #94A3B8;
+}
+
+.catalog-dropdown-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.custom-dropdown-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.dropdown-label {
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748B;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dropdown-select-box {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.clean-dropdown-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: #F8FAFC;
+  border: 1px solid rgba(17, 18, 20, 0.14);
+  border-radius: 0;
+  padding: 0.5rem 1.85rem 0.5rem 0.85rem;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0E1014;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.clean-dropdown-select:hover,
+.clean-dropdown-select:focus {
+  border-color: var(--orange, #C8370B);
+  background: #FFFFFF;
+}
+
+.dropdown-arrow-icon {
+  position: absolute;
+  right: 0.65rem;
+  font-size: 0.75rem;
+  color: #64748B;
+  pointer-events: none;
+}
+
+.dropdown-reset-btn {
+  background: transparent;
+  border: 1px solid rgba(200, 55, 11, 0.3);
+  color: var(--orange, #C8370B);
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.48rem 0.85rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+
+.dropdown-reset-btn:hover {
+  background: var(--orange, #C8370B);
+  color: #FFFFFF;
+}
+
+/* STATUS & QUICK RFQ BAR */
+.catalog-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.25rem 0.25rem;
+  flex-wrap: wrap;
+}
+
+.catalog-count-badge {
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.86rem;
+  color: #475569;
+}
+
+.catalog-count-badge strong {
+  color: #0E1014;
+  font-weight: 750;
+}
+
+.catalog-quick-rfq-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--orange, #C8370B);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.catalog-quick-rfq-pill:hover {
+  color: var(--orange-hover, #D84112);
+  transform: translateX(2px);
+}
+
+/* ==========================================================================
+   DOSSIER LIST (TECHNICAL SPECIFICATIONS ROW LAYOUT)
+   ========================================================================== */
+.dossier-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.dossier-list-header {
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem 1rem;
+  border-bottom: 2px solid rgba(17, 18, 20, 0.1);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--orange);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dossier-row {
+  border-bottom: 1px solid rgba(17, 18, 20, 0.08);
+  background: transparent;
+  transition: background 0.3s ease;
+  overflow: hidden;
+}
+
+.dossier-row:hover,
+.dossier-row.expanded {
+  background: rgba(17, 18, 20, 0.02);
+}
+
+.dossier-row-header {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  cursor: pointer;
+}
+
+.dossier-cell {
+  flex-shrink: 0;
+}
+
+.dossier-col-cat {
+  width: 25%;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.dossier-col-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.dossier-col-mat {
+  width: 30%;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.dossier-col-toggle {
+  width: 32px;
+  text-align: right;
+}
+
+.dossier-col-title h3 {
+  font-family: var(--font-display, var(--font-body));
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0E1014;
+  letter-spacing: -0.02em;
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.dossier-row:hover .dossier-col-title h3,
+.dossier-row.expanded .dossier-col-title h3 {
+  color: var(--orange);
+}
+
+.spec-chevron-icon {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  transition: color 0.3s ease;
+}
+
+.dossier-row:hover .spec-chevron-icon {
+  color: var(--orange);
+}
+
+.mobile-label {
+  display: none;
+}
+
+/* DRAWER */
+.dossier-drawer-content {
+  background: #ffffff;
+}
+
+.dossier-drawer-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 2rem 1.5rem 3rem;
+  border-top: 1px solid rgba(17, 18, 20, 0.04);
+}
+
+.dossier-image-col {
+  width: 100%;
+}
+
+.dossier-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border: 1px solid rgba(17, 18, 20, 0.08);
+}
+
+.dossier-details-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.dossier-desc {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #475569;
+  margin: 0 0 2rem;
+}
+
+.dossier-spec-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(17, 18, 20, 0.06);
+  font-size: 0.9rem;
+}
+
+.spec-lbl {
+  color: #64748B;
+  font-weight: 500;
+}
+
+.spec-val {
+  color: #0E1014;
+  font-weight: 700;
+  text-align: right;
+}
+
+.dossier-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.dossier-btn-primary {
+  padding: 0.75rem 1.5rem;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: background 0.3s ease;
+}
+
+.dossier-btn-primary:hover {
+  background: var(--orange-hover, #D84112);
+}
+
+.dossier-btn-secondary {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: 1px solid rgba(17, 18, 20, 0.2);
+  color: #0E1014;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.dossier-btn-secondary:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* EMPTY STATE */
+.catalog-empty-state {
+  padding: 4rem 2rem;
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.catalog-empty-state p {
+  color: #71717A;
+  font-size: 1.05rem;
+  margin: 0 0 1rem;
+}
+
+.catalog-clear-btn {
+  background: #18181B;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.55rem 1.2rem;
+  border-radius: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .dossier-list-header {
+    display: none;
+  }
+
+  .dossier-row-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    position: relative;
+    padding: 1.5rem;
+  }
+
+  .dossier-col-cat,
+  .dossier-col-title,
+  .dossier-col-mat {
+    width: 100%;
+  }
+
+  .dossier-col-toggle {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+  }
+
+  .mobile-label {
+    display: inline;
+    color: #94A3B8;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    margin-right: 0.5rem;
+  }
+
+  .dossier-drawer-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .dossier-actions {
+    flex-direction: column;
+  }
+
+  .dossier-actions a {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .catalog-container {
+    max-width: 1600px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
