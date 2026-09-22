@@ -33,7 +33,7 @@ export function SiteSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose:
     type: 'Application',
     title: app.title,
     subtitle: app.tagline || app.summary,
-    href: `/applications/${app.slug}`,
+    href: '/applications',
   }))
 
   const allItems = [...staticSearchItems, ...appItems]

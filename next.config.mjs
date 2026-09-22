@@ -6,6 +6,15 @@ const nextConfig = {
   experimental: {
     cpus: 2,
   },
+  async redirects() {
+    return [
+      {
+        source: '/applications/:slug',
+        destination: '/applications',
+        permanent: false,
+      },
+    ]
+  },
   async headers() {
     return [
       {

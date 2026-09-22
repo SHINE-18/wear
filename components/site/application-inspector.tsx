@@ -81,12 +81,12 @@ export function ApplicationInspector({ applications }: Props) {
     mouseY.set(targetY)
   }
 
-  const handleRowClick = (slug: string, e: React.MouseEvent) => {
+  const handleRowClick = (_slug: string, e: React.MouseEvent) => {
     // Allow direct clicks on links (title, Full Specs) to navigate naturally
     if ((e.target as HTMLElement).closest('a')) {
       return
     }
-    router.push(`/applications/${slug}`)
+    router.push('/applications')
   }
 
   // Preload images for buttery smooth instant preview transitions
@@ -183,13 +183,13 @@ export function ApplicationInspector({ applications }: Props) {
                   <div className={styles['row-main-header']}>
                     <span className={styles['inspector-num']}>{app.num}</span>
                     <Link
-                      href={`/applications/${app.slug}`}
+                      href="/applications"
                       className={styles['inspector-title-link']}
                     >
                       <h3>{app.title}</h3>
                     </Link>
                     <Link
-                      href={`/applications/${app.slug}`}
+                      href="/applications"
                       className={styles['inspector-inline-specs-link']}
                       aria-label={`View full specifications for ${app.title}`}
                     >

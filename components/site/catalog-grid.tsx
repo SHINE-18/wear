@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'motion/react'
 import { Arrow } from '@/components/site/ui'
@@ -234,11 +234,24 @@ export function CatalogGrid() {
   const [selectedMaterial, setSelectedMaterial] = useState<string>('ALL METALLURGIES')
   const [sortBy, setSortBy] = useState<'featured' | 'az' | 'za'>('featured')
   const [searchQuery, setSearchQuery] = useState('')
-  const [openCardId, setOpenCardId] = useState<string | null>(null)
+  const [selectedProduct, setSelectedProduct] = useState<CatalogItem | null>(null)
 
-  const toggleCardSpecs = (id: string) => {
-    setOpenCardId((prev) => (prev === id ? null : id))
-  }
+  // Close sidebar on ESC key and lock body scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedProduct(null)
+      }
+    }
+    if (selectedProduct) {
+      window.addEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = 'hidden'
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = ''
+    }
+  }, [selectedProduct])
 
   const filteredItems = useMemo(() => {
     let result = catalogItems.filter((item) => {
@@ -254,15 +267,15 @@ export function CatalogGrid() {
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.material.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchQuery.toLowerCase())
+        item.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase())
 
       return matchesCategory && matchesMaterial && matchesSearch
     })
 
     if (sortBy === 'az') {
-      result = [...result].sort((a, b) => a.title.localeCompare(b.title))
+      result.sort((a, b) => a.title.localeCompare(b.title))
     } else if (sortBy === 'za') {
-      result = [...result].sort((a, b) => b.title.localeCompare(a.title))
+      result.sort((a, b) => b.title.localeCompare(a.title))
     }
 
     return result
@@ -271,8 +284,8 @@ export function CatalogGrid() {
   const hasActiveFilters =
     selectedCategory !== 'ALL COMPONENTS' ||
     selectedMaterial !== 'ALL METALLURGIES' ||
-    searchQuery.trim() !== '' ||
-    sortBy !== 'featured'
+    sortBy !== 'featured' ||
+    searchQuery.trim() !== ''
 
   return (
     <section className={styles['catalog-section']}>
@@ -411,118 +424,69 @@ export function CatalogGrid() {
           </Link>
         </div>
 
-        {/* FULL-WIDTH TECHNICAL DOSSIER LIST WITH INLINE EXPANSION */}
+        {/* 3-COLUMN RESPONSIVE PRODUCT CARD GRID */}
         <h2 className="sr-only">Browse Components by Equipment Type and Alloy Specification</h2>
-        <motion.div layout className={styles['dossier-list']}>
-          {/* Dossier Table Header (Desktop only) */}
-          {filteredItems.length > 0 && (
-            <div className={styles['dossier-list-header']} aria-hidden="true">
-              <div className={styles['dossier-col-cat']}>System Classification</div>
-              <div className={styles['dossier-col-title']}>Component Engineering</div>
-              <div className={styles['dossier-col-mat']}>Alloy Metallurgy</div>
-              <div className={styles['dossier-col-toggle']}></div>
-            </div>
-          )}
-
+        <motion.div layout className={styles['catalog-cards-grid']}>
           <AnimatePresence mode="popLayout">
-            {filteredItems.map((item) => {
-              const isSpecsOpen = openCardId === item.id
+            {filteredItems.map((item) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.25 }}
+                className={styles['product-card']}
+                onClick={() => setSelectedProduct(item)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    setSelectedProduct(item)
+                  }
+                }}
+              >
+                {/* CARD IMAGE WITH CATEGORY BADGE */}
+                <div className={styles['card-image-wrap']}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={styles['card-image']}
+                    loading="lazy"
+                    width={616}
+                    height={464}
+                  />
+                  <span className={styles['card-category-badge']}>
+                    {item.categoryLabel}
+                  </span>
+                </div>
 
-              return (
-                <motion.div
-                  key={item.id}
-                  layout
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.25 }}
-                  className={`${styles['dossier-row']} ${isSpecsOpen ? styles.expanded : ''}`}
-                >
-                  {/* ROW HEADER (CLICKABLE) */}
-                  <div
-                    className={styles['dossier-row-header']}
-                    onClick={() => toggleCardSpecs(item.id)}
-                    role="button"
-                    aria-expanded={isSpecsOpen}
-                  >
-                    <div className={`${styles['dossier-cell']} ${styles['dossier-col-cat']}`}>
-                      <span className={styles['mobile-label']}>System: </span>
-                      {item.categoryLabel}
+                {/* CARD BODY */}
+                <div className={styles['card-content']}>
+                  <h3 className={styles['card-title']}>{item.title}</h3>
+                  <p className={styles['card-desc']}>{item.description}</p>
+
+                  <div className={styles['card-specs-row']}>
+                    <div className={styles['card-spec-item']}>
+                      <span className={styles['card-spec-label']}>Alloy</span>
+                      <strong className={styles['card-spec-value']}>{item.material}</strong>
                     </div>
-                    <div className={`${styles['dossier-cell']} ${styles['dossier-col-title']}`}>
-                      <h3>{item.title}</h3>
-                    </div>
-                    <div className={`${styles['dossier-cell']} ${styles['dossier-col-mat']}`}>
-                      <span className={styles['mobile-label']}>Alloy: </span>
-                      {item.material}
-                    </div>
-                    <div className={`${styles['dossier-cell']} ${styles['dossier-col-toggle']}`}>
-                      <span className={styles['spec-chevron-icon']} aria-hidden="true">
-                        {isSpecsOpen ? '▲' : '▼'}
-                      </span>
+                    <div className={styles['card-spec-item']}>
+                      <span className={styles['card-spec-label']}>Wear Life</span>
+                      <strong className={styles['card-spec-value']}>{item.life}</strong>
                     </div>
                   </div>
 
-                  {/* INLINE EXPANDABLE DRAWER */}
-                  <AnimatePresence>
-                    {isSpecsOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className={styles['dossier-drawer-content']}
-                      >
-                        <div className={styles['dossier-drawer-inner']}>
-                          <div className={styles['dossier-image-col']}>
-                            <img
-                              src={item.image}
-                              alt={item.title}
-                              className={styles['dossier-img']}
-                              loading="lazy"
-                              width={616}
-                              height={464}
-                            />
-                          </div>
-                          
-                          <div className={styles['dossier-details-col']}>
-                            <p className={styles['dossier-desc']}>{item.description}</p>
-                            
-                            <div className={styles['dossier-spec-matrix']}>
-                              <div className={styles['spec-row']}>
-                                <span className={styles['spec-lbl']}>Metallurgy:</span>
-                                <span className={styles['spec-val']}>{item.material}</span>
-                              </div>
-                              <div className={styles['spec-row']}>
-                                <span className={styles['spec-lbl']}>Wear Life:</span>
-                                <span className={styles['spec-val']}>{item.life}</span>
-                              </div>
-                              <div className={styles['spec-row']}>
-                                <span className={styles['spec-lbl']}>Compatibility:</span>
-                                <span className={styles['spec-val']}>OEM Direct Drop-in</span>
-                              </div>
-                              <div className={styles['spec-row']}>
-                                <span className={styles['spec-lbl']}>Lead Time:</span>
-                                <span className={styles['spec-val']}>In-Stock / 14 Days</span>
-                              </div>
-                            </div>
-                            
-                            <div className={styles['dossier-actions']}>
-                              <Link href={item.href} className={styles['dossier-btn-primary']}>
-                                View Application Profile
-                              </Link>
-                              <Link href="/contact" className={styles['dossier-btn-secondary']}>
-                                Request Engineering Quote
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )
-            })}
+                  <div className={styles['card-footer']}>
+                    <span className={styles['card-details-btn']}>
+                      <span>View Specifications</span>
+                      <span className={styles['card-arrow-icon']} aria-hidden="true">↗</span>
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </AnimatePresence>
         </motion.div>
 
@@ -544,6 +508,119 @@ export function CatalogGrid() {
           </div>
         )}
       </div>
+
+      {/* SLIDE-IN SIDEBAR DRAWER WITH FULL PRODUCT DETAILS */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <>
+            {/* BACKDROP */}
+            <motion.div
+              className={styles['drawer-backdrop']}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setSelectedProduct(null)}
+              aria-hidden="true"
+            />
+
+            {/* SIDEBAR PANEL */}
+            <motion.aside
+              className={styles['drawer-panel']}
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="drawer-product-title"
+            >
+              <div className={styles['drawer-header']}>
+                <div className={styles['drawer-tag-wrap']}>
+                  <span className={styles['drawer-category-tag']}>{selectedProduct.categoryLabel}</span>
+                  <span className={styles['drawer-fitment-badge']}>100% Bolt-On Fit</span>
+                </div>
+                <button
+                  type="button"
+                  className={styles['drawer-close-btn']}
+                  onClick={() => setSelectedProduct(null)}
+                  aria-label="Close product details"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className={styles['drawer-body']}>
+                <div className={styles['drawer-image-frame']}>
+                  <img
+                    src={selectedProduct.image}
+                    alt={selectedProduct.title}
+                    className={styles['drawer-image']}
+                    width={616}
+                    height={464}
+                  />
+                  <div className={styles['drawer-image-badge']}>
+                    <span>{selectedProduct.life}</span>
+                  </div>
+                </div>
+
+                <h2 id="drawer-product-title" className={styles['drawer-title']}>
+                  {selectedProduct.title}
+                </h2>
+
+                <p className={styles['drawer-description']}>
+                  {selectedProduct.description}
+                </p>
+
+                <div className={styles['drawer-specs-table']}>
+                  <div className={styles['drawer-spec-row']}>
+                    <span className={styles['drawer-spec-lbl']}>Metallurgy / Chemistry</span>
+                    <span className={styles['drawer-spec-val']}>{selectedProduct.material}</span>
+                  </div>
+                  <div className={styles['drawer-spec-row']}>
+                    <span className={styles['drawer-spec-lbl']}>Expected Wear Life</span>
+                    <span className={styles['drawer-spec-val']}>{selectedProduct.life}</span>
+                  </div>
+                  <div className={styles['drawer-spec-row']}>
+                    <span className={styles['drawer-spec-lbl']}>Equipment Sector</span>
+                    <span className={styles['drawer-spec-val']}>{selectedProduct.categoryLabel}</span>
+                  </div>
+                  <div className={styles['drawer-spec-row']}>
+                    <span className={styles['drawer-spec-lbl']}>OEM Fitment</span>
+                    <span className={styles['drawer-spec-val']}>Direct Drop-in Replacement</span>
+                  </div>
+                  <div className={styles['drawer-spec-row']}>
+                    <span className={styles['drawer-spec-lbl']}>Standard Lead Time</span>
+                    <span className={styles['drawer-spec-val']}>6–8 Weeks</span>
+                  </div>
+                  <div className={styles['drawer-spec-row']}>
+                    <span className={styles['drawer-spec-lbl']}>Quality Certification</span>
+                    <span className={styles['drawer-spec-val']}>Ultrasonic &amp; Hardness QA</span>
+                  </div>
+                </div>
+
+                <div className={styles['drawer-actions']}>
+                  <Link
+                    href={`/contact?part=${encodeURIComponent(selectedProduct.title)}`}
+                    className={styles['drawer-primary-btn']}
+                    onClick={() => setSelectedProduct(null)}
+                  >
+                    <span>Request Technical Quote / RFQ</span>
+                    <span className={styles['drawer-btn-arrow']} aria-hidden="true">↗</span>
+                  </Link>
+                  <Link
+                    href={`/contact?subject=${encodeURIComponent(`CAD Review: ${selectedProduct.title}`)}`}
+                    className={styles['drawer-secondary-btn']}
+                    onClick={() => setSelectedProduct(null)}
+                  >
+                    <span>Send 2D Drawing / 3D CAD Review</span>
+                  </Link>
+                </div>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   )
 }

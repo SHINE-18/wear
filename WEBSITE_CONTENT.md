@@ -222,6 +222,8 @@
 * **Eyebrow**: `Services`
 * **Headline**: `Asphalt Plants`
 * **Subtitle**: `Rotary Dryers, Continuous Pugmills & Asphalt Batching Systems`
+* **Imagery**:
+  * **Card & Banner Image**: `/images/asphalt-plant-tower.jpg` (Modern asphalt mixing tower and aggregate feed elevator)
 * **Interactive Hotspots (Expand on Hover/Click)**:
   * **01 — Aggregate Feed Chute**: Feed & Transfer System
     * *Description*: Composite ceramic-embedded drop liners designed to absorb continuous crushed quartz and granite impact.
@@ -265,6 +267,8 @@
 * **Eyebrow**: `Services`
 * **Headline**: `Concrete Batching`
 * **Subtitle**: `Planetary Mixers, Twin-Shaft Blenders & High-Production Concrete Plants`
+* **Imagery**:
+  * **Card & Banner Image**: `/images/concrete-batching-silos.jpg` (Storage silos, ready-mix truck and batching plant assembly)
 * **Interactive Hotspots**:
   * **01 — Skip Hoist & Weigh Bin Liners**: Batch Feed Circuit
     * *Description*: Hyper-eutectic wear plates engineered to absorb direct coarse aggregate impact and continuous dropping shock.
@@ -291,6 +295,8 @@
 * **Eyebrow**: `Services`
 * **Headline**: `Process Industries`
 * **Subtitle**: `Bulk Material Handling, Cyclones, Transfer Chutes & Shredding Circuits`
+* **Imagery**:
+  * **Card & Banner Image**: `/images/process-chemical-refinery.jpg` (Chemical refinery piping, distillation columns & transfer circuits)
 * **Interactive Hotspots**:
   * **01 — Bulk Transfer Chutes & Hoppers**: Bulk Material Handling
     * *Description*: Dead-box composite tile layouts that create a protective rock-on-rock cushion, dampening impact and structural noise.
@@ -317,6 +323,8 @@
 * **Eyebrow**: `Services`
 * **Headline**: `Mining & Quarrying`
 * **Subtitle**: `Primary Crushers, Ball Mills, Sag Liners & Heavy Extraction Circuits`
+* **Imagery**:
+  * **Card & Banner Image**: `/images/mining-quarry-excavation.jpg` (Open pit rock face excavation with wheel loader and haul truck)
 * **Interactive Hotspots**:
   * **01 — Grizzly Feeder Bars**: Feed Screening Assembly
     * *Description*: High-moly white iron castings designed for continuous dropping shock from heavy 800mm blasted boulders.

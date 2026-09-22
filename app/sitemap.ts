@@ -15,13 +15,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.8 },
   ]
 
-  const appPages: MetadataRoute.Sitemap = applications.map((app) => ({
-    url: `${baseUrl}/applications/${app.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-  }))
-
   const industryPages: MetadataRoute.Sitemap = industriesData.map((ind) => ({
     url: `${baseUrl}/industries/${ind.slug}`,
     lastModified: new Date(),
@@ -29,5 +22,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
-  return [...staticPages, ...appPages, ...industryPages]
+  return [...staticPages, ...industryPages]
 }
