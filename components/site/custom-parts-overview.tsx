@@ -83,11 +83,11 @@ const customSteps: CustomStep[] = [
     subtitle: '1–10 Units With No Minimums',
     category: 'RAPID FOUNDRY PRODUCTION',
     heading: 'Zero Minimum Order Barrier for Emergency & Trial Runs',
-    description: 'Rapid foundry pattern tooling, mold simulation, and tight-tolerance casting for 1–10 unit prototype batches, field trial sets, or emergency breakdown replacements dispatched in 4–6 weeks.',
+    description: 'Rapid foundry pattern tooling, mold simulation, and tight-tolerance casting for 1–10 unit prototype batches, field trial sets, or emergency breakdown replacements dispatched in 6–8 weeks.',
     specs: [
       { label: 'Minimum Order', value: '1 Unit Prototype Supported' },
       { label: 'Pattern Tooling', value: 'Rapid CNC High-Density Poly' },
-      { label: 'Dispatch Window', value: '4–6 Weeks Emergency Line' },
+      { label: 'Dispatch Window', value: '6–8 Weeks Dispatch' },
       { label: 'Batch Scaling', value: '1 to 500+ Restocking Contracts' },
     ],
     highlights: [

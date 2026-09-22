@@ -24,12 +24,13 @@ interface MaterialCardItem {
   desc: string
   specs: { label: string; val: string }[]
   cta: string
+  materialsHref: string
 }
 
 const materialCards: MaterialCardItem[] = [
   {
     id: 'plate',
-    title: 'WearPlate™ 400/500 — Precision Profiled Steel',
+    title: 'WearGuard P400 / P450 / P500',
     subtitle: 'Through-Hardened Quenched & Tempered Martensitic Plate',
     specimenImg: '/images/materials-plate-specimen.jpg',
     plantImg: '/images/materials-plate-plant.jpg',
@@ -41,10 +42,11 @@ const materialCards: MaterialCardItem[] = [
       { label: 'Machining & Fit', val: 'Pre-Drilled Countersunk & Bevelled' },
     ],
     cta: 'Request Cut-to-Shape Quote',
+    materialsHref: '/materials#p400',
   },
   {
     id: 'ceramic',
-    title: 'EnduraCast™ Ceramic — Shock-Damped Hybrid Liners',
+    title: 'Ceramic-Rubber Composite Liners',
     subtitle: 'High-Alumina Hexagonal Tiles Vulcanized in Rubber',
     specimenImg: '/images/materials-ceramic-specimen.jpg',
     plantImg: '/images/materials-ceramic-plant.jpg',
@@ -55,11 +57,12 @@ const materialCards: MaterialCardItem[] = [
       { label: 'Slurry Velocity', val: 'Rated up to 28 m/s Resistance' },
       { label: 'Wear Factor', val: '3x to 5x vs Mild Carbon Steel' },
     ],
-    cta: 'Enquire on Z-Core Liners',
+    cta: 'Enquire on Ceramic-Rubber Liners',
+    materialsHref: '/materials#ceramic-rubber',
   },
   {
     id: 'castings',
-    title: 'WearCast™ Alloys — High-Chrome & Ni-Hard Castings',
+    title: 'Wearcast 600 / Ultra 800 / Max 1100',
     subtitle: 'Martensitic White Iron & 28% Chrome Foundry Alloys',
     specimenImg: '/images/materials-cast-specimen.jpg',
     plantImg: '/images/materials-cast-plant.jpg',
@@ -71,6 +74,7 @@ const materialCards: MaterialCardItem[] = [
       { label: 'Assembly Fit', val: 'Direct Match for Crushers & Mills' },
     ],
     cta: 'Enquire on Cast Grades',
+    materialsHref: '/materials#wearcast',
   },
 ]
 
@@ -217,6 +221,10 @@ export function HomePageClient() {
 
                   <div className={styles.materialCardFooter}>
                     <Button href="/contact" magnetic={false}>{card.cta}</Button>
+                    <Link href={card.materialsHref} className={styles.materialsSpecLink}>
+                      <span>Explore Metallurgy</span>
+                      <Arrow />
+                    </Link>
                   </div>
                 </FadeUp>
               )
@@ -288,6 +296,10 @@ export function HomePageClient() {
 
                         <div className={styles.homeMatActionBtn}>
                           <Button href="/contact" magnetic={false}>{card.cta}</Button>
+                          <Link href={card.materialsHref} className={styles.materialsSpecLink}>
+                            <span>Explore Metallurgy</span>
+                            <Arrow />
+                          </Link>
                         </div>
                       </div>
                     </div>

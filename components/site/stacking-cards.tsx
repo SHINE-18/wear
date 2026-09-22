@@ -21,32 +21,32 @@ const cards: CardData[] = [
     id: 'asphalt',
     title: 'Asphalt Plants',
     desc: 'High-temp pugmill paddle tips, flighting liners, and slinger arms engineered for 400°C abrasive aggregate mixing.',
-    image: '/images/1.png',
-    imageAlt: 'Asphalt plant pugmill liners and aggregate processing wear assemblies',
+    image: '/images/asphalt-plant-tower.jpg',
+    imageAlt: 'Asphalt plant aggregate conveyor elevator and mixing tower',
     link: '/industries/asphalt',
   },
   {
     id: 'concrete',
     title: 'Concrete Batching',
     desc: 'Heavy-duty pan mixer floor tiles, scraper blades, and discharge chutes built to resist slurry grinding.',
-    image: '/images/2.png',
-    imageAlt: 'Concrete batch plant wear liners and pan mixer blades',
+    image: '/images/concrete-batching-silos.jpg',
+    imageAlt: 'Concrete batch plant storage silos, ready-mix truck, and mixing assembly',
     link: '/industries/concrete',
   },
   {
     id: 'process-industries',
     title: 'Process Industries',
     desc: 'Custom ceramic-rubber composite chutes, hopper wear plates, and pneumatic transfer elbows.',
-    image: '/images/3.png',
-    imageAlt: 'Process industry wear plates, chutes and transfer point liners',
+    image: '/images/process-chemical-refinery.jpg',
+    imageAlt: 'Process industry high-pressure chemical refinery piping and distillation towers',
     link: '/industries/process-industries',
   },
   {
     id: 'mining',
     title: 'Mining & Quarrying',
     desc: 'Hyper-eutectic high-chrome crusher liners, grizzly bars, and severe impact wear plates.',
-    image: '/images/4.png',
-    imageAlt: 'Mining and quarry heavy wear liners and crusher wear parts',
+    image: '/images/mining-quarry-excavation.jpg',
+    imageAlt: 'Mining open pit rock face excavation with heavy wheel loader and haul truck',
     link: '/industries/mining',
   },
 ]
@@ -141,15 +141,15 @@ export function IndustryStackingCards({
     <div className={styles['stack-container']}>
       {/* Section Header */}
       <div className={styles['stack-header']}>
-        {/* MAGNETIC LINES EFFECT BEHIND WHAT WE OFFER AND NAVBAR */}
-        <div
-          className={`${styles['stack-header-canvas-wrap']} ${
-            extendGridToNavbar ? styles['canvas-wrap-extended'] : ''
-          }`}
-          aria-hidden="true"
-        >
-          <InteractiveGrid />
-        </div>
+        {/* MAGNETIC LINES EFFECT BEHIND WHAT WE OFFER AND NAVBAR (ONLY ON INDUSTRIES PAGE) */}
+        {extendGridToNavbar && (
+          <div
+            className={`${styles['stack-header-canvas-wrap']} ${styles['canvas-wrap-extended']}`}
+            aria-hidden="true"
+          >
+            <InteractiveGrid />
+          </div>
+        )}
 
         <div className={styles['stack-header-content']}>
           <SectionLabel>Services</SectionLabel>

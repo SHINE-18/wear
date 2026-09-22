@@ -66,24 +66,76 @@ export function ParallaxImage({ src, alt, className = '', strength = 60 }: { src
   )
 }
 
-export function Counter({ to, suffix = '', duration = 1.4 }: { to: number; suffix?: string; duration?: number }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '0px' })
-  const [value, setValue] = useState(0)
+export function Counter({
+  to,
+  suffix = '',
+  duration = 1.2,
+}: {
+  to: number
+  suffix?: string
+  duration?: number
+}) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: '20px' })
+  // Initialize with target value `to` so SSR and initial HTML always display the true target numbers ("10+", "100+")
+  const [value, setValue] = useState(to)
+  const [hasAnimated, setHasAnimated] = useState(false)
+
   useEffect(() => {
-    if (!inView) return
+    if (hasAnimated) return
+
+    // If reduced motion is preferred, immediately keep target value
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setHasAnimated(true)
+      setValue(to)
+      return
+    }
+
+    // Check if element is currently in viewport or inView triggered
+    const isVisible =
+      inView ||
+      (ref.current &&
+        ref.current.getBoundingClientRect().top < (window.innerHeight || 800) &&
+        ref.current.getBoundingClientRect().bottom > 0)
+
+    if (!isVisible) return
+
+    setHasAnimated(true)
+    setValue(0)
+
     let start: number | null = null
     let raf = 0
     const step = (t: number) => {
       if (start === null) start = t
       const progress = Math.min((t - start) / (duration * 1000), 1)
-      setValue(Math.floor(progress * to))
-      if (progress < 1) raf = requestAnimationFrame(step)
+      // Ease out quad for smooth deceleration
+      const easeOut = 1 - Math.pow(1 - progress, 2)
+      setValue(Math.round(easeOut * to))
+      if (progress < 1) {
+        raf = requestAnimationFrame(step)
+      } else {
+        setValue(to)
+      }
     }
     raf = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(raf)
-  }, [inView, to, duration])
-  return <span ref={ref}>{value}{suffix}</span>
+
+    // Guaranteed safeguard timeout: ensures it NEVER stays at 0 or partial value
+    const safetyTimer = setTimeout(() => {
+      setValue(to)
+    }, (duration + 0.2) * 1000)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      clearTimeout(safetyTimer)
+    }
+  }, [inView, to, duration, hasAnimated])
+
+  return (
+    <span ref={ref} style={{ display: 'inline-block' }}>
+      {value}
+      {suffix}
+    </span>
+  )
 }
 
 export function Magnetic({ children, className = '', strength = 0.35 }: { children: ReactNode; className?: string; strength?: number }) {

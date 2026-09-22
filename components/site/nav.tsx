@@ -131,7 +131,7 @@ export function SiteNav() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <Link className={styles.brand} href="/">
+        <Link className={styles.brand} href="/" aria-label="WearGuard — Outlast the Grind">
           {docked ? (
             <span className={styles['dock-brand-text']}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ marginRight: '0.35rem', flexShrink: 0 }}>
@@ -141,7 +141,10 @@ export function SiteNav() {
               WEAR<span className={styles['dock-brand-accent']}>GUARD</span>
             </span>
           ) : (
-            <Logo height={28} />
+            <div className={styles['brand-combo']}>
+              <Logo height={26} />
+              <span className={styles['brand-tagline']}>OUTLAST THE GRIND</span>
+            </div>
           )}
         </Link>
         <nav className={styles['nav-links']}>

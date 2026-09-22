@@ -199,12 +199,12 @@ export const catalogItems: CatalogItem[] = [
     id: 'get-tips',
     category: 'G.E.T. TIPS',
     categoryLabel: 'G.E.T. GROUND ENGAGING',
-    title: 'Heavy Excavator & Loader Tooth Systems',
-    material: 'High-Manganese Cast',
-    life: 'Severe Impact Grade',
-    description: 'Self-sharpening bucket teeth and corner adapters cast in work-hardening manganese alloy for quarry rock.',
-    image: '/images/asphalt-plant-hero.png',
-    href: '/custom-parts',
+    title: 'Earthmoving Bucket Tips & Adapters',
+    material: 'High Wear Resistant Alloys',
+    life: 'Engineered Penetration Grade',
+    description: 'Dependable penetration, impact resistance and long service life in harsh earthmoving and rock excavation conditions.',
+    image: '/brochure/page-14.png',
+    href: '/applications/earthmoving-bucket-tips',
   },
 ]
 

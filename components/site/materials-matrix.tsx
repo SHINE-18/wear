@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'motion/react'
 import { Arrow, Button } from '@/components/site/ui'
@@ -12,7 +12,7 @@ type FilterCategory = 'ALL' | 'STEEL PLATES' | 'CAST IRONS' | 'COMPOSITES' | 'CC
 const FILTER_TABS: { id: FilterCategory; label: string }[] = [
   { id: 'ALL', label: 'ALL FORMULATIONS' },
   { id: 'STEEL PLATES', label: 'THROUGH-HARDENED PLATES' },
-  { id: 'CAST IRONS', label: 'HIGH-CHROME & NI-HARD CASTINGS' },
+  { id: 'CAST IRONS', label: 'CAST LINERS & FOUNDRY GRADES' },
   { id: 'COMPOSITES', label: 'CERAMIC-RUBBER COMPOSITES' },
   { id: 'CCO OVERLAY', label: 'BI-METALLIC CCO CLADDING' },
 ]
@@ -21,14 +21,60 @@ export function MaterialsMatrix() {
   const [selectedFilter, setSelectedFilter] = useState<FilterCategory>('ALL')
   const [activeCode, setActiveCode] = useState<string>('01')
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const syncHash = () => {
+      const hash = window.location.hash.toLowerCase()
+      if (!hash) return
+      if (hash.includes('p400') || hash.includes('plate')) {
+        setActiveCode('01')
+        setSelectedFilter('ALL')
+      } else if (hash.includes('p450')) {
+        setActiveCode('02')
+        setSelectedFilter('ALL')
+      } else if (hash.includes('p500')) {
+        setActiveCode('03')
+        setSelectedFilter('ALL')
+      } else if (hash.includes('enduracast')) {
+        setActiveCode('04')
+        setSelectedFilter('ALL')
+      } else if (hash.includes('wearcast') || hash.includes('castings')) {
+        setActiveCode('05')
+        setSelectedFilter('ALL')
+      } else if (hash.includes('ceramic')) {
+        setActiveCode('06')
+        setSelectedFilter('ALL')
+      } else if (hash.includes('cco')) {
+        setActiveCode('07')
+        setSelectedFilter('ALL')
+      }
+    }
+    syncHash()
+    window.addEventListener('hashchange', syncHash)
+    return () => window.removeEventListener('hashchange', syncHash)
+  }, [])
+
   const filteredGrades = materialGrades.filter((g) => {
     if (selectedFilter === 'ALL') return true
-    if (selectedFilter === 'STEEL PLATES') return g.code === '01' || g.code === '02'
-    if (selectedFilter === 'CAST IRONS') return g.code === '03' || g.code === '04'
-    if (selectedFilter === 'COMPOSITES') return g.code === '05'
-    if (selectedFilter === 'CCO OVERLAY') return g.code === '06'
+    if (selectedFilter === 'STEEL PLATES') return ['01', '02', '03'].includes(g.code)
+    if (selectedFilter === 'CAST IRONS') return ['04', '05'].includes(g.code)
+    if (selectedFilter === 'COMPOSITES') return g.code === '06'
+    if (selectedFilter === 'CCO OVERLAY') return g.code === '07'
     return true
   })
+
+  const getAnchorId = (code: string) => {
+    switch (code) {
+      case '01': return 'p400'
+      case '02': return 'p450'
+      case '03': return 'p500'
+      case '04': return 'enduracast'
+      case '05': return 'wearcast'
+      case '06': return 'ceramic-rubber'
+      case '07': return 'cco'
+      default: return `grade-${code}`
+    }
+  }
 
   const activeGrade = materialGrades.find((g) => g.code === activeCode) || materialGrades[0]
 
@@ -94,6 +140,7 @@ export function MaterialsMatrix() {
 
               return (
                 <div
+                  id={getAnchorId(grade.code)}
                   key={grade.code}
                   className={`${styles['matrix-data-row']} ${isSelected ? styles['row-active'] : ''}`}
                   onClick={() => setActiveCode(grade.code)}
@@ -217,6 +264,7 @@ export function MaterialsMatrix() {
 
           return (
             <div
+              id={`m-${getAnchorId(grade.code)}`}
               key={grade.code}
               className={`${styles['mobile-material-accordion-card']} ${isOpen ? styles['is-open'] : ''}`}
             >

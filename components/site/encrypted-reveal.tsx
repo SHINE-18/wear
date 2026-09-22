@@ -23,23 +23,39 @@ function getDeterministicScramble(original: string, glyphs: string): string {
 
 export function EncryptedReveal({
   text,
-  speed = 30, // ms per frame
+  speed = 25, // ms per frame
   characters = GLYPHS,
   className = '',
   as: Component = 'em',
-  revealDelay = 600, // starts right after the preceding words stagger in
+  revealDelay = 580, // starts right after preceding words stagger in
 }: EncryptedRevealProps) {
-  // Deterministic initial render prevents SSR hydration mismatch
-  const [displayText, setDisplayText] = useState(() => getDeterministicScramble(text, characters))
-  const [isScrambling, setIsScrambling] = useState(true)
+  // Initialize with real text so SSR output and initial paint always display the true string
+  const [displayText, setDisplayText] = useState(text)
+  const [isScrambling, setIsScrambling] = useState(false)
   const isMountedRef = useRef(true)
 
   useEffect(() => {
     isMountedRef.current = true
+
+    // Respect user's motion preference: if reduced, do not scramble
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplayText(text)
+      setIsScrambling(false)
+      return
+    }
+
     let lastFrameTime = 0
-    let iteration = -3 // 3 warmup frames of full scramble
+    let iteration = -2
     let rafId: number | null = null
     let delayTimeoutId: NodeJS.Timeout | null = null
+
+    // Hard safeguard timeout: unconditionally resolves to true string even if RAF pauses
+    const safetyTimeoutId = setTimeout(() => {
+      if (isMountedRef.current) {
+        setDisplayText(text)
+        setIsScrambling(false)
+      }
+    }, revealDelay + 850)
 
     const step = (timestamp: number) => {
       if (!isMountedRef.current) return
@@ -66,7 +82,7 @@ export function EncryptedReveal({
           return
         }
 
-        iteration += 0.4
+        iteration += 0.75
       }
 
       rafId = requestAnimationFrame(step)
@@ -74,6 +90,7 @@ export function EncryptedReveal({
 
     delayTimeoutId = setTimeout(() => {
       if (!isMountedRef.current) return
+      setIsScrambling(true)
       rafId = requestAnimationFrame((ts) => {
         lastFrameTime = ts
         step(ts)
@@ -83,6 +100,7 @@ export function EncryptedReveal({
     return () => {
       isMountedRef.current = false
       if (delayTimeoutId) clearTimeout(delayTimeoutId)
+      if (safetyTimeoutId) clearTimeout(safetyTimeoutId)
       if (rafId) cancelAnimationFrame(rafId)
     }
   }, [text, speed, characters, revealDelay])
@@ -91,7 +109,6 @@ export function EncryptedReveal({
     <Component
       className={`encrypted-reveal-text ${isScrambling ? 'scrambling' : ''} ${className}`}
       aria-label={text}
-      suppressHydrationWarning
     >
       {displayText}
     </Component>

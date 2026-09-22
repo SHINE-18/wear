@@ -25,9 +25,10 @@
    - [4.1 Dryer Components (`/applications/dryer-components`)](#41-dryer-components-applicationsdryer-components)
    - [4.2 Filter & Baghouse Components (`/applications/filter-components`)](#42-filter--baghouse-components-applicationsfilter-components)
    - [4.3 Mixer Components (`/applications/mixer-components`)](#43-mixer-components-applicationsmixer-components)
-   - [4.4 Wear Liners & Transfer Protection (`/applications/wear-liners-transfer-protection`)](#44-wear-liners--transfer-protection-applicationswear-liners-transfer-protection)
-   - [4.5 Bucket Elevators (`/applications/bucket-elevators`)](#45-bucket-elevators-applicationsbucket-elevators)
+   - [4.4 Bucket Elevators & Conveyors (`/applications/bucket-elevators`)](#44-bucket-elevators--conveyors-applicationsbucket-elevators)
+   - [4.5 Wear Liners & Transfer Protection (`/applications/wear-liners-transfer-protection`)](#45-wear-liners--transfer-protection-applicationswear-liners-transfer-protection)
    - [4.6 Drag Conveyors (`/applications/drag-conveyors`)](#46-drag-conveyors-applicationsdrag-conveyors)
+   - [4.7 Earthmoving Bucket Tips (`/applications/earthmoving-bucket-tips`)](#47-earthmoving-bucket-tips-applicationsearthmoving-bucket-tips)
 5. [Dedicated Materials & Metallurgy Page (`/materials`)](#5-dedicated-materials--metallurgy-page-materials)
 6. [Dedicated Custom Parts Page (`/custom-parts`)](#6-dedicated-custom-parts-page-custom-parts)
 7. [Dedicated About Us Page (`/about`)](#7-dedicated-about-us-page-about)
@@ -52,6 +53,7 @@
 
 ### 2.1 Cinematic Hero & Sidebar
 * **Eyebrow**: `Engineering Excellence`
+* **Brand Tagline**: `Outlast the Grind` (under the WearGuard wordmark, matching brochure cover & back page)
 * **Main Headline**: `Industrial Wear Components Engineered to Outlast OEM Standards`
 * **Orange CTA Button**: `Get Started`
 * **Sidebar Metric 1**: `10+` `years experience`
@@ -101,10 +103,10 @@
   * **Specs**: Corrosion: `High Acid & Moisture Resistance` | Temp: `Up to 400°C` | Lead Time: `6–8 Weeks` | Batch: `1–10 Units`
 * **Assembly 03 — Mixer Components**:
   * **Summary**: `Ni-Hard and high-chrome liners, paddle arms, tips, shafts and arm-protection systems built for longer wear life.`
-  * **Specs**: Hardness: `600–680 BHN` | Improvement: `45–70% Over OEM` | Fit: `100% Direct Bolt-On` | Lead Time: `4–6 Weeks`
-* **Assembly 04 — Wear Liners & Transfer Protection**:
-  * **Summary**: `Application-matched protection for chutes, hoppers, bins, skirts, impact zones and critical transfers.`
-  * **Specs**: Coverage: `Chutes, Hoppers, Skirts` | Hardness: `60 HRC / 9 Mohs` | Fastening: `Weld-Studs / Bolt-In` | Lead Time: `4–6 Weeks`
+  * **Specs**: Hardness: `600–680 BHN` | Improvement: `45–70% Over OEM` | Fit: `100% Direct Bolt-On` | Lead Time: `6–8 Weeks`
+* **Assembly 04 — Bucket Elevators & Conveyors**:
+  * **Summary**: `Long-life buckets, reinforced lips, wear strips, chain and sprocket components for dependable material flow.`
+  * **Specs**: Coverage: `Continuous & Centrifugal Elevators` | Chain Hardness: `55–60 HRC (Case Depth 2.5mm)` | Bucket Metallurgy: `Fabricated Hardox / Cast Manganese` | Lead Time: `6–8 Weeks`
 
 ---
 
@@ -113,20 +115,23 @@
 * **Headline**: `The right material for the right wear zone.`
 * **Lead Copy**: `Technology is selected according to impact, abrasion, erosion, temperature, corrosion, material flow, and service-life targets.`
 * **Action Button**: `Explore all material metallurgy` (`/materials`)
-* **Product Card 1 — WearPlate™ 400/500 — Precision Profiled Steel**:
+* **Product Card 1 — WearGuard P400 / P450 / P500**:
   * **Subtitle**: `Through-Hardened Quenched & Tempered Martensitic Plate`
   * **Description**: `High-durability precision profiled wear steel, CNC bevelled, drilled, and rolled to exact machine tolerances for chutes, hoppers, and impact decks.`
   * **Specs**: Hardness: `400–500 BHN` | Toughness: `45 J @ -20°C` | Service Life: `3.5x Extension vs Carbon Steel` | Fit: `Pre-Drilled Countersunk & Bevelled`
+  * **Matching Row Link**: `/materials#p400`
   * **CTA Button**: `Request Cut-to-Shape Quote`
-* **Product Card 2 — EnduraCast™ Ceramic — Shock-Damped Hybrid Liners**:
+* **Product Card 2 — Ceramic-Rubber Composite Liners**:
   * **Subtitle**: `High-Alumina Hexagonal Tiles Vulcanized in Rubber`
   * **Description**: `Ultra-tough hybrid liners engineered with specialized abrasion-resistant matrix for severe high-velocity slurry, sliding aggregate, and pneumatic wear zones.`
   * **Specs**: Matrix: `92% Al₂O₃ Ceramic + Matrix` | Impact: `High-Elastic Shock Damping` | Slurry Velocity: `Rated up to 28 m/s Resistance` | Wear Factor: `3x to 5x vs Mild Carbon Steel`
-  * **CTA Button**: `Enquire on Z-Core Liners`
-* **Product Card 3 — WearCast™ Alloys — High-Chrome & Ni-Hard Castings**:
+  * **Matching Row Link**: `/materials#ceramic-rubber`
+  * **CTA Button**: `Enquire on Ceramic-Rubber Liners`
+* **Product Card 3 — Wearcast 600 / Ultra 800 / Max 1100**:
   * **Subtitle**: `Martensitic White Iron & 28% Chrome Foundry Alloys`
   * **Description**: `Proprietary foundry cast alloys (Ni-Hard and High-Chrome) engineered for maximum hardness in continuous crushing, grinding, and severe erosive environments.`
   * **Specs**: Hardness: `550–650+ BHN (58–64 HRC)` | Alloy System: `High-Chrome (Cr 15–28%) & Ni-Hard` | Thermal: `Up to 950°C Continuous Service` | Fit: `Direct Match for Crushers & Mills`
+  * **Matching Row Link**: `/materials#wearcast`
   * **CTA Button**: `Enquire on Cast Grades`
 
 ---
@@ -160,8 +165,8 @@
   * **Subtitle**: `1–10 Units With No Minimums`
   * **Category**: `RAPID FOUNDRY PRODUCTION`
   * **Heading**: `Zero Minimum Order Barrier for Emergency & Trial Runs`
-  * **Description**: `Rapid foundry pattern tooling, mold simulation, and tight-tolerance casting for 1–10 unit prototype batches, field trial sets, or emergency breakdown replacements dispatched in 4–6 weeks.`
-  * **Specs**: Min Order: `1 Unit Prototype Supported` | Tooling: `Rapid CNC High-Density Poly` | Dispatch: `4–6 Weeks Emergency Line` | Scaling: `1 to 500+ Restocking Contracts`
+  * **Description**: `Rapid foundry pattern tooling, mold simulation, and tight-tolerance casting for 1–10 unit prototype batches, field trial sets, or emergency breakdown replacements dispatched in 6–8 weeks.`
+  * **Specs**: Min Order: `1 Unit Prototype Supported` | Tooling: `Rapid CNC High-Density Poly` | Dispatch: `6–8 Weeks Dispatch` | Scaling: `1 to 500+ Restocking Contracts`
   * **Highlights**:
     * *Low tooling costs for one-off custom components*
     * *Field-trial testing sets to prove wear-life before plant-wide rollout*
@@ -195,7 +200,7 @@
 * **Question 3**: *Can you help optimize existing production systems?*
   * **Answer**: `Our metallurgy and application engineers analyze real-world gouging, impact, and slurry wear patterns to re-engineer profile geometries and alloy chemistries, extending component service lifecycles by 20% to 60%.`
 * **Question 4**: *How long does a typical project take?*
-  * **Answer**: `Standard custom-engineered casting runs typically ship in 4 to 8 weeks depending on pattern requirements, alloy specification, and ultrasonic/CMM dimensional QA verification.`
+  * **Answer**: `Standard custom-engineered casting runs typically ship in 6–8 weeks depending on pattern requirements, alloy specification, and ultrasonic/CMM dimensional QA verification.`
 * **Question 5**: *Do you offer long-term technical support?*
   * **Answer**: `WearGuard provides ongoing metallurgical advisory, regular on-site ultrasonic wear audits, telemetry tracking, and guaranteed fleet restocking agreements to eliminate unplanned plant downtime.`
 
@@ -367,23 +372,23 @@
 
 ---
 
-### 4.4 Wear Liners & Transfer Protection (`/applications/wear-liners-transfer-protection`)
-* **Tagline**: `Ceramic-Rubber Composites, CCO Hardfaced Plate & Drop Chutes`
-* **Summary**: `Application-matched protection for chutes, hoppers, bins, skirts, impact zones and critical transfers.`
-* **Core Sub-Components**:
-  1. **Ceramic-Rubber Composite Panels**: 92%/95% Al₂O₃ alumina ceramic blocks vulcanized into natural rubber backing with welded M16/M20 studs.
-  2. **Chromium Carbide Overlay (CCO) Plate**: 58–62 HRC fused wear cladding on weldable Q235/S275 steel base.
-  3. **Modular Cast Ni-Hard Chute Tiles**: Interlocking flush-joint Ni-Hard IV wear blocks extending service life up to 5x.
-
----
-
-### 4.5 Bucket Elevators (`/applications/bucket-elevators`)
+### 4.4 Bucket Elevators & Conveyors (`/applications/bucket-elevators`)
 * **Tagline**: `Heavy-Duty Buckets, Hardened Chains, Sprockets & Guides`
 * **Summary**: `Long-life buckets, reinforced lips, wear strips, chain and sprocket components for dependable material flow.`
 * **Core Sub-Components**:
   1. **Reinforced Heavy Elevator Buckets**: AR400/AR500 fabricated steel with high-chrome hardfaced digging lips.
   2. **Elevator Traction Wheels & Sprockets**: Segmented bolt-on rim wheels (55 HRC) for 2-hour field rim replacements without disassembling shafts.
   3. **Round Link & Bush Conveyor Chains**: Case-hardened forged alloy chains with matched-pair tolerances (±0.05% pitch).
+
+---
+
+### 4.5 Wear Liners & Transfer Protection (`/applications/wear-liners-transfer-protection`)
+* **Tagline**: `Ceramic-Rubber Composites, CCO Hardfaced Plate & Drop Chutes`
+* **Summary**: `Application-matched protection for chutes, hoppers, bins, skirts, impact zones and critical transfers.`
+* **Core Sub-Components**:
+  1. **Ceramic-Rubber Composite Panels**: 92%/95% Al₂O₃ alumina ceramic blocks vulcanized into natural rubber backing with welded M16/M20 studs.
+  2. **Chromium Carbide Overlay (CCO) Plate**: 58–62 HRC fused wear cladding on weldable Q235/S275 steel base.
+  3. **Modular Cast Ni-Hard Chute Tiles**: Interlocking flush-joint Ni-Hard IV wear blocks extending service life up to 5x.
 
 ---
 
@@ -397,32 +402,53 @@
 
 ---
 
+### 4.7 Earthmoving Bucket Tips (`/applications/earthmoving-bucket-tips`)
+* **Tagline**: `Engineered Penetration & Wear Protection`
+* **Summary**: `Dependable penetration, impact resistance and long service life in harsh earthmoving conditions.`
+* **Core Sub-Components**:
+  1. **Heavy Penetration & Excavation Tips**: Engineered for dependable ground penetration and high impact resistance in harsh earthmoving and excavation conditions.
+  2. **Abrasive Rock & Quarry Tips**: Built for strength, consistent fitment and reliable performance where wear, shock and material flow demand more every day on tough working sites.
+  3. **Custom-Engineered Tip Solutions**: Design and custom build bucket tips in profiles and wear materials matched to machine, ground conditions and abrasive challenges, helping improve life, fitment and field performance.
+* **Engineering Support**:
+  * **Title**: `Custom-Engineered Tip Solutions`
+  * **Text**: `WearGuard can design and custom build bucket tips in profiles and wear materials matched to your machine, ground conditions and abrasive challenges, helping improve life, fitment and field performance.`
+  * **Points**:
+    * *Application-matched materials for general excavation to abrasive rock handling*
+    * *Custom profiles designed to protect adapters and improve machine productivity*
+    * *Engineered for consistent fitment, high impact resistance and long service life*
+
+---
+
 ## 5. Dedicated Materials & Metallurgy Page (`/materials`)
 
 * **Hero Headline**: `The right material for the right wear zone.`
 * **Hero Subtitle**: `Engineered formulations from 680 BHN high-chrome castings to shock-absorbing austenitic manganese and CCO cladding, precisely tailored for your operational wear dynamics.`
-* **The 6 Core Material Grades**:
-  1. **WearGuard P400 / P450 Plate**:
-     * *Category*: Quenched & Tempered Martensitic Alloy Steel
-     * *Hardness*: 400–475 BHN | *Impact*: High (30 J at -40°C) | *Temp*: Up to 250°C
-     * *Primary Use*: Hopper chutes, transfer bins, loader bucket liners & truck beds
-  2. **WearGuard P500 Extreme Plate**:
-     * *Category*: High-Hardness Quenched & Tempered Steel
-     * *Hardness*: 480–540 BHN | *Impact*: Moderate-High | *Temp*: Up to 250°C
-     * *Primary Use*: Screen decks, crusher discharge chutes, aggregate reclaimer skirts
-  3. **EnduraCast™ 28% Chrome White Iron**:
-     * *Category*: High-Chromium Martensitic White Iron (AS2027 / ASTM A532)
-     * *Hardness*: 600–680 BHN (60–65 HRC) | *Impact*: Low-Medium | *Temp*: Up to 450°C (800°C variant)
-     * *Primary Use*: Mixer paddle tips, asphalt pugmill liners, slurry pump impellers
-  4. **Wearcast Max™ Ni-Hard Class IV**:
-     * *Category*: Nickel-Chromium Martensitic Alloy Iron
-     * *Hardness*: 550–650 BHN (55–62 HRC) | *Impact*: Medium | *Temp*: Up to 350°C
-     * *Primary Use*: Cement grinding rings, drag conveyor wear bars, concrete mixer floor tiles
-  5. **Ceramic-Rubber Matrix Composites**:
+* **The 7 Core Material Formulations**:
+  1. **WearGuard P400**:
+     * *Category*: Quenched & Tempered Martensitic Plate (400 BHN)
+     * *Recommended Use*: `Recommended for normal wear applications in asphalt, cement, mining and steel industries. Ideal for liners, chutes, buckets and similar components.`
+     * *Hardness*: 400 BHN | *Impact*: High (30 J at -40°C) | *Temp*: Up to 250°C
+  2. **WearGuard P450**:
+     * *Category*: Quenched & Tempered Martensitic Plate (450 BHN)
+     * *Recommended Use*: `For high wear applications in asphalt, mining and steel industries. Suitable for heavy-duty components such as mixer liners.`
+     * *Hardness*: 450 BHN | *Impact*: High Toughness | *Temp*: Up to 250°C
+  3. **WearGuard P500**:
+     * *Category*: High-Hardness Quenched & Tempered Steel (500 BHN)
+     * *Recommended Use*: `For superior high wear applications in asphalt, cement, mining and steel industries. Ideal for mixer tips and wear edges.`
+     * *Hardness*: 500 BHN | *Impact*: Moderate-High | *Temp*: Up to 250°C
+  4. **EnduraCast Z-Core / Ultra / Z-Core Max Liners**:
+     * *Category*: Abrasion-Resistant Cast Liners (58–65 HRC)
+     * *Recommended Use*: `For extreme abrasive and erosive wear applications in asphalt, cement, mining and steel industries. Available in Z-Core (6 to 24 mm), Ultra Liners (best for recycling needs), and Z-Core Max Liners (best for high-temperature recycling).`
+     * *Hardness*: 58–65 HRC | *Impact*: High-Impact Abrasion Resistant | *Temp*: High-Temp Recycling Rated
+  5. **Wearcast 600 / Ultra 800 / Max 1100**:
+     * *Category*: High-Chrome & Carbide-Lined Foundry Grades
+     * *Recommended Use*: `For abrasive and erosive wear applications in asphalt, cement, mining and steel industries, with carbide lining for maximum performance.`
+     * *Hardness*: 550–680+ BHN / Carbide Lining | *Impact*: Medium to Severe Impact | *Temp*: Up to 950°C Continuous
+  6. **Ceramic-Rubber Composite Liners**:
      * *Category*: Hexagonal Alumina Tiles Bonded in Resilient Rubber Matrix
      * *Hardness*: Alumina 92–95% (9 Mohs / ~1400 HV) | *Impact*: Superior shock absorption | *Temp*: Up to 120°C
      * *Primary Use*: High-drop aggregate chutes, conveyor deflectors, cyclone feed boxes
-  6. **Chrome-Carbide Overlay (CCO) Clad Plate**:
+  7. **Chrome-Carbide Overlay (CCO) Clad Plate**:
      * *Category*: Bimetallic Cladding on Structural Weldable Substrate
      * *Hardness*: 58–64 HRC (Carbides ~1750 HV) | *Impact*: Medium-High | *Temp*: Up to 600°C
      * *Primary Use*: Induced draft fan blades, cyclone cones, grizzly feed troughs
