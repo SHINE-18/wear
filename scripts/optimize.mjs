@@ -2,93 +2,123 @@ import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
-const imagesDir = path.join(process.cwd(), 'public', 'images');
+const rootDir = process.cwd();
+const targetDirs = [
+  path.join(rootDir, 'public', 'images'),
+  path.join(rootDir, 'public', 'new'),
+];
 
-console.log('🚀 WearGuard In-Place Image Optimizer Starting...\n');
+// Noise textures and critical assets to leave untouched
+const skipFiles = new Set([
+  'dark-noise-texture.png',
+  'velvet-matte-grain.png',
+  'white-noise-exact.png',
+  'white-noise-seamless.png',
+  'light-noise-grain.svg',
+  'wearguard-hero-reel.mp4',
+]);
 
-if (!fs.existsSync(imagesDir)) {
-  console.error('❌ Directory not found:', imagesDir);
-  process.exit(1);
+const imageExtensions = new Set(['.png', '.jpg', '.jpeg', '.webp', '.avif']);
+
+function getAllImageFiles(dir) {
+  let results = [];
+  if (!fs.existsSync(dir)) return results;
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results = results.concat(getAllImageFiles(fullPath));
+    } else {
+      const ext = path.extname(entry.name).toLowerCase();
+      if (imageExtensions.has(ext) && !skipFiles.has(entry.name.toLowerCase())) {
+        results.push(fullPath);
+      }
+    }
+  }
+  return results;
 }
 
-const files = fs.readdirSync(imagesDir);
-const imageExtensions = ['.png', '.jpg', '.jpeg', '.webp'];
+console.log('🚀 WearGuard Comprehensive Image Optimizer Starting...\n');
 
-const imageFiles = files.filter(file => {
-  const ext = path.extname(file).toLowerCase();
-  return imageExtensions.includes(ext);
-});
+let allImages = [];
+for (const dir of targetDirs) {
+  allImages = allImages.concat(getAllImageFiles(dir));
+}
 
-console.log(`🔍 Found ${imageFiles.length} raster images in public/images/\n`);
+console.log(`🔍 Found ${allImages.length} raster images to examine across public/images/ and public/new/\n`);
 
-async function optimizeImages() {
+async function optimizeAll() {
   let initialTotalBytes = 0;
   let finalTotalBytes = 0;
+  let optimizedCount = 0;
 
-  for (const file of imageFiles) {
-    // Skip small textures
-    if (file === 'dark-noise-texture.png' || file === 'velvet-matte-grain.png') {
-      continue;
-    }
-
-    const filePath = path.join(imagesDir, file);
+  for (const filePath of allImages) {
+    const relPath = path.relative(rootDir, filePath).replace(/\\/g, '/');
     const stat = fs.statSync(filePath);
     const initialSize = stat.size;
     initialTotalBytes += initialSize;
 
-    const ext = path.extname(file).toLowerCase();
+    // Only process images over 80 KB
+    if (initialSize <= 80 * 1024) {
+      finalTotalBytes += initialSize;
+      continue;
+    }
 
-    // Only compress images over 100 kB
-    if (initialSize > 100 * 1024) {
-      try {
-        const inputBuffer = fs.readFileSync(filePath);
-        const image = sharp(inputBuffer);
-        const metadata = await image.metadata();
+    const ext = path.extname(filePath).toLowerCase();
 
-        let pipeline = sharp(inputBuffer);
+    try {
+      const inputBuffer = fs.readFileSync(filePath);
+      const image = sharp(inputBuffer);
+      const metadata = await image.metadata();
 
-        // Max dimension cap to 1600px if oversized
-        if (metadata.width && metadata.width > 1600) {
-          pipeline = pipeline.resize({ width: 1600, withoutEnlargement: true });
-        }
+      let pipeline = sharp(inputBuffer);
 
-        let buffer;
-        if (ext === '.png') {
-          buffer = await pipeline
-            .png({ quality: 80, compressionLevel: 9, palette: true })
-            .toBuffer();
-        } else if (ext === '.jpg' || ext === '.jpeg') {
-          buffer = await pipeline
-            .jpeg({ quality: 78, mozjpeg: true })
-            .toBuffer();
-        } else if (ext === '.webp') {
-          buffer = await pipeline
-            .webp({ quality: 75, effort: 6 })
-            .toBuffer();
-        }
+      // Max width cap: 1600px for desktop sharpness without massive pixel bloat
+      if (metadata.width && metadata.width > 1600) {
+        pipeline = pipeline.resize({ width: 1600, withoutEnlargement: true });
+      }
 
-        if (buffer && buffer.length < initialSize) {
-          fs.writeFileSync(filePath, buffer);
-          const newSize = buffer.length;
-          console.log(`  ✓ ${file}: ${(initialSize / 1024).toFixed(1)} kB → ${(newSize / 1024).toFixed(1)} kB (${(((initialSize - newSize) / initialSize) * 100).toFixed(0)}% reduction)`);
-          finalTotalBytes += newSize;
-        } else {
-          console.log(`  - ${file}: Already optimal (${(initialSize / 1024).toFixed(1)} kB)`);
-          finalTotalBytes += initialSize;
-        }
-      } catch (err) {
-        console.warn(`  ⚠️ Failed to optimize ${file}:`, err.message);
+      let buffer;
+      if (ext === '.jpg' || ext === '.jpeg') {
+        buffer = await pipeline.jpeg({ quality: 80, mozjpeg: true }).toBuffer();
+      } else if (ext === '.webp') {
+        buffer = await pipeline.webp({ quality: 78, effort: 6 }).toBuffer();
+      } else if (ext === '.png') {
+        buffer = await pipeline.png({ quality: 80, compressionLevel: 9, palette: true }).toBuffer();
+      } else if (ext === '.avif') {
+        buffer = await pipeline.avif({ quality: 75 }).toBuffer();
+      }
+
+      if (buffer && buffer.length < initialSize) {
+        fs.writeFileSync(filePath, buffer);
+        const newSize = buffer.length;
+        const reduction = (((initialSize - newSize) / initialSize) * 100).toFixed(0);
+        console.log(`  ✓ ${relPath}: ${(initialSize / (1024 * 1024)).toFixed(2)} MB → ${(newSize / 1024).toFixed(1)} kB (-${reduction}%)`);
+        finalTotalBytes += newSize;
+        optimizedCount++;
+      } else {
         finalTotalBytes += initialSize;
       }
-    } else {
+    } catch (err) {
+      console.warn(`  ⚠️ Could not optimize ${relPath}:`, err.message);
       finalTotalBytes += initialSize;
     }
   }
 
-  const savedKB = (initialTotalBytes - finalTotalBytes) / 1024;
-  console.log(`\n✅ Optimization Complete!`);
-  console.log(`🎉 Total saved: ${(savedKB / 1024).toFixed(2)} MB (${savedKB.toFixed(0)} kB)`);
-  console.log(`📉 New total raster size: ${(finalTotalBytes / (1024 * 1024)).toFixed(2)} MB`);
+  const savedBytes = initialTotalBytes - finalTotalBytes;
+  const savedMB = (savedBytes / (1024 * 1024)).toFixed(2);
+  const initialMB = (initialTotalBytes / (1024 * 1024)).toFixed(2);
+  const finalMB = (finalTotalBytes / (1024 * 1024)).toFixed(2);
+  const totalPercent = (((initialTotalBytes - finalTotalBytes) / initialTotalBytes) * 100).toFixed(1);
+
+  console.log(`\n========================================`);
+  console.log(`✅ Image Optimization Complete!`);
+  console.log(`📦 Optimized files: ${optimizedCount}`);
+  console.log(`📉 Initial total:   ${initialMB} MB`);
+  console.log(`📉 Final total:     ${finalMB} MB`);
+  console.log(`🎉 Space saved:     ${savedMB} MB (-${totalPercent}%)`);
+  console.log(`========================================\n`);
 }
 
-optimizeImages();
+optimizeAll();
