@@ -11,6 +11,7 @@
   border-top: 1px solid rgba(0, 0, 0, 0.08);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   z-index: 12;
+  padding: 0 !important;
 }
 
 /* 100VH STICKY VIEWPORT STAGE */
@@ -19,11 +20,14 @@
   top: 0;
   height: 100vh;
   width: 100%;
-  overflow: hidden;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
   background: #ECEEF2;
+  padding: 150px clamp(1.5rem, 4vw, 4.5rem);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* CAD SUBTLE GRID BACKGROUND */
@@ -31,50 +35,49 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
   background-size: 48px 48px;
   opacity: 0.85;
 }
 
-/* CONTAINER WRAPPER (SPLIT SCREEN: 52% LEFT, 48% RIGHT) */
+/* CONTAINER WRAPPER */
 .stageContentWrap {
   max-width: 1600px;
   width: 100%;
-  height: 100%;
   margin: 0 auto;
-  padding: 0 clamp(1.5rem, 4vw, 4.5rem);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  justify-content: flex-start;
   position: relative;
   z-index: 2;
+  box-sizing: border-box;
 }
 
 /* ==========================================================================
    LEFT COLUMN: STATIC TITLE + STREAMLINED EDITORIAL
    ========================================================================== */
 .leftColumn {
-  width: 52%;
-  max-width: 660px;
+  width: 56%;
+  max-width: 780px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1.5rem;
+  gap: clamp(0.9rem, 1.6vh, 1.35rem);
   z-index: 5;
 }
 
 .leftHeader {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
 .mainTitle {
-  font-size: clamp(2rem, 3.4vw, 3.2rem);
-  line-height: 1.08;
-  letter-spacing: -0.035em;
+  font-size: clamp(1.85rem, 2.7vw, 2.75rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
   font-weight: 800;
   color: #111215;
   margin: 0;
@@ -90,26 +93,27 @@
 .stepProgressDial {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  padding: 0.35rem 0 0.75rem 0;
+  gap: 2.25rem;
+  padding: 0.5rem 0 0.95rem 0;
   background: transparent;
   border-bottom: 1px solid rgba(17, 18, 20, 0.12);
+  margin-top: 0.25rem;
 }
 
 .stepPillsGroup {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2.5rem;
 }
 
 .stepPillBtn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.4rem 0;
+  gap: 0.6rem;
+  padding: 0.5rem 0.25rem;
   background: transparent;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2.5px solid transparent;
   border-radius: 0;
   cursor: pointer;
   transition: border-color 0.2s ease, color 0.2s ease;
@@ -126,14 +130,14 @@
 
 .pillNum {
   font-family: var(--font-body);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--orange, #C8370B);
 }
 
 .pillLabel {
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: #64748B;
   letter-spacing: -0.01em;
@@ -150,25 +154,14 @@
 .reelViewport {
   position: relative;
   width: 100%;
-  height: 400px;
-  overflow: hidden;
+  min-height: 420px;
+  height: 430px;
   background: transparent;
-}
-
-.reelTrack {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
 }
 
 .reelCardItem {
   width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  padding: 0.25rem 0 0 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -181,13 +174,19 @@
   font-size: 0.72rem;
   font-weight: 700;
   color: var(--orange, #C8370B);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   font-family: var(--font-body);
 }
 
+.stepCategoryTag::selection {
+  background-color: #0E1014 !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
 .stepHeading {
-  font-size: clamp(1.3rem, 1.85vw, 1.7rem);
+  font-size: clamp(1.25rem, 1.65vw, 1.55rem);
   font-weight: 750;
   color: #0E1014;
   line-height: 1.25;
@@ -199,9 +198,9 @@
 .stepDescription {
   font-size: 0.92rem;
   color: #475569;
-  line-height: 1.55;
+  line-height: 1.58;
   margin: 0;
-  max-width: 580px;
+  max-width: 720px;
   font-family: var(--font-body);
 }
 
@@ -209,31 +208,31 @@
 .telemetryGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1.75rem;
   background: transparent;
   border-top: 1px solid rgba(17, 18, 20, 0.12);
   border-bottom: 1px solid rgba(17, 18, 20, 0.12);
-  padding: 0.85rem 0;
-  margin: 0.4rem 0 0.2rem;
+  padding: 0.8rem 0;
+  margin: 0.35rem 0 0.25rem;
 }
 
 .telemetryCell {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.3rem;
 }
 
 .telemetryLabel {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: #64748B;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   font-family: var(--font-body);
 }
 
 .telemetryValue {
-  font-size: 0.92rem;
+  font-size: 0.98rem;
   font-weight: 700;
   color: #0E1014;
   line-height: 1.35;
@@ -244,24 +243,24 @@
 .highlightsList {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  margin: 0.35rem 0 0.5rem;
+  gap: 0.5rem;
+  margin: 0.35rem 0 0.6rem;
 }
 
 .highlightRow {
   display: flex;
   align-items: flex-start;
-  gap: 0.55rem;
-  font-size: 0.86rem;
+  gap: 0.65rem;
+  font-size: 0.88rem;
   color: #334155;
-  line-height: 1.45;
+  line-height: 1.5;
   font-family: var(--font-body);
 }
 
 .highlightCheck {
   color: var(--orange, #C8370B);
   font-weight: 700;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   line-height: 1;
 }
 
@@ -270,7 +269,7 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .ctaWrapper {
@@ -320,38 +319,33 @@
 }
 
 /* ==========================================================================
-   RIGHT COLUMN: CLEAN CIRCULAR INDUSTRIAL PHOTOGRAPHY
+   HALF-ATTACHED ROLLING DISK (ANCHORED TO RIGHT EDGE OF SCREEN)
    ========================================================================== */
-.rightColumn {
-  width: 45%;
-  height: 100%;
-  position: relative;
+.halfDiskAnchor {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translate(20%, -50%);
+  width: min(920px, 52vw, 86vh);
+  height: min(920px, 52vw, 86vh);
+  pointer-events: none;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.pictureDiscStage {
-  position: relative;
-  width: min(520px, 40vw);
-  height: min(520px, 40vw);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* CLEAN CIRCULAR FRAME (NO SCI-FI DIALS OR TICKS) */
-.fullPictureDisc {
-  position: relative;
+.rollingDisk {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  position: relative;
   overflow: hidden;
   background: #0E1014;
-  border: 2px solid rgba(17, 18, 20, 0.12);
-  box-shadow: 
-    0 24px 64px rgba(15, 23, 42, 0.14),
-    0 4px 16px rgba(15, 23, 42, 0.06);
+  border: 2.5px solid rgba(17, 18, 20, 0.35);
+  box-shadow:
+    -20px 0 60px rgba(15, 23, 42, 0.18),
+    0 16px 40px rgba(15, 23, 42, 0.12);
 }
 
 .discImagesContainer {
@@ -367,11 +361,23 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  object-position: center center;
+  border-radius: 0;
   display: block;
   user-select: none;
   pointer-events: none;
+  transform-origin: center center;
   will-change: opacity, transform;
+}
+
+.diskBezelOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 0 28px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* ==========================================================================
@@ -384,7 +390,7 @@
 @media (max-width: 960px) {
   .customSectionWrapper {
     height: auto !important;
-    padding: clamp(3.5rem, 6vw, 5.5rem) 1.25rem;
+    padding: clamp(3.5rem, 6vw, 5.5rem) 1.25rem !important;
   }
 
   .customStickyStage {

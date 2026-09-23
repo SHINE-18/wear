@@ -1,0 +1,145 @@
+'use client'
+
+import { useRef } from 'react'
+import Link from 'next/link'
+import { motion, useScroll, useTransform } from 'motion/react'
+import { InteractiveGrid } from '@/components/site/interactive-grid'
+import styles from './materials-hero-expand.module.css'
+
+export function MaterialsHeroExpand() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end end'],
+  })
+
+  // 1. Header Copy: Slides UP and fades out smoothly on scroll
+  const copyY = useTransform(scrollYProgress, [0, 0.22], [0, -140], { clamp: true })
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.16, 0.26], [1, 1, 0], { clamp: true })
+  const copyDisplay = useTransform(scrollYProgress, (p) => (p >= 0.26 ? 'none' : 'block'))
+
+  // 2. Media Expansion: Framed banner -> 100% x 100vh fullscreen canvas
+  // Starts comfortably at top: 390px with clean breathing room below the 2-line headline & subtitle (matching industries page navbar clearance)
+  const mediaTop = useTransform(scrollYProgress, (p) => {
+    if (p >= 0.35) return '0px'
+    const progress = p / 0.35
+    const topPx = 390 * (1 - progress)
+    return `${topPx}px`
+  })
+
+  const mediaWidth = useTransform(scrollYProgress, (p) => {
+    if (p >= 0.35) return '100%'
+    const progress = p / 0.35
+    const subtractPx = 64 * (1 - progress)
+    return `min(1536px, calc(100% - ${subtractPx}px))`
+  })
+
+  const mediaHeight = useTransform(scrollYProgress, (p) => {
+    if (p >= 0.35) return '100vh'
+    const progress = p / 0.35
+    const subtractPx = 430 * (1 - progress)
+    return `calc(100vh - ${subtractPx}px)`
+  })
+
+  const mediaBorderWidth = useTransform(scrollYProgress, (p) => (p >= 0.35 ? '0px' : '1px'))
+  const mediaShadow = useTransform(scrollYProgress, (p) =>
+    p >= 0.35 ? 'none' : '0 16px 45px rgba(0, 0, 0, 0.14)'
+  )
+
+  // 3. Dissolve upper edge into theme slate as curtain section approaches
+  const slateBlendOpacity = useTransform(scrollYProgress, [0.65, 0.88], [0, 1], { clamp: true })
+
+  return (
+    <div ref={containerRef} className={styles.heroScrollContainer}>
+      <div className={styles.heroStickyStage}>
+        {/* Fullscreen Interactive Magnetic Grid Canvas */}
+        <div className={styles.heroGridCanvas} aria-hidden="true">
+          <InteractiveGrid />
+        </div>
+
+        {/* 1. Header Content (Eyebrow, Title, Subtitle, "Request Audit" Orange Button) */}
+        <motion.div
+          className={styles.heroHeaderWrap}
+          style={{
+            y: copyY,
+            opacity: copyOpacity,
+            display: copyDisplay,
+          }}
+        >
+          <div className={styles.heroHeaderGrid}>
+            <div className={styles.heroHeaderLeft}>
+              <div className={styles.eyebrow}>
+                <span className={styles.eyebrowBar} aria-hidden="true" />
+                <span>Metallurgical Engineering &amp; Formulations</span>
+              </div>
+              <h1 className={styles.heroTitle}>
+                The right material
+                <br />
+                for the <em>right wear zone.</em>
+              </h1>
+              <p className={styles.heroSubtitle}>
+                Engineered formulations from 680 BHN high-chrome castings to shock-absorbing austenitic manganese and CCO cladding, precisely tailored for your operational wear dynamics.
+              </p>
+            </div>
+
+            <Link
+              href="/contact"
+              className={styles.ctaSquare}
+              aria-label="Request Technical Metallurgical Audit from WearGuard"
+            >
+              <svg
+                width="36"
+                height="36"
+                viewBox="0 0 44 44"
+                fill="none"
+                className={styles.ctaBracket}
+                aria-hidden="true"
+              >
+                <path
+                  d="M16 10H34V28"
+                  stroke="white"
+                  strokeWidth="5"
+                  strokeLinecap="square"
+                  strokeLinejoin="miter"
+                />
+              </svg>
+              <span className={styles.ctaLabel}>Request Audit</span>
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* 2. Expanding Media Canvas (Metallurgical Specimen) */}
+        <motion.div
+          className={styles.mediaWrapper}
+          style={{
+            top: mediaTop,
+            width: mediaWidth,
+            height: mediaHeight,
+            borderWidth: mediaBorderWidth,
+            boxShadow: mediaShadow,
+          }}
+        >
+          <img
+            src="/images/materials-cast-specimen.jpg"
+            alt="WearGuard engineered 28% Cr high-chrome metallurgical casting specimen"
+            className={styles.plantImage}
+          />
+
+          {/* Smooth Dissolve into Theme Slate as Curtain Stacks */}
+          <motion.div
+            className={styles.mediaSlateBlend}
+            style={{ opacity: slateBlendOpacity }}
+            aria-hidden="true"
+          />
+
+          {/* Static Plant Badge */}
+          <div className={styles.hudBadge}>
+            <span className={styles.hudDot} aria-hidden="true" />
+            <span>680 BHN HIGH-CHROME • NI-HARD 4 • CCO • CERAMICS</span>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  )
+}

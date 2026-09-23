@@ -18,7 +18,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.75rem;
 }
 
 /* TOP HEADER */
@@ -63,14 +63,51 @@
 .catalog-subtitle {
   font-size: clamp(1.02rem, 1.35vw, 1.18rem);
   color: #475569;
-  max-width: 860px;
+  max-width: 880px;
   line-height: 1.65;
   margin: 0;
   font-weight: 400;
   font-family: var(--font-body, sans-serif);
 }
 
-/* MINIMAL SWISS DROPDOWN CONTROL TOOLBAR */
+/* QUICK-JUMP SECTOR NAVIGATION BAR */
+.sector-nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  padding: 0.25rem 0;
+}
+
+.sector-nav-pill {
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 18, 20, 0.14);
+  border-radius: 0;
+  padding: 0.55rem 1.15rem;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  outline: none;
+}
+
+.sector-nav-pill:hover {
+  border-color: var(--orange, #C8370B);
+  color: var(--orange, #C8370B);
+  background: #FFFFFF;
+}
+
+.sector-nav-pill.active {
+  background: #0E1014;
+  color: #FFFFFF;
+  border-color: #0E1014;
+}
+
+/* MINIMAL CONTROL TOOLBAR (SEARCH + METALLURGY SELECT) */
 .catalog-dropdown-toolbar {
   display: flex;
   align-items: center;
@@ -194,7 +231,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.25rem 0.25rem;
+  padding: 0.15rem 0.25rem;
   flex-wrap: wrap;
 }
 
@@ -228,15 +265,102 @@
 }
 
 /* ==========================================================================
-   3-COLUMN RESPONSIVE CARD GRID (SHARP INDUSTRIAL THEME)
+   SECTOR STACK & BROCHURE-STYLE SECTOR BLOCKS
    ========================================================================== */
 
-.catalog-cards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.75rem;
+.sectors-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
   width: 100%;
-  margin-top: 0.5rem;
+}
+
+.sector-block {
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 18, 20, 0.12);
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.04);
+  scroll-margin-top: 90px;
+}
+
+/* COMPOSITE HERO BANNER (MATCHES BROCHURE TOP BANNER) */
+.sector-hero-frame {
+  position: relative;
+  width: 100%;
+  height: clamp(240px, 28vw, 360px);
+  background: #FFFFFF;
+  border-bottom: 1px solid rgba(17, 18, 20, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2rem;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.sector-hero-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* SECTOR HEADER (MATCHES BROCHURE TITLE & TAGLINE) */
+.sector-header-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.6rem 2rem 1.4rem;
+  border-bottom: 1px solid rgba(17, 18, 20, 0.08);
+  background: #FFFFFF;
+  flex-wrap: wrap;
+}
+
+.sector-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.sector-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--orange, #C8370B);
+  display: inline-block;
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+.sector-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 800;
+  color: #0E1014;
+  letter-spacing: -0.025em;
+  margin: 0;
+  font-family: var(--font-display, var(--font-body));
+  text-transform: uppercase;
+}
+
+.sector-tagline {
+  font-size: clamp(0.82rem, 1.1vw, 0.98rem);
+  font-weight: 750;
+  color: #475569;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-body, sans-serif);
+}
+
+/* COMPONENT CARDS GRID */
+.sector-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.75rem;
+  padding: 2rem;
+  background: #F8FAFC;
 }
 
 .product-card {
@@ -412,6 +536,8 @@
   padding: 4rem 2rem;
   text-align: center;
   margin-top: 1.5rem;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 18, 20, 0.12);
 }
 
 .catalog-empty-state p {
@@ -689,16 +815,28 @@
    ========================================================================== */
 
 @media (max-width: 1100px) {
-  .catalog-cards-grid {
+  .sector-cards-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 680px) {
-  .catalog-cards-grid {
+  .sector-cards-grid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+    padding: 1rem;
+  }
+
+  .sector-hero-frame {
+    height: 190px;
+    padding: 1rem;
+  }
+
+  .sector-header-bar {
+    padding: 1.2rem 1.25rem;
+    gap: 0.75rem;
   }
 
   .drawer-panel {

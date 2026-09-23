@@ -79,14 +79,17 @@
   z-index: 2;
 }
 
+*::selection,
 ::selection {
-  background-color: var(--orange);
-  color: #ffffff;
+  background-color: var(--orange) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
+*::-moz-selection,
 ::-moz-selection {
-  background-color: var(--orange);
-  color: #ffffff;
+  background-color: var(--orange) !important;
+  color: #ffffff !important;
 }
 
 /* --- SECTION-ADAPTIVE MORPHING SCROLLBAR --- */

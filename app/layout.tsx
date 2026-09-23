@@ -48,6 +48,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="en"
       data-scrollbar-theme="dark"
+      data-scroll-behavior="smooth"
       className={`${fontDisplay.variable} ${fontBody.variable} ${fontMono.variable} bg-[#EDEDED]`}
       suppressHydrationWarning
     >

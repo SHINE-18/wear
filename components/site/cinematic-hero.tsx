@@ -147,12 +147,12 @@ export function CinematicHero() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                strokeLinecap="square"
+                strokeLinejoin="miter"
                 aria-hidden="true"
               >
                 <path d="M7 7h10v10" className="icon-head" />
-                <line x1="7" y1="17" x2="17" y2="7" className="icon-stem" />
+                <line x1="7" y1="17" x2="16" y2="8" className="icon-stem" strokeLinecap="square" />
               </svg>
             </Link>
           </motion.div>

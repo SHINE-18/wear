@@ -458,13 +458,13 @@ export const applications: Application[] = [
       { label: 'Fitment', value: 'Machine & Adapter Matched Profiles' },
       { label: 'Lead Time', value: '6–8 Weeks' },
     ],
-    image: '/brochure/page-14.png',
+    image: '/images/earth-moving-bucket-tips-4.webp',
     subComponents: [
       {
         id: 'penetration-tips',
         title: 'Heavy Penetration & Excavation Tips',
         subtitle: 'High-Impact Ground Engaging Profiles',
-        image: '/brochure/page-14.png',
+        image: '/images/earth-moving-bucket-tips-2.webp',
         description: 'Engineered for dependable ground penetration and high impact resistance in harsh earthmoving and excavation conditions.',
         specs: [
           { label: 'Duty', value: 'Heavy Ground Penetration' },
@@ -476,7 +476,7 @@ export const applications: Application[] = [
         id: 'rock-tips',
         title: 'Abrasive Rock & Quarry Tips',
         subtitle: 'Severe Abrasion & Shock Resistance',
-        image: '/brochure/page-14.png',
+        image: '/images/earth-moving-bucket-tips-1.webp',
         description: 'Built for strength, consistent fitment and reliable performance where wear, shock and material flow demand more every day on tough working sites.',
         specs: [
           { label: 'Wear Environment', value: 'Abrasive Rock & High Material Flow' },
@@ -488,7 +488,7 @@ export const applications: Application[] = [
         id: 'custom-tip-solutions',
         title: 'Custom-Engineered Tip Solutions',
         subtitle: 'Application-Matched Profiles & Alloys',
-        image: '/brochure/page-14.png',
+        image: '/images/custom-earth-moving-bucket-tips-3.webp',
         description: 'WearGuard can design and custom build bucket tips in profiles and wear materials matched to your machine, ground conditions and abrasive challenges, helping improve life, fitment and field performance.',
         specs: [
           { label: 'Engineering', value: 'Custom Machine Profile Matching' },
@@ -500,7 +500,7 @@ export const applications: Application[] = [
     engineeringSupport: {
       title: 'Custom-Engineered Tip Solutions',
       text: 'WearGuard can design and custom build bucket tips in profiles and wear materials matched to your machine, ground conditions and abrasive challenges, helping improve life, fitment and field performance.',
-      image: '/brochure/page-14.png',
+      image: '/images/earth-moving-bucket-tips-4.webp',
       points: [
         'Application-matched materials for general excavation to abrasive rock handling',
         'Custom profiles designed to protect adapters and improve machine productivity',

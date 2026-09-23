@@ -34,7 +34,7 @@
 /* Header Content (Eyebrow, Title, Subtitle, Orange CTA) - Sits cleanly at top */
 .indHeroHeaderWrap {
   position: absolute;
-  top: 96px;
+  top: clamp(140px, 11.5vw, 168px);
   left: 0;
   right: 0;
   width: 100%;

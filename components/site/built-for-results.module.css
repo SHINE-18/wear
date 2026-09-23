@@ -1,0 +1,205 @@
+/* ==========================================================================
+   BUILT FOR RESULTS SECTION (VELVET NOISE TEXTURE & WIREFRAME ART)
+   ========================================================================== */
+
+.sectionRoot {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  background-color: #0E1014;
+  background-image: url('/images/velvet-matte-grain.png');
+  background-repeat: repeat;
+  color: #FFFFFF;
+  padding: clamp(5.5rem, 9vw, 8rem) 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 3rem);
+  box-sizing: border-box;
+}
+
+/* HEADER ROW */
+.headerRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+.headerLeft {
+  max-width: 780px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #D1D5DB;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+}
+
+.eyebrowBar {
+  width: 2.5px;
+  height: 12px;
+  background: var(--orange, #C8370B);
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+
+.title {
+  font-family: 'Inter', "Inter Placeholder", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.titleMuted {
+  color: #64748B;
+  font-weight: 500;
+}
+
+
+
+/* CARDS TRACK */
+.cardsTrack {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+}
+
+.resultCard {
+  position: relative;
+  padding: clamp(2.5rem, 3.5vw, 3.5rem) clamp(1.8rem, 2.5vw, 2.5rem);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.015);
+  transition: background 0.3s ease;
+}
+
+.resultCard:first-child {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.resultCard:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+/* Subtle top orange highlight wipe on card hover */
+.resultCard::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange, #C8370B);
+  transition: width 0.4s ease;
+}
+
+.resultCard:hover::before {
+  width: 100%;
+}
+
+/* DIAGRAM WRAPPER */
+.diagramWrap {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.diagramSvg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+}
+
+/* CARD CONTENT */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-family: 'Inter', "Inter Placeholder", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(1.25rem, 1.5vw, 1.55rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  margin: 0 0 0.85rem;
+  line-height: 1.25;
+}
+
+.cardDesc {
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #94A3B8;
+  margin: 0;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 960px) {
+  .cardsTrack {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-left: none;
+    border-right: none;
+  }
+
+  .cardsTrack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .resultCard {
+    flex: 0 0 85%;
+    min-width: 290px;
+    scroll-snap-align: start;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 640px) {
+  .headerRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+
+
+  .resultCard {
+    flex: 0 0 92%;
+    padding: 2rem 1.5rem;
+  }
+
+  .diagramWrap {
+    height: 180px;
+    margin-bottom: 1.75rem;
+  }
+}

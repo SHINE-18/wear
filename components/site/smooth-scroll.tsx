@@ -3,6 +3,12 @@
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 
+declare global {
+  interface Window {
+    lenis?: Lenis
+  }
+}
+
 export function SmoothScroll() {
   useEffect(() => {
     const lenis = new Lenis({
@@ -14,6 +20,8 @@ export function SmoothScroll() {
       syncTouchLerp: 0.075,
     })
 
+    window.lenis = lenis
+
     function raf(time: number) {
       lenis.raf(time)
       requestAnimationFrame(raf)
@@ -22,6 +30,7 @@ export function SmoothScroll() {
     requestAnimationFrame(raf)
 
     return () => {
+      delete window.lenis
       lenis.destroy()
     }
   }, [])

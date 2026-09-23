@@ -20,26 +20,26 @@ export function IndustryHeroExpand({ industry }: { industry: IndustryData }) {
   const copyOpacity = useTransform(scrollYProgress, [0, 0.16, 0.26], [1, 1, 0], { clamp: true })
   const copyDisplay = useTransform(scrollYProgress, (p) => (p >= 0.26 ? 'none' : 'block'))
 
-  // 2. Media Expansion: Framed banner -> 100vw x 100vh fullscreen canvas
-  // Smoothly expands from top: 255px (clear of header) to top: 0px
+  // 2. Media Expansion: Framed banner -> 100% x 100vh fullscreen canvas
+  // Smoothly expands from top: 370px (clear of header with navbar clearance) to top: 0px
   const mediaTop = useTransform(scrollYProgress, (p) => {
     if (p >= 0.35) return '0px'
     const progress = p / 0.35
-    const topPx = 255 * (1 - progress)
+    const topPx = 370 * (1 - progress)
     return `${topPx}px`
   })
 
   const mediaWidth = useTransform(scrollYProgress, (p) => {
-    if (p >= 0.35) return '100vw'
+    if (p >= 0.35) return '100%'
     const progress = p / 0.35
     const subtractPx = 64 * (1 - progress)
-    return `min(1536px, calc(100vw - ${subtractPx}px))`
+    return `min(1536px, calc(100% - ${subtractPx}px))`
   })
 
   const mediaHeight = useTransform(scrollYProgress, (p) => {
     if (p >= 0.35) return '100vh'
     const progress = p / 0.35
-    const subtractPx = 280 * (1 - progress)
+    const subtractPx = 410 * (1 - progress)
     return `calc(100vh - ${subtractPx}px)`
   })
 

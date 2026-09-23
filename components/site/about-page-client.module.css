@@ -12,7 +12,7 @@
 /* 1. HERO SECTION */
 .about-hero-section {
   position: relative;
-  padding: clamp(7.5rem, 11vw, 10rem) clamp(1.5rem, 4vw, 4.5rem) 0;
+  padding: clamp(10.5rem, 16vw, 14rem) clamp(1.5rem, 4vw, 4.5rem) 0;
   width: 100%;
   background: #FFFFFF;
 }

@@ -20,16 +20,16 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
             fill="none"
             stroke="currentColor"
             strokeWidth="2.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeLinecap="square"
+            strokeLinejoin="miter"
             aria-hidden="true"
           >
             <path d="M7 7h10v10" className={styles['icon-head']} />
-            <line x1="7" y1="17" x2="17" y2="7" className={styles['icon-stem']} />
+            <line x1="7" y1="17" x2="16" y2="8" className={styles['icon-stem']} strokeLinecap="square" />
           </svg>
           <Link href="/contact" className={styles['footer-cta-content']} aria-label="Contact WearGuard Engineering">
             <p className={styles['footer-cta-title']}>
-              Ready to <span className={styles['cta-headline-accent']}>Modernize</span> Your
+              Ready to <span className={styles['cta-headline-accent']}>Modernize Your</span>
               <br />
               Industrial Operations?
             </p>
@@ -44,12 +44,12 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           <div className={styles['footer-brand-col']}>
             <Link className={styles['footer-logo-link']} href="/" aria-label="WearGuard Home">
               <img
-                src="/images/screen.svg"
+                src="/logo/wearwhite.svg"
                 alt="WearGuard"
                 className={styles['footer-brand-logo-img']}
-                style={{ height: '64px', width: 'auto', objectFit: 'contain', display: 'block' }}
-                width={200}
-                height={64}
+                style={{ height: '38px', width: 'auto', maxHeight: '42px', objectFit: 'contain', display: 'block' }}
+                width={130}
+                height={38}
               />
             </Link>
             <p className={styles['footer-bio-text']}>

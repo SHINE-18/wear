@@ -19,7 +19,7 @@ const FILTER_TABS: { id: FilterCategory; label: string }[] = [
 
 export function MaterialsMatrix() {
   const [selectedFilter, setSelectedFilter] = useState<FilterCategory>('ALL')
-  const [activeCode, setActiveCode] = useState<string>('01')
+  const [activeCode, setActiveCode] = useState<string | null>(null)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -122,7 +122,7 @@ export function MaterialsMatrix() {
         </div>
       </div>
 
-      {/* --- DESKTOP VIEW: HIGH-DENSITY SWISS ALLOY MATRIX TABLE & SPOTLIGHT --- */}
+      {/* --- DESKTOP VIEW: HIGH-DENSITY TECHNICAL ALLOY MATRIX TABLE WITH INLINE ACCORDIONS --- */}
       <div className={styles['materials-desktop-only']}>
         {/* 2. HIGH-DENSITY TECHNICAL ALLOY MATRIX TABLE */}
         <div className={styles['matrix-data-list']} aria-label="WearGuard Metallurgical Formulations">
@@ -132,6 +132,7 @@ export function MaterialsMatrix() {
             <div className={styles['col-chemistry']}>MATRIX</div>
             <div className={styles['col-impact']}>IMPACT</div>
             <div className={styles['col-temp']}>THERMAL</div>
+            <div className={styles['col-toggle']} aria-hidden="true" />
           </div>
 
           <div className={styles['matrix-data-body']}>
@@ -139,121 +140,139 @@ export function MaterialsMatrix() {
               const isSelected = grade.code === activeCode
 
               return (
-                <div
-                  id={getAnchorId(grade.code)}
-                  key={grade.code}
-                  className={`${styles['matrix-data-row']} ${isSelected ? styles['row-active'] : ''}`}
-                  onClick={() => setActiveCode(grade.code)}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <div className={`${styles['matrix-cell']} ${styles['col-grade']}`}>
-                    <span className={styles['grade-cat-tag']}>{grade.category}</span>
-                    <strong className={styles['grade-name']}>{grade.name}</strong>
+                <div key={grade.code} className={styles['matrix-row-group']}>
+                  <div
+                    id={getAnchorId(grade.code)}
+                    className={`${styles['matrix-data-row']} ${isSelected ? styles['row-active'] : ''}`}
+                    onClick={() => setActiveCode(isSelected ? null : grade.code)}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isSelected}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault()
+                        setActiveCode(isSelected ? null : grade.code)
+                      }
+                    }}
+                  >
+                    <div className={`${styles['matrix-cell']} ${styles['col-grade']}`}>
+                      <span className={styles['grade-cat-tag']}>{grade.category}</span>
+                      <strong className={styles['grade-name']}>{grade.name}</strong>
+                    </div>
+
+                    <div className={`${styles['matrix-cell']} ${styles['col-hardness']}`}>
+                      <span className={styles['hardness-massive']}>{grade.hardness.split(' ')[0]}</span>
+                      <span className={styles['hardness-unit']}>{grade.hardness.split(' ')[1] || ''}</span>
+                    </div>
+
+                    <div className={`${styles['matrix-cell']} ${styles['col-chemistry']}`}>
+                      <span className={styles['chemistry-text']}>{grade.composition}</span>
+                    </div>
+
+                    <div className={`${styles['matrix-cell']} ${styles['col-impact']}`}>
+                      <span className={styles['impact-text']}>{grade.impactResistance}</span>
+                    </div>
+
+                    <div className={`${styles['matrix-cell']} ${styles['col-temp']}`}>
+                      <span className={styles['temp-text']}>{grade.tempLimit}</span>
+                    </div>
+
+                    <div className={`${styles['matrix-cell']} ${styles['col-toggle']}`}>
+                      <span
+                        className={`${styles['row-chevron']} ${isSelected ? styles['rotated'] : ''}`}
+                        aria-hidden="true"
+                      >
+                        ▾
+                      </span>
+                    </div>
                   </div>
 
-                  <div className={`${styles['matrix-cell']} ${styles['col-hardness']}`}>
-                    <span className={styles['hardness-massive']}>{grade.hardness.split(' ')[0]}</span>
-                    <span className={styles['hardness-unit']}>{grade.hardness.split(' ')[1] || ''}</span>
-                  </div>
+                  {/* INLINE EXPANDABLE ACCORDION (OPENS DIRECTLY UNDER THIS ROW) */}
+                  <AnimatePresence>
+                    {isSelected && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                        className={styles['matrix-row-accordion']}
+                      >
+                        <div className={styles['grade-spotlight-inner']}>
+                          {/* TECHNICAL HEADER BAR */}
+                          <div className={styles['spotlight-tech-header']}>
+                            <div className={styles['tech-header-left']}>
+                              <span className={styles['spotlight-badge-num']}>Alloy Specification Details</span>
+                              <span className={styles['spotlight-badge-cat']}>{grade.category}</span>
+                            </div>
+                            <div className={styles['tech-header-right']}>
+                              <span className={styles['spotlight-hardness-chip']}>{grade.hardness}</span>
+                            </div>
+                          </div>
 
-                  <div className={`${styles['matrix-cell']} ${styles['col-chemistry']}`}>
-                    <span className={styles['chemistry-text']}>{grade.composition}</span>
-                  </div>
+                          {/* MAIN SPEC CONTENT GRID */}
+                          <div className={styles['spotlight-main-grid']}>
+                            {/* LEFT COLUMN: TITLE, METALLURGICAL SUMMARY & HIGHLIGHTS */}
+                            <div className={styles['spotlight-desc-col']}>
+                              <h3 className={styles['spotlight-title']}>{grade.name}</h3>
+                              <p className={styles['spotlight-desc-text']}>{grade.desc}</p>
 
-                  <div className={`${styles['matrix-cell']} ${styles['col-impact']}`}>
-                    <span className={styles['impact-text']}>{grade.impactResistance}</span>
-                  </div>
+                              <div className={styles['spotlight-highlights-block']}>
+                                <span className={styles['highlights-title']}>Engineering Capabilities</span>
+                                <ul className={styles['highlights-checklist']}>
+                                  {grade.highlights.map((item, i) => (
+                                    <li key={i}>
+                                      <span className={styles['check-icon']} aria-hidden="true">✓</span>
+                                      <span>{item}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            </div>
 
-                  <div className={`${styles['matrix-cell']} ${styles['col-temp']}`}>
-                    <span className={styles['temp-text']}>{grade.tempLimit}</span>
-                  </div>
+                            {/* RIGHT COLUMN: 4-CELL TELEMETRY MATRIX */}
+                            <div className={styles['spotlight-telemetry-col']}>
+                              <div className={styles['telemetry-box-grid']}>
+                                <div className={styles['telemetry-box']}>
+                                  <span className={styles['t-box-lbl']}>Chemical Composition</span>
+                                  <span className={styles['t-box-val-clean']}>{grade.composition}</span>
+                                </div>
+
+                                <div className={styles['telemetry-box']}>
+                                  <span className={styles['t-box-lbl']}>Impact &amp; Shock Capacity</span>
+                                  <strong className={styles['t-box-val']}>{grade.impactResistance}</strong>
+                                </div>
+
+                                <div className={styles['telemetry-box']}>
+                                  <span className={styles['t-box-lbl']}>Continuous Thermal Limit</span>
+                                  <strong className={styles['t-box-val']}>{grade.tempLimit}</strong>
+                                </div>
+
+                                <div className={styles['telemetry-box']}>
+                                  <span className={styles['t-box-lbl']}>Primary Target Equipment</span>
+                                  <strong className={styles['t-box-val']}>{grade.primaryUse}</strong>
+                                </div>
+                              </div>
+
+                              {/* ACTION BAR */}
+                              <div className={styles['spotlight-actions-bar']}>
+                                <Button href="/contact">
+                                  Request {grade.name} Quote
+                                </Button>
+                                <Link href="/custom-parts" className="about-sub-link">
+                                  <span>Submit CAD Drawing for Casting / Fabrication</span>
+                                  <Arrow />
+                                </Link>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               )
             })}
           </div>
-        </div>
-
-        {/* 3. ACTIVE ALLOY TECHNICAL SPOTLIGHT DRAWER (NO PHOTO - PURE ENGINEERING DATA) */}
-        <div className={styles['active-grade-spotlight-drawer']}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeGrade.code}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className={styles['grade-spotlight-inner']}
-            >
-              {/* TECHNICAL HEADER BAR */}
-              <div className={styles['spotlight-tech-header']}>
-                <div className={styles['tech-header-left']}>
-                  <span className={styles['spotlight-badge-num']}>Alloy Specification</span>
-                  <span className={styles['spotlight-badge-cat']}>{activeGrade.category}</span>
-                </div>
-                <div className={styles['tech-header-right']}>
-                  <span className={styles['spotlight-hardness-chip']}>{activeGrade.hardness}</span>
-                </div>
-              </div>
-
-              {/* MAIN SPEC CONTENT GRID */}
-              <div className={styles['spotlight-main-grid']}>
-                {/* LEFT COLUMN: TITLE, METALLURGICAL SUMMARY & HIGHLIGHTS */}
-                <div className={styles['spotlight-desc-col']}>
-                  <h3 className={styles['spotlight-title']}>{activeGrade.name}</h3>
-                  <p className={styles['spotlight-desc-text']}>{activeGrade.desc}</p>
-
-                  <div className={styles['spotlight-highlights-block']}>
-                    <span className={styles['highlights-title']}>Engineering Capabilities</span>
-                    <ul className={styles['highlights-checklist']}>
-                      {activeGrade.highlights.map((item, i) => (
-                        <li key={i}>
-                          <span className={styles['check-icon']} aria-hidden="true">✓</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* RIGHT COLUMN: 4-CELL TELEMETRY MATRIX */}
-                <div className={styles['spotlight-telemetry-col']}>
-                  <div className={styles['telemetry-box-grid']}>
-                    <div className={styles['telemetry-box']}>
-                      <span className={styles['t-box-lbl']}>Chemical Composition</span>
-                      <span className={styles['t-box-val-clean']}>{activeGrade.composition}</span>
-                    </div>
-
-                    <div className={styles['telemetry-box']}>
-                      <span className={styles['t-box-lbl']}>Impact &amp; Shock Capacity</span>
-                      <strong className={styles['t-box-val']}>{activeGrade.impactResistance}</strong>
-                    </div>
-
-                    <div className={styles['telemetry-box']}>
-                      <span className={styles['t-box-lbl']}>Continuous Thermal Limit</span>
-                      <strong className={styles['t-box-val']}>{activeGrade.tempLimit}</strong>
-                    </div>
-
-                    <div className={styles['telemetry-box']}>
-                      <span className={styles['t-box-lbl']}>Primary Target Equipment</span>
-                      <strong className={styles['t-box-val']}>{activeGrade.primaryUse}</strong>
-                    </div>
-                  </div>
-
-                  {/* ACTION BAR */}
-                  <div className={styles['spotlight-actions-bar']}>
-                    <Button href="/contact">
-                      Request {activeGrade.name} Quote
-                    </Button>
-                    <Link href="/custom-parts" className="about-sub-link">
-                      <span>Submit CAD Drawing for Casting / Fabrication</span>
-                      <Arrow />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
         </div>
       </div>
 

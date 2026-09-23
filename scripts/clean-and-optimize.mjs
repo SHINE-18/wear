@@ -8,6 +8,10 @@ const imagesDir = path.join(rootDir, 'public', 'images');
 const keepAlways = new Set([
   'vector.svg',
   'Vector.svg',
+  'logo.svg',
+  'logo1.svg',
+  'white logo.svg',
+  'white-logo.svg',
   'screen.svg',
   'velvet-matte-grain.png',
   'dark-noise-texture.png',

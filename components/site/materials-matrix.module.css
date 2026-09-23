@@ -1,62 +1,34 @@
 /* ==========================================================================
-   MINIMAL SWISS ENGINEERING ALLOY MATRIX STYLES (#EBEBEB THEME)
+   MINIMAL SWISS ENGINEERING ALLOY MATRIX STYLES (#E4EAF2 THEME)
    ========================================================================== */
 
 .materials-page-root {
-  background: #EBEBEB;
+  position: relative;
+  background: #E4EAF2;
   min-height: 100vh;
+  overflow-x: clip;
 }
 
-/* EDITORIAL TEXT HERO */
-.materials-hero-section {
-  padding: clamp(7rem, 11vw, 9.5rem) clamp(1.5rem, 4vw, 4.5rem) clamp(2.5rem, 4vw, 3.5rem);
+/* --- PAGE CONTENT LAYER (GLIDES OVER EXPANDING HERO LIKE A CONTINUOUS CURTAIN) --- */
+.pageContentLayer {
+  position: relative;
+  z-index: 40;
+  margin-top: -100vh;
+  background-color: #E4EAF2;
+  transform: translateZ(0);
   width: 100%;
-  background: #EBEBEB;
 }
 
-.materials-hero-container {
-  max-width: 1600px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.35rem;
-}
-
-.materials-hero-title {
-  font-family: var(--font-display, var(--font-body));
-  font-size: clamp(2.6rem, 5.2vw, 4.4rem);
-  font-weight: 800;
-  color: #0E1014;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  margin: 0;
-}
-
-.materials-hero-title em {
-  font-style: normal;
-  color: #64748B;
-  font-weight: 400;
-}
-
-.materials-hero-desc {
-  font-family: var(--font-body, sans-serif);
-  font-size: clamp(1.05rem, 1.35vw, 1.22rem);
-  color: #475569;
-  max-width: 760px;
-  line-height: 1.65;
-  margin: 0;
-  font-weight: 400;
-}
-
-.materials-hero-actions {
-  margin-top: 0.5rem;
+@media (max-width: 960px) {
+  .pageContentLayer {
+    margin-top: 0;
+  }
 }
 
 .materials-matrix-section {
-  padding: clamp(1.5rem, 2.5vw, 2.5rem) clamp(1.5rem, 4vw, 4.5rem) clamp(5rem, 8vw, 7.5rem);
+  padding: clamp(4rem, 6vw, 6rem) clamp(1.5rem, 4vw, 4.5rem) clamp(5rem, 8vw, 7.5rem);
   width: 100%;
-  background: #EBEBEB;
+  background: #E4EAF2;
 }
 
 .materials-matrix-wrapper {
@@ -435,16 +407,45 @@
   transform: scaleY(1);
 }
 
+.matrix-row-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.matrix-row-accordion {
+  overflow: hidden;
+  border-bottom: 2px solid rgba(17, 18, 20, 0.12);
+  background: #FFFFFF;
+}
+
 .matrix-cell {
   flex-shrink: 0;
   padding-right: 1.5rem;
 }
 
-.col-grade { width: 28%; display: flex; flex-direction: column; gap: 0.25rem; }
-.col-hardness { width: 18%; display: flex; align-items: baseline; gap: 0.25rem; }
+.col-grade { width: 27%; display: flex; flex-direction: column; gap: 0.25rem; }
+.col-hardness { width: 17%; display: flex; align-items: baseline; gap: 0.25rem; }
 .col-chemistry { flex: 1; min-width: 0; }
-.col-impact { width: 16%; }
-.col-temp { width: 14%; text-align: right; padding-right: 1rem; }
+.col-impact { width: 15%; }
+.col-temp { width: 13%; text-align: right; padding-right: 0.5rem; }
+.col-toggle { width: 36px; display: flex; align-items: center; justify-content: center; padding-right: 0.25rem; }
+
+.row-chevron {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #94A3B8;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+
+.matrix-data-row:hover .row-chevron,
+.matrix-data-row.row-active .row-chevron {
+  color: var(--orange, #C8370B);
+}
+
+.row-chevron.rotated {
+  transform: rotate(180deg);
+}
 
 .grade-cat-tag {
   font-family: var(--font-mono);
@@ -510,6 +511,14 @@
   border-radius: 0;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
   overflow: hidden;
+}
+
+.matrix-row-accordion .grade-spotlight-inner {
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid rgba(17, 18, 20, 0.12);
+  border-bottom: none;
+  box-shadow: none;
 }
 
 .spotlight-tech-header {

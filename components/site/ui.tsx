@@ -12,16 +12,16 @@ export function Mark() {
   )
 }
 
-export function Logo({ height = 28, className = '' }: { height?: number; className?: string }) {
+export function Logo({ height = 38, className = '' }: { height?: number; className?: string }) {
   return (
     <span className={`brand-logo-frame ${className}`} aria-label="WearGuard">
       <img
-        src="/images/Vector.svg"
+        src="/logo/logo.svg"
         alt="WearGuard"
         className="brand-logo"
         width={150}
         height={height}
-        style={{ height: `${height}px`, width: 'auto', maxHeight: '28px', objectFit: 'contain', display: 'block' }}
+        style={{ height: `${height}px`, width: 'auto', maxHeight: `${height || 28}px`, objectFit: 'contain', display: 'block' }}
       />
     </span>
   )
@@ -35,12 +35,12 @@ export function Arrow() {
       fill="none"
       stroke="currentColor"
       strokeWidth="2.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeLinecap="square"
+      strokeLinejoin="miter"
       aria-hidden="true"
     >
       <path d="M7 7h10v10" className="arrow-head" />
-      <line x1="7" y1="17" x2="17" y2="7" className="arrow-stem" />
+      <line x1="7" y1="17" x2="16" y2="8" className="arrow-stem" strokeLinecap="square" />
     </svg>
   )
 }

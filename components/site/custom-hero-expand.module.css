@@ -1,0 +1,288 @@
+/* ==========================================================================
+   SCROLL-DRIVEN EXPANDING CUSTOM PARTS HERO (ASPHALT PLANTS PARITY)
+   ========================================================================== */
+
+/* 280vh Container for 180vh of scroll-driven expansion & curtain travel */
+.heroScrollContainer {
+  position: relative;
+  height: 280vh;
+  width: 100%;
+  background-color: #E4EAF2;
+  box-sizing: border-box;
+}
+
+/* 100vh Sticky Stage pinned to top of screen */
+.heroStickyStage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: #E4EAF2;
+  z-index: 1;
+}
+
+/* Fullscreen Interactive Magnetic Grid Canvas */
+.heroGridCanvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Header Content (Eyebrow, Title, Subtitle, Orange CTA) - Sits cleanly at top */
+.heroHeaderWrap {
+  position: absolute;
+  top: clamp(140px, 11.5vw, 168px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 32px;
+  box-sizing: border-box;
+  z-index: 10;
+  pointer-events: auto;
+  will-change: transform, opacity;
+}
+
+.heroHeaderGrid {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.heroHeaderLeft {
+  flex: 1;
+  max-width: 900px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: var(--ink, #0E1014);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.35rem;
+  line-height: 1;
+}
+
+.eyebrowBar {
+  width: 2.5px;
+  height: 12px;
+  background: var(--orange, #C8370B);
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+
+.heroTitle {
+  font-family: 'Inter', "Inter Placeholder", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+  font-weight: 550;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: #0E1014;
+  margin: 0 0 0.4rem;
+}
+
+.heroSubtitle {
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  color: #5A6172;
+  line-height: 1.4;
+  margin: 0;
+  font-weight: 500;
+  max-width: 660px;
+}
+
+/* Orange Square CTA Button */
+.ctaSquare {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 135px;
+  height: 135px;
+  background-color: var(--orange, #C8370B);
+  border-radius: 0;
+  padding: 1.15rem;
+  text-decoration: none;
+  box-shadow: 0 10px 25px rgba(200, 55, 11, 0.25);
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.ctaSquare:hover {
+  background-color: var(--orange-hover, #D84112);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(200, 55, 11, 0.38);
+}
+
+.ctaBracket {
+  align-self: flex-end;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaSquare:hover .ctaBracket {
+  transform: translate(3px, -3px);
+}
+
+.ctaLabel {
+  font-family: var(--font-body, sans-serif);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  max-width: 100px;
+  display: block;
+}
+
+/* Expanding Media Canvas */
+.mediaWrapper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  border-radius: 0;
+  background-color: #0E1014;
+  border-style: solid;
+  border-color: rgba(14, 16, 20, 0.12);
+  z-index: 5;
+  box-sizing: border-box;
+  will-change: top, width, height;
+}
+
+.plantImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Smooth Dissolve into Theme Slate as Curtain Stacks */
+.mediaSlateBlend {
+  position: absolute;
+  inset: 0;
+  background-color: #E4EAF2;
+  pointer-events: none;
+  z-index: 6;
+  will-change: opacity;
+}
+
+/* Static Plant Badge */
+.hudBadge {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: rgba(14, 16, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0;
+  color: #fff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.45rem 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 7;
+}
+
+.hudDot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--orange, #C8370B);
+  border-radius: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .heroHeaderWrap {
+    top: 84px;
+    padding: 0 24px;
+  }
+
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+
+  .ctaSquare {
+    width: 110px;
+    height: 110px;
+    padding: 0.9rem;
+  }
+
+  .ctaBracket {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroScrollContainer {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .heroStickyStage {
+    position: relative;
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 2rem;
+  }
+
+  .heroHeaderWrap {
+    position: relative;
+    top: 0;
+    padding: 5.5rem 1.25rem 1.5rem;
+  }
+
+  .heroHeaderGrid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .ctaSquare {
+    width: 100%;
+    height: 52px;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 1.25rem;
+  }
+
+  .ctaLabel {
+    max-width: none;
+    font-size: 0.95rem;
+  }
+
+  .ctaBracket {
+    order: 2;
+    width: 22px;
+    height: 22px;
+  }
+
+  .mediaWrapper {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    width: calc(100% - 2.5rem) !important;
+    margin: 0 auto;
+    height: 320px !important;
+  }
+
+  .mediaSlateBlend {
+    display: none;
+  }
+}

@@ -12,11 +12,15 @@
   background-color: var(--orange);
   position: relative;
   overflow: hidden;
-  padding: clamp(5rem, 8vw, 7.5rem) clamp(1.5rem, 4vw, 4.5rem);
+  padding-top: clamp(6.5rem, 11vw, 10.5rem);
+  padding-bottom: clamp(1.5rem, 2.6vw, 2.5rem);
+  padding-left: clamp(1.5rem, 4vw, 4.5rem);
+  padding-right: clamp(1.5rem, 4vw, 4.5rem);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .footer-cta-banner::before {
@@ -59,7 +63,7 @@
   max-width: 1600px;
   margin: 0 auto;
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
   text-decoration: none;
   color: #ffffff;
@@ -68,17 +72,19 @@
 }
 
 .footer-cta-content .footer-cta-title {
+  font-family: 'Inter', "Inter Placeholder", var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: clamp(2.8rem, 5.5vw, 5.2rem);
-  line-height: 1.04;
-  letter-spacing: -0.055em;
-  font-weight: 850;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  font-weight: 500;
   color: #ffffff;
   margin: 0;
-  padding-top: clamp(1.75rem, 3.2vw, 3.25rem);
+  padding-top: 0;
 }
 
 .cta-headline-accent {
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.58);
+  font-weight: 500;
 }
 
 /* SINGLE SVG CORNER -> ARROW CONTINUOUS MORPH */
@@ -149,7 +155,7 @@
 }
 
 .footer-brand-logo-img {
-  height: 64px;
+  height: 38px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -404,7 +410,7 @@
   }
 
   .footer-brand-logo-img {
-    height: 44px;
+    height: 32px;
   }
 
   .footer-bio-text {
@@ -449,7 +455,10 @@
   }
 
   .footer-cta-banner {
-    padding: 2.2rem 1.25rem;
+    padding-top: 4.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
 
   .footer-cta-content {

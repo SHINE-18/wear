@@ -2,16 +2,45 @@
    CUSTOM PARTS SUBPAGE MODULE STYLES
    ========================================================================== */
 
+.customPartsPageRoot {
+  position: relative;
+  background-color: #E4EAF2;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+/* --- PAGE CONTENT LAYER (GLIDES OVER EXPANDING HERO LIKE A CONTINUOUS CURTAIN) --- */
+.pageContentLayer {
+  position: relative;
+  z-index: 40;
+  margin-top: -100vh;
+  background-color: #FFFFFF;
+  transform: translateZ(0);
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .pageContentLayer {
+    margin-top: 0;
+  }
+}
+
 /* --- CAPABILITIES SECTION --- */
 .customPillarsSection {
-  padding: clamp(5rem, 8vw, 7.5rem) clamp(1.5rem, 4vw, 4.5rem);
+  position: relative;
+  background-color: #FFFFFF;
+  padding: clamp(5rem, 8vw, 7.5rem) clamp(1.5rem, 4vw, 3rem);
+  box-sizing: border-box;
+}
+
+.customPillarsContainer {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .customPillarsSection :global(.section-heading) {
-  max-width: 1320px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 3rem;
+  margin-bottom: 3.5rem;
 }
 
 /* --- CAPABILITY STRIP (HORIZONTAL) --- */
@@ -19,17 +48,22 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
   border-top: 1px solid rgba(17, 18, 20, 0.12);
+  width: 100%;
 }
 
 .aboutCapability {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  padding: 2rem 1.75rem 2rem 0;
+  padding: 2.25rem 1.75rem 2rem 0;
   position: relative;
   cursor: default;
+}
+
+.aboutCapability:last-child {
+  padding-right: 0;
 }
 
 /* Orange top-border wipe on hover */
@@ -49,7 +83,7 @@
 }
 
 /* Vertical divider between items */
-.aboutCapability + .aboutCapability {
+.aboutCapability+.aboutCapability {
   border-left: 1px solid rgba(17, 18, 20, 0.08);
   padding-left: 1.75rem;
 }
@@ -93,7 +127,7 @@
     padding: 1.5rem 1.25rem 1.5rem 0 !important;
   }
 
-  .aboutCapability + .aboutCapability {
+  .aboutCapability+.aboutCapability {
     padding-left: 1.25rem !important;
   }
 
@@ -150,7 +184,8 @@
 /* Vertical connecting line */
 .timelineLine {
   position: absolute;
-  left: 11px; /* Centers under the 24px dot */
+  left: 11px;
+  /* Centers under the 24px dot */
   top: 24px;
   bottom: -24px;
   width: 1px;
@@ -240,11 +275,11 @@
 
 /* --- SPECIFICATION CHECKLIST --- */
 .customSpecChecklist {
-  padding: clamp(5.5rem, 9vw, 8rem) clamp(1.5rem, 4vw, 4.5rem);
+  padding: clamp(5.5rem, 9vw, 8rem) clamp(1.5rem, 4vw, 3rem);
 }
 
 .checklistLayout {
-  max-width: 1320px;
+  max-width: 1600px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1.15fr;
@@ -361,11 +396,12 @@
   .timelineNode {
     padding-left: 2.5rem;
   }
-  
+
   .timelineLine {
-    left: 8px; /* Centers under scaled down dot */
+    left: 8px;
+    /* Centers under scaled down dot */
   }
-  
+
   .timelineDot {
     width: 18px;
     height: 18px;
