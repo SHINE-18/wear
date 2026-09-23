@@ -9,6 +9,7 @@
   margin-top: -100vh;
   background: #636573 !important;
   transform: translateZ(0);
+  width: 100%;
 }
 
 @media (max-width: 960px) {

@@ -17,12 +17,13 @@
 }
 
 .nav-wrap.nav-home {
-  width: min(calc(100% - clamp(280px, 20vw, 320px)), calc(1600px - clamp(280px, 20vw, 320px)));
-  left: max(0px, calc((100vw - 1600px) / 2));
+  width: calc(100% - clamp(280px, 20vw, 320px));
+  left: 0;
 }
 
 .nav-wrap.nav-home:not(.docked) {
-  padding-left: 3.5rem;
+  padding-left: clamp(2.5rem, 3.5vw, 4.5rem);
+  padding-right: 2rem;
 }
 
 .nav-wrap.nav-full:not(.docked) {
@@ -209,9 +210,9 @@
 }
 
 .dock-brand-text {
-  font-size: 1.15rem;
-  font-weight: 900;
-  letter-spacing: -0.05em;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: #ffffff;
   display: inline-flex;
   align-items: baseline;
@@ -226,8 +227,8 @@
 
 .dock-brand-accent {
   color: var(--orange);
-  font-weight: 900;
-  letter-spacing: -0.04em;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .dock-brand-tag {
@@ -248,7 +249,7 @@
   color: #a4a7b5;
   padding: 0.18rem 0.55rem;
   font-size: 0.85rem;
-  font-weight: 550;
+  font-weight: 450;
   line-height: 1.1;
   display: inline-flex;
   align-items: center;
@@ -327,9 +328,9 @@
   height: 100%;
   padding: 0 1.5rem;
   font-size: 0.88rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  border-radius: 0 3px 3px 0;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-radius: 0;
   transition: background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
 }
@@ -596,11 +597,5 @@
   .nav-wrap.docked {
     padding: 0 0 0 1rem;
     gap: 1rem;
-  }
-}
-
-@media (min-width: 1680px) {
-  .nav-wrap.nav-home:not(.docked) {
-    padding-left: 3.5rem;
   }
 }

@@ -418,11 +418,6 @@ export function CatalogGrid() {
       <div className={styles['catalog-container']}>
         {/* TOP HEADER */}
         <div className={styles['catalog-header']}>
-          <div className={styles['catalog-eyebrow-badge']}>
-            <span className={styles['gear-icon']} aria-hidden="true">⚙</span>
-            <span>Industrial Equipment Components Catalog</span>
-          </div>
-
           <h1 className={styles['catalog-main-title']}>
             Precision Wear Components &amp;
             <br />

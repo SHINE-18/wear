@@ -16,8 +16,8 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Reset scroll to top immediately on page change
     window.scrollTo(0, 0)
-    if (typeof window !== 'undefined' && typeof window.lenis?.scrollTo === 'function') {
-      window.lenis.scrollTo(0, { immediate: true })
+    if (typeof window !== 'undefined' && typeof window.__lenis?.scrollTo === 'function') {
+      window.__lenis.scrollTo(0, { immediate: true })
     }
 
     if (!hasNavigatedOnce) {

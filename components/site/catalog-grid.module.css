@@ -28,27 +28,6 @@
   gap: 1.15rem;
 }
 
-.catalog-eyebrow-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
-  border-radius: 0;
-  background: #FFFFFF;
-  border: 1px solid rgba(17, 18, 20, 0.12);
-  font-size: 0.74rem;
-  font-weight: 600;
-  color: var(--orange, #C8370B);
-  width: fit-content;
-  font-family: var(--font-body, sans-serif);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.catalog-eyebrow-badge .gear-icon {
-  color: var(--orange, #C8370B);
-  font-size: 0.95rem;
-}
 
 .catalog-main-title {
   font-size: clamp(2.4rem, 4.8vw, 4.2rem);

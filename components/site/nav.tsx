@@ -34,31 +34,38 @@ export function SiteNav() {
   }, [open])
 
   // Animate top navbar out smoothly on initial scroll
-  const topNavOpacity = useTransform(scrollY, [0, 90], [1, 0])
-  const topNavY = useTransform(scrollY, [0, 90], [0, -70])
+  const topNavOpacity = useTransform(scrollY, [0, 80], [1, 0])
+  const topNavY = useTransform(scrollY, [0, 80], [0, -60])
 
   useEffect(() => {
+    // Initial check on mount
+    if (scrollY.get() > 80) {
+      setDocked(true)
+    }
+
     return scrollY.on('change', (latest) => {
       const prev = lastScrollY.current
       const diff = latest - prev
 
-      if (latest > 140) {
+      // As soon as the upper navbar finishes hiding (80px), reveal the bottom docked navbar
+      if (latest > 80) {
         setDocked(true)
       } else {
         setDocked(false)
         setScrollingDown(false)
       }
 
-      // Smart directional detection: only trigger if scrolled past hero threshold
-      if (latest > 180) {
-        if (diff > 8) {
+      // Hide on scroll down after initial entrance buffer:
+      if (latest > 160) {
+        if (diff > 6) {
           // Scrolling down: slide down & tuck away to free screen space
           setScrollingDown(true)
-        } else if (diff < -8) {
+        } else if (diff < -6) {
           // Scrolling up: reveal navbar immediately
           setScrollingDown(false)
         }
       } else {
+        // In the entrance zone (80px - 160px), keep it visible
         setScrollingDown(false)
       }
 
@@ -100,49 +107,18 @@ export function SiteNav() {
   return (
     <>
       {pathname === '/' && <ScrollProgress />}
+
+      {/* TOP NAVBAR */}
       <motion.header
-        className={`${styles['nav-wrap']} ${docked ? styles.docked : ''} ${pathname === '/' ? styles['nav-home'] : styles['nav-full']}`}
-        animate={
-          docked
-            ? {
-                opacity: shouldHide ? 0 : 1,
-                x: '-50%',
-                y: shouldHide ? 48 : 0,
-                scale: shouldHide ? 0.95 : 1,
-                transitionEnd: {
-                  visibility: shouldHide ? 'hidden' : 'visible',
-                },
-              }
-            : undefined
-        }
-        transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
-        style={
-          docked
-            ? {
-                pointerEvents: shouldHide ? 'none' : 'auto',
-              }
-            : {
-                opacity: topNavOpacity,
-                x: 0,
-                y: topNavY,
-                scale: 1,
-              }
-        }
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        className={`${styles['nav-wrap']} ${pathname === '/' ? styles['nav-home'] : styles['nav-full']}`}
+        style={{
+          opacity: topNavOpacity,
+          y: topNavY,
+          pointerEvents: docked ? 'none' : 'auto',
+        }}
       >
         <Link className={styles.brand} href="/" aria-label="WearGuard">
-          {docked ? (
-            <span className={styles['dock-brand-text']}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ marginRight: '0.35rem', flexShrink: 0 }}>
-                <rect x="2" y="2" width="20" height="20" rx="2" fill="#C8370B" />
-                <path d="M6.5 7L9.5 16H10.5L12 11L13.5 16H14.5L17.5 7H16L14 14L12.5 9H11.5L10 14L8 7H6.5Z" fill="white" />
-              </svg>
-              WEAR<span className={styles['dock-brand-accent']}>GUARD</span>
-            </span>
-          ) : (
-            <Logo />
-          )}
+          <Logo />
         </Link>
         <nav className={styles['nav-links']}>
           {navItems.map((item) => (
@@ -165,12 +141,6 @@ export function SiteNav() {
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
           </button>
-          {docked && (
-            <Link href="/contact" className={styles['dock-cta']}>
-              <span>Get a quote</span>
-              <span className={styles['dock-corner-icon']} aria-hidden="true" />
-            </Link>
-          )}
           <button
             className={`${styles['menu-btn']} ${open ? styles['menu-btn-open'] : ''}`}
             aria-label="Toggle menu"
@@ -191,6 +161,80 @@ export function SiteNav() {
           </button>
         </div>
       </motion.header>
+
+      {/* FLOATING BOTTOM DOCKED NAVBAR */}
+      <AnimatePresence>
+        {docked && (
+          <motion.nav
+            className={`${styles['nav-wrap']} ${styles.docked}`}
+            initial={{ opacity: 0, y: 32, x: '-50%' }}
+            animate={{
+              opacity: shouldHide ? 0 : 1,
+              y: shouldHide ? 40 : 0,
+              x: '-50%',
+              scale: shouldHide ? 0.96 : 1,
+            }}
+            exit={{ opacity: 0, y: 32, x: '-50%' }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              pointerEvents: shouldHide ? 'none' : 'auto',
+            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            aria-label="Floating navigation"
+          >
+            <Link className={styles.brand} href="/" aria-label="WearGuard">
+              <span className={styles['dock-brand-text']}>
+                WEAR<span className={styles['dock-brand-accent']}>GUARD</span>
+              </span>
+            </Link>
+            <nav className={styles['nav-links']}>
+              {navItems.map((item) => (
+                <Link key={item.href} href={item.href} className={pathname === item.href ? styles['nav-active'] : ''}>
+                  <span className={styles['nav-text']}>{item.label}</span>
+                  <span className={styles['nav-dot']} aria-hidden="true" />
+                </Link>
+              ))}
+            </nav>
+            <div className={styles['nav-actions']}>
+              <button
+                type="button"
+                className={styles['search-btn']}
+                aria-label="Search site (Ctrl+K)"
+                onClick={() => setSearchOpen(true)}
+                title="Search (Ctrl+K)"
+              >
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+              </button>
+              <Link href="/contact" className={styles['dock-cta']}>
+                <span>Get a quote</span>
+                <span className={styles['dock-corner-icon']} aria-hidden="true" />
+              </Link>
+              <button
+                className={`${styles['menu-btn']} ${open ? styles['menu-btn-open'] : ''}`}
+                aria-label="Toggle menu"
+                onClick={() => setOpen(!open)}
+              >
+                {open ? (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                ) : (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+                    <line x1="4" y1="7" x2="20" y2="7" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                    <line x1="4" y1="17" x2="20" y2="17" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
 
       {/* FULL-SCREEN TILANIUM-STYLE MOBILE NAV DRAWER */}
       <AnimatePresence>

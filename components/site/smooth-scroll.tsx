@@ -5,7 +5,7 @@ import Lenis from 'lenis'
 
 declare global {
   interface Window {
-    lenis?: Lenis
+    __lenis?: Lenis
   }
 }
 
@@ -20,7 +20,7 @@ export function SmoothScroll() {
       syncTouchLerp: 0.075,
     })
 
-    window.lenis = lenis
+    window.__lenis = lenis
 
     function raf(time: number) {
       lenis.raf(time)
@@ -30,7 +30,7 @@ export function SmoothScroll() {
     requestAnimationFrame(raf)
 
     return () => {
-      delete window.lenis
+      delete window.__lenis
       lenis.destroy()
     }
   }, [])
