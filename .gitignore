@@ -69,3 +69,29 @@ __v0_jsx-dev-runtime.ts
 # Package manager locks (using npm)
 pnpm-lock.yaml
 yarn.lock
+
+# Raw asset dumps & staging (kept locally)
+public/new/
+
+# Local scratch / utility scripts (keep optimize.mjs for package.json)
+scripts/*
+!scripts/optimize.mjs
+
+# Unused / duplicate assets (kept locally, untracked on Git)
+public/images/Arm Protection.webp
+public/images/Custom earth moving bucket tips3.webp
+public/images/Custom protection.webp
+public/images/earth moving bucket tips 1.webp
+public/images/earth moving bucket tips 2.webp
+public/images/earth moving bucket tips 4.webp
+public/images/Mixer omponents.webp
+public/images/Stainless steel protection.webp
+public/images/liner control the low.webp
+public/images/executive-consulting.jpg
+public/images/foundry-molten-steel.jpg
+public/images/industrial-aerial-plant.jpg
+public/images/precision-machined-gears.jpg
+public/images/silo-pipe-manifold.jpg
+public/images/timber-biomass-facility.jpg
+public/images/wear-steel.webp
+public/logo/vector1.svg
