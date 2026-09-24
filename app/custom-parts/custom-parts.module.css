@@ -89,7 +89,7 @@
 }
 
 .capabilityMetric {
-  font-family: 'Inter', "Inter Placeholder", var(--font-body), sans-serif;
+  font-family: var(--font-body);
   font-size: clamp(2.2rem, 3.5vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -103,7 +103,7 @@
 }
 
 .capabilityLabel {
-  font-family: 'Inter', "Inter Placeholder", var(--font-body), sans-serif;
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 500;
   color: #64748b;

@@ -85,8 +85,8 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           <div className={styles['footer-links-col']}>
             <h4>Industries</h4>
             <ul className={styles['footer-links-list']}>
-              <li><Link href="/industries#asphalt-paving">Asphalt Plants</Link></li>
-              <li><Link href="/industries#concrete-batching">Concrete Batching</Link></li>
+              <li><Link href="/industries#asphalt-paving">Hot Mix Batching</Link></li>
+              <li><Link href="/industries#concrete-batching">Concrete Industries</Link></li>
               <li><Link href="/industries#process-industries">Process Industries</Link></li>
               <li><Link href="/industries#mining-mineral">Mining &amp; Quarrying</Link></li>
             </ul>

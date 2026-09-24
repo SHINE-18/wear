@@ -101,14 +101,8 @@ export function InteractiveGrid() {
         if (dist < influenceRadius && mouse.x > 0 && mouse.y > 0) {
           const force = Math.pow(1 - dist / influenceRadius, 1.3)
           targetAngle = Math.atan2(dy, dx)
-          
-          if (force > 0.45) {
-            strokeColor = `rgba(200, 55, 11, ${0.35 + force * 0.40})`
-            lineW = 0.90
-          } else {
-            strokeColor = `rgba(15, 23, 42, ${0.10 + force * 0.22})`
-            lineW = 0.75
-          }
+          strokeColor = `rgba(15, 23, 42, ${0.10 + force * 0.28})`
+          lineW = 0.70 + force * 0.20
         }
 
         // Smooth angle rotation interpolation

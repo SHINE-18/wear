@@ -1,4 +1,4 @@
-export const heroImage = '/images/asphalt-plant-hero.png'
+export const heroImage = '/images/asphalt-plant-hero.webp'
 export const aboutImage = '/images/second.jpeg'
 export const plantImage = '/images/wearguard-hero-3d.png'
 
@@ -391,7 +391,7 @@ export const applications: Application[] = [
       { label: 'Lead Time', value: '6–8 Weeks' },
       { label: 'Batch Size', value: '1–10 Units Supported' },
     ],
-    image: '/images/wearguard-parts.png',
+    image: '/images/wearguard-parts.webp',
     subComponents: [
       {
         id: 'trough-liners',

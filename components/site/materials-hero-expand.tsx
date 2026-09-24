@@ -124,6 +124,8 @@ export function MaterialsHeroExpand() {
             src="/images/materials-cast-specimen.jpg"
             alt="WearGuard engineered 28% Cr high-chrome metallurgical casting specimen"
             className={styles.plantImage}
+            width={1920}
+            height={1080}
           />
 
           {/* Smooth Dissolve into Theme Slate as Curtain Stacks */}

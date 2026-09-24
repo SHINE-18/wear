@@ -1,24 +1,24 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Figtree, Inter, JetBrains_Mono } from 'next/font/google'
 import { AdaptiveScrollbar } from '@/components/site/adaptive-scrollbar'
 import { SmoothScroll } from '@/components/site/smooth-scroll'
 import './globals.css'
 
-const fontDisplay = Inter({
+const fontDisplay = Figtree({
   subsets: ['latin'],
   variable: '--font-display',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   display: 'swap',
-  fallback: ['Inter Placeholder', 'sans-serif'],
+  fallback: ['Figtree Placeholder', 'sans-serif'],
 })
 
-const fontBody = Inter({
+const fontBody = Figtree({
   subsets: ['latin'],
   variable: '--font-body',
   weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
-  fallback: ['Inter Placeholder', 'sans-serif'],
+  fallback: ['Figtree Placeholder', 'sans-serif'],
 })
 
 const fontMono = JetBrains_Mono({
@@ -33,9 +33,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://wearguard.com.au'),
   title: 'WearGuard | Precision Industrial Wear Engineering',
   description: 'WearGuard engineers high-performance wear castings, custom alloy liners, and precision replacement parts that outlast OEM standards across heavy industry.',
-  alternates: {
-    canonical: '/',
-  },
 }
 
 export const viewport: Viewport = {
@@ -56,7 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
           rel="stylesheet"
         />
       </head>

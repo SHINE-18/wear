@@ -38,8 +38,8 @@ export const industriesData: IndustryData[] = [
   {
     slug: 'asphalt',
     num: '01',
-    title: 'Asphalt Plants',
-    cardTitle: 'Asphalt Plants',
+    title: 'Hot Mix Batching',
+    cardTitle: 'Hot Mix Batching',
     subtitle: 'High-Temperature Drum Dryers, Continuous Pugmills & Asphalt Batching Plants',
     eyebrow: 'Services',
     cardDesc: 'High-temp pugmill paddle tips, flighting liners, and slinger arms engineered for 400°C–950°C abrasive aggregate mixing.',
@@ -79,8 +79,8 @@ export const industriesData: IndustryData[] = [
   {
     slug: 'concrete',
     num: '02',
-    title: 'Concrete Batching',
-    cardTitle: 'Concrete Batching',
+    title: 'Concrete Industries',
+    cardTitle: 'Concrete Industries',
     subtitle: 'Planetary Mixers, Twin-Shaft Blenders & High-Production Concrete Plants',
     eyebrow: 'Services',
     cardDesc: 'Heavy-duty pan mixer floor tiles, scraper blades, and discharge chutes built to resist punishing quartz aggregate grinding.',

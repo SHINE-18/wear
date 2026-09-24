@@ -302,7 +302,7 @@ export function CinematicHero() {
             muted
             loop
             playsInline
-            poster="/images/asphalt-plant-hero.png"
+            poster="/images/asphalt-plant-hero.webp"
             style={{
               filter: videoBlurFilter,
               opacity: videoOpacity,

@@ -74,20 +74,20 @@ async function optimizeAll() {
 
       let pipeline = sharp(inputBuffer);
 
-      // Max width cap: 1600px for desktop sharpness without massive pixel bloat
-      if (metadata.width && metadata.width > 1600) {
-        pipeline = pipeline.resize({ width: 1600, withoutEnlargement: true });
+      // Width cap: 1200px desktop sharpness while keeping file size under 100 kB
+      if (metadata.width && metadata.width > 1200) {
+        pipeline = pipeline.resize({ width: 1200, withoutEnlargement: true });
       }
 
       let buffer;
       if (ext === '.jpg' || ext === '.jpeg') {
-        buffer = await pipeline.jpeg({ quality: 80, mozjpeg: true }).toBuffer();
+        buffer = await pipeline.jpeg({ quality: 72, mozjpeg: true }).toBuffer();
       } else if (ext === '.webp') {
-        buffer = await pipeline.webp({ quality: 78, effort: 6 }).toBuffer();
+        buffer = await pipeline.webp({ quality: 74, effort: 6 }).toBuffer();
       } else if (ext === '.png') {
-        buffer = await pipeline.png({ quality: 80, compressionLevel: 9, palette: true }).toBuffer();
+        buffer = await pipeline.png({ quality: 65, compressionLevel: 9, palette: true }).toBuffer();
       } else if (ext === '.avif') {
-        buffer = await pipeline.avif({ quality: 75 }).toBuffer();
+        buffer = await pipeline.avif({ quality: 70 }).toBuffer();
       }
 
       if (buffer && buffer.length < initialSize) {

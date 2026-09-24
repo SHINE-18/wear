@@ -72,7 +72,7 @@
 }
 
 .footer-cta-content .footer-cta-title {
-  font-family: 'Inter', "Inter Placeholder", var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.8rem, 5.5vw, 5.2rem);
   line-height: 1.05;
   letter-spacing: -0.04em;

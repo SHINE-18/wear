@@ -120,6 +120,8 @@ export function IndustryHeroExpand({ industry }: { industry: IndustryData }) {
             src={industry.bannerImage}
             alt={industry.imageAlt}
             className={styles.indPlantImage}
+            width={1920}
+            height={1080}
           />
 
           {/* Smooth Dissolve into Theme Slate as Curtain Stacks */}

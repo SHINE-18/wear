@@ -99,22 +99,25 @@ export function HomePageClient() {
         <section id="about-us" className={`${styles.aboutSection} about section-slate-steel`}>
           <div className={styles.aboutGrid}>
             <FadeUp className={styles.aboutLeft}>
-              <SectionLabel>About Us</SectionLabel>
+              <SectionLabel>Our Approach</SectionLabel>
               <h2 className={styles.aboutSplitTitle}>
-                Driven by <span className={styles.aboutMutedWord}>Precision.</span> Powered
-                <br />
-                by <span className={styles.aboutMutedWord}>Experience.</span>
+                The Complete Wear <span className={styles.aboutMutedWord}>Protection Ecosystem</span>
               </h2>
 
-              <div className={styles.aboutHatchBar} aria-hidden="true" />
+              <div className={styles.approachTagline}>
+                ANY BRAND. ANY ERA. NO EXCUSES.
+              </div>
 
               <p className={styles.aboutSplitLead}>
-                We deliver high-quality industrial solutions designed to meet the demands of modern production. From engineering to execution, our focus is on efficiency, reliability, and long-term performance.
+                We don&apos;t just supply parts; we engineer outcomes. WearGuard specializes in the custom design and precision manufacture of high-performance components for every stage of your operation — from asphalt and concrete to mining and process handling.
+              </p>
+              <p className={styles.aboutSplitLead}>
+                Stop settling for &ldquo;off-the-shelf&rdquo; failures. Our engineers match your specific site conditions — abrasive local materials, extreme thermal cycling, corrosive flow — with a library of proven, application-specific alloys and compositions. We solve the wear-life equation so you can focus on production.
               </p>
 
               <div className={styles.aboutCtaRow}>
                 <Link href="/about" className={styles.aboutLearnMoreLink}>
-                  <span>Learn More</span>
+                  <span>Learn More About WearGuard</span>
                   <Arrow />
                 </Link>
               </div>
@@ -281,6 +284,7 @@ export function HomePageClient() {
                             src={card.plantImg}
                             alt={`${card.title} In-Plant`}
                             width={616}
+                            height={464}
                             className={styles.plantImgLayer}
                           />
                         </div>

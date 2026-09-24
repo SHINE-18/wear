@@ -215,7 +215,7 @@ export const SECTOR_GROUPS: SectorGroup[] = [
         life: 'Case Hardened 60 HRC',
         description:
           'Precision-cast flight links with induction-hardened pins engineered for extreme continuous tensile loads.',
-        image: '/images/wearguard-parts.png',
+        image: '/images/wearguard-parts.webp',
         href: '/applications/drag-conveyors',
       },
     ],

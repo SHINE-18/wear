@@ -64,7 +64,7 @@
 }
 
 .contact-hero-title {
-  font-family: 'Inter', "Inter Placeholder", var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.6rem, 4.8vw, 4.2rem);
   font-weight: 700;
   color: #0E1014;
@@ -207,7 +207,7 @@
 }
 
 .specs-title {
-  font-family: 'Inter', "Inter Placeholder", var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.2rem, 3.8vw, 3.4rem);
   font-weight: 700;
   color: #FFFFFF;

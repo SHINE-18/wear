@@ -19,18 +19,18 @@ interface CardData {
 const cards: CardData[] = [
   {
     id: 'asphalt',
-    title: 'Asphalt Plants',
+    title: 'Hot Mix Batching',
     desc: 'High-temp pugmill paddle tips, flighting liners, and slinger arms engineered for 400°C abrasive aggregate mixing.',
     image: '/images/asphalt-plant-tower.jpg',
-    imageAlt: 'Asphalt plant aggregate conveyor elevator and mixing tower',
+    imageAlt: 'Hot mix batching plant aggregate conveyor elevator and mixing tower',
     link: '/industries/asphalt',
   },
   {
     id: 'concrete',
-    title: 'Concrete Batching',
+    title: 'Concrete Industries',
     desc: 'Heavy-duty pan mixer floor tiles, scraper blades, and discharge chutes built to resist slurry grinding.',
     image: '/images/concrete-batching-silos.jpg',
-    imageAlt: 'Concrete batch plant storage silos, ready-mix truck, and mixing assembly',
+    imageAlt: 'Concrete industry storage silos, ready-mix truck, and mixing assembly',
     link: '/industries/concrete',
   },
   {

@@ -121,6 +121,8 @@ export function CustomHeroExpand() {
             src="/images/custom-foundry-batch.jpg"
             alt="WearGuard custom industrial casting batch in high-alloy metallurgy"
             className={styles.plantImage}
+            width={1920}
+            height={1080}
           />
 
           {/* Smooth Dissolve into Theme Slate as Curtain Stacks */}
