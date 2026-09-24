@@ -28,9 +28,9 @@ const customSteps: CustomStep[] = [
     id: 'reverse-engineering',
     stepNum: '01',
     title: 'Wear Analysis & Metrology',
-    subtitle: '100% Guaranteed OEM Match',
+    subtitle: 'Precision Engineered OEM Match',
     category: 'Wear Analysis & Metrology',
-    heading: 'Guaranteed 100% Bolt-On Fit Without OEM Drawings',
+    heading: 'Engineered for Direct Bolt-On Fit Without OEM Drawings',
     description: 'High-precision 3D coordinate laser scanning and wear-pattern analysis of worn parts to capture exact working geometries, bolt patterns, and tolerance profiles without original manufacturer drawings.',
     specs: [
       { label: 'Scanning Accuracy', value: '±0.05mm CMM Laser' },
@@ -39,7 +39,7 @@ const customSteps: CustomStep[] = [
     ],
     highlights: [
       'Eliminates OEM lock-in and excessive replacement lead times',
-      'Guaranteed 100% direct drop-in bolt fitment for all machinery brands',
+      'Direct drop-in bolt fitment engineered for major machinery brands',
     ],
     image: '/images/custom-parts/wear-analysis.jpeg',
     objectPosition: 'center 42%',
@@ -59,7 +59,7 @@ const customSteps: CustomStep[] = [
     specs: [
       { label: 'Hardness Range', value: '400–680 BHN (42–65 HRC)' },
       { label: 'Alloy Chemistry', value: 'Cr 15–28%, Ni-Hard & Mn' },
-      { label: 'Campaign Life', value: '+45% to +70% Over OEM' },
+      { label: 'Campaign Life', value: '+20% to +60% Over OEM' },
     ],
     highlights: [
       'Hyper-eutectic chromium white irons for extreme aggregate gouging',
@@ -78,7 +78,7 @@ const customSteps: CustomStep[] = [
     title: 'Small-Batch Flexibility',
     subtitle: '1–10 Units With No Minimums',
     category: 'Rapid Foundry Production',
-    heading: 'Zero Minimum Order Barrier for Emergency & Trial Runs',
+    heading: 'No Minimum Order Barrier for Emergency & Trial Runs',
     description: 'Rapid pattern tooling, mold simulation, and tight-tolerance casting for 1–10 unit prototype batches, field trial sets, or emergency breakdown replacements shipped in 6–8 weeks.',
     specs: [
       { label: 'Batch Size', value: '1–10 Units Supported' },

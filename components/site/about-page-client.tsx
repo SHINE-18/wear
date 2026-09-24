@@ -81,7 +81,7 @@ export function AboutPageClient() {
           <FadeUp className={styles['about-story-left']}>
             <div className={styles['founder-portrait-frame']}>
               <Image
-                src="/images/founder-john-smith.jpg"
+                src="/images/founder-david-vance.jpg"
                 alt="David Vance, Principal Metallurgist & Founder of WearGuard"
                 fill
                 className={styles['founder-img']}

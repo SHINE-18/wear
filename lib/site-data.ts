@@ -728,21 +728,17 @@ export const customFeatures = [
 ]
 
 export const aboutStats = [
-  { num: '20+', label: 'Years Heavy Industry', desc: 'Over two decades engineering wear-resistant alloys and specialized foundry castings.' },
+  { num: '10+', label: 'Years Heavy Industry', desc: 'Over a decade engineering wear-resistant alloys and specialized foundry castings.' },
   { num: '1,200+', label: 'Custom Cast Profiles', desc: 'Proprietary wear pattern database for pugmills, crushers, and transfer chutes.' },
   { num: '60%', label: 'Longer Service Life', desc: 'Documented wear improvements over standard manganese and low-alloy OEM liners.' },
   { num: '1–10', label: 'Unit Small-Batch Runs', desc: 'Rapid custom manufacturing flexibility with zero minimum order penalties.' },
 ]
 
 export const teamMembers = [
-  { name: 'David Vance', role: 'Principal Metallurgist & Founder', image: '/images/founder-john-smith.jpg', linkedin: 'https://linkedin.com' },
-  { name: 'Marcus Chen', role: 'Head of Foundry & Casting Works', image: '/images/team-sarah-mitchell.jpg', linkedin: 'https://linkedin.com' },
-  { name: 'Sarah Jenkins', role: 'Lead Mechanical & 3D Reverse Engineer', image: '/images/team-daniel-foster.jpg', linkedin: 'https://linkedin.com' },
-  { name: 'Dr. Arthur Reynolds', role: 'Senior Materials Scientist (Tribology)', image: '/images/team-emily-turner.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Marcus Chen', role: 'Head of Foundry & Casting Works', image: '/images/team-daniel-foster.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Sarah Jenkins', role: 'Lead Mechanical & 3D Reverse Engineer', image: '/images/team-emily-turner.jpg', linkedin: 'https://linkedin.com' },
+  { name: 'Dr. Elena Rostova', role: 'Senior Materials Scientist (Tribology)', image: '/images/team-sarah-mitchell.jpg', linkedin: 'https://linkedin.com' },
   { name: 'James Thorne', role: 'Plant Wear Audit & Telemetry Specialist', image: '/images/team-james-walker.jpg', linkedin: 'https://linkedin.com' },
-  { name: 'Elena Rostova', role: 'Pattern Tooling & CNC Machining Lead', image: '/images/team-sarah-mitchell.jpg', linkedin: 'https://linkedin.com' },
-  { name: 'Cameron Wright', role: 'Asphalt & Batching Systems Specialist', image: '/images/team-emily-turner.jpg', linkedin: 'https://linkedin.com' },
-  { name: 'Liam O\'Connor', role: 'Mining & Heavy Crushing Applications Lead', image: '/images/team-daniel-foster.jpg', linkedin: 'https://linkedin.com' },
 ]
 
 export const openPositions = [
