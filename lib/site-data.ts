@@ -1,3 +1,15 @@
+import {
+  YEARS_IN_BUSINESS,
+  CUSTOM_CAST_PROFILES,
+  CUSTOM_CAST_PROFILES_LABEL,
+  SERVICE_LIFE_HEADLINE,
+  SERVICE_LIFE_LABEL,
+  SERVICE_LIFE_DESC,
+  BATCH_SIZE_RANGE,
+  BATCH_SIZE_LABEL,
+  BATCH_SIZE_DESC,
+} from '@/lib/site-facts'
+
 export const heroImage = '/images/asphalt-plant-hero.webp'
 export const aboutImage = '/images/second.jpeg'
 export const plantImage = '/images/wearguard-hero-3d.png'
@@ -63,7 +75,7 @@ export const applications: Application[] = [
         title: 'Dryer Drum Sprockets & Trunnion',
         subtitle: 'High-Torque Drive Rings & Pinions',
         image: '/images/dryer-sprockets.webp',
-        description: 'CNC-machined and induction-hardened forged alloy sprockets designed for high-torque rotary dryers. 100% direct drop-in match for all major OEM drum drive assemblies.',
+        description: 'CNC-machined and induction-hardened forged alloy sprockets designed for high-torque rotary dryers. Engineered for direct drop-in match across all major OEM drum drive assemblies.',
         specs: [
           { label: 'Material', value: 'Forged 42CrMo4 / Alloy Steel' },
           { label: 'Heat Treat', value: 'Induction Hardened Teeth (50–55 HRC)' },
@@ -187,7 +199,7 @@ export const applications: Application[] = [
     specs: [
       { label: 'Typical Hardness', value: '600–680 BHN (60–64 HRC)' },
       { label: 'Wear Improvement', value: '45–70% Over Standard OEM' },
-      { label: 'Interchangeability', value: '100% Direct Bolt-On Match' },
+      { label: 'Interchangeability', value: 'Direct Bolt-On Match' },
       { label: 'Lead Time', value: '6–8 Weeks' },
     ],
     image: '/images/mixer-shaft-&-arms.webp',
@@ -234,9 +246,9 @@ export const applications: Application[] = [
       text: 'Our technical team verifies paddle angles, tile clearance tolerances, and alloy metallurgy to double your concrete or asphalt batching tonnage between scheduled relines.',
       image: '/images/mixer-tips.webp',
       points: [
-        '100% direct bolt-on interchangeability guarantee',
+        'Fit verified against 3D scan data before casting',
         'Custom slotted mounting holes for field clearance adjustment',
-        'Express emergency replacement casting program',
+        'Trial and short-run batch production (1–10 units)',
       ],
     },
   },
@@ -436,8 +448,8 @@ export const applications: Application[] = [
       image: '/images/liner-control-the-low.webp',
       points: [
         'Complete turn-key shutdown reline packages',
-        '100% direct drop-in fit with zero on-site modifications',
-        '24-Hour emergency dispatch for critical breakdown components',
+        'Verified direct drop-in fit with zero on-site modifications',
+        'Complete pre-packaged shutdown reline kits',
       ],
     },
   },
@@ -687,7 +699,7 @@ export const tickerItems: TickerItemData[] = [
 export const faqs = [
   {
     q: 'What industries do you work with?',
-    a: 'WearGuard supports asphalt paving, concrete batching, heavy mining & mineral processing, metal recycling, aggregate quarrying, cement kilns, and heavy industrial plant manufacturers across global operations.',
+    a: 'WearGuard supports asphalt paving, concrete batching, heavy mining & mineral processing, aggregate quarrying, and heavy industrial plant manufacturers across Australian operations.',
   },
   {
     q: 'Do you provide custom industrial solutions?',
@@ -703,7 +715,7 @@ export const faqs = [
   },
   {
     q: 'Do you offer long-term technical support?',
-    a: 'WearGuard provides ongoing metallurgical advisory, regular on-site ultrasonic wear audits, telemetry tracking, and guaranteed fleet restocking agreements to eliminate unplanned plant downtime.',
+    a: 'WearGuard provides ongoing metallurgical advisory, regular on-site ultrasonic wear audits, telemetry tracking, and scheduled fleet restocking agreements to eliminate unplanned plant downtime.',
   },
 ]
 
@@ -728,10 +740,10 @@ export const customFeatures = [
 ]
 
 export const aboutStats = [
-  { num: '10+', label: 'Years Heavy Industry', desc: 'Over a decade engineering wear-resistant alloys and specialized foundry castings.' },
-  { num: '1,200+', label: 'Custom Cast Profiles', desc: 'Proprietary wear pattern database for pugmills, crushers, and transfer chutes.' },
-  { num: '60%', label: 'Longer Service Life', desc: 'Documented wear improvements over standard manganese and low-alloy OEM liners.' },
-  { num: '1–10', label: 'Unit Small-Batch Runs', desc: 'Rapid custom manufacturing flexibility with zero minimum order penalties.' },
+  { num: `${YEARS_IN_BUSINESS}+`, label: 'Years Heavy Industry', desc: 'Over a decade engineering wear-resistant alloys and specialised foundry castings.' },
+  { num: CUSTOM_CAST_PROFILES, label: CUSTOM_CAST_PROFILES_LABEL, desc: 'Proprietary wear pattern database for pugmills, crushers, and transfer chutes.' },
+  { num: SERVICE_LIFE_HEADLINE, label: SERVICE_LIFE_LABEL, desc: SERVICE_LIFE_DESC },
+  { num: BATCH_SIZE_RANGE, label: BATCH_SIZE_LABEL, desc: BATCH_SIZE_DESC },
 ]
 
 export const teamMembers = [

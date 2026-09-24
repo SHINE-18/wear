@@ -92,7 +92,7 @@ export const industriesData: IndustryData[] = [
       { label: 'Abrasion Mode', value: 'Severe Gouging & Impact' },
       { label: 'Hardness Range', value: '600–700 BHN' },
       { label: 'Liner Technology', value: 'EnduraCast Z-Core & Ceramic Matrix' },
-      { label: 'Interchangeability', value: '100% Direct Bolt-On Match' },
+      { label: 'Interchangeability', value: 'Direct Bolt-On Match' },
     ],
     features: [
       'Twin-shaft & planetary mixer paddle blades & scraper arms',

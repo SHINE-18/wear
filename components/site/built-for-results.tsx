@@ -240,7 +240,7 @@ export function BuiltForResults() {
             <div className={styles.cardContent}>
               <h3 className={styles.cardTitle}>Precision Execution</h3>
               <p className={styles.cardDesc}>
-                Sub-millimeter 3D coordinate laser metrology, ultrasonic testing, and precision CNC finish-machining ensuring 100% direct bolt-on fitment with zero torching, shimming, or site rework.
+                Sub-millimeter 3D coordinate laser metrology, ultrasonic testing, and precision CNC finish-machining ensuring verified direct bolt-on fitment with zero torching, shimming, or site rework.
               </p>
             </div>
           </FadeUp>

@@ -106,7 +106,7 @@ export function ProductComponentAccordion({
             ANY BRAND. ANY ERA. <em>NO EXCUSES.</em>
           </h2>
           <p className={styles.componentsSectionSubtitle}>
-            100% direct drop-in bolt-on interchangeability across major OEM equipment.
+            Verified direct drop-in bolt-on interchangeability across major OEM equipment.
           </p>
         </FadeUp>
 

@@ -1,17 +1,23 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { SiteFooter } from '@/components/site/footer'
 import { FadeUp } from '@/components/site/motion'
 import { SiteNav } from '@/components/site/nav'
+import {
+  PHONE, PHONE_DISPLAY, EMAIL, TIMEZONE, BUSINESS_HOURS,
+  ADDRESS, getFormattedAddress, SHOW_OFFICES,
+  EMAIL_RESPONSE_TARGET, EMAIL_RESPONSE_QUALIFIER,
+} from '@/lib/site-facts'
 import styles from './contact-page-client.module.css'
 
 const INQUIRY_TYPES = [
   '3D Laser Scan & Audit',
   'Custom Alloy Casting',
   'Small-Batch Run (1–10)',
-  'Urgent Breakdown Repair',
+  'Trial Batch / Short Run',
 ]
 
 export function ContactPageClient() {
@@ -68,10 +74,10 @@ export function ContactPageClient() {
                 <span className={styles['tag-pipe']} />
                 <span>DIRECT METALLURGIST LINE</span>
               </div>
-              <a href="tel:+61437433890" className={styles['card-primary-val']}>
-                +61 437 433 890
+              <a href={`tel:${PHONE.replace(/\s/g, '')}`} className={styles['card-primary-val']}>
+                {PHONE_DISPLAY}
               </a>
-              <span className={styles['card-sub-info']}>Available 08:00–18:00 AEST for plant emergency audits</span>
+              <span className={styles['card-sub-info']}>Available {BUSINESS_HOURS} {TIMEZONE} for plant wear audits</span>
             </div>
 
             <div className={styles['contact-direct-card']}>
@@ -79,10 +85,10 @@ export function ContactPageClient() {
                 <span className={styles['tag-pipe']} />
                 <span>CAD &amp; TOOLING INBOX</span>
               </div>
-              <a href="mailto:engineering@wearguard.com.au" className={styles['card-primary-val']}>
-                engineering@wearguard.com.au
+              <a href={`mailto:${EMAIL}`} className={styles['card-primary-val']}>
+                {EMAIL}
               </a>
-              <span className={styles['card-sub-info']}>Direct engineering dispatch · Guaranteed &lt; 24 hr review</span>
+              <span className={styles['card-sub-info']}>Direct engineering dispatch · {EMAIL_RESPONSE_QUALIFIER} {EMAIL_RESPONSE_TARGET} review</span>
             </div>
 
             <div className={styles['contact-direct-card']}>
@@ -91,9 +97,11 @@ export function ContactPageClient() {
                 <span>WORKS &amp; PATTERN FACILITY</span>
               </div>
               <div className={`${styles['card-primary-val']} ${styles['card-address']}`}>
-                2450 Industrial Park Drive
-                <br />
-                Melbourne, VIC 3000 Australia
+                {ADDRESS.line1 ? (
+                  <>{ADDRESS.line1}<br />{ADDRESS.suburb}, {ADDRESS.state} {ADDRESS.postcode} {ADDRESS.country}</>
+                ) : (
+                  <>{ADDRESS.suburb}, {ADDRESS.state} {ADDRESS.country}<br />Address available on request</>
+                )}
               </div>
               <span className={styles['card-sub-info']}>Pattern tooling, CMM verification, and alloy test lab</span>
             </div>
@@ -322,19 +330,25 @@ export function ContactPageClient() {
         </div>
 
         {/* AUSTRALIAN MANUFACTURING & LOGISTICS DISPATCH STRIP */}
-        <div className={styles['contact-dispatch-strip']}>
-          <div className={styles['dispatch-strip-inner']}>
-            <span className={styles['dispatch-item']}><strong>MELBOURNE FOUNDRY (HQ)</strong> Pattern Shop &amp; Alloy Lab</span>
-            <span className={styles['dispatch-divider']}>/</span>
-            <span className={styles['dispatch-item']}><strong>SYDNEY LOGISTICS</strong> East Coast Spares Hub</span>
-            <span className={styles['dispatch-divider']}>/</span>
-            <span className={styles['dispatch-item']}><strong>BRISBANE</strong> Quarry &amp; Asphalt Distribution</span>
-            <span className={styles['dispatch-divider']}>/</span>
-            <span className={styles['dispatch-item']}><strong>PERTH</strong> Mining &amp; Bulk Handling Depot</span>
-            <span className={styles['dispatch-divider']}>/</span>
-            <span className={styles['dispatch-item']}><strong>NATIONWIDE FREIGHT</strong> Express Mine-Site Dispatch</span>
+        {Object.values(SHOW_OFFICES).some(Boolean) && (
+          <div className={styles['contact-dispatch-strip']}>
+            <div className={styles['dispatch-strip-inner']}>
+              <span className={styles['dispatch-item']}><strong>MELBOURNE FOUNDRY (HQ)</strong> Pattern Shop &amp; Alloy Lab</span>
+              {SHOW_OFFICES.sydney && (<>
+                <span className={styles['dispatch-divider']}>/</span>
+                <span className={styles['dispatch-item']}><strong>SYDNEY LOGISTICS</strong> East Coast Spares Hub</span>
+              </>)}
+              {SHOW_OFFICES.brisbane && (<>
+                <span className={styles['dispatch-divider']}>/</span>
+                <span className={styles['dispatch-item']}><strong>BRISBANE</strong> Quarry &amp; Asphalt Distribution</span>
+              </>)}
+              {SHOW_OFFICES.perth && (<>
+                <span className={styles['dispatch-divider']}>/</span>
+                <span className={styles['dispatch-item']}><strong>PERTH</strong> Mining &amp; Bulk Handling Depot</span>
+              </>)}
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
       <SiteFooter showCta={false} />

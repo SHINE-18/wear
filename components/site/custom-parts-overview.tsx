@@ -79,7 +79,7 @@ const customSteps: CustomStep[] = [
     subtitle: '1–10 Units With No Minimums',
     category: 'Rapid Foundry Production',
     heading: 'No Minimum Order Barrier for Emergency & Trial Runs',
-    description: 'Rapid pattern tooling, mold simulation, and tight-tolerance casting for 1–10 unit prototype batches, field trial sets, or emergency breakdown replacements shipped in 6–8 weeks.',
+    description: 'Rapid pattern tooling, mold simulation, and tight-tolerance casting for 1–10 unit prototype batches, field trial sets, or scheduled maintenance replacements delivered in 6–8 weeks.',
     specs: [
       { label: 'Batch Size', value: '1–10 Units Supported' },
       { label: 'Pattern Tooling', value: 'Rapid High-Density Poly' },

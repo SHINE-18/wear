@@ -6,6 +6,7 @@ import { SiteFooter } from '@/components/site/footer'
 import { FadeUp, Stagger, StaggerItem } from '@/components/site/motion'
 import { SiteNav } from '@/components/site/nav'
 import { aboutStats, customFeatures, teamMembers } from '@/lib/site-data'
+import { SHOW_TEAM_SECTION, FOUNDER_NAME, FOUNDER_TITLE } from '@/lib/site-facts'
 import styles from './about-page-client.module.css'
 
 export function AboutPageClient() {
@@ -82,7 +83,7 @@ export function AboutPageClient() {
             <div className={styles['founder-portrait-frame']}>
               <Image
                 src="/images/founder-david-vance.jpg"
-                alt="David Vance, Principal Metallurgist & Founder of WearGuard"
+                alt={FOUNDER_NAME ? `${FOUNDER_NAME}, ${FOUNDER_TITLE} of WearGuard` : 'WearGuard Engineering Leadership'}
                 fill
                 className={styles['founder-img']}
               />
@@ -119,8 +120,8 @@ export function AboutPageClient() {
 
             <div className={styles['founder-signoff']}>
               <div className={styles['founder-info']}>
-                <strong>David Vance</strong>
-                <span>Principal Metallurgist &amp; Founder</span>
+                <strong>{FOUNDER_NAME || 'WearGuard Engineering'}</strong>
+                <span>{FOUNDER_NAME ? FOUNDER_TITLE : 'Principal Metallurgy Team'}</span>
               </div>
             </div>
           </FadeUp>
@@ -128,52 +129,56 @@ export function AboutPageClient() {
       </section>
 
       {/* 5. TECHNICAL LEADERSHIP TEAM (8 WEAR SPECIALISTS) */}
-      <section className={styles['about-team-section']}>
-        <div className={styles['about-team-container']}>
-          <FadeUp className={styles['about-team-header']}>
-            <div className={styles['about-eyebrow']}>
-              <span>Technical Leadership</span>
-            </div>
-            <h2 className={styles['about-team-title']}>
-              Meet Our <span className={styles['title-muted-slate']}>Metallurgists &amp; Engineers</span>
-            </h2>
-          </FadeUp>
+      {SHOW_TEAM_SECTION && (
+        <section className={styles['about-team-section']}>
+          <div className={styles['about-team-container']}>
+            <FadeUp className={styles['about-team-header']}>
+              <div className={styles['about-eyebrow']}>
+                <span>Technical Leadership</span>
+              </div>
+              <h2 className={styles['about-team-title']}>
+                Meet Our <span className={styles['title-muted-slate']}>Metallurgists &amp; Engineers</span>
+              </h2>
+            </FadeUp>
 
-          <Stagger className={styles['about-team-grid']}>
-            {teamMembers.map((member) => (
-              <StaggerItem key={member.name} className={styles['team-member-card']}>
-                <div className={styles['team-card-image-wrap']}>
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className={styles['team-member-img']}
-                  />
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles['team-linkedin-btn']}
-                    aria-label={`${member.name} LinkedIn Profile`}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
-                    </svg>
-                  </a>
-                  <div className={`${styles['cad-corner-tick']} ${styles['tick-tl']}`} />
-                  <div className={`${styles['cad-corner-tick']} ${styles['tick-tr']}`} />
-                  <div className={`${styles['cad-corner-tick']} ${styles['tick-bl']}`} />
-                  <div className={`${styles['cad-corner-tick']} ${styles['tick-br']}`} />
-                </div>
-                <div className={styles['team-card-info']}>
-                  <h3 className={styles['team-member-name']}>{member.name}</h3>
-                  <span className={styles['team-member-role']}>{member.role}</span>
-                </div>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </section>
+            <Stagger className={styles['about-team-grid']}>
+              {teamMembers.map((member) => (
+                <StaggerItem key={member.name} className={styles['team-member-card']}>
+                  <div className={styles['team-card-image-wrap']}>
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className={styles['team-member-img']}
+                    />
+                    {member.linkedin && member.linkedin !== 'https://linkedin.com' && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer nofollow"
+                        className={styles['team-linkedin-btn']}
+                        aria-label={`${member.name} LinkedIn Profile`}
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+                        </svg>
+                      </a>
+                    )}
+                    <div className={`${styles['cad-corner-tick']} ${styles['tick-tl']}`} />
+                    <div className={`${styles['cad-corner-tick']} ${styles['tick-tr']}`} />
+                    <div className={`${styles['cad-corner-tick']} ${styles['tick-bl']}`} />
+                    <div className={`${styles['cad-corner-tick']} ${styles['tick-br']}`} />
+                  </div>
+                  <div className={styles['team-card-info']}>
+                    <h3 className={styles['team-member-name']}>{member.name}</h3>
+                    <span className={styles['team-member-role']}>{member.role}</span>
+                  </div>
+                </StaggerItem>
+              ))}
+            </Stagger>
+          </div>
+        </section>
+      )}
 
       {/* 6. THE 4 CORE ENGINEERING CAPABILITIES & CUSTOM SERVICES */}
       <section className={styles['about-services-section']}>

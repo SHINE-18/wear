@@ -152,14 +152,14 @@ export function IndustryStackingCards({
         )}
 
         <div className={styles['stack-header-content']}>
-          <SectionLabel>Services</SectionLabel>
+          <SectionLabel>Industries</SectionLabel>
           <h2 className={styles['stack-title']}>
-            What We <span>Offer</span>
+            Industries We <span>Serve</span>
           </h2>
         </div>
         {showAllLink && (
           <Link href="/industries" className={styles['stack-all-link']}>
-            <span>All Services</span>
+            <span>All Industries</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <line x1="7" y1="17" x2="17" y2="7" />
               <polyline points="7 7 17 7 17 17" />

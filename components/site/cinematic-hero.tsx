@@ -8,6 +8,7 @@ import { SectionLabel } from '@/components/site/ui'
 import { InteractiveGrid } from '@/components/site/interactive-grid'
 import { HeroGrainOverlay } from '@/components/site/hero-grain-overlay'
 import { EncryptedReveal } from '@/components/site/encrypted-reveal'
+import { YEARS_IN_BUSINESS, YEARS_LABEL, PROJECTS_DELIVERED, PROJECTS_LABEL } from '@/lib/site-facts'
 import styles from './cinematic-hero.module.css'
 
 const wordVariants: Variants = {
@@ -140,7 +141,7 @@ export function CinematicHero() {
             style={{ y: ctaY, opacity: ctaOpacity }}
           >
             <Link href="/contact" className={styles['hero-side-cta']}>
-              <span>Get Started</span>
+              <span>Request a Quote</span>
               <svg
                 viewBox="0 0 24 24"
                 className={styles['hero-morph-icon']}
@@ -197,11 +198,11 @@ export function CinematicHero() {
                     </svg>
                   </div>
                   <strong className={styles['metric-value']}>
-                    <Counter to={10} />
+                    <Counter to={YEARS_IN_BUSINESS} />
                     <span className={styles['metric-plus']}>+</span>
                   </strong>
                 </div>
-                <span className={styles['metric-label']}>years experience</span>
+                <span className={styles['metric-label']}>{YEARS_LABEL}</span>
               </div>
 
               <div className={styles['hero-metric-block']}>
@@ -273,16 +274,16 @@ export function CinematicHero() {
                     </svg>
                   </div>
                   <strong className={styles['metric-value']}>
-                    <Counter to={100} />
+                    <Counter to={PROJECTS_DELIVERED} />
                     <span className={styles['metric-plus']}>+</span>
                   </strong>
                 </div>
-                <span className={styles['metric-label']}>projects delivered</span>
+                <span className={styles['metric-label']}>{PROJECTS_LABEL}</span>
               </div>
             </div>
 
             <p className={styles['hero-side-desc']}>
-              Reliable engineering, precision manufacturing, and scalable solutions for modern industries.
+              Australian-engineered wear parts built to outlast OEM standards.
             </p>
           </motion.div>
         </motion.div>
