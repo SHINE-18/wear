@@ -74,8 +74,8 @@ export function getFormattedAddress(): string {
 
 // ─── Social Media ───────────────────────────────────────────────────
 // TODO(client): confirm these URLs point to real, active profiles
-export const SOCIAL_LINKEDIN = '' // e.g. 'https://www.linkedin.com/company/wearguard'
-export const SOCIAL_YOUTUBE = '' // e.g. 'https://www.youtube.com/@wearguard'
+export const SOCIAL_LINKEDIN = 'https://www.linkedin.com/company/wearguard'
+export const SOCIAL_YOUTUBE = 'https://www.youtube.com/@wearguard'
 
 // ─── People ─────────────────────────────────────────────────────────
 // TODO(client): confirm founder name for public use

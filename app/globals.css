@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import 'tailwindcss';
 
 @theme inline {
@@ -46,11 +46,31 @@
   --overlay-scrim: rgba(13, 13, 13, 0.60);
 
   /* Typography System (Swiss Industrial High-Precision Minimal) */
-  --font-display: 'Figtree', "Figtree Placeholder", var(--font-display), sans-serif;
-  --font-body: 'Figtree', "Figtree Placeholder", var(--font-body), sans-serif;
+  --font-inter: var(--font-inter, 'Inter', "Inter Placeholder", sans-serif);
+  --font-display: var(--font-inter, 'Inter', "Inter Placeholder", sans-serif);
+  --font-body: var(--font-inter, 'Inter', "Inter Placeholder", sans-serif);
   --font-mono: 'JetBrains Mono', monospace;
 
   color-scheme: light dark;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+a,
+p,
+span,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-inter, 'Inter', "Inter Placeholder", sans-serif);
 }
 
 * {

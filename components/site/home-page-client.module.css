@@ -29,7 +29,7 @@
   color: #ffffff;
   padding: 150px clamp(1.5rem, 4vw, 4.5rem) clamp(5rem, 8vw, 8rem);
   box-sizing: border-box;
-  font-family: var(--font-figtree, 'Figtree', sans-serif);
+  font-family: var(--font-body);
 }
 
 .aboutGrid {
@@ -43,7 +43,7 @@
 }
 
 .approachTagline {
-  font-family: var(--font-figtree, 'Figtree', sans-serif);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -64,11 +64,11 @@
   color: #ffffff;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  font-family: var(--font-figtree, 'Figtree', sans-serif);
+  font-family: var(--font-body);
 }
 
 .aboutSplitTitle {
-  font-family: var(--font-figtree, 'Figtree', sans-serif);
+  font-family: var(--font-display, var(--font-body));
   font-size: clamp(2.4rem, 4.2vw, 4.1rem);
   line-height: 1.06;
   letter-spacing: -0.04em;
@@ -89,7 +89,7 @@
   max-width: 520px;
   margin: 0 0 1.25rem 0;
   font-weight: 400;
-  font-family: var(--font-figtree, 'Figtree', sans-serif);
+  font-family: var(--font-body);
 }
 
 .aboutSplitLead:last-of-type {
@@ -113,7 +113,7 @@
   text-decoration: none;
   letter-spacing: -0.01em;
   transition: color 0.25s ease;
-  font-family: var(--font-figtree, 'Figtree', sans-serif);
+  font-family: var(--font-body);
 }
 
 .aboutLearnMoreLink :global(.arrow) {
