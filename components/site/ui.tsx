@@ -12,17 +12,59 @@ export function Mark() {
   )
 }
 
-export function Logo({ height = 38, className = '' }: { height?: number; className?: string }) {
+export function Logo({
+  height = 28,
+  variant = 'auto',
+  className = '',
+}: {
+  height?: number
+  variant?: 'auto' | 'black' | 'white'
+  className?: string
+}) {
+  if (variant === 'white') {
+    return (
+      <span className={`brand-logo-frame ${className}`} aria-label="WearGuard">
+        <img
+          src="/logo/final-logo-white.svg"
+          alt="WearGuard"
+          className="brand-logo"
+          width={170}
+          height={height}
+          style={{ height: `${height}px`, width: 'auto', maxHeight: `${height}px`, objectFit: 'contain', display: 'block' }}
+        />
+      </span>
+    )
+  }
+
+  if (variant === 'black') {
+    return (
+      <span className={`brand-logo-frame ${className}`} aria-label="WearGuard">
+        <img
+          src="/logo/black-logo.svg"
+          alt="WearGuard"
+          className="brand-logo"
+          width={170}
+          height={height}
+          style={{ height: `${height}px`, width: 'auto', maxHeight: `${height}px`, objectFit: 'contain', display: 'block' }}
+        />
+      </span>
+    )
+  }
+
   return (
     <span className={`brand-logo-frame ${className}`} aria-label="WearGuard">
-      <img
-        src="/logo/logo.svg"
-        alt="WearGuard"
-        className="brand-logo"
-        width={150}
-        height={height}
-        style={{ height: `${height}px`, width: 'auto', maxHeight: `${height || 28}px`, objectFit: 'contain', display: 'block' }}
-      />
+      <picture className="brand-logo-picture">
+        <source media="(max-width: 1024px)" srcSet="/logo/final-logo-white.svg" />
+        <source media="(min-width: 1025px)" srcSet="/logo/black-logo.svg" />
+        <img
+          src="/logo/black-logo.svg"
+          alt="WearGuard"
+          className="brand-logo"
+          width={170}
+          height={height}
+          style={{ height: `${height}px`, width: 'auto', maxHeight: `${height}px`, objectFit: 'contain', display: 'block' }}
+        />
+      </picture>
     </span>
   )
 }

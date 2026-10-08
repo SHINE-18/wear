@@ -19,10 +19,10 @@ interface CardData {
 const cards: CardData[] = [
   {
     id: 'asphalt',
-    title: 'Hot Mix Batching',
+    title: 'Asphalt Batch Plants',
     desc: 'High-temp pugmill paddle tips, flighting liners, and slinger arms engineered for 400°C abrasive aggregate mixing.',
     image: '/images/asphalt-plant-tower.jpg',
-    imageAlt: 'Hot mix batching plant aggregate conveyor elevator and mixing tower',
+    imageAlt: 'Asphalt batch plant aggregate conveyor elevator and mixing tower',
     link: '/industries/asphalt',
   },
   {
@@ -61,13 +61,12 @@ function IndividualStackCard({
   const cardRef = useRef<HTMLDivElement>(null)
 
   // Target dock position for this card
-  const dockOffsetPx = 100 + index * 76
-  const stickyTop = `calc(var(--stack-base-top, 100px) + ${index * 76}px)`
+  const stickyTop = `calc(var(--stack-base-top, 110px) + ${index} * var(--stack-step, 76px))`
 
   // Track scroll position of this individual card from entering viewport until it docks
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    offset: ['start end', `start ${dockOffsetPx + 30}px`],
+    offset: ['start end', 'start 220px'],
   })
 
   // 3D curving entrance from flat/tilted surface into upright position

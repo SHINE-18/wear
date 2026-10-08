@@ -84,16 +84,28 @@ export function CinematicHero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.18, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className={styles['hero-eyebrow-wrap']}
           >
             <SectionLabel>Engineering Excellence</SectionLabel>
           </motion.div>
 
           <h1>
             <span className={styles['hero-words-line']}>
-              {['Industrial', 'Wear', 'Components'].map((word, i) => (
+              <motion.span
+                custom={0}
+                initial="hidden"
+                animate="visible"
+                variants={wordVariants}
+                className={styles['hero-word']}
+              >
+                Industrial
+              </motion.span>
+              <span className={styles['hero-desktop-space']}>&nbsp;</span>
+              <br className={styles['hero-mobile-break']} />
+              {['Wear', 'Components'].map((word, i) => (
                 <motion.span
                   key={i}
-                  custom={i}
+                  custom={i + 1}
                   initial="hidden"
                   animate="visible"
                   variants={wordVariants}
@@ -103,7 +115,7 @@ export function CinematicHero() {
                 </motion.span>
               ))}
             </span>
-            <br />
+            <br className={styles['hero-desktop-break']} />
             <span className={styles['hero-words-line']}>
               {['Engineered', 'to'].map((word, i) => (
                 <motion.span
@@ -117,6 +129,7 @@ export function CinematicHero() {
                   {word}&nbsp;
                 </motion.span>
               ))}
+              <br className={styles['hero-mobile-break']} />
               <motion.span
                 custom={5}
                 initial="hidden"

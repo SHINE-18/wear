@@ -5,6 +5,7 @@ import { SiteFooter } from '@/components/site/footer'
 import { IndustryHeroExpand } from '@/components/site/industry-hero-expand'
 import { SiteNav } from '@/components/site/nav'
 import { Arrow, Button, SectionLabel } from '@/components/site/ui'
+import { getComponentsForIndustry } from '@/lib/components-data'
 import { industriesData } from '@/lib/industries-data'
 import styles from './industry-detail.module.css'
 
@@ -40,6 +41,7 @@ export default async function IndustryDetailPage({
   if (!industry) notFound()
 
   const otherIndustries = industriesData.filter((ind) => ind.slug !== industry.slug)
+  const components = getComponentsForIndustry(industry.slug)
 
   return (
     <main id="top" className={`${styles.indDetailPageRoot} ind-detail-page-root`}>
@@ -48,8 +50,10 @@ export default async function IndustryDetailPage({
       {/* 1. SCROLL-DRIVEN EXPANDING HERO WITH INTERACTIVE HOTSPOTS */}
       <IndustryHeroExpand industry={industry} />
 
-      {/* 2. PLANT ENGINEERING OVERVIEW & FAILURE MODES (CURTAIN OVERLAY) */}
-      <section className={`${styles.indContentSection} ind-content-section ind-content-warm`}>
+      {/* CONTINUOUS CURTAIN LAYER (STACKS OVER HERO WITH Z-INDEX 40) */}
+      <div className={`${styles.pageContentLayer} page-content-layer`}>
+        {/* 2. PLANT ENGINEERING OVERVIEW & FAILURE MODES (CURTAIN OVERLAY) */}
+        <section className={`${styles.indContentSection} ind-content-section ind-content-warm`}>
         <div className={styles.indContentContainer}>
           <div className={styles.indOverviewGrid}>
             <div className={styles.indOverviewCopy}>
@@ -64,13 +68,9 @@ export default async function IndustryDetailPage({
               ))}
 
               <div className={styles.indCatalogAction}>
-                <Button href={industry.appLink}>
-                  Explore {industry.appLabel}
+                <Button href="/contact">
+                  Request Plant Evaluation
                 </Button>
-                <Link href="/contact" className="about-sub-link">
-                  <span>Request metallurgy datasheet</span>
-                  <Arrow />
-                </Link>
               </div>
             </div>
 
@@ -93,24 +93,54 @@ export default async function IndustryDetailPage({
         </div>
       </section>
 
-      {/* 3. CRITICAL WEAR COMPONENTS MANUFACTURED */}
-      <section className={`${styles.indComponentsSection} ind-components-section section-dark`}>
+      {/* 3. COMPONENTS FOR [INDUSTRY NAME] */}
+      <section id="components" className={`${styles.indComponentsSection} ind-components-section section-dark`}>
         <div className={styles.indContentContainer}>
           <div className={styles.indSectionHeading}>
             <SectionLabel>Component Architecture</SectionLabel>
             <h2 className={styles.indSectionH2} style={{ color: '#ffffff' }}>
-              Engineered replacement parts &amp; <em>wear assemblies.</em>
+              Components for <em>{industry.title}.</em>
             </h2>
             <p className={styles.indSublead} style={{ color: '#9ba3b8' }}>
-              Every assembly is 100% bolt-on compatible with OEM specifications, reverse-engineered from precision 3D scans.
+              High-wear replacement components engineered specifically for {industry.title.toLowerCase()} service conditions. Direct drop-in fit with zero on-site modifications.
             </p>
           </div>
 
-          <div className={styles.indTypoList}>
-            {industry.features.map((feature, i) => (
-              <div key={i} className={styles.indTypoItem}>
-                <span className={styles.indTypoNum}>0{i + 1}</span>
-                <span className={styles.indTypoText}>{feature}</span>
+          {/* PARTS CARDS GRID */}
+          <div className={styles.indPartsGrid}>
+            {components.map((comp) => (
+              <div key={comp.id} id={comp.id} className={styles.indPartCard}>
+                <div className={styles.indPartMediaWrap}>
+                  <img
+                    src={comp.image}
+                    alt={comp.name}
+                    className={styles.indPartMediaImg}
+                    width={640}
+                    height={360}
+                    loading="lazy"
+                  />
+                </div>
+
+                <div className={styles.indPartCardBody}>
+                  <h3 className={styles.indPartTitle}>{comp.name}</h3>
+                  <p className={styles.indPartDesc}>{comp.description}</p>
+
+                  <div className={styles.indPartSpecsRow}>
+                    {comp.specs.map((spec, sIdx) => (
+                      <div key={sIdx} className={styles.indPartSpecCol}>
+                        <span className={styles.indPartSpecLbl}>{spec.label}</span>
+                        <span className={styles.indPartSpecVal}>{spec.value}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={styles.indPartFooter}>
+                    <Link href="/contact" className={styles.indPartCtaBtn}>
+                      <span>Request Quote</span>
+                      <Arrow />
+                    </Link>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -178,7 +208,7 @@ export default async function IndustryDetailPage({
                 Explore other <em>industrial sectors.</em>
               </h2>
             </div>
-            <Link href="/industries" className="stack-all-link">
+            <Link href="/industries" className={styles.stackAllLink}>
               <span>All Sectors</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <line x1="7" y1="17" x2="17" y2="7" />
@@ -209,23 +239,8 @@ export default async function IndustryDetailPage({
         </div>
       </section>
 
-      {/* 6. BOTTOM CONSULTATION CTA BANNER */}
-      <section className={`${styles.pageCta} page-cta section-dark`}>
-        <h2>
-          Ready to extend component campaign life in your <em>{industry.title.toLowerCase()}?</em>
-        </h2>
-        <p style={{ color: '#8c92a4', maxWidth: '38rem', margin: '1rem auto 2.5rem', lineHeight: 1.6 }}>
-          Share your equipment model, part number, 2D drawings, or 3D CAD files. Our metallurgical engineering team provides a full wear analysis and replacement quote within 24 hours.
-        </p>
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <Button href="/contact">Talk to a Metallurgical Engineer</Button>
-          <Button dark href={industry.appLink}>
-            Browse Application Catalog
-          </Button>
-        </div>
-      </section>
-
-      <SiteFooter />
+        <SiteFooter />
+      </div>
     </main>
   )
 }

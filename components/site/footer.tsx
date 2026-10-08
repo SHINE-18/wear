@@ -36,15 +36,15 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
           </svg>
           <Link href="/contact" className={styles['footer-cta-content']} aria-label="Contact WearGuard Engineering">
             <p className={styles['footer-cta-title']}>
-              Ready to <span className={styles['cta-headline-accent']}>Extend Wear Life</span>
-              <br />
+              Ready to <span className={styles['cta-headline-accent']}>Extend Wear Life</span>{' '}
+              <br className={styles['cta-desktop-br']} />
               Across Your Plant?
             </p>
           </Link>
         </div>
       )}
 
-      {/* 2. MAIN FOOTER BODY (DARK CARBON PINSTRIPE TEXTURE) */}
+      {/* 2. MAIN FOOTER BODY (DARK VELVET WHITE-NOISE TEXTURE) */}
       <div className={`${styles['footer-main-dark']} footer-main-dark`}>
         <div className={styles['footer-inner-container']}>
           {/* TOP 3-COLUMN STRUCTURED GRID WITH CONNECTING VERTICAL HAIRLINES */}
@@ -54,15 +54,20 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
               <div className={styles['footer-bio-content']}>
                 <div>
                   <h3 className={styles['footer-cta-statement']}>
-                    <Link href="/contact" className={styles['footer-cta-statement-link']}>
-                      Ready to eliminate plant downtime?
-                      <br />
-                      Get in touch today!
-                    </Link>
+                    Ready to eliminate plant downtime?
                   </h3>
                   <p className={styles['footer-bio-desc']}>
                     {COMPANY_TAGLINE}
                   </p>
+                  <div className={styles['footer-brand-logo-wrap']} aria-label="WearGuard">
+                    <img
+                      src="/logo/final-logo-white.svg"
+                      alt="WearGuard"
+                      className={styles['footer-brand-logo']}
+                      width={170}
+                      height={30}
+                    />
+                  </div>
                 </div>
 
                 <div className={styles['footer-contact-block']}>
@@ -108,7 +113,7 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
                   </li>
                   <li>
                     <Link href="/industries/process-industries" className={styles['footer-nav-link']}>
-                      Process &amp; Slurry
+                      Process Industries
                     </Link>
                   </li>
                 </ul>
@@ -123,6 +128,11 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
                   <li>
                     <Link href="/about" className={styles['footer-nav-link']}>
                       About us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/applications" className={styles['footer-nav-link']}>
+                      Wear Solutions
                     </Link>
                   </li>
                   <li>
@@ -141,10 +151,6 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
                     </Link>
                   </li>
                 </ul>
-              </div>
-
-              <div className={styles['footer-col-bottom']}>
-                <span className={styles['footer-copyright']}>© {COPYRIGHT_YEAR} {COMPANY_LEGAL_NAME}</span>
               </div>
             </div>
           </div>
@@ -165,6 +171,11 @@ export function SiteFooter({ showCta = true }: SiteFooterProps) {
               WEARGUARD
             </p>
           </Link>
+
+          {/* 4. BOTTOM COPYRIGHT (CENTERED BENEATH COLOSSAL BRANDMARK) */}
+          <div className={styles['footer-bottom-copyright']}>
+            <span className={styles['footer-copyright']}>© {COPYRIGHT_YEAR} {COMPANY_LEGAL_NAME}</span>
+          </div>
         </div>
       </div>
     </footer>

@@ -33,6 +33,22 @@ export function SiteNav() {
     }
   }, [open])
 
+  // Close menu on escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && open) {
+        setOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [open])
+
+  // Close menu on route navigation
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
   // Animate top navbar out smoothly on initial scroll
   const topNavOpacity = useTransform(scrollY, [0, 80], [1, 0])
   const topNavY = useTransform(scrollY, [0, 80], [0, -60])
@@ -110,11 +126,11 @@ export function SiteNav() {
 
       {/* TOP NAVBAR */}
       <motion.header
-        className={`${styles['nav-wrap']} ${pathname === '/' ? styles['nav-home'] : styles['nav-full']}`}
+        className={`${styles['nav-wrap']} ${pathname === '/' ? styles['nav-home'] : styles['nav-full']} ${open ? styles['nav-open'] : ''}`}
         style={{
           opacity: topNavOpacity,
           y: topNavY,
-          pointerEvents: docked ? 'none' : 'auto',
+          pointerEvents: open ? 'auto' : (docked ? 'none' : 'auto'),
         }}
       >
         <Link className={styles.brand} href="/" aria-label="WearGuard">
@@ -142,22 +158,16 @@ export function SiteNav() {
             </svg>
           </button>
           <button
+            type="button"
             className={`${styles['menu-btn']} ${open ? styles['menu-btn-open'] : ''}`}
-            aria-label="Toggle menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
             onClick={() => setOpen(!open)}
           >
-            {open ? (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
-            ) : (
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                <line x1="4" y1="7" x2="20" y2="7" />
-                <line x1="4" y1="12" x2="20" y2="12" />
-                <line x1="4" y1="17" x2="20" y2="17" />
-              </svg>
-            )}
+            <span className={styles['menu-icon-wrap']} aria-hidden="true">
+              <span className={styles['menu-bar-top']} />
+              <span className={styles['menu-bar-bottom']} />
+            </span>
           </button>
         </div>
       </motion.header>
@@ -214,106 +224,108 @@ export function SiteNav() {
                 <span className={styles['dock-corner-icon']} aria-hidden="true" />
               </Link>
               <button
+                type="button"
                 className={`${styles['menu-btn']} ${open ? styles['menu-btn-open'] : ''}`}
-                aria-label="Toggle menu"
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
                 onClick={() => setOpen(!open)}
               >
-                {open ? (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
-                ) : (
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                    <line x1="4" y1="7" x2="20" y2="7" />
-                    <line x1="4" y1="12" x2="20" y2="12" />
-                    <line x1="4" y1="17" x2="20" y2="17" />
-                  </svg>
-                )}
+                <span className={styles['menu-icon-wrap']} aria-hidden="true">
+                  <span className={styles['menu-bar-top']} />
+                  <span className={styles['menu-bar-bottom']} />
+                </span>
               </button>
             </div>
           </motion.nav>
         )}
       </AnimatePresence>
 
-      {/* FULL-SCREEN TILANIUM-STYLE MOBILE NAV DRAWER */}
+      {/* MOBILE NAV SIDEBAR DRAWER (SLIDE-IN FROM RIGHT) */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            className={styles['mobile-nav-overlay']}
-            initial={{ opacity: 0, y: -16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={styles['mobile-nav-inner']}>
-              <div className={styles['mobile-nav-header-row']}>
-                <Link href="/" onClick={() => setOpen(false)}>
-                  <Logo height={26} />
-                </Link>
-                <button
-                  type="button"
-                  className={styles['mobile-nav-close-btn']}
-                  onClick={() => setOpen(false)}
-                  aria-label="Close menu"
-                >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                  </svg>
-                </button>
-              </div>
+          <>
+            {/* Dark matte backdrop */}
+            <motion.div
+              key="mobile-drawer-backdrop"
+              className={styles['mobile-drawer-backdrop']}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.28, ease: 'easeOut' }}
+              onClick={() => setOpen(false)}
+              aria-hidden="true"
+            />
 
-              <div className={styles['mobile-nav-links-list']}>
-                {navItems.map((item, idx) => {
-                  const isActive = pathname === item.href
-                  return (
-                    <motion.div
-                      key={item.href}
-                      initial={{ opacity: 0, x: -16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.04 * idx, duration: 0.22 }}
-                    >
-                      <Link
-                        href={item.href}
-                        className={`${styles['mobile-nav-item']} ${isActive ? styles.active : ''}`}
-                        onClick={() => setOpen(false)}
+            {/* Side-drawer panel */}
+            <motion.aside
+              key="mobile-drawer-panel"
+              className={styles['mobile-drawer-panel']}
+              initial={{ x: '100%' }}
+              animate={{ x: '0%' }}
+              exit={{ x: '100%' }}
+              transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+              aria-label="Mobile Navigation"
+            >
+              <div className={styles['mobile-drawer-content']}>
+                {/* Navigation links list */}
+                <nav className={styles['mobile-nav-links-list']}>
+                  {[
+                    ...navItems,
+                    { label: 'Contact', href: '/contact' },
+                  ].map((item, idx) => {
+                    const isActive = pathname === item.href
+                    return (
+                      <motion.div
+                        key={item.href}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.05 + 0.03 * idx, duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                       >
-                        <span className={styles['mobile-item-title']}>{item.label}</span>
-                        <span className={styles['mobile-item-dot']} aria-hidden="true">▪</span>
-                      </Link>
-                    </motion.div>
-                  )
-                })}
-              </div>
+                        <Link
+                          href={item.href}
+                          className={`${styles['mobile-nav-item']} ${isActive ? styles.active : ''}`}
+                          onClick={() => setOpen(false)}
+                        >
+                          <span className={styles['mobile-item-title']}>{item.label}</span>
+                          <span className={styles['mobile-item-dot']} aria-hidden="true" />
+                        </Link>
+                      </motion.div>
+                    )
+                  })}
+                </nav>
 
-              <div className={styles['mobile-nav-bottom']}>
-                <button
-                  type="button"
-                  className={styles['mobile-search-trigger']}
-                  onClick={() => {
-                    setOpen(false)
-                    setSearchOpen(true)
-                  }}
-                >
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  </svg>
-                  <span>Quick Search (Formulations, Parts)</span>
-                </button>
+                {/* Bottom: Orange striped CTA Banner + Search button */}
+                <div className={styles['mobile-nav-bottom']}>
+                  <Link
+                    href="/contact"
+                    className={styles['mobile-drawer-cta']}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className={styles['mobile-cta-text']}>Get Started</span>
+                    <span className={styles['mobile-cta-arrow']}>↗</span>
+                  </Link>
 
-                <Link
-                  href="/contact"
-                  className={styles['mobile-drawer-cta']}
-                  onClick={() => setOpen(false)}
-                >
-                  <span>Request Technical Quote</span>
-                  <span className={styles['mobile-cta-arrow']}>↗</span>
-                </Link>
+                  <div className={styles['mobile-search-row']}>
+                    <button
+                      type="button"
+                      className={styles['mobile-search-icon-btn']}
+                      onClick={() => {
+                        setOpen(false)
+                        setSearchOpen(true)
+                      }}
+                      aria-label="Search site (Ctrl+K)"
+                      title="Search"
+                    >
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
 

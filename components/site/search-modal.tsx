@@ -28,12 +28,22 @@ const staticSearchItems: SearchItem[] = [
 export function SiteSearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [query, setQuery] = useState('')
 
+  const appIndustryMap: Record<string, string> = {
+    'dryer-components': '/industries/asphalt',
+    'filter-components': '/industries/asphalt',
+    'mixer-components': '/industries/concrete',
+    'bucket-elevators': '/industries/asphalt',
+    'wear-liners-transfer-protection': '/industries/process-industries',
+    'drag-conveyors': '/industries/asphalt',
+    'earthmoving-bucket-tips': '/industries/mining',
+  }
+
   // Build searchable index from applications in site-data
   const appItems: SearchItem[] = applications.map((app) => ({
     type: 'Application',
     title: app.title,
     subtitle: app.tagline || app.summary,
-    href: '/applications',
+    href: appIndustryMap[app.slug] || '/industries',
   }))
 
   const allItems = [...staticSearchItems, ...appItems]

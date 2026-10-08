@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { SiteFooter } from '@/components/site/footer'
 import { FadeUp, Stagger, StaggerItem } from '@/components/site/motion'
 import { SiteNav } from '@/components/site/nav'
+import { AboutBuiltForResults } from '@/components/site/about-built-for-results'
 import { aboutStats, customFeatures, teamMembers } from '@/lib/site-data'
 import { SHOW_TEAM_SECTION, FOUNDER_NAME, FOUNDER_TITLE } from '@/lib/site-facts'
 import styles from './about-page-client.module.css'
@@ -179,6 +180,9 @@ export function AboutPageClient() {
           </div>
         </section>
       )}
+
+      {/* 5. BUILT FOR RESULTS / 4 BROCHURE VALUE PILLARS */}
+      <AboutBuiltForResults />
 
       {/* 6. THE 4 CORE ENGINEERING CAPABILITIES & CUSTOM SERVICES */}
       <section className={styles['about-services-section']}>

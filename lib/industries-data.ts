@@ -9,6 +9,15 @@ export interface IndustryComparisonMetric {
   wearguard: string
 }
 
+export interface IndustryHotspot {
+  num: string
+  title: string
+  subtitle: string
+  summary: string
+  material: string
+  advantage: string
+}
+
 export interface IndustryData {
   slug: string
   num: string
@@ -20,6 +29,7 @@ export interface IndustryData {
   desc: string[]
   specs: IndustrySpec[]
   features: string[]
+  hotspots: IndustryHotspot[]
   cardImage: string
   bannerImage: string
   imageAlt: string
@@ -38,8 +48,8 @@ export const industriesData: IndustryData[] = [
   {
     slug: 'asphalt',
     num: '01',
-    title: 'Hot Mix Batching',
-    cardTitle: 'Hot Mix Batching',
+    title: 'Asphalt Batch Plants',
+    cardTitle: 'Asphalt Batch Plants',
     subtitle: 'High-Temperature Drum Dryers, Continuous Pugmills & Asphalt Batching Plants',
     eyebrow: 'Services',
     cardDesc: 'High-temp pugmill paddle tips, flighting liners, and slinger arms engineered for 400°C–950°C abrasive aggregate mixing.',
@@ -59,12 +69,46 @@ export const industriesData: IndustryData[] = [
       'Cold feed aggregate hopper drop liners & transfer chutes',
       'Corrosion-resistant baghouse filter cages & high-temp housings',
     ],
+    hotspots: [
+      {
+        num: '01',
+        title: 'Aggregate Feed Chute',
+        subtitle: 'Feed & Transfer System',
+        summary: 'Composite ceramic-embedded drop liners designed to absorb continuous crushed quartz and granite impact.',
+        material: 'Ceramic Matrix & Structural Steel',
+        advantage: 'Zero face washout record',
+      },
+      {
+        num: '02',
+        title: 'Rotary Drying Drum & Flights',
+        subtitle: 'Thermal Aggregate Drying',
+        summary: 'Ni-Hard 4 and high-chrome flight liners engineered for combined 950°C thermal shock and severe aggregate sliding abrasion.',
+        material: 'Ni-Hard 4 & Cr 18–28% Castings',
+        advantage: '+200% campaign tonnes vs OEM',
+      },
+      {
+        num: '03',
+        title: 'Continuous Pugmill Mixer',
+        subtitle: 'High-Shear Mixing Assembly',
+        summary: 'Martensitic cast paddle tips and slinger arms engineered to withstand severe gouging friction and abrasive slurry grinding.',
+        material: 'Cr-Mo Martensitic Alloy',
+        advantage: '120,000+ tonnes geometry retention',
+      },
+      {
+        num: '04',
+        title: 'Hot Storage Silos & Discharge',
+        subtitle: 'Storage & Discharge Assembly',
+        summary: 'Heavy cast segment liners and flanged gates built for continuous high-temperature sliding erosion.',
+        material: 'EnduraCast High-Chrome Alloy',
+        advantage: '3× changeover cycle extension',
+      },
+    ],
     cardImage: '/images/asphalt-plant-tower.jpg',
     bannerImage: '/images/asphalt-plant-tower.jpg',
     imageAlt: 'High capacity modern asphalt batching and mixing plant tower',
     hudTag: 'Asphalt Sector — Heat & Severe Abrasion',
     badgeText: 'HEAT & SEVERE ABRASION',
-    appLink: '/applications',
+    appLink: '/industries/asphalt',
     appLabel: 'Mixer Components & Assemblies',
     oemComparison: {
       oemLimitation: 'Standard OEM cast iron arms suffer rapid face wash-out within 40,000 tonnes. Severe thermal cycling at 950°C causes catastrophic flight micro-cracking and drum imbalance.',
@@ -100,12 +144,46 @@ export const industriesData: IndustryData[] = [
       'Composite ceramic and chromium carbide discharge chutes',
       'Skip hoist transfer liners and aggregate weighing bins',
     ],
+    hotspots: [
+      {
+        num: '01',
+        title: 'Skip Hoist & Weigh Bin Liners',
+        subtitle: 'Batch Feed Circuit',
+        summary: 'Hyper-eutectic wear plates engineered to absorb direct coarse aggregate impact and continuous dropping shock.',
+        material: 'Hyper-Eutectic High-Chrome',
+        advantage: '+180% fracture resistance',
+      },
+      {
+        num: '02',
+        title: 'Twin-Shaft Mixer Blades',
+        subtitle: 'Batch Mixing Assembly',
+        summary: 'Precision-cast paddle blades engineered to resist intense quartz sand gouging and cementitious slurry wear.',
+        material: 'EnduraCast Z-Core Cast Blades',
+        advantage: '150,000+ m³ batch life',
+      },
+      {
+        num: '03',
+        title: 'Reversible Floor & Wall Tiles',
+        subtitle: 'Pan Casing Protection',
+        summary: 'Dual-sided chromium carbide wear tiles that can be inverted to double total operational service life.',
+        material: 'Cast Chromium Carbide Matrix',
+        advantage: 'Double service life via inversion',
+      },
+      {
+        num: '04',
+        title: 'Discharge Chute Assembly',
+        subtitle: 'Discharge Circuit',
+        summary: 'Ceramic-matrix composite deflector liners preventing high-velocity cement slurry erosion.',
+        material: 'Ceramic-Matrix Elastomer Composite',
+        advantage: 'Zero unscheduled outages',
+      },
+    ],
     cardImage: '/images/concrete-batching-silos.jpg',
     bannerImage: '/images/concrete-batching-silos.jpg',
     imageAlt: 'Concrete batch plant storage silos, ready-mix truck, and mixing assembly',
     hudTag: 'Concrete Sector — Gouging Abrasion',
     badgeText: 'SEVERE GOUGING & IMPACT',
-    appLink: '/applications',
+    appLink: '/industries/concrete',
     appLabel: 'Mixer Shaft & Paddle Assemblies',
     oemComparison: {
       oemLimitation: 'Sharp quartz sand and coarse aggregates create continuous micro-machining scratches, grooving OEM blades down by 15mm in months and destroying mix consistency.',
@@ -141,12 +219,46 @@ export const industriesData: IndustryData[] = [
       'Rotor protector caps, anvil grate bars & breaker blocks',
       'Custom reverse-engineered wear attachments with no OEM markup',
     ],
+    hotspots: [
+      {
+        num: '01',
+        title: 'Bulk Transfer Chutes & Hoppers',
+        subtitle: 'Bulk Material Handling',
+        summary: 'Dead-box composite tile layouts that create a protective rock-on-rock cushion, dampening impact and structural noise.',
+        material: 'Composite Ceramic-Steel Matrix',
+        advantage: '79 dB acoustic noise reduction',
+      },
+      {
+        num: '02',
+        title: 'High-Impact Shredder Hammers',
+        subtitle: 'Shredding & Fragmentation',
+        summary: 'Forged alloy steel hammers hardfaced with chromium carbide tips for extreme dynamic fragmentation impact.',
+        material: 'Forged Alloy with Hardfaced CrC',
+        advantage: 'Zero catastrophic fracturing',
+      },
+      {
+        num: '03',
+        title: 'Cyclone Separator Cones',
+        subtitle: 'Centrifugal Separation',
+        summary: 'Bonded silicon carbide and cast basalt cone liners resisting severe high-velocity scouring wear.',
+        material: 'Cast Basalt & Silicon Carbide',
+        advantage: '4× standard OEM durability',
+      },
+      {
+        num: '04',
+        title: 'Pneumatic Transfer Elbows',
+        subtitle: 'Pneumatic Conveying',
+        summary: 'Monolithic alumina ceramic lined elbows built for high-velocity abrasive dust and corrosive particulate streams.',
+        material: '96% Al₂O₃ Monolithic Ceramic',
+        advantage: '28+ months continuous service',
+      },
+    ],
     cardImage: '/images/process-chemical-refinery.jpg',
     bannerImage: '/images/process-chemical-refinery.jpg',
     imageAlt: 'Process industry high-pressure chemical refinery piping and distillation towers',
     hudTag: 'Process Sector — Bulk Material Handling',
     badgeText: 'HIGH IMPACT & CORROSION',
-    appLink: '/custom-parts',
+    appLink: '/industries/process-industries',
     appLabel: 'Custom 3D Engineered Parts',
     oemComparison: {
       oemLimitation: 'High-velocity bulk transfer quickly punches holes through thin fabricated steel chutes, forcing emergency plant shutoffs and hazardous dust leaks.',
@@ -182,12 +294,54 @@ export const industriesData: IndustryData[] = [
       'Vibrating screen grizzly bars, feeder decks & transfer funnels',
       'Slurry pump volute liners, impellers and suction throatbushes',
     ],
+    hotspots: [
+      {
+        num: '01',
+        title: 'Grizzly Feeder Bars',
+        subtitle: 'Feed Screening Assembly',
+        summary: 'High-moly white iron castings designed for continuous dropping shock from heavy 800mm blasted boulders.',
+        material: 'Martensitic High-Moly White Iron',
+        advantage: '+250% tonnage throughput',
+      },
+      {
+        num: '02',
+        title: 'Primary Crusher Jaw Liners',
+        subtitle: 'Primary Crushing Circuit',
+        summary: 'Formulated austenitic manganese steel die plates with optimized tooth profiles to absorb 500-tonne dynamic impact.',
+        material: 'Mn 18–22% Austenitic Steel with Cr',
+        advantage: 'Zero catastrophic failure record',
+      },
+      {
+        num: '03',
+        title: 'Ball Mill Lifter Bars',
+        subtitle: 'Grinding Circuit',
+        summary: 'Bi-metallic formulated Cr-Mo castings engineered to survive continuous heavy steel grinding ball collisions.',
+        material: 'Bi-Metallic Cr-Mo Alloy',
+        advantage: 'Synchronized maintenance schedule',
+      },
+      {
+        num: '04',
+        title: 'Impact Crusher Blow Bars',
+        subtitle: 'Secondary Crushing Circuit',
+        summary: 'Ceramic-insert high-chrome matrix castings combining sharp cutting edge retention with high core toughness.',
+        material: 'Ceramic-Insert High-Chrome Matrix',
+        advantage: '+140% cutting edge retention',
+      },
+      {
+        num: '05',
+        title: 'Excavator & Loader Bucket Tips',
+        subtitle: 'Heavy Extraction Circuit',
+        summary: 'Engineered penetration and wear protection for excavator and loader buckets in abrasive rock and ore handling. Reduces change-outs, protects adapters, and improves machine productivity.',
+        material: 'High wear-resistant alloy, application-matched profiles',
+        advantage: 'Improved penetration, fitment, and field wear life vs. standard tips',
+      },
+    ],
     cardImage: '/images/mining-quarry-excavation.jpg',
     bannerImage: '/images/mining-quarry-excavation.jpg',
     imageAlt: 'Mining open pit rock face excavation with heavy wheel loader and haul truck',
     hudTag: 'Mining Sector — Heavy Crushing Circuits',
     badgeText: 'DYNAMIC SHOCK & IMPACT',
-    appLink: '/applications',
+    appLink: '/industries/mining',
     appLabel: 'Transfer Liners & Chute Protection',
     oemComparison: {
       oemLimitation: 'Standard high-chrome blow bars fracture under tramp iron, causing catastrophic crusher chamber destructions costing upwards of $150,000 in repair and downtime.',

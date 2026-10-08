@@ -9,9 +9,44 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/applications/dryer-components',
+        destination: '/industries/asphalt',
+        permanent: true,
+      },
+      {
+        source: '/applications/filter-components',
+        destination: '/industries/asphalt',
+        permanent: true,
+      },
+      {
+        source: '/applications/mixer-components',
+        destination: '/industries/concrete',
+        permanent: true,
+      },
+      {
+        source: '/applications/wear-liners-transfer-protection',
+        destination: '/industries/process-industries',
+        permanent: true,
+      },
+      {
+        source: '/applications/bucket-elevators',
+        destination: '/industries/asphalt',
+        permanent: true,
+      },
+      {
+        source: '/applications/drag-conveyors',
+        destination: '/industries/asphalt',
+        permanent: true,
+      },
+      {
+        source: '/applications/earthmoving-bucket-tips',
+        destination: '/industries/mining',
+        permanent: true,
+      },
+      {
         source: '/applications/:slug',
-        destination: '/applications',
-        permanent: false,
+        destination: '/industries',
+        permanent: true,
       },
     ]
   },

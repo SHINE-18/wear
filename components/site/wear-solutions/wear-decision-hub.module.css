@@ -1,0 +1,507 @@
+/* WEAR DECISION HUB — CLEAN TAB SELECTOR & EXPANDABLE ENGINEERING SPECIFICATION */
+
+.hubContainer {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 2.25rem;
+  align-items: start;
+}
+
+@media (max-width: 1080px) {
+  .hubContainer {
+    grid-template-columns: 320px 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .hubContainer {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* 1. UNIFIED STICKY SIDEBAR (DOCKED ON LEFT) */
+.tabSelectorNav {
+  width: 100%;
+  position: sticky;
+  top: 110px;
+  z-index: 10;
+}
+
+@media (max-width: 860px) {
+  .tabSelectorNav {
+    position: static;
+  }
+}
+
+.sidebarPanel {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+.sidebarHeader {
+  background: #f8fafc;
+  padding: 1.15rem 1.4rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sidebarLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0f172a;
+}
+
+.sidebarCount {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--orange, #C8370B);
+}
+
+.tabTrack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tabBtn {
+  display: flex;
+  align-items: center;
+  gap: 1.05rem;
+  width: 100%;
+  background: #ffffff;
+  border: none;
+  border-left: 3px solid transparent;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 0;
+  padding: 1.45rem 1.4rem;
+  color: #334155;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tabTrack button:last-child {
+  border-bottom: none;
+}
+
+.tabBtn:hover {
+  background: #f8fafc;
+  border-left-color: rgba(200, 55, 11, 0.4);
+  color: #0f172a;
+}
+
+.tabBtnActive {
+  background: rgba(200, 55, 11, 0.035);
+  border-left: 4px solid var(--orange, #C8370B);
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.tabIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #64748b;
+  flex-shrink: 0;
+  transition: color 0.18s ease;
+}
+
+.tabBtnActive .tabIcon,
+.tabBtn:hover .tabIcon {
+  color: var(--orange, #C8370B);
+}
+
+.tabTextGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+  flex: 1;
+}
+
+.tabCode {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--orange, #C8370B);
+  text-transform: uppercase;
+}
+
+.tabTitleText {
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  font-size: 0.92rem;
+}
+
+.tabArrow {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.tabBtnActive .tabArrow {
+  opacity: 1;
+  color: var(--orange, #C8370B);
+  transform: translateX(0);
+}
+
+.tabBtn:hover:not(.tabBtnActive) .tabArrow {
+  opacity: 0.5;
+  transform: translateX(-2px);
+}
+
+/* 2. TAB PANEL (NATURAL FULL-HEIGHT INDUSTRIAL CARD) */
+.tabPanel {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 0;
+  padding: clamp(2rem, 3.5vw, 3rem);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 100%;
+}
+
+/* PANEL HEADER */
+.panelHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.codeBadge {
+  background: var(--orange, #C8370B);
+  color: #ffffff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0;
+  text-transform: uppercase;
+}
+
+.categoryName {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.panelTitle {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  font-weight: 850;
+  color: #0f172a;
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  margin: 0;
+}
+
+/* ALWAYS VISIBLE CONTENT BLOCK */
+.alwaysVisibleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* EQUIPMENT SCOPE */
+.scopeBox {
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-left: 3px solid #64748b;
+  padding: 0.85rem 1.15rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.scopeLabel {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.scopeText {
+  font-size: 0.9rem;
+  color: #334155;
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* TRIBOLOGICAL WEAR MECHANISM */
+.mechanismBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mechanismHeading {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--orange, #C8370B);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.mechanismText {
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: #1e293b;
+  margin: 0;
+  font-weight: 450;
+}
+
+/* RECOMMENDED METALLURGY TABLE */
+.metallurgyTableWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.tableHeading {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #475569;
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.tableResponsiveContainer {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.specTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.specTable th {
+  background: #f1f5f9;
+  color: #0f172a;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.specTable td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  color: #334155;
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.specTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.specTable tbody tr:hover {
+  background: #f8fafc;
+}
+
+.gradeCell strong {
+  color: #0f172a;
+  font-weight: 750;
+}
+
+.hardnessCell {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82rem;
+  color: var(--orange, #C8370B);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.applicationCell {
+  color: #1e293b;
+}
+
+/* 3. COLLAPSED BY DEFAULT IN-DEPTH ACCORDION ("LEARN MORE") */
+.disclosureSection {
+  border-top: 1px solid rgba(15, 23, 42, 0.1);
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.disclosureToggleBtn {
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-left: 3px solid var(--orange, #C8370B);
+  border-radius: 0;
+  padding: 0.85rem 1.25rem;
+  color: #0f172a;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.disclosureToggleBtn:hover {
+  background: #f1f5f9;
+  border-color: rgba(15, 23, 42, 0.25);
+  border-left-color: var(--orange, #C8370B);
+}
+
+.disclosureArrow {
+  font-size: 0.75rem;
+  color: var(--orange, #C8370B);
+  margin-left: 0.75rem;
+}
+
+.expandedContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.25rem;
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.analysisBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.analysisTitle {
+  font-size: 0.94rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.analysisTitle::before {
+  content: '▪';
+  color: var(--orange, #C8370B);
+}
+
+.analysisText {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #334155;
+  margin: 0;
+}
+
+.considerationBlock {
+  background: #ffffff;
+  border: 1px solid rgba(200, 55, 11, 0.25);
+  border-left: 4px solid var(--orange, #C8370B);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.considerationTitle {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--orange, #C8370B);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+.considerationText {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #1e293b;
+  margin: 0;
+  font-weight: 450;
+}
+
+/* 4. CTA AT BOTTOM OF TAB ONLY */
+.panelFooter {
+  border-top: 1px solid rgba(15, 23, 42, 0.1);
+  padding-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.tabCtaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--orange, #C8370B);
+  color: #ffffff;
+  font-size: 0.88rem;
+  font-weight: 750;
+  text-decoration: none;
+  padding: 0.85rem 1.6rem;
+  border-radius: 0;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 14px rgba(200, 55, 11, 0.2);
+}
+
+.tabCtaButton:hover {
+  background-color: var(--orange-hover, #D84112);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(200, 55, 11, 0.3);
+}

@@ -14,26 +14,26 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main id="top" className="legal-page-root" style={{ background: '#0e1014', color: '#FFFFFF', minHeight: '100vh' }}>
+    <main id="top" className="legal-page-root" style={{ background: '#FFFFFF', color: '#0E1014', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <SiteNav />
 
-      <section style={{ padding: 'clamp(7rem, 11vw, 10rem) clamp(1.5rem, 5vw, 5rem) clamp(4rem, 6vw, 6rem)', maxWidth: '1000px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(8rem, 12vw, 10.5rem) clamp(1.5rem, 5vw, 5rem) clamp(5rem, 8vw, 8rem)', maxWidth: '960px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         <FadeUp>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', padding: '0.35rem 0.8rem', background: 'rgba(200, 55, 11, 0.12)', border: '1px solid rgba(200, 55, 11, 0.35)', color: '#C8370B', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-            <span style={{ width: '6px', height: '6px', backgroundColor: '#C8370B' }} />
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.6rem', padding: '0.35rem 0.8rem', background: 'rgba(200, 55, 11, 0.08)', border: '1px solid rgba(200, 55, 11, 0.25)', color: '#C8370B', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+            <span style={{ width: '6px', height: '6px', backgroundColor: '#C8370B', borderRadius: 0 }} />
             <span>Commercial &amp; Engineering Terms</span>
           </div>
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 750, letterSpacing: '-0.03em', lineHeight: 1.1, margin: '0 0 1rem 0' }}>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 750, letterSpacing: '-0.03em', lineHeight: 1.1, margin: '0 0 1rem 0', color: '#0E1014' }}>
             Terms of Use
           </h1>
-          <p style={{ color: '#94A3B8', fontSize: '0.95rem', margin: '0 0 3rem 0', fontFamily: 'var(--font-mono, monospace)' }}>
+          <p style={{ color: '#64748B', fontSize: '0.92rem', margin: '0 0 3rem 0', fontFamily: 'var(--font-mono, monospace)' }}>
             Effective Date: January 1, 2026 · WearGuard Pty Ltd
           </p>
         </FadeUp>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', lineHeight: 1.7, color: '#CBD5E1', fontSize: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.1)', paddingTop: '2.5rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem', lineHeight: 1.75, color: '#334155', fontSize: '1rem', borderTop: '1px solid #E2E8F0', paddingTop: '2.5rem' }}>
           <div>
-            <h2 style={{ color: '#FFFFFF', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ color: '#0E1014', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               1. Acceptance &amp; Scope of Supply
             </h2>
             <p>
@@ -42,7 +42,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 style={{ color: '#FFFFFF', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ color: '#0E1014', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               2. Engineering Tolerances &amp; 3D Reverse Engineering
             </h2>
             <p>
@@ -51,7 +51,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 style={{ color: '#FFFFFF', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ color: '#0E1014', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               3. Metallurgy &amp; Wear Life Projections
             </h2>
             <p>
@@ -60,7 +60,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 style={{ color: '#FFFFFF', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ color: '#0E1014', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               4. Tooling, Pattern Ownership &amp; Small-Batch Runs
             </h2>
             <p>
@@ -69,7 +69,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 style={{ color: '#FFFFFF', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ color: '#0E1014', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               5. Intellectual Property &amp; Trademarks
             </h2>
             <p>
@@ -78,7 +78,7 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 style={{ color: '#FFFFFF', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ color: '#0E1014', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               6. Limitation of Liability
             </h2>
             <p>
@@ -87,12 +87,12 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 style={{ color: '#FFFFFF', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)' }}>
+            <h2 style={{ color: '#0E1014', fontSize: '1.35rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               7. Contact &amp; Governing Law
             </h2>
             <p>
               These Terms of Use are governed by the laws of Australia. For questions regarding commercial terms, master supply agreements, or warranty certifications, please contact{' '}
-              <Link href="/contact" style={{ color: '#C8370B', textDecoration: 'underline' }}>
+              <Link href="/contact" style={{ color: '#C8370B', textDecoration: 'underline', textUnderlineOffset: '3px', fontWeight: 600 }}>
                 wearguard.com.au/contact
               </Link>.
             </p>

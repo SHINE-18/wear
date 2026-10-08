@@ -184,12 +184,26 @@
   border-radius: 0;
 }
 
+/* --- PAGE CONTENT LAYER (GLIDES OVER EXPANDING HERO LIKE A CONTINUOUS CURTAIN) --- */
+.pageContentLayer {
+  position: relative;
+  z-index: 40;
+  margin-top: -100vh;
+  background-color: #FFFFFF;
+  transform: translateZ(0);
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .pageContentLayer {
+    margin-top: 0 !important;
+  }
+}
+
 /* 3. PLANT ENGINEERING OVERVIEW & SPECS */
 .indContentSection {
   background-color: #FFFFFF;
   position: relative;
-  z-index: 30;
-  margin-top: -100vh;
   box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.12);
   padding: 0 !important;
 }
@@ -330,11 +344,32 @@
   color: #0F172A;
 }
 
-/* 4. CRITICAL WEAR COMPONENTS MANUFACTURED */
+/* 4. CRITICAL WEAR COMPONENTS MANUFACTURED (WITH WHITE NOISE GRAIN) */
 .indComponentsSection {
-  background: #161311;
+  background-color: #0E1014;
+  background-image: url('/images/velvet-matte-grain.png');
+  background-repeat: repeat;
+  background-size: 160px auto;
   position: relative;
   padding: 0 !important;
+  overflow: hidden;
+}
+
+.indComponentsSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/white-noise-seamless.png');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.indComponentsSection > * {
+  position: relative;
+  z-index: 2;
 }
 
 .indSectionHeading {
@@ -348,47 +383,160 @@
   margin-top: 0.5rem;
 }
 
-/* TYPOGRAPHIC LIST */
-.indTypoList {
+/* TYPOGRAPHIC LIST & PARTS CARDS GRID */
+.indPartsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 900px) {
+  .indPartsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.indComponentsSection {
+  scroll-margin-top: 80px;
+}
+
+.indPartCard {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0;
   display: flex;
   flex-direction: column;
-  margin-top: 2.5rem;
+  overflow: hidden;
+  position: relative;
+  scroll-margin-top: 110px;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.indTypoItem {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 2rem;
-  align-items: baseline;
-  padding: 2.5rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  transition: padding-left 0.3s ease, background 0.3s ease;
+.indPartCard:hover {
+  border-color: rgba(200, 55, 11, 0.55);
+  box-shadow: 0 20px 44px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(200, 55, 11, 0.35);
+  transform: translateY(-4px);
 }
 
-.indTypoItem:hover {
-  background: rgba(255, 255, 255, 0.02);
-  padding-left: 1rem;
+.indPartMediaWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000000;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.indTypoItem:last-child {
-  border-bottom: none;
+.indPartMediaImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
 }
 
-.indTypoNum {
-  font-family: var(--font-mono);
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: var(--orange);
-  letter-spacing: -0.02em;
+.indPartCard:hover .indPartMediaImg {
+  transform: scale(1.04);
 }
 
-.indTypoText {
-  font-family: var(--font-display, var(--font-body));
-  font-size: 1.8rem;
+.indPartCardBody {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 1.25rem;
+}
+
+.indPartTitle {
+  font-family: var(--font-body);
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #FFFFFF;
+  color: #ffffff;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.indPartDesc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #a0aec0;
+  margin: 0;
+}
+
+.indPartSpecsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.indPartSpecCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.indPartSpecLbl {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #7e8b9f;
+}
+
+.indPartSpecVal {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.indPartHighlightsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.indPartHighlightChip {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  padding: 0.3rem 0.65rem;
+}
+
+.indPartFooter {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.indPartCtaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--orange);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.7rem 1.3rem;
+  border-radius: 0;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.indPartCtaBtn:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-1px);
 }
 
 /* 5. OEM VS WEARGUARD COMPARISON (SPLIT-SCREEN) */
@@ -442,31 +590,57 @@
 
 .indOemTableWrap {
   overflow-x: auto;
-  background: #181b22;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: #0E1014;
+  background-image: url('/images/velvet-matte-grain.png');
+  background-repeat: repeat;
+  background-size: 160px auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.indOemTableWrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/white-noise-seamless.png');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .indOemTable {
   width: 100%;
   border-collapse: collapse;
+  position: relative;
+  z-index: 2;
+  background: transparent;
 }
 
 .indOemTable th {
   text-align: left;
-  padding: 1.2rem 1.6rem;
-  font-size: 0.82rem;
-  font-weight: 700;
+  padding: 1.25rem 1.75rem;
+  font-size: 0.8rem;
+  font-weight: 750;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  background: #13151b;
-  color: #9ca3af;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  letter-spacing: 0.08em;
+  background: rgba(9, 10, 13, 0.85);
+  color: #9CA3AF;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.12);
 }
 
 .indOemTable td {
-  padding: 1.3rem 1.6rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 1.35rem 1.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.indOemTable tbody tr:hover td {
+  background-color: rgba(255, 255, 255, 0.035);
 }
 
 .indOemTable tr:last-child td {
@@ -507,8 +681,39 @@
 .indSwitcherHeader {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   margin-bottom: 2.5rem;
+}
+
+.stackAllLink {
+  position: relative;
+  z-index: 2;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0D0D0D;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+  padding-top: 0.2rem;
+}
+
+.stackAllLink:hover {
+  color: var(--orange, #C8370B);
+}
+
+.stackAllLink svg {
+  color: var(--orange, #C8370B);
+  transition: transform 0.2s ease;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.stackAllLink:hover svg {
+  transform: translate(2px, -2px);
 }
 
 .indSwitcherGrid {
@@ -614,6 +819,29 @@
 .pageCta {
   text-align: center;
   padding: 150px clamp(1.5rem, 4vw, 4.5rem);
+  background-color: #0E1014;
+  background-image: url('/images/velvet-matte-grain.png');
+  background-repeat: repeat;
+  background-size: 160px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.pageCta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/white-noise-seamless.png');
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pageCta > * {
+  position: relative;
+  z-index: 2;
 }
 
 .pageCta h2 {

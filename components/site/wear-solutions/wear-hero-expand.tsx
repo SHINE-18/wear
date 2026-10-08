@@ -4,9 +4,9 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { InteractiveGrid } from '@/components/site/interactive-grid'
-import styles from './materials-hero-expand.module.css'
+import styles from './wear-hero-expand.module.css'
 
-export function MaterialsHeroExpand() {
+export function WearHeroExpand() {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const { scrollYProgress } = useScroll({
@@ -20,11 +20,10 @@ export function MaterialsHeroExpand() {
   const copyDisplay = useTransform(scrollYProgress, (p) => (p >= 0.26 ? 'none' : 'block'))
 
   // 2. Media Expansion: Framed banner -> 100% x 100vh fullscreen canvas
-  // Starts comfortably at top: 390px with clean breathing room below the 2-line headline & subtitle (matching industries page navbar clearance)
   const mediaTop = useTransform(scrollYProgress, (p) => {
     if (p >= 0.35) return '0px'
     const progress = p / 0.35
-    const topPx = 390 * (1 - progress)
+    const topPx = 350 * (1 - progress)
     return `${topPx}px`
   })
 
@@ -38,7 +37,7 @@ export function MaterialsHeroExpand() {
   const mediaHeight = useTransform(scrollYProgress, (p) => {
     if (p >= 0.35) return '100vh'
     const progress = p / 0.35
-    const subtractPx = 430 * (1 - progress)
+    const subtractPx = 390 * (1 - progress)
     return `calc(100vh - ${subtractPx}px)`
   })
 
@@ -58,7 +57,7 @@ export function MaterialsHeroExpand() {
           <InteractiveGrid />
         </div>
 
-        {/* 1. Header Content (Eyebrow, Title, Subtitle, "Request Audit" Orange Button) */}
+        {/* 1. Header Content (Eyebrow, Title, Subtitle, Orange CTA) */}
         <motion.div
           className={styles.heroHeaderWrap}
           style={{
@@ -71,22 +70,17 @@ export function MaterialsHeroExpand() {
             <div className={styles.heroHeaderLeft}>
               <div className={styles.eyebrow}>
                 <span className={styles.eyebrowBar} aria-hidden="true" />
-                <span>Metallurgical Engineering &amp; Formulations</span>
+                <span>Engineering Reference</span>
               </div>
               <h1 className={styles.heroTitle}>
-                The right material
-                <br />
-                for the <em>right wear zone.</em>
+                Diagnose the wear mechanism.<br />Match the metallurgy.
               </h1>
-              <p className={styles.heroSubtitle}>
-                Engineered formulations from 680 BHN high-chrome castings to shock-absorbing austenitic manganese and CCO cladding, precisely tailored for your operational wear dynamics.
-              </p>
             </div>
 
             <Link
               href="/contact"
               className={styles.ctaSquare}
-              aria-label="Request Technical Metallurgical Audit from WearGuard"
+              aria-label="Request a Wear Audit from WearGuard engineering"
             >
               <svg
                 width="36"
@@ -109,7 +103,7 @@ export function MaterialsHeroExpand() {
           </div>
         </motion.div>
 
-        {/* 2. Expanding Media Canvas (Metallurgical Specimen) */}
+        {/* 2. Expanding Media Canvas */}
         <motion.div
           className={styles.mediaWrapper}
           style={{
@@ -121,11 +115,12 @@ export function MaterialsHeroExpand() {
           }}
         >
           <img
-            src="/images/custom-parts/materials.png"
-            alt="WearGuard material technologies: quenched martensitic steel plate, high-chrome casting, hexagonal ceramic tile, and chrome carbide overlay clad plate"
+            src="/images/custom-parts/application-engineers.jpg"
+            alt="WearGuard metallurgical engineering team reviewing industrial plant wear specifications and diagnostic data"
             className={styles.plantImage}
             width={1920}
             height={1080}
+            loading="eager"
           />
 
           {/* Smooth Dissolve into Theme Slate as Curtain Stacks */}
@@ -138,7 +133,7 @@ export function MaterialsHeroExpand() {
           {/* Static Plant Badge */}
           <div className={styles.hudBadge}>
             <span className={styles.hudDot} aria-hidden="true" />
-            <span>680 BHN HIGH-CHROME • NI-HARD 4 • CCO • CERAMICS</span>
+            <span>6 WEAR MECHANISMS • TRIBOLOGICAL ANALYSIS • ALLOY MATCHING</span>
           </div>
         </motion.div>
       </div>

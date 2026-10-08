@@ -336,7 +336,7 @@ export const applications: Application[] = [
       { label: 'Fastening', value: 'Countersunk Weld-Studs / Bolt-In' },
       { label: 'Lead Time', value: '6–8 Weeks' },
     ],
-    image: '/images/wear-liners-3d.png',
+    image: '/images/custom-chute-protection.webp',
     subComponents: [
       {
         id: 'ceramic-rubber',
@@ -536,6 +536,7 @@ export interface MaterialGrade {
   image: string
 }
 
+// TODO: confirm with client whether "cement" should be removed from product recommended-use copy — WearGuard does not currently sell into this market
 export const materialGrades: MaterialGrade[] = [
   {
     code: '01',
@@ -586,7 +587,7 @@ export const materialGrades: MaterialGrade[] = [
       'Ideal for mixer tips and wear edges',
       'Compatible with stud welding & countersunk fastener systems',
     ],
-    image: '/images/wear-liners-3d.png',
+    image: '/images/custom-chute-protection.webp',
   },
   {
     code: '04',

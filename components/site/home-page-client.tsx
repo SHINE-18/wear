@@ -109,10 +109,10 @@ export function HomePageClient() {
               </div>
 
               <p className={styles.aboutSplitLead}>
-                We don&apos;t just supply parts; we engineer outcomes. WearGuard specializes in the custom design and precision manufacture of high-performance components for every stage of your operation — from asphalt and concrete to mining and process handling.
+                We don&apos;t just supply parts; we engineer outcomes. WearGuard specializes in the custom design and precision manufacture of high-performance components for every stage of your operation, from asphalt and concrete to mining and process handling.
               </p>
               <p className={styles.aboutSplitLead}>
-                Stop settling for &ldquo;off-the-shelf&rdquo; failures. Our engineers match your specific site conditions — abrasive local materials, extreme thermal cycling, corrosive flow — with a library of proven, application-specific alloys and compositions. We solve the wear-life equation so you can focus on production.
+                Stop settling for &ldquo;off-the-shelf&rdquo; failures. Our engineers match your specific site conditions, including abrasive local materials, extreme thermal cycling, and corrosive flow, with a library of proven, application-specific alloys and compositions. We solve the wear-life equation so you can focus on production.
               </p>
 
               <div className={styles.aboutCtaRow}>
@@ -141,6 +141,7 @@ export function HomePageClient() {
         <IndustryStackingCards />
       </section>
 
+      {/* PLANT COMPONENT ASSEMBLIES TECHNICAL INSPECTOR */}
       <section id="applications" className={`${styles.applicationsSection} applications section-dark`}>
         <ApplicationInspector applications={applications} />
       </section>

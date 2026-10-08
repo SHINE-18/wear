@@ -99,6 +99,18 @@
   align-items: baseline;
 }
 
+.hero-mobile-break {
+  display: none;
+}
+
+.hero-desktop-break {
+  display: block;
+}
+
+.hero-desktop-space {
+  display: inline;
+}
+
 .hero-copy h1 em,
 :global(.encrypted-reveal-text) {
   font-style: normal;
@@ -372,8 +384,8 @@
   will-change: opacity;
 }
 
-/* --- RESPONSIVE MOBILE VIEW (MAX-WIDTH: 960PX) --- */
-@media (max-width: 960px) {
+/* --- RESPONSIVE MOBILE/TABLET VIEW (MAX-WIDTH: 1024PX) --- */
+@media (max-width: 1024px) {
   .cinematic-hero-container {
     height: auto !important;
   }
@@ -389,22 +401,69 @@
 
   .hero-copy {
     width: 100% !important;
-    padding: 5.5rem 1.25rem 2.25rem !important;
+    padding: 100px 24px 120px !important;
+    box-sizing: border-box !important;
     transform: none !important;
     opacity: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .hero-eyebrow-wrap {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .hero-eyebrow-wrap :global(.section-label),
+  .hero-eyebrow-wrap :global(.eyebrow) {
+    justify-content: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   .hero-copy h1 {
-    font-size: clamp(2.4rem, 9.5vw, 3.4rem) !important;
-    line-height: 1.05 !important;
+    font-size: clamp(2.3rem, 9.2vw, 3.4rem) !important;
+    line-height: 1.1 !important;
     letter-spacing: -0.04em !important;
     font-weight: 750 !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .hero-copy h1 * {
+    text-align: center !important;
   }
 
   .hero-words-line {
-    display: inline !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
     white-space: normal !important;
-    flex-wrap: wrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .hero-word {
+    display: inline-flex !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .hero-mobile-break {
+    display: block !important;
+  }
+
+  .hero-desktop-break {
+    display: none !important;
+  }
+
+  .hero-desktop-space {
+    display: none !important;
   }
 
   .hero-side {
@@ -446,7 +505,8 @@
   .hero-side-body {
     width: 100% !important;
     background: #0E1014 !important;
-    padding: 1.75rem 1.25rem 1.85rem !important;
+    padding: 1.75rem 24px 1.85rem !important;
+    box-sizing: border-box !important;
     transform: none !important;
     opacity: 1 !important;
   }

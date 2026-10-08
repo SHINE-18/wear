@@ -225,13 +225,16 @@ select {
 
 /* Accessibility Focus States (WCAG AA) — only valid use of focus ring */
 a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible {
+button:focus-visible {
   outline: 2px solid var(--orange) !important;
   outline-offset: 2px !important;
   box-shadow: 0 0 0 3px var(--orange-glow) !important;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none !important;
 }
 
 main {
@@ -289,7 +292,17 @@ section {
   user-select: none;
   line-height: 1;
   height: 28px;
+  flex-shrink: 0 !important;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
+}
+
+.brand-logo-picture {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  height: 100%;
+  flex-shrink: 0 !important;
 }
 
 .brand-logo {
@@ -297,6 +310,7 @@ section {
   height: 28px;
   max-height: 28px;
   width: auto;
+  flex-shrink: 0 !important;
   object-fit: contain;
   image-rendering: -webkit-optimize-contrast;
   image-rendering: crisp-edges;

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { motion, useInView, useMotionValue, useScroll, useSpring, useTransform, type Variants } from 'motion/react'
 
 export function ScrollProgress() {
@@ -14,13 +14,24 @@ const fadeUpVariants: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 }
 
-export function FadeUp({ children, delay = 0, className = '' }: { children: ReactNode; delay?: number; className?: string }) {
+export function FadeUp({
+  children,
+  delay = 0,
+  className = '',
+  style,
+}: {
+  children: ReactNode
+  delay?: number
+  className?: string
+  style?: CSSProperties
+}) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '0px 0px -10% 0px' })
   return (
     <motion.div
       ref={ref}
       className={className}
+      style={style}
       initial="hidden"
       animate={inView ? 'visible' : 'hidden'}
       variants={fadeUpVariants}

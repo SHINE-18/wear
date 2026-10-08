@@ -6,7 +6,7 @@ import { faqs } from '@/lib/site-data'
 import styles from './faq-section.module.css'
 
 export function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
@@ -34,8 +34,11 @@ export function FAQSection() {
                 className={`${styles['faq-modern-item']} ${isOpen ? styles['is-open'] : ''}`}
                 onClick={() => toggleFaq(idx)}
               >
-                {/* Clean Animated Border Sweep Line */}
-                <span className={styles['faq-line-sweep']} aria-hidden="true" />
+                {/* 4 TECHNICAL CORNER BRACKETS */}
+                <span className={styles['faq-corner-tl']} aria-hidden="true" />
+                <span className={styles['faq-corner-tr']} aria-hidden="true" />
+                <span className={styles['faq-corner-bl']} aria-hidden="true" />
+                <span className={styles['faq-corner-br']} aria-hidden="true" />
 
                 {/* QUESTION ROW */}
                 <button
@@ -56,8 +59,8 @@ export function FAQSection() {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.6"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      strokeLinecap="square"
+                      strokeLinejoin="miter"
                     >
                       <line x1="12" y1="5" x2="12" y2="19" />
                       <line x1="5" y1="12" x2="19" y2="12" />
@@ -75,6 +78,7 @@ export function FAQSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                       className={styles['faq-answer-wrap']}
+                      onClick={(e) => e.stopPropagation()}
                     >
                       <p className={styles['faq-answer-text']}>{faq.a}</p>
                     </motion.div>

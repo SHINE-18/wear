@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: clamp(10.5rem, 16vw, 14rem) clamp(1.5rem, 4vw, 4.5rem) clamp(3.5rem, 5vw, 4.5rem);
+  padding: clamp(7.5rem, 11vw, 10rem) clamp(1.5rem, 4vw, 4.5rem) clamp(2.5rem, 4vw, 3.5rem);
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
@@ -33,7 +33,7 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: clamp(2.2rem, 3.8vw, 3.25rem);
+  gap: clamp(1.6rem, 2.5vw, 2.4rem);
 }
 
 .contact-hero-light-header {
@@ -103,15 +103,15 @@
   flex-direction: column;
   gap: 0.7rem;
   border-radius: 0;
-  box-shadow: 0 4px 20px rgba(14, 16, 20, 0.04);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
   box-sizing: border-box;
 }
 
 .contact-direct-card:hover {
   transform: translateY(-3px);
   border-color: rgba(200, 55, 11, 0.55);
-  box-shadow: 0 14px 34px rgba(14, 16, 20, 0.09);
+  box-shadow: none;
 }
 
 .card-top-tag {
@@ -160,6 +160,58 @@
   margin-top: auto;
 }
 
+/* SCROLL FOR TECHNICAL RFQ PROMPT BUTTON */
+.scroll-down-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 0.25rem;
+}
+
+.scroll-down-btn {
+  background: #FFFFFF;
+  border: 1px solid rgba(14, 16, 20, 0.15);
+  border-radius: 0;
+  padding: 0.85rem 1.45rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0E1014;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 8px rgba(14, 16, 20, 0.04);
+}
+
+.scroll-down-btn:hover {
+  background: #0E1014;
+  color: #FFFFFF;
+  border-color: #0E1014;
+  box-shadow: 0 8px 24px rgba(14, 16, 20, 0.14);
+  transform: translateY(2px);
+}
+
+.scroll-down-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--orange, #C8370B);
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+.scroll-down-arrow {
+  color: var(--orange, #C8370B);
+  transition: transform 0.22s ease, color 0.22s ease;
+  display: inline-block;
+}
+
+.scroll-down-btn:hover .scroll-down-arrow {
+  transform: translateY(3px);
+  color: #FFFFFF;
+}
+
 
 /* ==========================================================================
    2. BOTTOM SECTION: DARK VELVET WHITE-NOISE TECHNICAL RFQ FORM SECTION
@@ -171,7 +223,7 @@
   color: #FFFFFF;
   position: relative;
   z-index: 10;
-  box-shadow: 0 -36px 90px rgba(0, 0, 0, 0.7);
+  box-shadow: none;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding: clamp(5.5rem, 8.5vw, 8rem) clamp(1.5rem, 4vw, 4.5rem) clamp(5rem, 8vw, 7.5rem);
   width: 100%;
@@ -230,81 +282,84 @@
   margin: 0;
 }
 
-.specs-checklist {
+.specs-steps-list {
   display: flex;
   flex-direction: column;
-  gap: 1.15rem;
-  margin-top: 0.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding-top: 1.5rem;
+  margin-top: 1.25rem;
 }
 
-.specs-check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
+.specs-step-item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 1.25rem;
+  padding: 1.15rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  align-items: baseline;
 }
 
-.chk-icon {
-  width: 22px;
-  height: 22px;
-  background: rgba(200, 55, 11, 0.2);
-  color: #F97316;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.82rem;
+.specs-step-num {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
   font-weight: 700;
-  border-radius: 0;
-  flex-shrink: 0;
-  margin-top: 2px;
+  color: var(--orange, #C8370B);
+  letter-spacing: 0.06em;
 }
 
-.specs-check-item strong {
-  display: block;
-  font-size: 0.96rem;
-  font-weight: 600;
+.specs-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.specs-step-title {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.98rem;
+  font-weight: 700;
   color: #FFFFFF;
-  margin-bottom: 0.2rem;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.specs-check-item p {
-  font-size: 0.86rem;
+.specs-step-desc {
+  font-size: 0.88rem;
+  line-height: 1.5;
   color: #94A3B8;
-  line-height: 1.45;
   margin: 0;
 }
 
 .specs-assistance-card {
-  margin-top: 1.75rem;
-  background: rgba(255, 255, 255, 0.03);
+  margin-top: 2rem;
+  background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-left: 3px solid var(--orange, #C8370B);
-  padding: 1.25rem 1.4rem;
+  padding: 1.35rem 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
+  gap: 0.5rem;
   border-radius: 0;
 }
 
 .assistance-badge {
-  font-family: var(--font-body, sans-serif);
-  font-size: 0.68rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--orange, #C8370B);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.specs-assistance-card strong {
-  font-size: 0.95rem;
-  font-weight: 650;
+.assistance-title {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
   color: #FFFFFF;
+  margin: 0;
 }
 
-.specs-assistance-card p {
-  font-size: 0.85rem;
-  line-height: 1.5;
+.assistance-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
   color: #94A3B8;
   margin: 0;
 }
@@ -416,16 +471,19 @@
   font-size: 0.92rem;
   color: #FFFFFF;
   font-family: inherit;
-  outline: none;
+  outline: none !important;
   border-radius: 0;
   transition: all 0.2s ease;
 }
 
 .cad-input:focus,
-.cad-textarea:focus {
+.cad-textarea:focus,
+.cad-input:focus-visible,
+.cad-textarea:focus-visible {
   background: #1A1E26;
   border-color: var(--orange, #C8370B);
-  box-shadow: 0 0 0 1px var(--orange, #C8370B);
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .cad-input::placeholder,
@@ -652,7 +710,7 @@
 
   .contact-form-dark-section {
     position: relative;
-    box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
   }
 
   .contact-direct-cards-grid {

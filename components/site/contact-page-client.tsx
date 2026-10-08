@@ -106,11 +106,44 @@ export function ContactPageClient() {
               <span className={styles['card-sub-info']}>Pattern tooling, CMM verification, and alloy test lab</span>
             </div>
           </FadeUp>
+
+          {/* SCROLL FOR TECHNICAL RFQ PROMPT BUTTON */}
+          <FadeUp delay={0.12} className={styles['scroll-down-wrap']}>
+            <button
+              type="button"
+              className={styles['scroll-down-btn']}
+              onClick={() => {
+                const el = document.getElementById('rfq-form')
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth' })
+                }
+              }}
+              aria-label="Scroll to Technical RFQ and Drawing Upload Form"
+            >
+              <span className={styles['scroll-down-dot']} aria-hidden="true" />
+              <span>Scroll for Technical RFQ &amp; Drawing Upload</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={styles['scroll-down-arrow']}
+                aria-hidden="true"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <polyline points="19 12 12 19 5 12" />
+              </svg>
+            </button>
+          </FadeUp>
         </motion.div>
       </section>
 
       {/* 2. BOTTOM DARK VELVET WHITE-NOISE TECHNICAL RFQ FORM SECTION */}
-      <section className={styles['contact-form-dark-section']}>
+      <section id="rfq-form" className={styles['contact-form-dark-section']}>
         <div className={styles['contact-form-dark-container']}>
           {/* LEFT: RFQ SUBMISSION GUIDELINES */}
           <FadeUp className={styles['contact-specs-col']}>
@@ -129,41 +162,41 @@ export function ContactPageClient() {
               We fabricate directly from 3D CAD files (.STEP / .IGES), 2D workshop drawings (.DWG / .PDF), or worn physical castings sent to our Melbourne pattern works.
             </p>
 
-            <div className={styles['specs-checklist']}>
-              <div className={styles['specs-check-item']}>
-                <span className={styles['chk-icon']}>✓</span>
-                <div>
-                  <strong>Drawing &amp; CAD Data</strong>
-                  <p>.STEP, .IGES, 2D .DWG / .PDF, or photos of worn sample.</p>
+            <div className={styles['specs-steps-list']}>
+              <div className={styles['specs-step-item']}>
+                <span className={styles['specs-step-num']}>01</span>
+                <div className={styles['specs-step-body']}>
+                  <h4 className={styles['specs-step-title']}>Drawing &amp; CAD Data</h4>
+                  <p className={styles['specs-step-desc']}>.STEP, .IGES, 2D .DWG / .PDF, or photos of worn sample.</p>
                 </div>
               </div>
-              <div className={styles['specs-check-item']}>
-                <span className={styles['chk-icon']}>✓</span>
-                <div>
-                  <strong>Operating Conditions</strong>
-                  <p>Tonnage per hour, material lump size (mm), moisture, and abrasion type.</p>
+              <div className={styles['specs-step-item']}>
+                <span className={styles['specs-step-num']}>02</span>
+                <div className={styles['specs-step-body']}>
+                  <h4 className={styles['specs-step-title']}>Operating Conditions</h4>
+                  <p className={styles['specs-step-desc']}>Tonnage per hour, material lump size (mm), moisture, and abrasion type.</p>
                 </div>
               </div>
-              <div className={styles['specs-check-item']}>
-                <span className={styles['chk-icon']}>✓</span>
-                <div>
-                  <strong>Current Wear Lifespan</strong>
-                  <p>Where premature thinning occurs and current OEM changeout intervals.</p>
+              <div className={styles['specs-step-item']}>
+                <span className={styles['specs-step-num']}>03</span>
+                <div className={styles['specs-step-body']}>
+                  <h4 className={styles['specs-step-title']}>Current Wear Lifespan</h4>
+                  <p className={styles['specs-step-desc']}>Where premature thinning occurs and current OEM changeout intervals.</p>
                 </div>
               </div>
-              <div className={styles['specs-check-item']}>
-                <span className={styles['chk-icon']}>✓</span>
-                <div>
-                  <strong>Batch Volume</strong>
-                  <p>Trial batch (1–10 units) or scheduled campaign maintenance inventory.</p>
+              <div className={styles['specs-step-item']}>
+                <span className={styles['specs-step-num']}>04</span>
+                <div className={styles['specs-step-body']}>
+                  <h4 className={styles['specs-step-title']}>Batch Volume</h4>
+                  <p className={styles['specs-step-desc']}>Trial batch (1–10 units) or scheduled campaign maintenance inventory.</p>
                 </div>
               </div>
             </div>
 
             <div className={styles['specs-assistance-card']}>
               <div className={styles['assistance-badge']}>SCAN &amp; REVERSE ENGINEERING</div>
-              <strong>Don&apos;t have drawings or CAD files?</strong>
-              <p>
+              <h4 className={styles['assistance-title']}>Don&apos;t have drawings or CAD files?</h4>
+              <p className={styles['assistance-desc']}>
                 Our engineering team can reverse-engineer directly from physical worn components. We offer on-site 3D laser-scanning or sample metallurgical alloy analysis at our Melbourne laboratory.
               </p>
             </div>

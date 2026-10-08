@@ -1,0 +1,417 @@
+/* WEAR SOLUTIONS PAGE STYLES — LIGHT STEEL-SLATE THEME (#E4EAF2) */
+
+.pageRoot {
+  background-color: #E4EAF2;
+  color: #1e293b;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip;
+}
+
+/* --- CONTINUOUS CURTAIN LAYER (STACKS OVER EXPANDED HERO WITH Z-INDEX 40) --- */
+.pageContentLayer {
+  position: relative;
+  z-index: 40;
+  margin-top: -100vh;
+  background-color: #E4EAF2;
+  box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.08);
+  isolation: isolate;
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .pageContentLayer {
+    margin-top: 0;
+  }
+}
+
+/* 2. WEAR-TYPE SELECTOR SECTION */
+.selectorSection {
+  padding: 100px clamp(1.5rem, 5vw, 5rem);
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.sectionHeader {
+  max-width: 1400px;
+  margin: 0 auto 3rem;
+}
+
+.sectionTitle {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  margin: 0.6rem 0 1rem;
+}
+
+.sectionTitle em {
+  font-style: italic;
+  color: var(--orange, #C8370B);
+}
+
+.sectionDesc {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #475569;
+  max-width: 720px;
+  margin: 0;
+}
+
+/* 3. MATERIAL SELECTION MATRIX SECTION */
+.matrixSection {
+  padding: 100px clamp(1.5rem, 5vw, 5rem);
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.matrixDisclaimerBox {
+  max-width: 1400px;
+  margin: 0 auto 1.5rem;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-left: 4px solid var(--orange, #C8370B);
+  border-radius: 0;
+  padding: 1.1rem 1.4rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.matrixDisclaimerText {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #334155;
+  margin: 0;
+}
+
+.matrixDisclaimerText strong {
+  color: #0f172a;
+  font-weight: 700;
+  font-family: var(--font-mono, monospace);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  margin-right: 0.4rem;
+}
+
+.tableWrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  overflow-x: auto;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.matrixTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 860px;
+}
+
+.matrixTable th {
+  background-color: #0E1014;
+  background-image: url('/images/velvet-matte-grain.png');
+  background-repeat: repeat;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #E2E8F0;
+  padding: 1.35rem 1.5rem;
+  border-bottom: 2px solid var(--orange, #C8370B);
+}
+
+.matrixTable td {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #334155;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  vertical-align: middle;
+}
+
+.matrixTable tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.matrixTable tbody tr:hover {
+  background: rgba(200, 55, 11, 0.025);
+}
+
+.matrixTable tbody tr td:first-child {
+  transition: box-shadow 0.15s ease;
+}
+
+.matrixTable tbody tr:hover td:first-child {
+  box-shadow: inset 4px 0 0 var(--orange, #C8370B);
+}
+
+.matrixGradeCol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.gradeName {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-weight: 700;
+  font-size: 0.98rem;
+  color: #0f172a;
+}
+
+.gradeType {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  color: #64748b;
+}
+
+.ratingBadge {
+  display: inline-block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ratingHigh {
+  background: rgba(200, 55, 11, 0.1);
+  color: var(--orange, #C8370B);
+  border: 1px solid rgba(200, 55, 11, 0.3);
+}
+
+.ratingMid {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.ratingLow {
+  background: #f8fafc;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+.matrixTableFootnote {
+  max-width: 1400px;
+  margin: 1.25rem auto 0;
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* 4. DIAGNOSIS ACCORDION SECTION */
+.accordionSection {
+  padding: 100px clamp(1.5rem, 5vw, 5rem);
+  background-color: transparent;
+}
+
+.accordionContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* FRAMED INDUSTRIAL HUD HEADER */
+.hudHeaderCard {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  margin-bottom: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hudHeaderCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--orange, #C8370B);
+}
+
+.hudHeaderTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.5rem;
+  background: #f8fafc;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.hudMetaLeft {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.hudDot {
+  width: 7px;
+  height: 7px;
+  background: var(--orange, #C8370B);
+  border-radius: 0;
+  flex-shrink: 0;
+}
+
+.hudProtocolTag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #0f172a;
+}
+
+.hudMetaRight {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.hudHeaderBody {
+  padding: clamp(2rem, 3.5vw, 2.75rem) clamp(1.5rem, 3vw, 2.25rem);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hudTitle {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.hudTitle em {
+  font-style: italic;
+  color: var(--orange, #C8370B);
+}
+
+.hudDesc {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  color: #475569;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.faqItem {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.faqItem.faqOpen {
+  border-color: var(--orange, #C8370B);
+  box-shadow: 0 4px 16px rgba(200, 55, 11, 0.08);
+}
+
+.faqTrigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 1.8rem;
+  background: none;
+  border: none;
+  color: #0f172a;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.faqTrigger:hover {
+  color: var(--orange, #C8370B);
+}
+
+.faqTriggerNumber {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  color: var(--orange, #C8370B);
+  margin-right: 0.8rem;
+}
+
+.faqIcon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--orange, #C8370B);
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.faqOpen .faqIcon {
+  transform: rotate(45deg);
+}
+
+.faqBody {
+  padding: 0 1.8rem 1.8rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 1.25rem;
+}
+
+.faqBody p {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #475569;
+  margin: 0 0 1rem;
+}
+
+.faqSolutionBox {
+  background: rgba(200, 55, 11, 0.05);
+  border-left: 3px solid var(--orange, #C8370B);
+  padding: 0.9rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.faqSolutionTitle {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--orange, #C8370B);
+}
+
+.faqSolutionText {
+  font-size: 0.92rem;
+  color: #1e293b;
+  margin: 0;
+}

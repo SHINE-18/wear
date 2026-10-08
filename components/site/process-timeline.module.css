@@ -324,12 +324,46 @@
   }
 
   .step-content-row {
-    flex-direction: column;
-    gap: 0.75rem;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+  }
+
+  .step-title-wrap {
+    width: 100% !important;
   }
 
   .step-title-wrap h3 {
-    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-size: clamp(2rem, 6.8vw, 2.6rem) !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.035em !important;
+    display: inline-flex !important;
+    align-items: baseline !important;
+    line-height: 1.1 !important;
+    text-align: left !important;
+  }
+
+  .step-sup-num {
+    font-size: 0.38em !important;
+    font-weight: 700 !important;
+    color: var(--orange, #C8370B) !important;
+    margin-left: 0.35rem !important;
+    vertical-align: super !important;
+  }
+
+  .step-desc-wrap {
+    text-align: left !important;
+    margin-top: 0 !important;
+    width: 100% !important;
+  }
+
+  .step-desc-wrap p {
+    text-align: left !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    color: #94A3B8 !important;
+    max-width: 100% !important;
   }
 
   .process-stats-deck {
